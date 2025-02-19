@@ -1,6 +1,6 @@
 Package: MFMRutils
 Title: The Utility Package for the MFMR R Suite of R Packages
-Version: 0.0.0.9000
+Version: 2025.02.01.99
 Authors@R: 
     person("Erich", "Maletzky", "erich.maletzky@mfmr.gov.na", role = c("aut", "cre"))
 Description: This package constitutes multiple standalone helper functions that support the larger MFMR Suite of R Libraries.
