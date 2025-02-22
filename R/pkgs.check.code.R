@@ -11,7 +11,7 @@
 #' * This function creates a Work-In-Progress (WIP) directory at the root of the active R-Libs Project (if not already exists).
 #' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP" project path for secondary development version tracking.
 #'
-#' @import desc devtools glue
+#' @import desc devtools
 #'
 #' @examples
 #' ### Print a dummy notification ...
@@ -53,11 +53,12 @@
     # Unicode characters for CheckMark and Cross ...
     csUniCodeCross <- "\u2716";
     csUniCodeCheckmark <- "\u2714";
+    csUniCodeArrowRight <- "\u279C";
 
     # Create the output string
     output <- base::paste0(
       base::paste0(
-        csANSIbold, csANSIyellow, " => ", csANSIreset
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
       base::paste0(csANSIbold, "CRAN Code Check:  ", csANSIreset),
       base::ifelse(
@@ -105,7 +106,7 @@
 
     # Output the final result ...
     base::return(
-      base::cat(output, "\n")
+      base::cat(output, "\n\n")
     );
   }
 
@@ -138,6 +139,7 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
+    csUniCodeArrowRight <- "\u279C";
     csUniCodePointUP <- "\U0001F446";
     csUniCodeCryingEmoticon <- "\U0001F622";
     csUniCodePonderingEmoticon <- "\U0001F914";
@@ -157,7 +159,7 @@
     # Tell the user to take a break for the day ...
     ssNote1000thChange <- base::paste0(
       base::paste0(
-        csANSIbold, csANSIyellow, " => ", csANSIreset
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
       base::paste0(
         csANSIbold, csANSIgreen, "WOW !!! ", csUniCodePointUP, " That was the ", csANSIreset
@@ -171,7 +173,7 @@
     );
     ssNoteTakeBreak <- base::paste0(
       base::paste0(
-        csANSIbold, csANSIyellow, " => ", csANSIreset
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
       base::paste0(
         csANSIbold, csANSIblue, "You really should take a break now - maybe go for a walk in the park? ", csUniCodePonderingEmoticon, "\n", csANSIreset
@@ -179,7 +181,7 @@
     );
     ssNoteCodeReactivatesTomorrow <- base::paste0(
       base::paste0(
-        csANSIbold, csANSIyellow, " => ", csANSIreset
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
       base::paste0(
         csANSIbold, csANSIyellow, "The full functionality of this helper function will only reset tomorrow ... sorry. ", csUniCodeCryingEmoticon, "\n", csANSIreset
@@ -187,7 +189,7 @@
     );
     ssNoteAboveCodeNoJoke <- base::paste0(
       base::paste0(
-        csANSIbold, csANSIyellow, " => ", csANSIreset
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
       base::paste0(
         csANSIbold, csANSIblue, "NB: The above note ", csUniCodePointUP, " is not a joke - this ", csANSIreset
