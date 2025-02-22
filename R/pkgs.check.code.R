@@ -198,7 +198,7 @@
         csANSIbold, csANSIred, "function will only reset in ", 24 - base::as.numeric(ssHrsSinceMidNight), " hours ", csANSIreset
       ),
       base::paste0(
-        csANSIbold, csANSIblue, "!!! \n", csANSIreset
+        csANSIbold, csANSIblue, "!!! \n\n", csANSIreset
       )
     );
 
