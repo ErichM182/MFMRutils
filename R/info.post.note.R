@@ -1,5 +1,7 @@
 #? ### ### ### ### ### ### ###
-#' A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes.
+#' @title Post a Note ...
+#' @description
+#' A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes. This custom function was intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in other R packages.
 #'
 #' @param ssPostNote the character vector (i.e. string or text or note) to be printed to the console. This text note is also returned as a function output under the "value" option of this function's results list.
 #' @param ssFuncSelfID a character vector (i.e. string or text) serving as a self-identifier (tag) for this "info.post.note()" function.
@@ -10,15 +12,16 @@
 #' @param sbRetFuncInfo a logical (boolean) value that specifies whether to output or return the function (i.e. internally processed) information in the results of the current function. This function argument can be useful when nesting multiple custom functions.
 #' @param ssPreStub a character vector (string or text) that defines the starting text of the output message (notification). This function argument is useful in standardizing the notification format for an entire R Project.
 #' @param ssMidStub a character vector (string or text) that defines the middle (ID "tag" and Messages) text of the output message (notification). This function argument is useful in standardizing the notification format for an entire R Project.
-#' @param sbPrePendNewLine a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the START of a posted note.
-#' @param sbPostPendNewLine a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the END of a posted note.
-#' @param sbEndExtraNewLine a logical (boolean) value that specifies whether a second line (blank space or row) should be added to the END of a posted note. This function argument can be useful for clearly delineating sections within a custom R Function and/or R Project.
+#' @param sbPrePendNL a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the START of a posted note.
+#' @param sbPostPendNL a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the END of a posted note.
+#' @param sbPostPend2ndNL a logical (boolean) value that specifies whether a second line (blank space or row) should be added to the END of a posted note. This function argument can be useful for clearly delineating sections within a custom R Function and/or R Project.
+#' @param ssFormatDT a character vector (string or text) that specifies the DateTime format to be used for displaying date-times in the console.
 #'
 #' @returns
 #' * This function prints the specified text (notification) directly to the console even if the function outputs are assigned to a variable.
 #' * This function also outputs additional function information (i.e. internally computed function information) as a list object.
 #'
-#' @export
+#' @import crayon
 #'
 #' @examples
 #' ### Print a dummy notification ...
@@ -31,19 +34,21 @@
 #' info.post.note(siPostMode123 = 3L)   # <= Prints an STOP (footer) or terminal notification ...
 #'
 #' ### Print additional (function internal) information ...
-#' info.post.note(sbRetFuncInfo = T)   # <= Outputs additional function information in list form ...
+#' info.post.note(sbRetFuncInfo = TRUE)   # <= Outputs additional function information in list form ...
+#'
+#' @export
 #? ### ### ###
 "info.post.note" <- function(
   ssPostNote="NOTE to POST !!!", ssFuncSelfID="Post Note",
-  sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL,
+  sbPrePendNL=FALSE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
   siPostMode123=2L, sbRetFuncInfo=FALSE, ssPreStub=" => ", ssMidStub=" | ",
-  sbPrePendNewLine=FALSE, sbPostPendNewLine=TRUE, sbEndExtraNewLine=FALSE
+  sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y @ %X"
 ) {
 
   rssPreSTUB_ <- ssPreStub;   # <- A standardized start to all posted notes ...
 
-  rdtFuncSTART <- base::Sys.time();      # <- Extract Function START Time ...
-  rssFormatDTI <- "%a, %b %d %Y @ %X";   # <- DateTime Format for "FuncSelfID" Process ...
+  rdtFuncSTART <- base::Sys.time();   # <- Extract Function START Time ...
+  rssFormatDTI <- ssFormatDT;         # <- DateTime Format for "FuncSelfID" Process ...
 
   if (base::is.null(ssFuncCallerID)) {
     ssFuncCallerID <- base::get0(
@@ -75,10 +80,10 @@
       base::return(
         base::cat(
           base::paste0(
-            base::ifelse(sbPrePendNewLine, "\n", ""),
+            base::ifelse(sbPrePendNL, "\n", ""),
             rssPreSTUB_, ssFuncSelfID, ssMidStub, "START  { F-Type: '", ssFuncType, "', Caller: '", ssFuncCallerID, "', Time: ", base::format(rdtFuncSTART, rssFormatDTI), " }",
-            base::ifelse(sbPostPendNewLine, "\n", ""),
-            base::ifelse(sbEndExtraNewLine, "\n", "")
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
           )
         )
       );
@@ -86,10 +91,10 @@
       base::return(
         base::cat(
           base::paste0(
-            base::ifelse(sbPrePendNewLine, "\n", ""),
+            base::ifelse(sbPrePendNL, "\n", ""),
             rssPreSTUB_, ssFuncCallerID, ssMidStub, ssPostNote,
-            base::ifelse(sbPostPendNewLine, "\n", ""),
-            base::ifelse(sbEndExtraNewLine, "\n", "")
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
           )
         )
       );
@@ -97,10 +102,10 @@
       base::return(
         base::cat(
           base::paste0(
-            base::ifelse(sbPrePendNewLine, "\n", ""),
+            base::ifelse(sbPrePendNL, "\n", ""),
             rssPreSTUB_, ssFuncSelfID, ssMidStub, "STOP  { F-Type: '", ssFuncType, "', Caller: '", ssFuncCallerID, "', Time: ", base::format(rdtFuncSTOP, rssFormatDTI), " }",
-            base::ifelse(sbPostPendNewLine, "\n", ""),
-            base::ifelse(sbEndExtraNewLine, "\n", "")
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
           )
         )
       );

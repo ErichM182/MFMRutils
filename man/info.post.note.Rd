@@ -2,21 +2,22 @@
 % Please edit documentation in R/info.post.note.R
 \name{info.post.note}
 \alias{info.post.note}
-\title{A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes.}
+\title{Post a Note ...}
 \usage{
 info.post.note(
   ssPostNote = "NOTE to POST !!!",
   ssFuncSelfID = "Post Note",
-  sbRunSelfID = FALSE,
-  ssFuncCallerID = NULL,
-  ssFuncType = NULL,
+  sbPrePendNL = FALSE,
+  sbPostPendNL = TRUE,
+  sbPostPend2ndNL = FALSE,
   siPostMode123 = 2L,
   sbRetFuncInfo = FALSE,
   ssPreStub = " => ",
   ssMidStub = " | ",
-  sbPrePendNewLine = FALSE,
-  sbPostPendNewLine = TRUE,
-  sbEndExtraNewLine = FALSE
+  sbRunSelfID = FALSE,
+  ssFuncCallerID = NULL,
+  ssFuncType = NULL,
+  ssFormatDT = "\%a, \%b \%d \%Y @ \%X"
 )
 }
 \arguments{
@@ -24,11 +25,11 @@ info.post.note(
 
 \item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a self-identifier (tag) for this "info.post.note()" function.}
 
-\item{sbRunSelfID}{a logical (i.e. boolean) value that specifies whether the "info.post.note()" function should output its own identifier information alongside the user specified info (notification).}
+\item{sbPrePendNL}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the START of a posted note.}
 
-\item{ssFuncCallerID}{a character vector (string or text) serving as the identifier (tag) for the R Function or R Project that called (invoked) this "info.post.note()" function.}
+\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the END of a posted note.}
 
-\item{ssFuncType}{a character vector (string or text) that specifies the function type. OPTIONS: "Helper" (small to medium custom functions; less than 300 lines of code) and "LARGE" (massive custom function with >300 lines of code). If set to NULL the function type will be assigned the default value of "Helper".}
+\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a second line (blank space or row) should be added to the END of a posted note. This function argument can be useful for clearly delineating sections within a custom R Function and/or R Project.}
 
 \item{siPostMode123}{an integer value that defines the form of the output (notification) message to be printed to the console. OPTIONS: 1L (applies the "START" or "HEADER" form to the printed message), 2L (applies the "Normal" or "DEFAULT" form to the printed message) and 3L (applies the "STOP" or "TERMINAL" form to the printed message). This function argument is extremely useful for defining the beginning and terminal sections of custom R Functions and/or R Projects.}
 
@@ -38,11 +39,13 @@ info.post.note(
 
 \item{ssMidStub}{a character vector (string or text) that defines the middle (ID "tag" and Messages) text of the output message (notification). This function argument is useful in standardizing the notification format for an entire R Project.}
 
-\item{sbPrePendNewLine}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the START of a posted note.}
+\item{sbRunSelfID}{a logical (i.e. boolean) value that specifies whether the "info.post.note()" function should output its own identifier information alongside the user specified info (notification).}
 
-\item{sbPostPendNewLine}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the END of a posted note.}
+\item{ssFuncCallerID}{a character vector (string or text) serving as the identifier (tag) for the R Function or R Project that called (invoked) this "info.post.note()" function.}
 
-\item{sbEndExtraNewLine}{a logical (boolean) value that specifies whether a second line (blank space or row) should be added to the END of a posted note. This function argument can be useful for clearly delineating sections within a custom R Function and/or R Project.}
+\item{ssFuncType}{a character vector (string or text) that specifies the function type. OPTIONS: "Helper" (small to medium custom functions; less than 300 lines of code) and "LARGE" (massive custom function with >300 lines of code). If set to NULL the function type will be assigned the default value of "Helper".}
+
+\item{ssFormatDT}{a character vector (string or text) that specifies the DateTime format to be used for displaying date-times in the console.}
 }
 \value{
 \itemize{
@@ -51,7 +54,7 @@ info.post.note(
 }
 }
 \description{
-A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes.
+A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes. This custom function was intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in other R packages.
 }
 \examples{
 ### Print a dummy notification ...
@@ -64,5 +67,6 @@ info.post.note(siPostMode123 = 2L)   # <= Prints a Normal (default) or body noti
 info.post.note(siPostMode123 = 3L)   # <= Prints an STOP (footer) or terminal notification ...
 
 ### Print additional (function internal) information ...
-info.post.note(sbRetFuncInfo = T)   # <= Outputs additional function information in list form ...
+info.post.note(sbRetFuncInfo = TRUE)   # <= Outputs additional function information in list form ...
+
 }
