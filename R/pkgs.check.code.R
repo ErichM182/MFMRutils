@@ -15,17 +15,17 @@
 #'
 #' @examples
 #' ### Print a dummy notification ...
-#' require(MFMRutils)             # <= Installs and loads the "MFMRutils" package ...
-#' pkgs.check.code()              # <= when "MFMRutils" library is loaded !!!
-#' MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
+#' # require(MFMRutils)             # <= Installs and loads the "MFMRutils" package ...
+#' # pkgs.check.code()              # <= when "MFMRutils" library is loaded !!!
+#' # MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
 #'
 #' ### Run 2 different types of code checks ...
-#' pkgs.check.code(sbRunDocu = TRUE)    # <= Executes only the DevTools Documentation Process ...
-#' pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks ...
+#' # pkgs.check.code(sbRunDocu = TRUE)    # <= Executes only the DevTools Documentation Process ...
+#' # pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks ...
 #'
 #' ### Check (i.e. "devtools::check()") overrides the documentation process ...
 #' # The Documentation Process will only be executed once if both are == TRUE !!!
-#' pkgs.check.code(sbRunDocu = TRUE, sbRunCheck = TRUE)
+#' # pkgs.check.code(sbRunDocu = TRUE, sbRunCheck = TRUE)
 #'
 #' @export
 #? ### ### ###
@@ -74,7 +74,7 @@
         csANSIbold, csANSIyellow, " ... \n", csANSIreset
       ),
 
-      # CRAN Code Check results prin out ...
+      # CRAN Code Check results print out ...
       base::paste0(
         csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
@@ -129,6 +129,7 @@
   }
 
   # 1. Extract the current DateTime & create the new version number ...
+  base::Sys.setenv(TZ = "Africa/Windhoek");
   ssDateTimeCURR <- base::Sys.time();
 
   # 2. Extract the current version number from the DESCRIPTION file ...
@@ -270,12 +271,15 @@
 
     # 6. Finally - Run the required R-Libs Project Documentation & CRAN Checks !!!
     if (sbRunCheck) {   # <- Runs the COMPLETE Documentation & CRAN Requirements Checking Processes !!!
+      devtools::clean_dll();
+      devtools::load_all();
       coCheckResult <- devtools::check();
       snLenNOTEs <- base::length(coCheckResult$notes);
       snLenERRORs <- base::length(coCheckResult$errors);
       snLenWARNINGs <- base::length(coCheckResult$warnings);
       rcf_format.outputs.pkgs.check.code(
-        snLenERRORs, snLenWARNINGs, snLenNOTEs, ssProjID, ssVersNewFULL
+        errors = snLenERRORs, warnings = snLenWARNINGs,
+        notes = snLenNOTEs, ssProjID = ssProjID, ssProjVers = ssVersNewFULL
       );
     }
     if (!sbRunCheck && sbRunDocu) {   # <- Runs the Documentation process ONLY IF the "sbRunCheck" value is FALSE !!!
@@ -296,8 +300,3 @@
 }
 
 
-### pkgs.check.code(sbRunDocu=T)
-### pkgs.check.code(sbRunCheck=T)
-### pkgs.check.code(sbRunDocu=T, sbRunCheck=T)
-### ssProjINFO <- pkgs.check.code(sbRunDocu=F)
-### ssProjINFO$ProjID
