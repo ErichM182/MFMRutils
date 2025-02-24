@@ -11,7 +11,7 @@
 #' * This function creates a Work-In-Progress (WIP) directory at the root of the active R-Libs Project (if not already exists).
 #' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP" project path for secondary development version tracking.
 #'
-#' @import desc devtools
+#' @import crayon desc devtools
 #'
 #' @examples
 #' ### Print a dummy notification ...
@@ -37,7 +37,9 @@
   ssTagFuncID_ <- "pkgs.check.code";
 
   # Define a special (colour-formatting) <internal> function ...
-  "rcf_format.check.results" <- function(errors, warnings, notes) {
+  "rcf_format.outputs.pkgs.check.code" <- function(
+    errors, warnings, notes, ssProjID, ssProjVers
+  ) {
 
     # ANSI escape codes for colors ...
     csANSIbold <- crayon::bold; # "\033[1m";
@@ -57,6 +59,22 @@
 
     # Create the output string
     output <- base::paste0(
+      # R Project ID & Version information print out ...
+      base::paste0(
+        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
+      ),
+      base::paste0(csANSIbold, "R Project: ", csANSIreset),
+      base::paste0(
+        csANSIbold, csANSIblue, "", ssProjID, csANSIreset
+      ),
+      base::paste0(
+        csANSIbold, csANSIblue, " v", ssProjVers, csANSIreset
+      ),
+      base::paste0(
+        csANSIbold, csANSIyellow, " ... \n", csANSIreset
+      ),
+
+      # CRAN Code Check results prin out ...
       base::paste0(
         csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
       ),
@@ -125,7 +143,11 @@
     base::strsplit(base::as.character(ssVersCURR), split = "\\.")
   );   # <- VERY NB: Extracts only the 4th value of the split string !!!
   snVersNEW <- base::as.numeric(vsVersOLD[4]) + 1;   # <- Increment the version number !!!
-  if (snVersNEW >= 1000) {
+  sbIsSameYr = base::as.numeric(vsVersOLD[1]) == base::as.numeric(base::format(ssDateTimeCURR, "%Y"));
+  sbIsSameMn = base::as.numeric(vsVersOLD[2]) == base::as.numeric(base::format(ssDateTimeCURR, "%m"));
+  sbIsSameDy = base::as.numeric(vsVersOLD[3]) == base::as.numeric(base::format(ssDateTimeCURR, "%d"));
+
+  if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
 
     # ANSI escape codes for colors ...
     csANSIbold <- crayon::bold; # "\033[1m";
@@ -139,6 +161,7 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
+    csUniCodeEyes = "\U0001F440";
     csUniCodeArrowRight <- "\u279C";
     csUniCodePointUP <- "\U0001F446";
     csUniCodeCryingEmoticon <- "\U0001F622";
@@ -168,7 +191,7 @@
         csANSIbold, csANSIitalics, csANSIred, "1000th ", csANSIreset
       ),
       base::paste0(
-        csANSIbold, csANSIgreen, "code check for today alone ... \n", csANSIreset
+        csANSIbold, csANSIgreen, "code check for today alone ... ", csUniCodeEyes, " \n", csANSIreset
       )
     );
     ssNoteTakeBreak <- base::paste0(
@@ -210,11 +233,7 @@
     )
   } else {
     ssVersNEW <- NULL;
-    if (
-      base::as.numeric(vsVersOLD[1]) == base::as.numeric(base::format(ssDateTimeCURR, "%Y")) &&
-        base::as.numeric(vsVersOLD[2]) == base::as.numeric(base::format(ssDateTimeCURR, "%m")) &&
-        base::as.numeric(vsVersOLD[3]) == base::as.numeric(base::format(ssDateTimeCURR, "%d"))
-    ) {   # <- If TRUE then it's the SAME DAY ... so simply increment from the last number value (or count) !!!
+    if (sbIsSameYr && sbIsSameMn && sbIsSameDy) {   # <- If TRUE then it's the SAME DAY ... so simply increment from the last number value (or count) !!!
       ssVersNEW <- base::sprintf(  # <- Increments & pads the value with leading zeros (to create a 3-digit character value) ...
         fmt = "%03d", base::as.numeric(vsVersOLD[4]) + 1
       );
@@ -255,7 +274,9 @@
       snLenNOTEs <- base::length(coCheckResult$notes);
       snLenERRORs <- base::length(coCheckResult$errors);
       snLenWARNINGs <- base::length(coCheckResult$warnings);
-      rcf_format.check.results(snLenERRORs, snLenWARNINGs, snLenNOTEs);
+      rcf_format.outputs.pkgs.check.code(
+        snLenERRORs, snLenWARNINGs, snLenNOTEs, ssProjID, ssVersNewFULL
+      );
     }
     if (!sbRunCheck && sbRunDocu) {   # <- Runs the Documentation process ONLY IF the "sbRunCheck" value is FALSE !!!
       devtools::document(roclets = c('rd', 'collate', 'namespace'));
