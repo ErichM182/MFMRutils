@@ -17,12 +17,12 @@
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' ANSIsFormat$BOLD      ### <- set the text font format to BOLD !!!
-#' ANSIsFormat$ITALICS   ### <- set the text font format to ITALICS !!!
+#' ANSIsFormat$BOLD      ### <- sets the text font format to BOLD !!!
+#' ANSIsFormat$ITALICS   ### <- sets the text font format to ITALICS !!!
 #' ANSIsFormat$RESET     ### <- removes any actively applied ANSI Text Formatting !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::ANSIsFormat$BOLD   ### <- set the text font format to BOLD !!!
+#' MFMRutils::ANSIsFormat$BOLD   ### <- sets the text font format to BOLD !!!
 #'
 #' @export
 #? ### ### ###
@@ -56,9 +56,9 @@ ANSIsFormat <- {   # <- "ANSIs" == ... !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' ANSIsColors$BlackFORE     ### <- colours the text in black font colour !!!
-#' ANSIsColors$CyanFORE      ### <- colours the text in cyan font colour !!!!!!
-#' ANSIsColors$MagentaBACK   ### <- colours the text background in black font colour !!! !!!
+#' ANSIsColors$BlackFORE     ### <- prints the text in black font colour !!!
+#' ANSIsColors$CyanFORE      ### <- prints the text in cyan font colour !!!!!!
+#' ANSIsColors$MagentaBACK   ### <- prints the text background in black font colour !!! !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
 #' MFMRutils::ANSIsColors$OoglyEyes   ### <- prints "👀" to the R console !!!
