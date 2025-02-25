@@ -15,12 +15,12 @@ A collection of frequently used ANSI (American National Standards Institute) Tex
 }
 \examples{
 ### Easily print & assign icons as follows ...
-ANSIsFormat$BOLD      ### <- set the text font format to BOLD !!!
-ANSIsFormat$ITALICS   ### <- set the text font format to ITALICS !!!
+ANSIsFormat$BOLD      ### <- sets the text font format to BOLD !!!
+ANSIsFormat$ITALICS   ### <- sets the text font format to ITALICS !!!
 ANSIsFormat$RESET     ### <- removes any actively applied ANSI Text Formatting !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::ANSIsFormat$BOLD   ### <- set the text font format to BOLD !!!
+MFMRutils::ANSIsFormat$BOLD   ### <- sets the text font format to BOLD !!!
 
 }
 \keyword{datasets}

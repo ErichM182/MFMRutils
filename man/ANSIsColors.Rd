@@ -15,9 +15,9 @@ A collection of frequently used ANSI (American National Standards Institute) Col
 }
 \examples{
 ### Easily print & assign icons as follows ...
-ANSIsColors$BlackFORE     ### <- colours the text in black font colour !!!
-ANSIsColors$CyanFORE      ### <- colours the text in cyan font colour !!!!!!
-ANSIsColors$MagentaBACK   ### <- colours the text background in black font colour !!! !!!
+ANSIsColors$BlackFORE     ### <- prints the text in black font colour !!!
+ANSIsColors$CyanFORE      ### <- prints the text in cyan font colour !!!!!!
+ANSIsColors$MagentaBACK   ### <- prints the text background in black font colour !!! !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
 MFMRutils::ANSIsColors$OoglyEyes   ### <- prints "👀" to the R console !!!
