@@ -53,9 +53,9 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for CheckMark and Cross ...
-    csUniCodeCross <- "\u2716";
-    csUniCodeCheckmark <- "\u2714";
-    csUniCodeArrowRight <- "\u279C";
+    csUniCodeCross <- IconsLUCCs$XSlanted;
+    csUniCodeCheckmark <- IconsLUCCs$CheckMark;
+    csUniCodeArrowRight <- IconsLUCCs$ArrowRIGHT;
 
     # Create the output string
     output <- base::paste0(
@@ -162,11 +162,11 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodeEyes = "\U0001F440";
-    csUniCodeArrowRight <- "\u279C";
-    csUniCodePointUP <- "\U0001F446";
-    csUniCodeCryingEmoticon <- "\U0001F622";
-    csUniCodePonderingEmoticon <- "\U0001F914";
+    csUniCodeEyes = IconsLUCCs$OoglyEyes;
+    csUniCodeArrowRight <- IconsLUCCs$ArrowRIGHT;
+    csUniCodePointUP <- IconsLUCCs$PointUP;
+    csUniCodeCryingEmoticon <- IconsLUCCs$SmileySad;
+    csUniCodePonderingEmoticon <- IconsLUCCs$SmileyPonder;
 
     # Calculate delta in hours between current time and midnight ...
     ssHrsSinceMidNight <- base::as.character(

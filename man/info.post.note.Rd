@@ -7,17 +7,27 @@
 info.post.note(
   ssPostNote = "NOTE to POST !!!",
   ssFuncSelfID = "Post Note",
+  csTrailIcon = IconsLUCCs$FireFlame,
+  sbShowTrailIcon = FALSE,
   sbPrePendNL = FALSE,
   sbPostPendNL = TRUE,
   sbPostPend2ndNL = FALSE,
+  csColorMidStub = NULL,
+  csColorPostNote = NULL,
+  csColorTrailIcon = NULL,
   siPostMode123 = 2L,
   sbRetFuncInfo = FALSE,
-  ssPreStub = " => ",
-  ssMidStub = " | ",
+  ssPreStub = "=>",
+  ssMidStub = "|",
+  csColorPreStub = ANSIsColors$YellowFORE,
+  csColorCFID = ANSIsColors$CyanFORE,
   sbRunSelfID = FALSE,
   ssFuncCallerID = NULL,
   ssFuncType = NULL,
-  ssFormatDT = "\%a, \%b \%d \%Y @ \%X"
+  ssFormatDT = "\%a, \%b \%d \%Y @ \%X",
+  csANSIformCFID = ANSIsFormat$BOLD,
+  csANSIformMidStub = ANSIsFormat$BOLD,
+  csANSIformPostNote = ANSIsFormat$BOLD
 )
 }
 \arguments{
@@ -25,11 +35,21 @@ info.post.note(
 
 \item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a self-identifier (tag) for this "info.post.note()" function.}
 
+\item{csTrailIcon}{a complex (string) object value that defines the image to be used for the trailing (terminal) icon object.}
+
+\item{sbShowTrailIcon}{a logical (boolean) value that specifies whether a show (print) the trailing (terminal) icon object or not.}
+
 \item{sbPrePendNL}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the START of a posted note.}
 
 \item{sbPostPendNL}{a logical (boolean) value that specifies whether a new line (blank space or row) should be added to the END of a posted note.}
 
 \item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a second line (blank space or row) should be added to the END of a posted note. This function argument can be useful for clearly delineating sections within a custom R Function and/or R Project.}
+
+\item{csColorMidStub}{a character (string) value that defines the text color for the middle separator (mid-stub) object of the posted note.}
+
+\item{csColorPostNote}{a character (string) value that defines the text color for the actual (main) notification text object of the posted note.}
+
+\item{csColorTrailIcon}{a character (string) value that defines the text color for the trailing (terminal) icon object of the posted note.}
 
 \item{siPostMode123}{an integer value that defines the form of the output (notification) message to be printed to the console. OPTIONS: 1L (applies the "START" or "HEADER" form to the printed message), 2L (applies the "Normal" or "DEFAULT" form to the printed message) and 3L (applies the "STOP" or "TERMINAL" form to the printed message). This function argument is extremely useful for defining the beginning and terminal sections of custom R Functions and/or R Projects.}
 
@@ -39,6 +59,10 @@ info.post.note(
 
 \item{ssMidStub}{a character vector (string or text) that defines the middle (ID "tag" and Messages) text of the output message (notification). This function argument is useful in standardizing the notification format for an entire R Project.}
 
+\item{csColorPreStub}{a character (string) value that defines the text color for the caret (pre-stub) object of the posted note.}
+
+\item{csColorCFID}{a character (string) value that defines the text color for the CFID (Calling Function ID) object of the posted note.}
+
 \item{sbRunSelfID}{a logical (i.e. boolean) value that specifies whether the "info.post.note()" function should output its own identifier information alongside the user specified info (notification).}
 
 \item{ssFuncCallerID}{a character vector (string or text) serving as the identifier (tag) for the R Function or R Project that called (invoked) this "info.post.note()" function.}
@@ -46,6 +70,12 @@ info.post.note(
 \item{ssFuncType}{a character vector (string or text) that specifies the function type. OPTIONS: "Helper" (small to medium custom functions; less than 300 lines of code) and "LARGE" (massive custom function with >300 lines of code). If set to NULL the function type will be assigned the default value of "Helper".}
 
 \item{ssFormatDT}{a character vector (string or text) that specifies the DateTime format to be used for displaying date-times in the console.}
+
+\item{csANSIformCFID}{a character (string) value that defines the ANSI text font formatting for the CFID (Calling Function ID) string or character object of the posted note.}
+
+\item{csANSIformMidStub}{a character (string) value that defines the ANSI text font formatting for the middle separator (mid-stub) object of the posted note.}
+
+\item{csANSIformPostNote}{a character (string) value that defines the ANSI text font formatting for the actual (main) notification text object of the posted note.}
 }
 \value{
 \itemize{
