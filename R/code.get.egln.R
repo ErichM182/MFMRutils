@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Extract the RStudio Editor Gutter Line Number ...
 #' @description
-#' A SPECIAL HELPER Function that extracts the Editor Gutter Line Number - EGLN (at the line location from which this function was called). This function only works in the RStudio IDE since it makes direct use of the "rstudioapi" library. This function was created with the main purpose of enhancing the debugging and R Package development process from within the MFMR Suite of R Functions.
+#' A SPECIAL HELPER Function that extracts the Editor Gutter Line Number - EGLN (at the line location from which this function was called). This function only works in the RStudio IDE since it makes direct use of the "rstudioapi" library. This function was created with the main purpose of enhancing the debugging, R Package development and real-time (interactive) code documentation processes from within the MFMR Suite of R Functions.
 #'
 #' @usage code.get.egln()   ### <- if "MFMRutils" library is already installed & loaded !!!
 #'
@@ -16,44 +16,39 @@
 #'
 #' @export
 #? ### ### ###
-###   SPECIAL HELPER Function - extracts the Editor Gutter Line Number - EGLN (at the line location from which the function was called) ...   ###
 "code.get.egln" <- function() {
-
-  # Check if running in RStudio with "rstudioapi" library available ...
+  # RStudio API method (most accurate)
   if (
     base::requireNamespace("rstudioapi", quietly = TRUE) &&
-      rstudioapi::isAvailable()
+    rstudioapi::isAvailable()
   ) {
-
     base::tryCatch(
       {
+        ctx <- rstudioapi::getActiveDocumentContext()
 
-        # Get active document context ...
-        ctx <- rstudioapi::getActiveDocumentContext();
-
-        # Find which line contains the function call ...
-        content <- ctx$contents;
-        call_line <- base::which(
-          base::grepl("get_editor_line\\s*\\(\\s*\\)", content)
-        )[1]
-
-        if (!base::is.na(call_line)) base::return(call_line)
+        # Get exact cursor position of function call
+        if (base::length(ctx$selection) > 0) {
+          cursor_pos <- ctx$selection[[1]]$range$start
+          base::return(base::as.integer(cursor_pos[1]))  # Return line number only ...
+        }
       },
       error = function(e) NULL
     )
   }
 
-  # Fallback method using source references ...
-  frames <- base::sys.calls();
-  for (i in base::seq_along(frames)) {
-    srcref <- base::attr(frames[[i]], "srcref");
+  # Call stack analysis (fallback method) ...
+  frame_idx <- base::sys.nframe() - 1L  # Immediate parent frame ...
+  while (frame_idx > 0L) {
+    srcref <- base::attr(base::sys.frame(frame_idx), "srcref")
+
     if (!base::is.null(srcref)) {
-      base::return(base::as.integer(srcref[[1]]));
+      base::return(base::as.integer(srcref[[1]]))
     }
+    frame_idx <- frame_idx - 1L
   }
 
-  base::warning("Line number detection failed");
-  base::return(NA_integer_);
+  # Failure case ...
+  base::warning("EGLN Err !!!")
+  return(NA_integer_)
 }
-
 

@@ -7,7 +7,7 @@
 code.get.egln()   ### <- if "MFMRutils" library is already installed & loaded !!!
 }
 \description{
-A SPECIAL HELPER Function that extracts the Editor Gutter Line Number - EGLN (at the line location from which this function was called). This function only works in the RStudio IDE since it makes direct use of the "rstudioapi" library. This function was created with the main purpose of enhancing the debugging and R Package development process from within the MFMR Suite of R Functions.
+A SPECIAL HELPER Function that extracts the Editor Gutter Line Number - EGLN (at the line location from which this function was called). This function only works in the RStudio IDE since it makes direct use of the "rstudioapi" library. This function was created with the main purpose of enhancing the debugging, R Package development and real-time (interactive) code documentation processes from within the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily debug your R code with the help of this <special> function ...
