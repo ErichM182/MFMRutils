@@ -2,18 +2,106 @@
 % Please edit documentation in R/code.get.egln.R
 \name{code.get.egln}
 \alias{code.get.egln}
-\title{Extract the RStudio Editor Gutter Line Number ...}
+\title{Extract the active Editor Gutter Line Number (EGLN)}
 \usage{
-code.get.egln()   ### <- if "MFMRutils" library is already installed & loaded !!!
+code.get.egln(siStartEGLN, sbRetSRC)   ### <- if "MFMRutils" is installed & loaded !!!
+}
+\arguments{
+\item{siStartEGLN}{the Editor Gutter Line Number (EGLN) where the function's curly opening brace is located (i.e. the code editor line number at which the function body starts !!!).}
+
+\item{sbRetSRC}{a logical (boolean) value that specifies whether the Environment Frame (i.e. scope: <"LOCAL", "PARENT" or "GLOBAL">) where the "siStartEGLN_" variable was SOURCED from should be returned as a function output (TRUE) or not (FALSE).}
 }
 \description{
-A SPECIAL HELPER Function that extracts the Editor Gutter Line Number - EGLN (at the line location from which this function was called). This function only works in the RStudio IDE since it makes direct use of the "rstudioapi" library. This function was created with the main purpose of enhancing the debugging, R Package development and real-time (interactive) code documentation processes from within the MFMR Suite of R Functions.
+A SPECIAL HELPER Function that extracts the Editor Gutter Line Number (EGLN) at the code editor line location from which the "code.get.egln()" function was called. This function was created for the purpose of enhancing the debugging, R Package development and real-time (i.e. interactive) code documentation processes from within the MFMR Suite of R Functions. However, this function may also be used as a stand-alone function by (or in) other, 3rd Party, libraries and custom R functions - as long as the "MFMRutils" library is linked accordingly (i.e. previously installed and/or specified as a library dependency).
 }
 \examples{
-### Easily debug your R code with the help of this <special> function ...
-code.get.egln()   ### <- prints the active script editor line number to the R console !!!
+### Easily debug custom R function code with this <special> helper function ...
+library(MFMRutils)   # <- Load the "MFMRutils" library - if previously installed.
 
-### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::code.get.egln()   ### <- prints the active script editor line number to the R console !!!
+
+
+### Pass a starting value to the function via the "siStartEGLN" argument ...
+{ code.get.egln(28L) }   # <- Pass a starting value as the first positional argument to the
+                         #    function & it will return the correct (active or real-time)
+                         #    EGLN as extracted from the R function you want to document.
+
+
+
+### Use the function with the direct-access R operator "::" from anywhere ...
+{ MFMRutils::code.get.egln(28L) }   # <- Pass the starting Editor Gutter Line Number (EGLN)
+                                    #    as the first positional argument to the function and
+                                    #    it will return the correct (active or real-time) EGLN
+                                    #    as extracted from the R function you want to document.
+
+
+
+### SPECIAL HACK - extract the EGLN without a direct argument reference ...
+siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with an
+                     #    underscore "_" character !!!
+{ code.get.egln() }   # <- ... then simply execute the "code.get.egln()" function
+                      #    without passing any arguments to the function !!!
+
+
+
+### Use with any custom R function as follows ...
+"myCustFuncR" <- function(x=7, y=1, z=3) {   # <- Use the Editor Gutter Line Number (EGLN)
+                                             #    at which this opening curly brace is
+                                             #    located as the "siStartEGLN" value !!!
+  siStartEGLN_ <- 3L   # <- assumes this 👆 opening curly brace above (denoting the start of
+                       #    the custom <function body> block of code) is located at line 3 of
+                       #    the code editor (i.e. the curly brace is located at the 3rd EGLN).
+
+  ssTagFuncID <- "myCustFuncR"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+
+  valueSUM <- sum(x, y, z)
+  cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.egln(),
+    " | Summed all 3 function arguments < result: ", valueSUM," > !!! \n")
+  )
+
+  valueMEAN <- sum(x, y, z) / 3
+  cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.egln(),
+    " | Took the average of the 3 function arguments < result: ",
+    round(valueMEAN, 3)," > !!! \n\n")
+  )
+
+  return(
+    list("SUM" = valueSUM, "MEAN" = valueMEAN)
+  )
+}
+
+## Execute the custom R Function ...
+myCustFuncR()
+
+## Outputs from "myCustFuncR()" ...
+# ➜ myCustFuncR 11 | Summed all 3 function arguments < result: 45 > !!!
+# ➜ myCustFuncR 16 | Took the average of the 3 function arguments < result: 15 > !!!
+
+# $SUM
+# [1] 45
+
+# $MEAN
+# [1] 15
+
+
+
+### Return the source frame of the special hack  "siStartEGLN_" variable as follows ...
+{
+  ## Set the special hack variable accordingly ...
+  siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with
+                       #    an underscore "_" character !!!
+
+  ## Enable the 'return source' function argument ...
+  vsRes <- MFMRutils::code.get.egln(sbRetSRC = TRUE)   # <- Assign the outputs of the
+                                                       #    'code.get.egln()' function
+                                                       #    to a variable and set the
+                                                       #    'sbRetSRC' function argument
+                                                       #    to a value of TRUE.
+
+  ## Extract the Editor Gutter Line Number (EGLN) and EGLN Source (scope) ...
+  cat(paste0(" \u279C Code Editor Line ", vsRes["EGLN"],   # <- returns the EGLN ...
+      " | ", vsRes["EnvSRC"], "\n"))   # <- prints a sentence specifying where the
+                                       #    'siStartEGLN_' value used in the 'code.get.egln()'
+                                       #    function was obtained (i.e. sourced) from.
+}
 
 }
