@@ -3,8 +3,9 @@
 #' @description
 #' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure during active R Package Development. This function programmatically updates the package version number in the R Project DESCRIPTION file before running the required documentation and/or CRAN Package Pre-Submission Requirements Checks during iterative development cycles.
 #'
-#' @param sbRunDocu a logical (boolean) value that specifies whether to run the standard package documentation process.
+#' @param sbRunDocs a logical (boolean) value that specifies whether to run the standard package documentation process.
 #' @param sbRunCheck a logical (boolean) value that specifies whether to run the standard package documentation process.
+#' @param ssTimeZone a simple character vector (string) that defines the Time Zone to used for the package documentation.
 #'
 #' @returns
 #' * This function returns the programmatically amended or updated (active or real-time) version number for the active R-Libs Project as a list of character objects.
@@ -20,17 +21,17 @@
 #' # MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
 #'
 #' ### Run 2 different types of code checks ...
-#' # pkgs.check.code(sbRunDocu = TRUE)    # <= Executes only the DevTools Documentation Process ...
+#' # pkgs.check.code(sbRunDocs = TRUE)    # <= Executes only the DevTools Documentation Process ...
 #' # pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks ...
 #'
 #' ### Check (i.e. "devtools::check()") overrides the documentation process ...
 #' # The Documentation Process will only be executed once if both are == TRUE !!!
-#' # pkgs.check.code(sbRunDocu = TRUE, sbRunCheck = TRUE)
+#' # pkgs.check.code(sbRunDocs = TRUE, sbRunCheck = TRUE)
 #'
 #' @export
 #? ### ### ###
 "pkgs.check.code" <- function(
-  sbRunDocu=TRUE, sbRunCheck=FALSE
+  sbRunDocs=TRUE, sbRunCheck=FALSE, ssTimeZone="Africa/Windhoek"
 ) {
 
   # Function ID <tag> (very useful under certain scenarios) ...
@@ -129,7 +130,7 @@
   }
 
   # 1. Extract the current DateTime & create the new version number ...
-  base::Sys.setenv(TZ = "Africa/Windhoek");
+  base::Sys.setenv(TZ = ssTimeZone);
   ssDateTimeCURR <- base::Sys.time();
 
   # 2. Extract the current version number from the DESCRIPTION file ...
@@ -282,7 +283,7 @@
         notes = snLenNOTEs, ssProjID = ssProjID, ssProjVers = ssVersNewFULL
       );
     }
-    if (!sbRunCheck && sbRunDocu) {   # <- Runs the Documentation process ONLY IF the "sbRunCheck" value is FALSE !!!
+    if (!sbRunCheck && sbRunDocs) {   # <- Runs the Documentation process ONLY IF the "sbRunCheck" value is FALSE !!!
       devtools::document(roclets = c('rd', 'collate', 'namespace'));
     }
 

@@ -6,23 +6,21 @@
 #' @param siStartEGLN the Editor Gutter Line Number (EGLN) where the function's curly opening brace is located (i.e. the code editor line number at which the function body starts !!!).
 #' @param sbRetSRC a logical (boolean) value that specifies whether the Environment Frame (i.e. scope: <"LOCAL", "PARENT" or "GLOBAL">) where the "siStartEGLN_" variable was SOURCED from should be returned as a function output (TRUE) or not (FALSE).
 #'
-#' @usage code.get.egln(siStartEGLN, sbRetSRC)   ### <- if "MFMRutils" is installed & loaded !!!
-#'
 #' @examples
 #' ### Easily debug custom R function code with this <special> helper function ...
-#' library(MFMRutils)   # <- Load the "MFMRutils" library - if previously installed.
+#' library(MFMRutils)   # <= Load the "MFMRutils" library - if previously installed.
 #'
 #'
 #'
 #' ### Pass a starting value to the function via the "siStartEGLN" argument ...
-#' { code.get.egln(28L) }   # <- Pass a starting value as the first positional argument to the
+#' { code.get.egln(28L) }   # <= Pass a starting value as the first positional argument to the
 #'                          #    function & it will return the correct (active or real-time)
 #'                          #    EGLN as extracted from the R function you want to document.
 #'
 #'
 #'
 #' ### Use the function with the direct-access R operator "::" from anywhere ...
-#' { MFMRutils::code.get.egln(28L) }   # <- Pass the starting Editor Gutter Line Number (EGLN)
+#' { MFMRutils::code.get.egln(28L) }   # <= Pass the starting Editor Gutter Line Number (EGLN)
 #'                                     #    as the first positional argument to the function and
 #'                                     #    it will return the correct (active or real-time) EGLN
 #'                                     #    as extracted from the R function you want to document.
@@ -30,22 +28,22 @@
 #'
 #'
 #' ### SPECIAL HACK - extract the EGLN without a direct argument reference ...
-#' siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with an
+#' siStartEGLN_ <- 7L   # <= Ensure the "siStartEGLN" variable name ends with an
 #'                      #    underscore "_" character !!!
-#' { code.get.egln() }   # <- ... then simply execute the "code.get.egln()" function
+#' { code.get.egln() }   # <= ... then simply execute the "code.get.egln()" function
 #'                       #    without passing any arguments to the function !!!
 #'
 #'
 #'
 #' ### Use with any custom R function as follows ...
-#' "myCustFuncR" <- function(x=7, y=1, z=3) {   # <- Use the Editor Gutter Line Number (EGLN)
+#' "myCustFuncR" <- function(x=7, y=1, z=3) {   # <= Use the Editor Gutter Line Number (EGLN)
 #'                                              #    at which this opening curly brace is
 #'                                              #    located as the "siStartEGLN" value !!!
-#'   siStartEGLN_ <- 3L   # <- assumes this 👆 opening curly brace above (denoting the start of
+#'   siStartEGLN_ <- 3L   # <= assumes this 👆 opening curly brace above (denoting the start of
 #'                        #    the custom <function body> block of code) is located at line 3 of
 #'                        #    the code editor (i.e. the curly brace is located at the 3rd EGLN).
 #'
-#'   ssTagFuncID <- "myCustFuncR"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+#'   ssTagFuncID <- "myCustFuncR"   # <= ALWAYS TAG Large Custom R Functions accordingly !!!
 #'
 #'   valueSUM <- sum(x, y, z)
 #'   cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.egln(),
@@ -81,19 +79,19 @@
 #' ### Return the source frame of the special hack  "siStartEGLN_" variable as follows ...
 #' {
 #'   ## Set the special hack variable accordingly ...
-#'   siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with
+#'   siStartEGLN_ <- 7L   # <= Ensure the "siStartEGLN" variable name ends with
 #'                        #    an underscore "_" character !!!
 #'
 #'   ## Enable the 'return source' function argument ...
-#'   vsRes <- MFMRutils::code.get.egln(sbRetSRC = TRUE)   # <- Assign the outputs of the
+#'   vsRes <- MFMRutils::code.get.egln(sbRetSRC = TRUE)   # <= Assign the outputs of the
 #'                                                        #    'code.get.egln()' function
 #'                                                        #    to a variable and set the
 #'                                                        #    'sbRetSRC' function argument
 #'                                                        #    to a value of TRUE.
 #'
 #'   ## Extract the Editor Gutter Line Number (EGLN) and EGLN Source (scope) ...
-#'   cat(paste0(" \u279C Code Editor Line ", vsRes["EGLN"],   # <- returns the EGLN ...
-#'       " | ", vsRes["EnvSRC"], "\n"))   # <- prints a sentence specifying where the
+#'   cat(paste0(" \u279C Code Editor Line ", vsRes["EGLN"],   # <= returns the EGLN ...
+#'       " | ", vsRes["EnvSRC"], "\n"))   # <= prints a sentence specifying where the
 #'                                        #    'siStartEGLN_' value used in the 'code.get.egln()'
 #'                                        #    function was obtained (i.e. sourced) from.
 #' }
@@ -119,17 +117,17 @@
 
     # Locate & extract the "siStartEGLN_" variable accordingly ...
     if (
-      base::exists("siStartEGLN_", envir = vsActENVs$LOCAL, inherits = FALSE)          # <- Current or LOCAL (i.e. active R Session) Environment !!!
+      base::exists("siStartEGLN_", envir = vsActENVs$LOCAL, inherits = FALSE)          # <= Current or LOCAL (i.e. active R Session) Environment !!!
     ) {
       siStartEGLN <- base::get("siStartEGLN_", envir = vsActENVs$LOCAL);
       ssActSRC <- "The 'siStartEGLN_' value was sourced from the LOCAL Frame !!!";
     } else if (
-      base::exists("siStartEGLN_", envir = vsActENVs$PARENT, inherits = FALSE)          # <- PARENT (i.e. active R Session) Environment !!!
+      base::exists("siStartEGLN_", envir = vsActENVs$PARENT, inherits = FALSE)          # <= PARENT (i.e. active R Session) Environment !!!
     ) {
       siStartEGLN <- base::get("siStartEGLN_", envir = vsActENVs$PARENT);
       ssActSRC <- "The 'siStartEGLN_' value was sourced from the PARENT Frame !!!";
     } else if (
-      base::exists("siStartEGLN_", envir = vsActENVs$GLOBAL, inherits = FALSE)          # <- GLOBAL (i.e. active R Session) Environment !!!
+      base::exists("siStartEGLN_", envir = vsActENVs$GLOBAL, inherits = FALSE)          # <= GLOBAL (i.e. active R Session) Environment !!!
     ) {
       siStartEGLN <- base::get("siStartEGLN_", envir = vsActENVs$GLOBAL);
       ssActSRC <- "The 'siStartEGLN_' value was sourced from the GLOBAL Frame !!!";
@@ -147,7 +145,7 @@
     if (!base::is.null(srcRef)) {
       sbCodeMatchFound <- base::grepl(
         "code\\.get\\.egln\\s*\\(", base::deparse(actSysCalls[[i]])
-      )[1];   # <- Returns a result object of length 3 - so select only first entry !!!
+      )[1];   # <= Returns a result object of length 3 - so select only first entry !!!
       if (sbCodeMatchFound) {
         if (!sbRetSRC) {
           base::return(

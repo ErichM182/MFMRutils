@@ -4,7 +4,7 @@
 \alias{code.get.egln}
 \title{Extract the active Editor Gutter Line Number (EGLN)}
 \usage{
-code.get.egln(siStartEGLN, sbRetSRC)   ### <- if "MFMRutils" is installed & loaded !!!
+code.get.egln(siStartEGLN = NULL, sbRetSRC = FALSE)
 }
 \arguments{
 \item{siStartEGLN}{the Editor Gutter Line Number (EGLN) where the function's curly opening brace is located (i.e. the code editor line number at which the function body starts !!!).}
@@ -16,19 +16,19 @@ A SPECIAL HELPER Function that extracts the Editor Gutter Line Number (EGLN) at 
 }
 \examples{
 ### Easily debug custom R function code with this <special> helper function ...
-library(MFMRutils)   # <- Load the "MFMRutils" library - if previously installed.
+library(MFMRutils)   # <= Load the "MFMRutils" library - if previously installed.
 
 
 
 ### Pass a starting value to the function via the "siStartEGLN" argument ...
-{ code.get.egln(28L) }   # <- Pass a starting value as the first positional argument to the
+{ code.get.egln(28L) }   # <= Pass a starting value as the first positional argument to the
                          #    function & it will return the correct (active or real-time)
                          #    EGLN as extracted from the R function you want to document.
 
 
 
 ### Use the function with the direct-access R operator "::" from anywhere ...
-{ MFMRutils::code.get.egln(28L) }   # <- Pass the starting Editor Gutter Line Number (EGLN)
+{ MFMRutils::code.get.egln(28L) }   # <= Pass the starting Editor Gutter Line Number (EGLN)
                                     #    as the first positional argument to the function and
                                     #    it will return the correct (active or real-time) EGLN
                                     #    as extracted from the R function you want to document.
@@ -36,22 +36,22 @@ library(MFMRutils)   # <- Load the "MFMRutils" library - if previously installed
 
 
 ### SPECIAL HACK - extract the EGLN without a direct argument reference ...
-siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with an
+siStartEGLN_ <- 7L   # <= Ensure the "siStartEGLN" variable name ends with an
                      #    underscore "_" character !!!
-{ code.get.egln() }   # <- ... then simply execute the "code.get.egln()" function
+{ code.get.egln() }   # <= ... then simply execute the "code.get.egln()" function
                       #    without passing any arguments to the function !!!
 
 
 
 ### Use with any custom R function as follows ...
-"myCustFuncR" <- function(x=7, y=1, z=3) {   # <- Use the Editor Gutter Line Number (EGLN)
+"myCustFuncR" <- function(x=7, y=1, z=3) {   # <= Use the Editor Gutter Line Number (EGLN)
                                              #    at which this opening curly brace is
                                              #    located as the "siStartEGLN" value !!!
-  siStartEGLN_ <- 3L   # <- assumes this 👆 opening curly brace above (denoting the start of
+  siStartEGLN_ <- 3L   # <= assumes this 👆 opening curly brace above (denoting the start of
                        #    the custom <function body> block of code) is located at line 3 of
                        #    the code editor (i.e. the curly brace is located at the 3rd EGLN).
 
-  ssTagFuncID <- "myCustFuncR"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+  ssTagFuncID <- "myCustFuncR"   # <= ALWAYS TAG Large Custom R Functions accordingly !!!
 
   valueSUM <- sum(x, y, z)
   cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.egln(),
@@ -87,19 +87,19 @@ myCustFuncR()
 ### Return the source frame of the special hack  "siStartEGLN_" variable as follows ...
 {
   ## Set the special hack variable accordingly ...
-  siStartEGLN_ <- 7L   # <- Ensure the "siStartEGLN" variable name ends with
+  siStartEGLN_ <- 7L   # <= Ensure the "siStartEGLN" variable name ends with
                        #    an underscore "_" character !!!
 
   ## Enable the 'return source' function argument ...
-  vsRes <- MFMRutils::code.get.egln(sbRetSRC = TRUE)   # <- Assign the outputs of the
+  vsRes <- MFMRutils::code.get.egln(sbRetSRC = TRUE)   # <= Assign the outputs of the
                                                        #    'code.get.egln()' function
                                                        #    to a variable and set the
                                                        #    'sbRetSRC' function argument
                                                        #    to a value of TRUE.
 
   ## Extract the Editor Gutter Line Number (EGLN) and EGLN Source (scope) ...
-  cat(paste0(" \u279C Code Editor Line ", vsRes["EGLN"],   # <- returns the EGLN ...
-      " | ", vsRes["EnvSRC"], "\n"))   # <- prints a sentence specifying where the
+  cat(paste0(" \u279C Code Editor Line ", vsRes["EGLN"],   # <= returns the EGLN ...
+      " | ", vsRes["EnvSRC"], "\n"))   # <= prints a sentence specifying where the
                                        #    'siStartEGLN_' value used in the 'code.get.egln()'
                                        #    function was obtained (i.e. sourced) from.
 }

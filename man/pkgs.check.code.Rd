@@ -4,12 +4,18 @@
 \alias{pkgs.check.code}
 \title{CRAN Code Check with real-time File Version Tracking}
 \usage{
-pkgs.check.code(sbRunDocu = TRUE, sbRunCheck = FALSE)
+pkgs.check.code(
+  sbRunDocs = TRUE,
+  sbRunCheck = FALSE,
+  ssTimeZone = "Africa/Windhoek"
+)
 }
 \arguments{
-\item{sbRunDocu}{a logical (boolean) value that specifies whether to run the standard package documentation process.}
+\item{sbRunDocs}{a logical (boolean) value that specifies whether to run the standard package documentation process.}
 
 \item{sbRunCheck}{a logical (boolean) value that specifies whether to run the standard package documentation process.}
+
+\item{ssTimeZone}{a simple character vector (string) that defines the Time Zone to used for the package documentation.}
 }
 \value{
 \itemize{
@@ -28,11 +34,11 @@ A Helper Function that executes the CRAN pre-requisite Code Checking Procedure d
 # MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
 
 ### Run 2 different types of code checks ...
-# pkgs.check.code(sbRunDocu = TRUE)    # <= Executes only the DevTools Documentation Process ...
+# pkgs.check.code(sbRunDocs = TRUE)    # <= Executes only the DevTools Documentation Process ...
 # pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks ...
 
 ### Check (i.e. "devtools::check()") overrides the documentation process ...
 # The Documentation Process will only be executed once if both are == TRUE !!!
-# pkgs.check.code(sbRunDocu = TRUE, sbRunCheck = TRUE)
+# pkgs.check.code(sbRunDocs = TRUE, sbRunCheck = TRUE)
 
 }
