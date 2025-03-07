@@ -9,24 +9,25 @@
 
 
 #? ### ### ### ### ### ### ###
-#' @title ANSI Text Formats for use in R ...
+#' @title ANSI Text Formats for use in R (the `MFMRutils` selection)
 #' @description
-#' A collection of frequently used ANSI (American National Standards Institute) Text Font Formats to support the MFMR Suite of R Functions.
+#' A collection of frequently used ANSI (American National Standards Institute)
+#' Text Font Formats to support the MFMR Suite of R Functions.
 #'
-#' @usage ANSIsFormat   ### <- if "MFMRutils" library is already installed & loaded !!!
+#' @usage ANSIsFormat   ### <- if "MFMRutils" is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
 #' ANSIsFormat$BOLD      ### <- sets the text font format to BOLD !!!
 #' ANSIsFormat$ITALICS   ### <- sets the text font format to ITALICS !!!
-#' ANSIsFormat$RESET     ### <- removes any actively applied ANSI Text Formatting !!!
+#' ANSIsFormat$RESET     ### <- removes actively applied ANSI Text Formatting !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
 #' MFMRutils::ANSIsFormat$BOLD   ### <- sets the text font format to BOLD !!!
 #'
 #' @export
 #? ### ### ###
-ANSIsFormat <- {   # <- "ANSIs" == ... !!!
+ANSIsFormat <- {   # <- Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
     base::list(
       RESET     = "\033[0m",   ### Output: Normal text !!!
@@ -48,24 +49,25 @@ ANSIsFormat <- {   # <- "ANSIs" == ... !!!
 
 
 #? ### ### ### ### ### ### ###
-#' @title ANSI Colours for use in R ...
+#' @title ANSI Colours for use in R (the `MFMRutils` selection)
 #' @description
-#' A collection of frequently used ANSI (American National Standards Institute) Colours to support the MFMR Suite of R Functions.
+#' A collection of frequently used ANSI (American National Standards Institute)
+#' Colours to support the MFMR Suite of R Functions.
 #'
-#' @usage ANSIsColors   ### <- if "MFMRutils" library is already installed & loaded !!!
+#' @usage ANSIsColors   ### <- if [MFMRutils] is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' ANSIsColors$BlackFORE     ### <- prints the text in black font colour !!!
-#' ANSIsColors$CyanFORE      ### <- prints the text in cyan font colour !!!!!!
-#' ANSIsColors$MagentaBACK   ### <- prints the text background in black font colour !!! !!!
+#' ANSIsColors$BlackFORE     ### <- outputs the text in black font colour !!!
+#' ANSIsColors$CyanFORE      ### <- outputs the text in cyan font colour !!!
+#' ANSIsColors$MagentaBACK   ### <- outputs the text background in black font colour !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::ANSIsColors$OoglyEyes   ### <- prints "👀" to the R console !!!
+#' MFMRutils::ANSIsColors$CyanFORE   ### <- outputs the text in cyan font colour !!!
 #'
 #' @export
 #? ### ### ###
-ANSIsColors <- {   # <- "ANSIs" == ... !!!
+ANSIsColors <- {   # <- Define a static list of "ANSI" Text & Object Colours !!!
   envList <- base::list2env(
     base::list(
       BlackFORE   = "\033[30m",   ### Output: "black-text"
@@ -115,9 +117,10 @@ ANSIsColors <- {   # <- "ANSIs" == ... !!!
 
 
 #? ### ### ### ### ### ### ###
-#' @title Unicode Icons for use in R ...
+#' @title Unicode Icons for use in R (the `MFMRutils` selection)
 #' @description
-#' A collection of frequently used icons (unicode characters) meant to support the MFMR Suite of R Functions.
+#' A collection of frequently used icons (Unicode characters) meant to support
+#' the MFMR Suite of R Functions.
 #'
 #' @usage IconsLUCCs   ### <- if "MFMRutils" library is already installed & loaded !!!
 #'
@@ -132,7 +135,7 @@ ANSIsColors <- {   # <- "ANSIs" == ... !!!
 #'
 #' @export
 #? ### ### ###
-IconsLUCCs <- {   # <- "LUCCs" == List [L] of UniCode Characters [UCC] !!!
+IconsLUCCs <- {   # <- Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(
     base::list(
       ArrowRIGHT   = "\u279C",       ### Output: "➜"

@@ -3,7 +3,7 @@
 \docType{data}
 \name{IconsLUCCs}
 \alias{IconsLUCCs}
-\title{Unicode Icons for use in R ...}
+\title{Unicode Icons for use in R (the \code{MFMRutils} selection)}
 \format{
 An object of class \code{environment} of length 8.
 }
@@ -11,7 +11,8 @@ An object of class \code{environment} of length 8.
 IconsLUCCs   ### <- if "MFMRutils" library is already installed & loaded !!!
 }
 \description{
-A collection of frequently used icons (unicode characters) meant to support the MFMR Suite of R Functions.
+A collection of frequently used icons (Unicode characters) meant to support
+the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...

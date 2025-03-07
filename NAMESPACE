@@ -3,7 +3,7 @@
 export(ANSIsColors)
 export(ANSIsFormat)
 export(IconsLUCCs)
-export(code.get.egln)
+export(code.get.celn)
 export(info.post.note)
 export(pkgs.check.code)
 import(crayon)

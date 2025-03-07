@@ -3,24 +3,25 @@
 \docType{data}
 \name{ANSIsColors}
 \alias{ANSIsColors}
-\title{ANSI Colours for use in R ...}
+\title{ANSI Colours for use in R (the \code{MFMRutils} selection)}
 \format{
 An object of class \code{environment} of length 32.
 }
 \usage{
-ANSIsColors   ### <- if "MFMRutils" library is already installed & loaded !!!
+ANSIsColors   ### <- if [MFMRutils] is already installed & loaded !!!
 }
 \description{
-A collection of frequently used ANSI (American National Standards Institute) Colours to support the MFMR Suite of R Functions.
+A collection of frequently used ANSI (American National Standards Institute)
+Colours to support the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...
-ANSIsColors$BlackFORE     ### <- prints the text in black font colour !!!
-ANSIsColors$CyanFORE      ### <- prints the text in cyan font colour !!!!!!
-ANSIsColors$MagentaBACK   ### <- prints the text background in black font colour !!! !!!
+ANSIsColors$BlackFORE     ### <- outputs the text in black font colour !!!
+ANSIsColors$CyanFORE      ### <- outputs the text in cyan font colour !!!
+ANSIsColors$MagentaBACK   ### <- outputs the text background in black font colour !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::ANSIsColors$OoglyEyes   ### <- prints "👀" to the R console !!!
+MFMRutils::ANSIsColors$CyanFORE   ### <- outputs the text in cyan font colour !!!
 
 }
 \keyword{datasets}

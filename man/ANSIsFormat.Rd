@@ -3,21 +3,22 @@
 \docType{data}
 \name{ANSIsFormat}
 \alias{ANSIsFormat}
-\title{ANSI Text Formats for use in R ...}
+\title{ANSI Text Formats for use in R (the \code{MFMRutils} selection)}
 \format{
 An object of class \code{environment} of length 5.
 }
 \usage{
-ANSIsFormat   ### <- if "MFMRutils" library is already installed & loaded !!!
+ANSIsFormat   ### <- if "MFMRutils" is already installed & loaded !!!
 }
 \description{
-A collection of frequently used ANSI (American National Standards Institute) Text Font Formats to support the MFMR Suite of R Functions.
+A collection of frequently used ANSI (American National Standards Institute)
+Text Font Formats to support the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...
 ANSIsFormat$BOLD      ### <- sets the text font format to BOLD !!!
 ANSIsFormat$ITALICS   ### <- sets the text font format to ITALICS !!!
-ANSIsFormat$RESET     ### <- removes any actively applied ANSI Text Formatting !!!
+ANSIsFormat$RESET     ### <- removes actively applied ANSI Text Formatting !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
 MFMRutils::ANSIsFormat$BOLD   ### <- sets the text font format to BOLD !!!
