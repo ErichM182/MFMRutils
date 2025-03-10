@@ -1,16 +1,27 @@
 #? ### ### ### ### ### ### ###
 #' @title CRAN Code Check with real-time File Version Tracking
 #' @description
-#' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure during active R Package Development. This function programmatically updates the package version number in the R Project DESCRIPTION file before running the required documentation and/or CRAN Package Pre-Submission Requirements Checks during iterative development cycles.
+#' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure
+#' during active R Package Development. This function programmatically updates the
+#' package version number in the R Project DESCRIPTION file before running the
+#' required documentation and/or CRAN Package Pre-Submission Requirements Checks
+#' during iterative development cycles.
 #'
-#' @param sbRunDocs a logical (boolean) value that specifies whether to run the standard package documentation process.
-#' @param sbRunCheck a logical (boolean) value that specifies whether to run the standard package documentation process.
-#' @param ssTimeZone a simple character vector (string) that defines the Time Zone to used for the package documentation.
+#' @param sbRunDocs a logical (boolean) value that specifies whether to run the
+#' standard package documentation process.
+#' @param sbRunCheck a logical (boolean) value that specifies whether to run the
+#' standard package documentation process.
+#' @param ssTimeZone a simple character vector (string) that defines the Time
+#' Zone to used for the package documentation.
 #'
 #' @returns
-#' * This function returns the programmatically amended or updated (active or real-time) version number for the active R-Libs Project as a list of character objects.
-#' * This function creates a Work-In-Progress (WIP) directory at the root of the active R-Libs Project (if not already exists).
-#' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP" project path for secondary development version tracking.
+#' * This function returns the programmatically amended or updated (active or
+#' real-time) version number for the active R-Libs Project as a list of character
+#' objects.
+#' * This function creates a Work-In-Progress (WIP) directory at the root of the
+#' active R-Libs Project (if not already exists).
+#' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP"
+#' project path for secondary development version tracking.
 #'
 #' @import crayon desc devtools
 #'
@@ -21,11 +32,11 @@
 #' # MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
 #'
 #' ### Run 2 different types of code checks ...
-#' # pkgs.check.code(sbRunDocs = TRUE)    # <= Executes only the DevTools Documentation Process ...
-#' # pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks ...
+#' # pkgs.check.code(sbRunDocs = TRUE)    # <= Executes only the DevTools Documentation Process.
+#' # pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks.
 #'
 #' ### Check (i.e. "devtools::check()") overrides the documentation process ...
-#' # The Documentation Process will only be executed once if both are == TRUE !!!
+#' # # The Documentation Process will only be executed once if both are == TRUE !!!
 #' # pkgs.check.code(sbRunDocs = TRUE, sbRunCheck = TRUE)
 #'
 #' @export
@@ -54,9 +65,9 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for CheckMark and Cross ...
-    csUniCodeCross <- IconsLUCCs$XSlanted;
-    csUniCodeCheckmark <- IconsLUCCs$CheckMark;
-    csUniCodeArrowRight <- IconsLUCCs$ArrowRIGHT;
+    csUniCodeCross <- MFMRIcons$XSlanted;
+    csUniCodeCheckmark <- MFMRIcons$CheckMark;
+    csUniCodeArrowRight <- MFMRIcons$ArrowRIGHT;
 
     # Create the output string
     output <- base::paste0(
@@ -163,11 +174,11 @@
     csANSIreset <- crayon::reset; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodeEyes = IconsLUCCs$OoglyEyes;
-    csUniCodeArrowRight <- IconsLUCCs$ArrowRIGHT;
-    csUniCodePointUP <- IconsLUCCs$PointUP;
-    csUniCodeCryingEmoticon <- IconsLUCCs$SmileySad;
-    csUniCodePonderingEmoticon <- IconsLUCCs$SmileyPonder;
+    csUniCodeEyes = MFMRIcons$OoglyEyes;
+    csUniCodeArrowRight <- MFMRIcons$ArrowRIGHT;
+    csUniCodePointUP <- MFMRIcons$PointUP;
+    csUniCodeCryingEmoticon <- MFMRIcons$SmileySad;
+    csUniCodePonderingEmoticon <- MFMRIcons$SmileyPonder;
 
     # Calculate delta in hours between current time and midnight ...
     ssHrsSinceMidNight <- base::as.character(

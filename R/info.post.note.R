@@ -50,13 +50,13 @@
 #? ### ### ###
 "info.post.note" <- function(
   ssPostNote="NOTE to POST !!!", ssFuncSelfID="Post Note",
-  csTrailIcon=IconsLUCCs$FireFlame, sbShowTrailIcon=FALSE,
+  csTrailIcon=MFMRIcons$FireFlame, sbShowTrailIcon=FALSE,
   sbPrePendNL=FALSE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
   csColorMidStub=NULL, csColorPostNote=NULL, csColorTrailIcon=NULL,
   siPostMode123=2L, sbRetFuncInfo=FALSE, ssPreStub="=>", ssMidStub="|",
-  csColorPreStub=ANSIsColors$YellowFORE, csColorCFID=ANSIsColors$CyanFORE,
+  csColorPreStub=MFMRColors$YellowFORE, csColorCFID=MFMRColors$CyanFORE,
   sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y @ %X",
-  csANSIformCFID=ANSIsFormat$BOLD, csANSIformMidStub=ANSIsFormat$BOLD, csANSIformPostNote=ANSIsFormat$BOLD
+  csANSIformCFID=MFMRFormat$BOLD, csANSIformMidStub=MFMRFormat$BOLD, csANSIformPostNote=MFMRFormat$BOLD
 ) {
 
   rdtFuncSTART <- base::Sys.time();   # <- Extract Function START Time ...
@@ -79,8 +79,8 @@
   }
 
   # Initialize the ANSI Text Format resetting code ...
-  ### scTextFormatBOLD <- ANSIsFormat$BOLD; # "\033[1m";
-  scTextFormatRESET <- ANSIsFormat$RESET; # "\033[0m";   # <- Reset ANSI formatting !!!
+  ### scTextFormatBOLD <- MFMRFormat$BOLD; # "\033[1m";
+  scTextFormatRESET <- MFMRFormat$RESET; # "\033[0m";   # <- Reset ANSI formatting !!!
 
   # Update & format the caret (pre-stub) text object ...
   ssPreSTUB_ <- ssPreStub;   # <- A standardized start to all posted notes ...
@@ -89,7 +89,7 @@
     ssPreSTUB_ <- base::paste0(
       csColorPreStub,          # <- Apply the ANSI text color scheme ...
       " ",                     # <- Add a leading whitespace character ...
-      IconsLUCCs$ArrowRIGHT,   # <- Assign the MFMR Arrow Icon !!!
+      MFMRIcons$ArrowRIGHT,   # <- Assign the MFMR Arrow Icon !!!
       " ",                     # <- Add a trailing whitespace character ...
       scTextFormatRESET        # <- Deactivate the ANSI text formatting !!!
     )

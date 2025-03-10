@@ -7,7 +7,7 @@
 info.post.note(
   ssPostNote = "NOTE to POST !!!",
   ssFuncSelfID = "Post Note",
-  csTrailIcon = IconsLUCCs$FireFlame,
+  csTrailIcon = MFMRIcons$FireFlame,
   sbShowTrailIcon = FALSE,
   sbPrePendNL = FALSE,
   sbPostPendNL = TRUE,
@@ -19,15 +19,15 @@ info.post.note(
   sbRetFuncInfo = FALSE,
   ssPreStub = "=>",
   ssMidStub = "|",
-  csColorPreStub = ANSIsColors$YellowFORE,
-  csColorCFID = ANSIsColors$CyanFORE,
+  csColorPreStub = MFMRColors$YellowFORE,
+  csColorCFID = MFMRColors$CyanFORE,
   sbRunSelfID = FALSE,
   ssFuncCallerID = NULL,
   ssFuncType = NULL,
   ssFormatDT = "\%a, \%b \%d \%Y @ \%X",
-  csANSIformCFID = ANSIsFormat$BOLD,
-  csANSIformMidStub = ANSIsFormat$BOLD,
-  csANSIformPostNote = ANSIsFormat$BOLD
+  csANSIformCFID = MFMRFormat$BOLD,
+  csANSIformMidStub = MFMRFormat$BOLD,
+  csANSIformPostNote = MFMRFormat$BOLD
 )
 }
 \arguments{
