@@ -31,8 +31,6 @@
 #' * This function prints the specified text (notification) directly to the console even if the function outputs are assigned to a variable.
 #' * This function also outputs additional function information (i.e. internally computed function information) as a list object.
 #'
-#' @import crayon
-#'
 #' @examples
 #' ### Print a dummy notification ...
 #' info.post.note()              # <= when "MFMRutils" library is loaded ...
