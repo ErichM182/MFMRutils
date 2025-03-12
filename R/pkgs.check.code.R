@@ -23,7 +23,7 @@
 #' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP"
 #' project path for secondary development version tracking.
 #'
-#' @import crayon desc devtools
+#' @import desc devtools
 #'
 #' @examples
 #' ### Print a dummy notification ...
@@ -54,15 +54,15 @@
   ) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- crayon::bold; # "\033[1m";
-    csANSIitalics <- crayon::italic; # "\033[3m";
+    csANSIbold <- MFMRFormat$BOLD; # "\033[1m";
+    csANSIitalics <- MFMRFormat$ITALICS; # "\033[3m";
 
-    csANSIred <- crayon::red; # "\033[91m";
-    csANSIblue <- crayon::blue; # "\033[94m";
-    csANSIgreen <- crayon::green; # "\033[92m";
-    csANSIyellow <- crayon::yellow; # "\033[93m";
+    csANSIred <- MFMRColors$RedFORE; # "\033[91m";
+    csANSIblue <- MFMRColors$BlueFORE; # "\033[94m";
+    csANSIgreen <- MFMRColors$GreenFORE; # "\033[92m";
+    csANSIyellow <- MFMRColors$YellowFORE; # "\033[93m";
 
-    csANSIreset <- crayon::reset; # "\033[0m";
+    csANSIreset <- MFMRFormat$RESET; # "\033[0m";
 
     # Unicode characters for CheckMark and Cross ...
     csUniCodeCross <- MFMRIcons$XSlanted;
@@ -163,15 +163,15 @@
   if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- crayon::bold; # "\033[1m";
-    csANSIitalics <- crayon::italic; # "\033[3m";
+    csANSIbold <- MFMRFormat$BOLD; # "\033[1m";
+    csANSIitalics <- MFMRFormat$ITALICS; # "\033[3m";
 
-    csANSIred <- crayon::red; # "\033[91m";
-    csANSIblue <- crayon::blue; # "\033[94m";
-    csANSIgreen <- crayon::green; # "\033[92m";
-    csANSIyellow <- crayon::yellow; # "\033[93m";
+    csANSIred <- MFMRColors$RedFORE; # "\033[91m";
+    csANSIblue <- MFMRColors$BlueFORE; # "\033[94m";
+    csANSIgreen <- MFMRColors$GreenFORE; # "\033[92m";
+    csANSIyellow <- MFMRColors$YellowFORE; # "\033[93m";
 
-    csANSIreset <- crayon::reset; # "\033[0m";
+    csANSIreset <- MFMRFormat$RESET; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
     csUniCodeEyes = MFMRIcons$OoglyEyes;
