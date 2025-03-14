@@ -47,18 +47,26 @@
 #'            process.
 #'
 #' @examples
-#' ### Easily install missing and update outdated R Project Libraries as follows ...
+#' ### Easily install missing and update outdated R Project Libraries ...
 #' library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
 #'
 #'
+#' ### Install the required R Project libraries as follows ...
+#' vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
+#' projs.check.libs(           # <= Run the function with the "vsReqLibs" function argument
+#'   vsReqLibs = vsReqLibs_,   #    provided accordingly ...
+#'   sbFixLibs = TRUE   # <= Set the "sbFixLibs" function argument to TRUE to ensure all
+#' )                    #    missing R Libraries are installed !!!
 #'
-#' ### Install & Update the required R Project libraries ...
-#' vsReqLibs_ <- c("ggplot2", "lubridate", "dplyr")   # <- Specify the required R Libraries !!!
-#' projs.check.libs(          # <= Run the function with the "vsReqLibs" function argument
-#'   vsReqLibs = vsReqLibs_   #    provided accordingly !!!
+#'
+#'
+#' ### Update outdated R Project libraries as follows ...
+#' vsReqLibs_ <- c("bench", "zoo")   # <- Specify the required R Libraries accordingly !!!
+#' projs.check.libs(           # <= Run the function with the "vsReqLibs" function argument
+#'   vsReqLibs = vsReqLibs_,   #    provided accordingly !!!
+#'   sbFixLibs = TRUE,     # <= Set both the "sbFixLibs" and "sbUpdateLibs" function
+#'   sbUpdateLibs = TRUE   #    arguments to TRUE to ensure all outdated R libraries
 #' )
-#'
-#'
 #'
 #' @export
 #? ### ### ###
@@ -223,7 +231,7 @@
 
           # Notify user about the missing R libraries ...
           ssNoteLibsMISSING <- base::paste0(
-            "The following ", base::ifelse(siVarLenMissingLibs == 1, "library is", "libraries are"), " required by this R Project, but currently NOT INSTALLED: -> [\n",
+            "The following ", base::ifelse(siVarLenMissingLibs == 1, "LIBRARY is", "LIBRARIES are"), " required, but currently NOT INSTALLED: -> [\n",
             ' "', base::paste0(vsMissingProjectLibs, collapse = '", "'), '"\n', "] <-"
           );
           MFMRutils::info.post.note(
@@ -234,7 +242,7 @@
 
           # Notify user how to install the missing R libraries ...
           ssNoteLibsINSTALL <- base::paste0(
-            "To install missing libraries, re-run this function and set the `sbFixLibs` argument to TRUE.\n"
+            "To install missing libraries, re-run the function and set the `sbFixLibs` argument to TRUE.\n"
           );
           MFMRutils::info.post.note(
             ssPostNote = ssNoteLibsINSTALL,
