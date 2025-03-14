@@ -1,13 +1,11 @@
 
-
-# Function to install required R Project Libraries that are not already installed ...
 "proj.check.libs" <- function(
   sbFixLibs=FALSE, sbQuietInstall=FALSE, ssFormatDT="%a, %b %d %Y %X",
   vsReqLibs=NULL, ssFuncType=NULL, sbShowLibs=TRUE, sbUpdateLibs=TRUE,
   ssFuncSelfID="Check Proj. Libs", sbRunSelfID=FALSE, ssFuncCallerID=NULL
 ) {
 
-  rdtFuncSTART <- base::Sys.time();      # <- Extract Function START Time ...
+  dtFuncSTART <- base::Sys.time();      # <- Extract Function START Time ...
   ssFormatDTI <- "%a, %b %d %Y @ %X";   # <- DateTime Format for "FuncSelfID" Process ...
 
   if (base::is.null(ssFuncCallerID)) {
@@ -23,8 +21,8 @@
   }
 
   if (sbRunSelfID) {
-    rcf_utils.post.note(
-      rsiPostMode123 = 1, ssFuncSelfID = ssFuncSelfID,
+    MFMRutils::info.post.note(
+      siPostMode123 = 1, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
   }
@@ -36,16 +34,16 @@
   if (base::is.null(vsReqLibs)) {
 
     rssReqLibsNONE <- "No Libraries were defined for this R Project !!!"
-    rcf_utils.post.note(
+    MFMRutils::info.post.note(
       rssPostNote = rssReqLibsNONE,
-      rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+      siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
 
     rssReqLibsVERIFY <- "Please VERIFY that the R Project DOES NOT USE any R Libraries before continuing ..."
-    rcf_utils.post.note(
+    MFMRutils::info.post.note(
       rssPostNote = rssReqLibsVERIFY,
-      rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+      siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
 
@@ -53,10 +51,10 @@
 
     # Notify user about package installation 'ACTIVE' state ...
     rssNoteLibsListCRAN <- base::paste0("Querying CRAN Repository for registered R Libraries ...");
-    rcf_utils.post.note(
+    MFMRutils::info.post.note(
       rssPostNote = rssNoteLibsListCRAN,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType,
-      rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID, rsbPrePendNewLine = T
+      siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID, rsbPrePendNewLine = T
     );
 
     # Extract ALL R Libraries installed locally and listed on the CRAN Repo ...
@@ -90,18 +88,18 @@
 
           # Notify user about package installation start ...
           rssNoteLibsInstallSTARTED <- base::paste0("INSTALL of R Package [ ", lib, " ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rsbPrePendNewLine = TRUE,
             rssPostNote = rssNoteLibsInstallSTARTED,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
           # Notify user about package installation 'ACTIVE' state ...
           rssNoteLibsInstallACTIVE <- base::paste0("Please wait => installation of [ ", lib, " ] is currently underway ...");
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsInstallACTIVE,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
           utils::install.packages(
@@ -110,9 +108,9 @@
 
           # Notify user about package installation completion ...
           rssNoteLibsInstallACTIVE <- base::paste0("INSTALL of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsInstallACTIVE,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
@@ -126,18 +124,18 @@
 
             # Notify user about package installation start ...
             rssNoteLibsInstallSTARTED <- base::paste0("UPDATE of R Package [ ", lib, " v", rsvVersOLD, " => v", rsvVersNEW," ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
-            rcf_utils.post.note(
+            MFMRutils::info.post.note(
               rsbPrePendNewLine = TRUE,
               rssPostNote = rssNoteLibsInstallSTARTED,
-              rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+              siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
 
             # Notify user about package installation 'ACTIVE' state ...
             rssNoteLibsInstallACTIVE <- base::paste0("Please wait => updating of [ ", lib, " ] is currently underway ...");
-            rcf_utils.post.note(
+            MFMRutils::info.post.note(
               rssPostNote = rssNoteLibsInstallACTIVE,
-              rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+              siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
             utils::install.packages(
@@ -146,9 +144,9 @@
 
             # Notify user about package installation completion ...
             rssNoteLibsInstallACTIVE <- base::paste0("UPDATE of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
-            rcf_utils.post.note(
+            MFMRutils::info.post.note(
               rssPostNote = rssNoteLibsInstallACTIVE,
-              rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+              siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
           }
@@ -165,9 +163,9 @@
             "The following ", base::ifelse(rsiVarLenMissingLibs == 1, "library is", "libraries are"), " required by this R Project, but currently NOT INSTALLED: -> [\n",
             ' "', base::paste0(rvsMissingProjectLibs, collapse = '", "'), '"\n', "] <-"
           );
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsMISSING,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
@@ -175,9 +173,9 @@
           rssNoteLibsINSTALL <- base::paste0(
             "To install missing libraries, re-run this function and set the `sbFixLibs` argument to TRUE.\n"
           );
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsINSTALL,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
@@ -189,9 +187,9 @@
             "The following already installed Project ", base::ifelse(rsiVarLenOutdatedLibs == 1, "library", "libraries"), " can be updated: -> [\n",
             ' ', base::paste0(rvsLibsUpdateSpecifics, collapse = ',\n '), '\n', "] <-"
           );
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsOUTDATED,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
@@ -199,9 +197,9 @@
           rssNoteLibsUPDATE <- base::paste0(
             "To update installed libraries, re-run this function and set both the `sbFixLibs` & `sbUpdateLibs` arguments to TRUE.\n"
           );
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsUPDATE,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
@@ -212,9 +210,9 @@
         rssNoteLibsINSTALL <- base::paste0(
           "All libraries required for this R Project are properly installed ..."
         );
-        rcf_utils.post.note(
+        MFMRutils::info.post.note(
           rssPostNote = rssNoteLibsINSTALL,
-          rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+          siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
           ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType,
           rsbPrePendNewLine = TRUE, rsbEndExtraNewLine = base::ifelse(sbShowLibs, FALSE, TRUE)
         );
@@ -225,9 +223,9 @@
             ' "', base::paste0(vsReqLibs, collapse = '", "'), '"',
             "\n ] <-"
           );
-          rcf_utils.post.note(
+          MFMRutils::info.post.note(
             rssPostNote = rssNoteLibsREQUIRED,
-            rsiPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
+            siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             rsbPrePendNewLine = FALSE, rsbEndExtraNewLine = TRUE,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
@@ -236,20 +234,20 @@
     }
   }
 
-  rdtFuncSTOP <- base::Sys.time();   # <- Extract Function STOP Time ...
-  rcoFuncINFO <- base::list(         # <- Collate Key Function SelfID Information ...
+  dtFuncSTOP <- base::Sys.time();   # <- Extract Function STOP Time ...
+  coFuncINFO <- base::list(         # <- Collate Key Function Self-ID Information ...
     "FuncID" = ssFuncSelfID, "CallerID" = ssFuncCallerID,
-    "FuncSTART" = rdtFuncSTART, "FuncSTART" = rdtFuncSTOP, "FuncType" = ssFuncType
+    "FuncSTART" = dtFuncSTART, "FuncSTART" = dtFuncSTOP, "FuncType" = ssFuncType
   )
   if (sbRunSelfID) {
-    rcf_utils.post.note(
-      rsiPostMode123 = 3, ssFuncSelfID = ssFuncSelfID,
+    MFMRutils::info.post.note(
+      siPostMode123 = 3, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
   }
 
   base::return(
-    base::invisible(base::list("ProjLibs" = vsReqLibs, "FI" = rcoFuncINFO))
+    base::invisible(base::list("ReqLibs" = vsReqLibs, "FI" = coFuncINFO))
   );
 }
 
