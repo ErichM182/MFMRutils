@@ -28,21 +28,21 @@
   }
 
   # !!! ... ADD 'Helper Func' CODE LOGIC here ... !!!
-  rvsMissingProjectLibs <- base::c();    # <- Creates an empty vector ...
-  rvsOutdatedProjectLibs <- base::c();   # <- Creates an empty vector ...
-  rvsLibsUpdateSpecifics <- base::c();   # <- Creates an empty vector ...
+  vsMissingProjectLibs <- base::c();    # <- Creates an empty vector ...
+  vsOutdatedProjectLibs <- base::c();   # <- Creates an empty vector ...
+  vsLibsUpdateSpecifics <- base::c();   # <- Creates an empty vector ...
   if (base::is.null(vsReqLibs)) {
 
-    rssReqLibsNONE <- "No Libraries were defined for this R Project !!!"
+    ssReqLibsNONE <- "No Libraries were defined for this R Project !!!"
     MFMRutils::info.post.note(
-      rssPostNote = rssReqLibsNONE,
+      ssPostNote = ssReqLibsNONE,
       siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
 
-    rssReqLibsVERIFY <- "Please VERIFY that the R Project DOES NOT USE any R Libraries before continuing ..."
+    ssReqLibsVERIFY <- "Please VERIFY that the R Project DOES NOT USE any R Libraries before continuing ..."
     MFMRutils::info.post.note(
-      rssPostNote = rssReqLibsVERIFY,
+      ssPostNote = ssReqLibsVERIFY,
       siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
     );
@@ -50,55 +50,55 @@
   } else {
 
     # Notify user about package installation 'ACTIVE' state ...
-    rssNoteLibsListCRAN <- base::paste0("Querying CRAN Repository for registered R Libraries ...");
+    ssNoteLibsListCRAN <- base::paste0("Querying CRAN Repository for registered R Libraries ...");
     MFMRutils::info.post.note(
-      rssPostNote = rssNoteLibsListCRAN,
+      ssPostNote = ssNoteLibsListCRAN,
       ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType,
-      siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID, rsbPrePendNewLine = T
+      siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID, sbPrePendNL = T
     );
 
     # Extract ALL R Libraries installed locally and listed on the CRAN Repo ...
-    rcoMtrxArryLibsINSTALLED <- utils::installed.packages();
-    rcoMtrxArryLibsCRANREGIS <- utils::available.packages();
+    coMtrxArryLibsINSTALLED <- utils::installed.packages();
+    coMtrxArryLibsCRANREGIS <- utils::available.packages();
 
     if (base::length(vsReqLibs) >= 1) {
 
       for (lib in vsReqLibs) {   # <- Iterates through "vsReqLibs" assessing list items one-by-one with the code below ...
 
-        # Checks if library is not already installed on local machine & if TRUE (i.e. not installed), then appends it to the 'rvsMissingProjectLibs' vector ...
-        if (!(lib %in% rcoMtrxArryLibsINSTALLED[ , "Package"])) {
-          rvsMissingProjectLibs <- base::c(rvsMissingProjectLibs, lib);
+        # Checks if library is not already installed on local machine & if TRUE (i.e. not installed), then appends it to the 'vsMissingProjectLibs' vector ...
+        if (!(lib %in% coMtrxArryLibsINSTALLED[ , "Package"])) {
+          vsMissingProjectLibs <- base::c(vsMissingProjectLibs, lib);
         } else {
           # Checks if newer versions of already installed libraries exist on the <remote/online> CRAN Repository ...
           if (sbUpdateLibs) {   # <- ... but does this ONLY IF the 'sbUpdateLibs' argument is set to TRUE !!!
-            rsdLibsVersLOCL <- rcoMtrxArryLibsINSTALLED[lib, "Version"];
-            rsdLibsVersCRAN <- rcoMtrxArryLibsCRANREGIS[lib, "Version"];
-            if (rsdLibsVersLOCL != rsdLibsVersCRAN) {   # <- If there is a miss-match between the LOCAL vs. CRAN results, then it appends the lib to the 'rvsOutdatedProjectLibs' vector ...
-              rvsOutdatedProjectLibs <- base::c(rvsOutdatedProjectLibs, lib);
-              rvsLibsUpdateSpecifics <- base::c(rvsLibsUpdateSpecifics, base::paste0(lib, "  v", rsdLibsVersLOCL, "  =>  v", rsdLibsVersCRAN));
+            sdLibsVersLOCL <- coMtrxArryLibsINSTALLED[lib, "Version"];
+            sdLibsVersCRAN <- coMtrxArryLibsCRANREGIS[lib, "Version"];
+            if (sdLibsVersLOCL != sdLibsVersCRAN) {   # <- If there is a miss-match between the LOCAL vs. CRAN results, then it appends the lib to the 'vsOutdatedProjectLibs' vector ...
+              vsOutdatedProjectLibs <- base::c(vsOutdatedProjectLibs, lib);
+              vsLibsUpdateSpecifics <- base::c(vsLibsUpdateSpecifics, base::paste0(lib, "  v", sdLibsVersLOCL, "  =>  v", sdLibsVersCRAN));
             }
           }
         }
       }
 
-      if (sbFixLibs && base::length(rvsMissingProjectLibs) >= 1 ||
-          sbFixLibs && base::length(rvsOutdatedProjectLibs) >= 1) {
+      if (sbFixLibs && base::length(vsMissingProjectLibs) >= 1 ||
+          sbFixLibs && base::length(vsOutdatedProjectLibs) >= 1) {
 
-        for (lib in rvsMissingProjectLibs) {   # <- Iterates through "rvsMissingProjectLibs" assessing list items one-by-one with the code below ...
+        for (lib in vsMissingProjectLibs) {   # <- Iterates through "vsMissingProjectLibs" assessing list items one-by-one with the code below ...
 
           # Notify user about package installation start ...
-          rssNoteLibsInstallSTARTED <- base::paste0("INSTALL of R Package [ ", lib, " ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
+          ssNoteLibsINSTALLSTARTED <- base::paste0("INSTALL of R Package [ ", lib, " ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
           MFMRutils::info.post.note(
-            rsbPrePendNewLine = TRUE,
-            rssPostNote = rssNoteLibsInstallSTARTED,
+            sbPrePendNL = TRUE,
+            ssPostNote = ssNoteLibsINSTALLSTARTED,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
           # Notify user about package installation 'ACTIVE' state ...
-          rssNoteLibsInstallACTIVE <- base::paste0("Please wait => installation of [ ", lib, " ] is currently underway ...");
+          ssNoteLibsINSTALLACTIVE <- base::paste0("Please wait => installation of [ ", lib, " ] is currently underway ...");
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsInstallACTIVE,
+            ssPostNote = ssNoteLibsINSTALLACTIVE,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
@@ -107,34 +107,34 @@
           );   # <- Installs <specified> 3rd Party Library on local machine ...
 
           # Notify user about package installation completion ...
-          rssNoteLibsInstallACTIVE <- base::paste0("INSTALL of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
+          ssNoteLibsINSTALLACTIVE <- base::paste0("INSTALL of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsInstallACTIVE,
+            ssPostNote = ssNoteLibsINSTALLACTIVE,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
 
-        if (sbUpdateLibs && base::length(rvsOutdatedProjectLibs) >= 1) {
+        if (sbUpdateLibs && base::length(vsOutdatedProjectLibs) >= 1) {
 
-          for (lib in rvsOutdatedProjectLibs) {   # <- Iterates through "rvsOutdatedProjectLibs" assessing list items one-by-one with the code below ...
+          for (lib in vsOutdatedProjectLibs) {   # <- Iterates through "vsOutdatedProjectLibs" assessing list items one-by-one with the code below ...
 
-            rsvVersNEW <- rcoMtrxArryLibsCRANREGIS[lib, 'Version'];
-            rsvVersOLD <- rcoMtrxArryLibsINSTALLED[lib, 'Version'];
+            svVersNEW <- coMtrxArryLibsCRANREGIS[lib, 'Version'];
+            svVersOLD <- coMtrxArryLibsINSTALLED[lib, 'Version'];
 
             # Notify user about package installation start ...
-            rssNoteLibsInstallSTARTED <- base::paste0("UPDATE of R Package [ ", lib, " v", rsvVersOLD, " => v", rsvVersNEW," ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
+            ssNoteLibsINSTALLSTARTED <- base::paste0("UPDATE of R Package [ ", lib, " v", svVersOLD, " => v", svVersNEW," ] => STARTED: ", base::format(base::Sys.time(), ssFormatDT), " !!!");
             MFMRutils::info.post.note(
-              rsbPrePendNewLine = TRUE,
-              rssPostNote = rssNoteLibsInstallSTARTED,
+              sbPrePendNL = TRUE,
+              ssPostNote = ssNoteLibsINSTALLSTARTED,
               siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
 
             # Notify user about package installation 'ACTIVE' state ...
-            rssNoteLibsInstallACTIVE <- base::paste0("Please wait => updating of [ ", lib, " ] is currently underway ...");
+            ssNoteLibsINSTALLACTIVE <- base::paste0("Please wait => updating of [ ", lib, " ] is currently underway ...");
             MFMRutils::info.post.note(
-              rssPostNote = rssNoteLibsInstallACTIVE,
+              ssPostNote = ssNoteLibsINSTALLACTIVE,
               siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
@@ -143,9 +143,9 @@
             );   # <- Installs <specified> 3rd Party Library on local machine ...
 
             # Notify user about package installation completion ...
-            rssNoteLibsInstallACTIVE <- base::paste0("UPDATE of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
+            ssNoteLibsINSTALLACTIVE <- base::paste0("UPDATE of R Package [ ", lib, " ] => COMPLETED: ", base::format(base::Sys.time(), ssFormatDT), " !!!\n");
             MFMRutils::info.post.note(
-              rssPostNote = rssNoteLibsInstallACTIVE,
+              ssPostNote = ssNoteLibsINSTALLACTIVE,
               siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
               ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
             );
@@ -154,51 +154,51 @@
 
       } else {
 
-        rsiVarLenMissingLibs <- base::length(rvsMissingProjectLibs);
-        rsiVarLenOutdatedLibs <- base::length(rvsOutdatedProjectLibs);
-        if (rsiVarLenMissingLibs >= 1) {
+        siVarLenMissingLibs <- base::length(vsMissingProjectLibs);
+        siVarLenOutdatedLibs <- base::length(vsOutdatedProjectLibs);
+        if (siVarLenMissingLibs >= 1) {
 
           # Notify user about the missing R libraries ...
-          rssNoteLibsMISSING <- base::paste0(
-            "The following ", base::ifelse(rsiVarLenMissingLibs == 1, "library is", "libraries are"), " required by this R Project, but currently NOT INSTALLED: -> [\n",
-            ' "', base::paste0(rvsMissingProjectLibs, collapse = '", "'), '"\n', "] <-"
+          ssNoteLibsMISSING <- base::paste0(
+            "The following ", base::ifelse(siVarLenMissingLibs == 1, "library is", "libraries are"), " required by this R Project, but currently NOT INSTALLED: -> [\n",
+            ' "', base::paste0(vsMissingProjectLibs, collapse = '", "'), '"\n', "] <-"
           );
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsMISSING,
+            ssPostNote = ssNoteLibsMISSING,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
           # Notify user how to install the missing R libraries ...
-          rssNoteLibsINSTALL <- base::paste0(
+          ssNoteLibsINSTALL <- base::paste0(
             "To install missing libraries, re-run this function and set the `sbFixLibs` argument to TRUE.\n"
           );
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsINSTALL,
+            ssPostNote = ssNoteLibsINSTALL,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
 
-        if (rsiVarLenOutdatedLibs >= 1) {
+        if (siVarLenOutdatedLibs >= 1) {
 
           # Notify user about the missing R libraries ...
-          rssNoteLibsOUTDATED <- base::paste0(
-            "The following already installed Project ", base::ifelse(rsiVarLenOutdatedLibs == 1, "library", "libraries"), " can be updated: -> [\n",
-            ' ', base::paste0(rvsLibsUpdateSpecifics, collapse = ',\n '), '\n', "] <-"
+          ssNoteLibsOUTDATED <- base::paste0(
+            "The following already installed Project ", base::ifelse(siVarLenOutdatedLibs == 1, "library", "libraries"), " can be updated: -> [\n",
+            ' ', base::paste0(vsLibsUpdateSpecifics, collapse = ',\n '), '\n', "] <-"
           );
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsOUTDATED,
+            ssPostNote = ssNoteLibsOUTDATED,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
 
           # Notify user how to install the missing R libraries ...
-          rssNoteLibsUPDATE <- base::paste0(
+          ssNoteLibsUPDATE <- base::paste0(
             "To update installed libraries, re-run this function and set both the `sbFixLibs` & `sbUpdateLibs` arguments to TRUE.\n"
           );
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsUPDATE,
+            ssPostNote = ssNoteLibsUPDATE,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
@@ -206,27 +206,27 @@
       }
 
       # Notify user that ALL REQUIRED Project Libraries are already installed ...
-      if (base::length(rvsMissingProjectLibs) == 0 && base::length(rcoMtrxArryLibsCRANREGIS) >= 1) {
-        rssNoteLibsINSTALL <- base::paste0(
+      if (base::length(vsMissingProjectLibs) == 0 && base::length(coMtrxArryLibsCRANREGIS) >= 1) {
+        ssNoteLibsINSTALL <- base::paste0(
           "All libraries required for this R Project are properly installed ..."
         );
         MFMRutils::info.post.note(
-          rssPostNote = rssNoteLibsINSTALL,
+          ssPostNote = ssNoteLibsINSTALL,
           siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
           ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType,
-          rsbPrePendNewLine = TRUE, rsbEndExtraNewLine = base::ifelse(sbShowLibs, FALSE, TRUE)
+          sbPrePendNL = TRUE, sbPostPend2ndNL = base::ifelse(sbShowLibs, FALSE, TRUE)
         );
 
         if (sbShowLibs) {
-          rssNoteLibsREQUIRED <- base::paste0(
+          ssNoteLibsREQUIRED <- base::paste0(
             "Libraries defined for this R Project are as follows: -> [\n",
             ' "', base::paste0(vsReqLibs, collapse = '", "'), '"',
             "\n ] <-"
           );
           MFMRutils::info.post.note(
-            rssPostNote = rssNoteLibsREQUIRED,
+            ssPostNote = ssNoteLibsREQUIRED,
             siPostMode123 = 2, ssFuncSelfID = ssFuncSelfID,
-            rsbPrePendNewLine = FALSE, rsbEndExtraNewLine = TRUE,
+            sbPrePendNL = FALSE, sbPostPend2ndNL = TRUE,
             ssFuncCallerID = ssFuncCallerID, ssFuncType = ssFuncType
           );
         }
@@ -251,4 +251,6 @@
   );
 }
 
+
+proj.check.libs(vsReqLibs = c("ggplot2", "tidyr", "abind"))
 
