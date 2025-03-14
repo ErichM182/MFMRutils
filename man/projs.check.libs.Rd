@@ -79,6 +79,8 @@ standalone function in other R packages.
 ### Easily install missing and update outdated R Project Libraries ...
 library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
 
+## Explicitly set a CRAN mirror ... (<- only needed for CRAN-CODE-CHECKS) !!!
+options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 ### Install the required R Project libraries as follows ...
 vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
