@@ -1,7 +1,70 @@
-
-"proj.check.libs" <- function(
-  sbFixLibs=FALSE, sbQuietInstall=FALSE, ssFormatDT="%a, %b %d %Y %X",
-  vsReqLibs=NULL, ssFuncType=NULL, sbShowLibs=TRUE, sbUpdateLibs=TRUE,
+#? ### ### ### ### ### ### ###
+#' @title Install required R Project Libraries
+#' @description
+#' A Helper Function to install 3rd Party R Libraries required by an R Project
+#' but that are not currently installed. This custom function was intended to
+#' mainly support the MFMR Suite of R Functions, but can be utilized as a
+#' standalone function in other R packages.
+#'
+#' @param vsReqLibs a vector argument containing the discrete (i.e. comma-separated)
+#'                  character values (i.e. strings or texts) of the 3rd Party R
+#'                  Libraries required for the active R project.
+#' @param sbFixLibs a logical (boolean) argument that specifies whether to fix (
+#'                  i.e. install or update) any missing required R libraries.
+#' @param sbQuietInstall a logical (boolean) argument that specifies whether the
+#'                       R library install or update should be verbose or not.
+#' @param sbShowLibs a logical (boolean) argument specifies whether the input R
+#'                   libraries (i.e. required R libraries) should be printed out
+#'                   to the R Console or returned to the function output (result)
+#'                   at the completion of the function code execution.
+#' @param sbUpdateLibs a logical (boolean) argument that specifies whether any
+#'                     outdated R libraries should be updated or not. If set to
+#'                     [FALSE] the function will merely post all outdated R libs
+#'                     to the R Console and not take any further action towards
+#'                     "fixing" the outdated R libraries.
+#' @param ssFuncType a character vector (string or text) that specifies the
+#'                   function type. OPTIONS: "Helper" (small to medium custom
+#'                   functions; less than 300 lines of code) and "LARGE" (massive
+#'                   custom function with >300 lines of code). If set to NULL
+#'                   the function type will be assigned the default value of "Helper".
+#' @param ssFormatDT a character vector (string or text) that specifies the
+#'                   DateTime format to be used for displaying date-times in
+#'                   the console.
+#' @param ssFuncSelfID a character vector (i.e. string or text) serving as a
+#'                     self-identifier (tag) for this "projs.check.libs()" function.
+#' @param sbRunSelfID a logical (boolean) argument that specifies whether the
+#'                    "projs.check.libs()" function should output its own identifier
+#'                    information alongside the user specified info (notification).
+#' @param ssFuncCallerID a character vector (string or text) serving as the
+#'                       identifier (tag) for the R Function or R Project that
+#'                       called (invoked) this "projs.check.libs()" function.
+#'
+#' @returns
+#' The function outputs a list containing to list items ...
+#'    - ReqLibs: a vector containing the R library IDs supplied via the
+#'                 "vsReqLibs" function argument.
+#'    - FI: additional information on the functions internal code execution
+#'            process.
+#'
+#' @examples
+#' ### Easily install missing and update outdated R Project Libraries as follows ...
+#' library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
+#'
+#'
+#'
+#' ### Install & Update the required R Project libraries ...
+#' vsReqLibs_ <- c("ggplot2", "lubridate", "dplyr")   # <- Specify the required R Libraries !!!
+#' projs.check.libs(          # <= Run the function with the "vsReqLibs" function argument
+#'   vsReqLibs = vsReqLibs_   #    provided accordingly !!!
+#' )
+#'
+#'
+#'
+#' @export
+#? ### ### ###
+"projs.check.libs" <- function(
+  vsReqLibs=NULL, sbFixLibs=FALSE, sbQuietInstall=FALSE, sbShowLibs=TRUE,
+  sbUpdateLibs=TRUE, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y %X",
   ssFuncSelfID="Check Proj. Libs", sbRunSelfID=FALSE, ssFuncCallerID=NULL
 ) {
 
@@ -252,5 +315,5 @@
 }
 
 
-proj.check.libs(vsReqLibs = c("ggplot2", "tidyr", "abind"))
+# projs.check.libs(vsReqLibs = c("ggplot2", "tidyr", "abind"))
 
