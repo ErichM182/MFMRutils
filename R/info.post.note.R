@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title Post a Note ...
+#' @title Post interactive (real-time) Project Notifications
 #' @description
 #' A Helper Function that standardizes the User / Project Information Posting (i.e. notification) Processes. This custom function was intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in other R packages.
 #'

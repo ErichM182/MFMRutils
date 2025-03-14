@@ -2,7 +2,7 @@
 % Please edit documentation in R/info.post.note.R
 \name{info.post.note}
 \alias{info.post.note}
-\title{Post a Note ...}
+\title{Post interactive (real-time) Project Notifications}
 \usage{
 info.post.note(
   ssPostNote = "NOTE to POST !!!",
