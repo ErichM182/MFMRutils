@@ -50,8 +50,10 @@
 #' ### Easily install missing and update outdated R Project Libraries ...
 #' library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
 #'
+#'
 #' ## Explicitly set a CRAN mirror ... (<- only needed for CRAN-CODE-CHECKS) !!!
 #' options(repos = c(CRAN = "https://cloud.r-project.org"))
+#'
 #'
 #' ### Install the required R Project libraries as follows ...
 #' vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
@@ -257,7 +259,7 @@
 
           # Notify user about the missing R libraries ...
           ssNoteLibsOUTDATED <- base::paste0(
-            "The following already installed Project ", base::ifelse(siVarLenOutdatedLibs == 1, "library", "libraries"), " can be updated: -> [\n",
+            "The following already installed ", base::ifelse(siVarLenOutdatedLibs == 1, "LIBRARY", "LIBRARIES"), " can be UPDATED: -> [\n",
             ' ', base::paste0(vsLibsUpdateSpecifics, collapse = ',\n '), '\n', "] <-"
           );
           MFMRutils::info.post.note(
