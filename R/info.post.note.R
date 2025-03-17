@@ -23,6 +23,7 @@
 #' @param csColorPostNote a character (string) value that defines the text color for the actual (main) notification text object of the posted note.
 #' @param csColorTrailIcon a character (string) value that defines the text color for the trailing (terminal) icon object of the posted note.
 #' @param ssFormatDT a character vector (string or text) that specifies the DateTime format to be used for displaying date-times in the console.
+#' @param sbFormatANSI a logical (boolean) argument whether to format the output post with "ANSI" formatting or to simply apply no formatting to the output post / notification.
 #' @param csANSIformCFID a character (string) value that defines the ANSI text font formatting for the CFID (Calling Function ID) string or character object of the posted note.
 #' @param csANSIformMidStub a character (string) value that defines the ANSI text font formatting for the middle separator (mid-stub) object of the posted note.
 #' @param csANSIformPostNote a character (string) value that defines the ANSI text font formatting for the actual (main) notification text object of the posted note.
@@ -52,8 +53,8 @@
   sbPrePendNL=FALSE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
   csColorMidStub=NULL, csColorPostNote=NULL, csColorTrailIcon=NULL,
   siPostMode123=2L, sbRetFuncInfo=FALSE, ssPreStub="=>", ssMidStub="|",
-  csColorPreStub=MFMRColors$YellowFORE, csColorCFID=MFMRColors$CyanFORE,
   sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y @ %X",
+  csColorPreStub=MFMRColors$YellowFORE, csColorCFID=MFMRColors$CyanFORE, sbFormatANSI=FALSE,
   csANSIformCFID=MFMRFormat$BOLD, csANSIformMidStub=MFMRFormat$BOLD, csANSIformPostNote=MFMRFormat$BOLD
 ) {
 
@@ -85,11 +86,11 @@
   if (ssPreStub == " => " || ssPreStub == "=>" ||
       ssPreStub == " -> "  || ssPreStub == "->") {
     ssPreSTUB_ <- base::paste0(
-      csColorPreStub,          # <- Apply the ANSI text color scheme ...
-      " ",                     # <- Add a leading whitespace character ...
+      csColorPreStub,         # <- Apply the ANSI text color scheme ...
+      " ",                    # <- Add a leading whitespace character ...
       MFMRIcons$ArrowRIGHT,   # <- Assign the MFMR Arrow Icon !!!
-      " ",                     # <- Add a trailing whitespace character ...
-      scTextFormatRESET        # <- Deactivate the ANSI text formatting !!!
+      " ",                    # <- Add a trailing whitespace character ...
+      scTextFormatRESET       # <- Deactivate the ANSI text formatting !!!
     )
   } else {
     ssPreSTUB_ <- base::paste0(
