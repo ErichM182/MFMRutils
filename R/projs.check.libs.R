@@ -76,8 +76,8 @@
 #? ### ### ###
 "projs.check.libs" <- function(
   vsReqLibs=NULL, sbFixLibs=FALSE, sbQuietInstall=FALSE, sbShowLibs=TRUE,
-  sbUpdateLibs=TRUE, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y %X",
-  ssFuncSelfID="Check Proj. Libs", sbRunSelfID=FALSE, ssFuncCallerID=NULL
+  ssFuncSelfID="Check Proj. Libs", sbRunSelfID=FALSE, ssFuncCallerID=NULL,
+  sbUpdateLibs=TRUE, ssFuncType=NULL, ssFormatDT="%a, %b %d %Y %X"
 ) {
 
   dtFuncSTART <- base::Sys.time();      # <- Extract Function START Time ...
