@@ -8,7 +8,7 @@
 An object of class \code{environment} of length 5.
 }
 \usage{
-MFMRFormat   ### ⬅ if "MFMRutils" is already installed & loaded !!!
+MFMRFormat   ### -> if "MFMRutils" is already installed & loaded !!!
 }
 \description{
 A collection of frequently used ANSI (American National Standards Institute)
@@ -16,12 +16,12 @@ Text Font Formats to support the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...
-MFMRFormat$BOLD      ### ⬅ sets the text font format to BOLD !!!
-MFMRFormat$ITALICS   ### ⬅ sets the text font format to ITALICS !!!
-MFMRFormat$RESET     ### ⬅ removes actively applied ANSI Text Formatting !!!
+MFMRFormat$BOLD      ### -> sets the text font format to BOLD !!!
+MFMRFormat$ITALICS   ### -> sets the text font format to ITALICS !!!
+MFMRFormat$RESET     ### -> removes actively applied ANSI Text Formatting !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::MFMRFormat$BOLD   ### ⬅ sets the text font format to BOLD !!!
+MFMRutils::MFMRFormat$BOLD   ### -> sets the text font format to BOLD !!!
 
 }
 \keyword{datasets}

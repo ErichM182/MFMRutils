@@ -16,12 +16,12 @@
 #'
 #' @examples
 #' ### Easily create Enumerated Data Objects (enums) as follows ...
-#' require(MFMRutils)   # <= Installs and loads the "MFMRutils" package ...
+#' require(MFMRutils)   # -> Installs and loads the "MFMRutils" package ...
 #'
 #'
 #' ## DEMO 1a - Create a 'uniform case' "PlotsThemes" enum ...
 #' enPlotsThemesD01 <- code.create.enum(
-#'   vsEnumVals = c("black_WHite", "ClasSIC",   # <= Observe how the input character values do
+#'   vsEnumVals = c("black_WHite", "ClasSIC",   # -> Observe how the input character values do
 #'   "dark", "gRAY", "lighT", "LINE_draw",      #    not have a standard (i.e. uniform) case !!!
 #'   "MiNiMAL", "voiD")
 #' );
@@ -40,32 +40,32 @@
 #' enPlotsThemesD02 <- code.create.enum(
 #'   vsEnumVals = c("black_WHite", "ClasSIC",
 #'   "dark", "gRAY", "lighT", "LINE_draw",
-#'   "MiNiMAL", "voiD"), sbKeepCase = TRUE      # <= Set to TRUE !!!
+#'   "MiNiMAL", "voiD"), sbKeepCase = TRUE      # -> Set to TRUE !!!
 #' );
 #'
 #' ## DEMO 2b - Results from DEMO 2a above ...
-#' enPlotsThemesD02$dark          # Output => 3 !!!
-#' enPlotsThemesD02$MiNiMAL       # Output => 7 !!!
-#' enPlotsThemesD02$black_WHite   # Output => 1 !!!
-#' enPlotsThemesD02$lighT         # Output => 5 !!!
+#' enPlotsThemesD02$dark          # Output -> 3 !!!
+#' enPlotsThemesD02$MiNiMAL       # Output -> 7 !!!
+#' enPlotsThemesD02$black_WHite   # Output -> 1 !!!
+#' enPlotsThemesD02$lighT         # Output -> 5 !!!
 #' # Please notice👆 that the enum values have the exact character cases as provided to
 #' # the function via the `vsEnumVals` function argument !!!
 #'
 #'
 #'
 #' ## DEMO 3a - The function is duplication-safe (when standardizing case) !!!
-#' enPlotsThemesD03 <- code.create.enum(         # <= This function was provided with duplicate
+#' enPlotsThemesD03 <- code.create.enum(         # -> This function was provided with duplicate
 #'   vsEnumVals = c("black_WHite", "ClasSIC",    #    values for the levels "Classic", "Dark"
 #'   "dark", "gRAY", "lighT", "LINE_draw",       #    and "Minimal" as input values !!!
 #'   "MiNiMAL", "voiD", "darK", "Dark", "DaRk",
 #'   "DarK", "claSSic", "CLASSic", "minIMAL",
-#'   "MINImal"), sbKeepCase = FALSE            # <= Set to FALSE - the duplication check only
+#'   "MINImal"), sbKeepCase = FALSE            # -> Set to FALSE - the duplication check only
 #' );                                          #    works if values are set to a uniform case !!!
 #'
 #' ## DEMO 3b - Results from DEMO 3a above ...
-#' enPlotsThemesD03$DARK      # Output => 3 !!!
-#' enPlotsThemesD03$MINIMAL   # Output => 7 !!!
-#' enPlotsThemesD03$CLASSIC   # Output => 2 !!!
+#' enPlotsThemesD03$DARK      # Output -> 3 !!!
+#' enPlotsThemesD03$MINIMAL   # Output -> 7 !!!
+#' enPlotsThemesD03$CLASSIC   # Output -> 2 !!!
 #' # Repeated values👆 are not allowed for Enumerated Data Objects. As such the function
 #' # only compiles (records) the first occurrence (index) of any duplicated input values !!!
 #'
@@ -83,9 +83,9 @@
     )
   } else {
 
-    if (sbKeepCase) {   # <= Maintain the character cases as supplied to function !!!
+    if (sbKeepCase) {   # -> Maintain the character cases as supplied to function !!!
       values <- base::unique(vsEnumVals);
-    } else {   # <= Standardize all character cases to UPPER CASE !!!
+    } else {   # -> Standardize all character cases to UPPER CASE !!!
       values <- base::unique(base::toupper(vsEnumVals));
     }
 

@@ -8,7 +8,7 @@
 An object of class \code{environment} of length 32.
 }
 \usage{
-MFMRColors   ### ⬅ if [MFMRutils] is already installed & loaded !!!
+MFMRColors   ### -> if [MFMRutils] is already installed & loaded !!!
 }
 \description{
 A collection of frequently used ANSI (American National Standards Institute)
@@ -16,12 +16,12 @@ Colours to support the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...
-MFMRColors$BlackFORE     ### ⬅ outputs the text in black font colour !!!
-MFMRColors$CyanFORE      ### ⬅ outputs the text in cyan font colour !!!
-MFMRColors$MagentaBACK   ### ⬅ outputs the text background in black font colour !!!
+MFMRColors$BlackFORE     ### -> outputs the text in black font colour !!!
+MFMRColors$CyanFORE      ### -> outputs the text in cyan font colour !!!
+MFMRColors$MagentaBACK   ### -> outputs the text background in black font colour !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::MFMRColors$CyanFORE   ### ⬅ outputs the text in cyan font colour !!!
+MFMRutils::MFMRColors$CyanFORE   ### -> outputs the text in cyan font colour !!!
 
 }
 \keyword{datasets}
