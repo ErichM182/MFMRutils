@@ -14,20 +14,20 @@
 #' A collection of frequently used ANSI (American National Standards Institute)
 #' Text Font Formats to support the MFMR Suite of R Functions.
 #'
-#' @usage MFMRFormat   ### <- if "MFMRutils" is already installed & loaded !!!
+#' @usage MFMRFormat   ### ⬅ if "MFMRutils" is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' MFMRFormat$BOLD      ### <- sets the text font format to BOLD !!!
-#' MFMRFormat$ITALICS   ### <- sets the text font format to ITALICS !!!
-#' MFMRFormat$RESET     ### <- removes actively applied ANSI Text Formatting !!!
+#' MFMRFormat$BOLD      ### ⬅ sets the text font format to BOLD !!!
+#' MFMRFormat$ITALICS   ### ⬅ sets the text font format to ITALICS !!!
+#' MFMRFormat$RESET     ### ⬅ removes actively applied ANSI Text Formatting !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::MFMRFormat$BOLD   ### <- sets the text font format to BOLD !!!
+#' MFMRutils::MFMRFormat$BOLD   ### ⬅ sets the text font format to BOLD !!!
 #'
 #' @export
 #? ### ### ###
-MFMRFormat <- {   # <- Define a static list of "ANSI" Text Formats !!!
+MFMRFormat <- {   # ⬅ Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
     base::list(
       RESET     = "\033[0m",   ### Output: Normal text !!!
@@ -39,7 +39,7 @@ MFMRFormat <- {   # <- Define a static list of "ANSI" Text Formats !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # <- return (export) the env-locked list !!!
+  envList;   # ⬅ return (export) the env-locked list !!!
 }
 
 
@@ -54,20 +54,20 @@ MFMRFormat <- {   # <- Define a static list of "ANSI" Text Formats !!!
 #' A collection of frequently used ANSI (American National Standards Institute)
 #' Colours to support the MFMR Suite of R Functions.
 #'
-#' @usage MFMRColors   ### <- if [MFMRutils] is already installed & loaded !!!
+#' @usage MFMRColors   ### ⬅ if [MFMRutils] is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' MFMRColors$BlackFORE     ### <- outputs the text in black font colour !!!
-#' MFMRColors$CyanFORE      ### <- outputs the text in cyan font colour !!!
-#' MFMRColors$MagentaBACK   ### <- outputs the text background in black font colour !!!
+#' MFMRColors$BlackFORE     ### ⬅ outputs the text in black font colour !!!
+#' MFMRColors$CyanFORE      ### ⬅ outputs the text in cyan font colour !!!
+#' MFMRColors$MagentaBACK   ### ⬅ outputs the text background in black font colour !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::MFMRColors$CyanFORE   ### <- outputs the text in cyan font colour !!!
+#' MFMRutils::MFMRColors$CyanFORE   ### ⬅ outputs the text in cyan font colour !!!
 #'
 #' @export
 #? ### ### ###
-MFMRColors <- {   # <- Define a static list of "ANSI" Text & Object Colours !!!
+MFMRColors <- {   # ⬅ Define a static list of "ANSI" Text & Object Colours !!!
   envList <- base::list2env(
     base::list(
       BlackFORE   = "\033[30m",   ### Output: "black-text"
@@ -107,7 +107,7 @@ MFMRColors <- {   # <- Define a static list of "ANSI" Text & Object Colours !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # <- return (export) the env-locked list !!!
+  envList;   # ⬅ return (export) the env-locked list !!!
 }
 
 
@@ -122,22 +122,23 @@ MFMRColors <- {   # <- Define a static list of "ANSI" Text & Object Colours !!!
 #' A collection of frequently used icons (Unicode characters) meant to support
 #' the MFMR Suite of R Functions.
 #'
-#' @usage MFMRIcons   ### <- if "MFMRutils" library is already installed & loaded !!!
+#' @usage MFMRIcons   ### ⬅ if "MFMRutils" library is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' MFMRIcons$OoglyEyes      ### <- prints "👀" to the R console !!!
-#' MFMRIcons$CheckMark      ### <- prints "✔" to the R console !!!
-#' MFMRIcons$SmileyPonder   ### <- prints "🤔" to the R console !!!
+#' MFMRIcons$OoglyEyes      ### ⬅ prints "👀" to the R console !!!
+#' MFMRIcons$CheckMark      ### ⬅ prints "✔" to the R console !!!
+#' MFMRIcons$SmileyPonder   ### ⬅ prints "🤔" to the R console !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::MFMRIcons$OoglyEyes   ### <- prints "👀" to the R console !!!
+#' MFMRutils::MFMRIcons$OoglyEyes   ### ⬅ prints "👀" to the R console !!!
 #'
 #' @export
 #? ### ### ###
-MFMRIcons <- {   # <- Define a static list of Unicode Character Icons !!!
+MFMRIcons <- {   # ⬅ Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(
     base::list(
+      ArrowLEFT    = "\u2B05",       ### Output: "⬅"
       ArrowRIGHT   = "\u279C",       ### Output: "➜"
       CheckMark    = "\u2714",       ### Output: "✔"
       FireFlame    = "\U0001F525",   ### Output: "🔥"
@@ -150,7 +151,7 @@ MFMRIcons <- {   # <- Define a static list of Unicode Character Icons !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # <- return (export) the env-locked list !!!
+  envList;   # ⬅ return (export) the env-locked list !!!
 }
 
 

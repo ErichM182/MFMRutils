@@ -40,13 +40,13 @@ during iterative development cycles.
 }
 \examples{
 ### Print a dummy notification ...
-# require(MFMRutils)             # <= Installs and loads the "MFMRutils" package ...
-# pkgs.check.code()              # <= when "MFMRutils" library is loaded !!!
-# MFMRutils::pkgs.check.code()   # <= when "MFMRutils" library is NOT loaded !!!
+# require(MFMRutils)             # ⬅  Installs and loads the "MFMRutils" package ...
+# pkgs.check.code()              # ⬅  when "MFMRutils" library is loaded !!!
+# MFMRutils::pkgs.check.code()   # ⬅  when "MFMRutils" library is NOT loaded !!!
 
 ### Run 2 different types of code checks ...
-# pkgs.check.code(sbRunDocs = TRUE)    # <= Executes only the DevTools Documentation Process.
-# pkgs.check.code(sbRunCheck = TRUE)   # <= Excecute the more complete CRAN Code Checks.
+# pkgs.check.code(sbRunDocs = TRUE)    # ⬅  Executes only the DevTools Documentation Process.
+# pkgs.check.code(sbRunCheck = TRUE)   # ⬅  Excecute the more complete CRAN Code Checks.
 
 ### Check (i.e. "devtools::check()") overrides the documentation process ...
 # # The Documentation Process will only be executed once if both are == TRUE !!!

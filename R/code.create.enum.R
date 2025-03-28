@@ -32,7 +32,7 @@
 #' enPlotsThemesD01$BLACK_WHITE   # Output => 1 !!!
 #' enPlotsThemesD01$LIGHT         # Output => 5 !!!
 #' enPlotsThemesD01$CLASSIC       # Output => 2 !!!
-#' # Have you noticed 👆 how the enum values have all been standardized to UPPER CASE? 👀
+#' # Have you noticed👆 how the enum values have all been standardized to UPPER CASE? 👀
 #'
 #'
 #'
@@ -48,7 +48,7 @@
 #' enPlotsThemesD02$MiNiMAL       # Output => 7 !!!
 #' enPlotsThemesD02$black_WHite   # Output => 1 !!!
 #' enPlotsThemesD02$lighT         # Output => 5 !!!
-#' # Please notice 👆 that the enum values have the exact character cases as provided to
+#' # Please notice👆 that the enum values have the exact character cases as provided to
 #' # the function via the `vsEnumVals` function argument !!!
 #'
 #'
@@ -66,7 +66,7 @@
 #' enPlotsThemesD03$DARK      # Output => 3 !!!
 #' enPlotsThemesD03$MINIMAL   # Output => 7 !!!
 #' enPlotsThemesD03$CLASSIC   # Output => 2 !!!
-#' # Repeated values 👆 are not allowed for Enumerated Data Objects. As such the function
+#' # Repeated values👆 are not allowed for Enumerated Data Objects. As such the function
 #' # only compiles (records) the first occurrence (index) of any duplicated input values !!!
 #'
 #' @export
