@@ -5,10 +5,10 @@
 \alias{MFMRIcons}
 \title{Unicode Icons for use in R (the \code{MFMRutils} selection)}
 \format{
-An object of class \code{environment} of length 8.
+An object of class \code{environment} of length 9.
 }
 \usage{
-MFMRIcons   ### <- if "MFMRutils" library is already installed & loaded !!!
+MFMRIcons   ### ⬅ if "MFMRutils" library is already installed & loaded !!!
 }
 \description{
 A collection of frequently used icons (Unicode characters) meant to support
@@ -16,12 +16,12 @@ the MFMR Suite of R Functions.
 }
 \examples{
 ### Easily print & assign icons as follows ...
-MFMRIcons$OoglyEyes      ### <- prints "👀" to the R console !!!
-MFMRIcons$CheckMark      ### <- prints "✔" to the R console !!!
-MFMRIcons$SmileyPonder   ### <- prints "🤔" to the R console !!!
+MFMRIcons$OoglyEyes      ### ⬅ prints "👀" to the R console !!!
+MFMRIcons$CheckMark      ### ⬅ prints "✔" to the R console !!!
+MFMRIcons$SmileyPonder   ### ⬅ prints "🤔" to the R console !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::MFMRIcons$OoglyEyes   ### <- prints "👀" to the R console !!!
+MFMRutils::MFMRIcons$OoglyEyes   ### ⬅ prints "👀" to the R console !!!
 
 }
 \keyword{datasets}

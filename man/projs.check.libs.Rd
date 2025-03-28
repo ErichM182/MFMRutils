@@ -9,12 +9,12 @@ projs.check.libs(
   sbFixLibs = FALSE,
   sbQuietInstall = FALSE,
   sbShowLibs = TRUE,
-  sbUpdateLibs = TRUE,
-  ssFuncType = NULL,
-  ssFormatDT = "\%a, \%b \%d \%Y \%X",
   ssFuncSelfID = "Check Proj. Libs",
   sbRunSelfID = FALSE,
-  ssFuncCallerID = NULL
+  ssFuncCallerID = NULL,
+  sbUpdateLibs = TRUE,
+  ssFuncType = NULL,
+  ssFormatDT = "\%a, \%b \%d \%Y \%X"
 )
 }
 \arguments{
@@ -33,6 +33,17 @@ libraries (i.e. required R libraries) should be printed out
 to the R Console or returned to the function output (result)
 at the completion of the function code execution.}
 
+\item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a
+self-identifier (tag) for this "projs.check.libs()" function.}
+
+\item{sbRunSelfID}{a logical (boolean) argument that specifies whether the
+"projs.check.libs()" function should output its own identifier
+information alongside the user specified info (notification).}
+
+\item{ssFuncCallerID}{a character vector (string or text) serving as the
+identifier (tag) for the R Function or R Project that
+called (invoked) this "projs.check.libs()" function.}
+
 \item{sbUpdateLibs}{a logical (boolean) argument that specifies whether any
 outdated R libraries should be updated or not. If set to
 \link{FALSE} the function will merely post all outdated R libs
@@ -48,17 +59,6 @@ the function type will be assigned the default value of "Helper".}
 \item{ssFormatDT}{a character vector (string or text) that specifies the
 DateTime format to be used for displaying date-times in
 the console.}
-
-\item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a
-self-identifier (tag) for this "projs.check.libs()" function.}
-
-\item{sbRunSelfID}{a logical (boolean) argument that specifies whether the
-"projs.check.libs()" function should output its own identifier
-information alongside the user specified info (notification).}
-
-\item{ssFuncCallerID}{a character vector (string or text) serving as the
-identifier (tag) for the R Function or R Project that
-called (invoked) this "projs.check.libs()" function.}
 }
 \value{
 The function outputs a list containing to list items ...
@@ -79,8 +79,10 @@ standalone function in other R packages.
 ### Easily install missing and update outdated R Project Libraries ...
 library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
 
+
 ## Explicitly set a CRAN mirror ... (<- only needed for CRAN-CODE-CHECKS) !!!
 options(repos = c(CRAN = "https://cloud.r-project.org"))
+
 
 ### Install the required R Project libraries as follows ...
 vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
