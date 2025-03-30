@@ -14,7 +14,8 @@ projs.check.libs(
   ssFuncCallerID = NULL,
   sbUpdateLibs = TRUE,
   ssFuncType = NULL,
-  ssFormatDT = "\%a, \%b \%d \%Y \%X"
+  ssFormatDT = "\%a, \%b \%d \%Y \%X",
+  sbPrintPretty = FALSE
 )
 }
 \arguments{
@@ -59,6 +60,10 @@ the function type will be assigned the default value of "Helper".}
 \item{ssFormatDT}{a character vector (string or text) that specifies the
 DateTime format to be used for displaying date-times in
 the console.}
+
+\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
+ANSI text font formatting should be applied to the
+printed notification or not.}
 }
 \value{
 The function outputs a list containing to list items ...
@@ -77,7 +82,7 @@ standalone function in other R packages.
 }
 \examples{
 ### Easily install missing and update outdated R Project Libraries ...
-library(MFMRutils)   # <= Load the `MFMRutils` library (if previously installed).
+library(MFMRutils)   # -> Load the `MFMRutils` library (if previously installed).
 
 
 ## Explicitly set a CRAN mirror ... (<- only needed for CRAN-CODE-CHECKS) !!!
@@ -86,18 +91,18 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 
 ### Install the required R Project libraries as follows ...
 vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
-projs.check.libs(           # <= Run the function with the "vsReqLibs" function argument
+projs.check.libs(           # -> Run the function with the "vsReqLibs" function argument
   vsReqLibs = vsReqLibs_,   #    provided accordingly ...
-  sbFixLibs = TRUE   # <= Set the "sbFixLibs" function argument to TRUE to ensure all
+  sbFixLibs = TRUE   # -> Set the "sbFixLibs" function argument to TRUE to ensure all
 )                    #    missing R Libraries are installed !!!
 
 
 
 ### Update outdated R Project libraries as follows ...
-vsReqLibs_ <- c("bench", "zoo")   # <- Specify the required R Libraries accordingly !!!
-projs.check.libs(           # <= Run the function with the "vsReqLibs" function argument
+vsReqLibs_ <- c("bench", "zoo")   # -> Specify the required R Libraries accordingly !!!
+projs.check.libs(           # -> Run the function with the "vsReqLibs" function argument
   vsReqLibs = vsReqLibs_,   #    provided accordingly !!!
-  sbFixLibs = TRUE,     # <= Set both the "sbFixLibs" and "sbUpdateLibs" function
+  sbFixLibs = TRUE,     # -> Set both the "sbFixLibs" and "sbUpdateLibs" function
   sbUpdateLibs = TRUE   #    arguments to TRUE to ensure all outdated R libraries
 )
 
