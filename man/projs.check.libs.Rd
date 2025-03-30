@@ -14,7 +14,8 @@ projs.check.libs(
   ssFuncCallerID = NULL,
   sbUpdateLibs = TRUE,
   ssFuncType = NULL,
-  ssFormatDT = "\%a, \%b \%d \%Y \%X"
+  ssFormatDT = "\%a, \%b \%d \%Y \%X",
+  sbPrintPretty = FALSE
 )
 }
 \arguments{
@@ -59,6 +60,10 @@ the function type will be assigned the default value of "Helper".}
 \item{ssFormatDT}{a character vector (string or text) that specifies the
 DateTime format to be used for displaying date-times in
 the console.}
+
+\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
+ANSI text font formatting should be applied to the
+printed notification or not.}
 }
 \value{
 The function outputs a list containing to list items ...

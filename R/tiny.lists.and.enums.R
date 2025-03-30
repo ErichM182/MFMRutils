@@ -138,7 +138,7 @@ MFMRColors <- {   # -> Define a static list of "ANSI" Text & Object Colours !!!
 MFMRIcons <- {   # -> Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(
     base::list(
-      ArrowLEFT    = "\u2B05",       ### Output: "->"
+      ArrowLEFT    = "\u2B05",       ### Output: "<-"
       ArrowRIGHT   = "\u279C",       ### Output: "➜"
       CheckMark    = "\u2714",       ### Output: "✔"
       FireFlame    = "\U0001F525",   ### Output: "🔥"

@@ -20,14 +20,14 @@ info.post.note(
   csColorMidStub = NULL,
   csColorPostNote = NULL,
   csColorTrailIcon = NULL,
-  siPostMode123 = 2L,
-  sbRetFuncInfo = FALSE,
-  ssPreStub = "=>",
-  ssMidStub = " | ",
   csANSIformMidStub = MFMRFormat$BOLD,
   csANSIformPostNote = MFMRFormat$BOLD,
   csColorPreStub = MFMRColors$YellowFORE,
   csColorCFID = MFMRColors$CyanFORE,
+  siPostMode123 = 2L,
+  sbRetFuncInfo = FALSE,
+  ssPreStub = " => ",
+  ssMidStub = " | ",
   sbFormatANSI = FALSE,
   sbPrintPretty = FALSE
 )
@@ -87,6 +87,20 @@ for the actual (main) notification text object of the posted note.}
 \item{csColorTrailIcon}{a character (string) value that defines the text color
 for the trailing (terminal) icon object of the posted note.}
 
+\item{csANSIformMidStub}{a character (string) value that defines the ANSI
+text font formatting for the middle separator (mid-stub) object of the posted
+note.}
+
+\item{csANSIformPostNote}{a character (string) value that defines the ANSI
+text font formatting for the actual (main) notification text object of the
+posted note.}
+
+\item{csColorPreStub}{a character (string) value that defines the text color
+for the caret (pre-stub) object of the posted note.}
+
+\item{csColorCFID}{a character (string) value that defines the text color for
+the CFID (Calling Function ID) object of the posted note.}
+
 \item{siPostMode123}{an integer value that defines the form of the output
 (notification) message to be printed to the console. OPTIONS: 1L (applies the
 "START" or "HEADER" form to the printed message), 2L (applies the "Normal"
@@ -108,20 +122,6 @@ is useful in standardizing the notification format for an entire R Project.}
 (ID "tag" and Messages) text of the output message (notification). This
 function argument is useful in standardizing the notification format for an
 entire R Project.}
-
-\item{csANSIformMidStub}{a character (string) value that defines the ANSI
-text font formatting for the middle separator (mid-stub) object of the posted
-note.}
-
-\item{csANSIformPostNote}{a character (string) value that defines the ANSI
-text font formatting for the actual (main) notification text object of the
-posted note.}
-
-\item{csColorPreStub}{a character (string) value that defines the text color
-for the caret (pre-stub) object of the posted note.}
-
-\item{csColorCFID}{a character (string) value that defines the text color for
-the CFID (Calling Function ID) object of the posted note.}
 
 \item{sbFormatANSI}{a logical (boolean) argument whether to format the output
 post with "ANSI" formatting or to simply apply no formatting to the output
