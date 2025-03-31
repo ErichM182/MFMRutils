@@ -100,11 +100,9 @@
 #'
 #' @export
 #? ### ### ###
-"info.post.note" <- function(
-  ssPostNote="NOTE to POST !!!", ssFuncSelfID="Info-Post-Note",
-  csTrailIcon=MFMRIcons$FireFlame, sbShowTrailIcon=FALSE,
-  sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL,
-  sbPrePendNL=FALSE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
+"temp.func.start.code" <- function(
+  ssFuncSelfID="TEMP-Func-Start-Code", sbRunSelfID=FALSE,
+  ssFuncCallerID=NULL, ssFuncType=NULL,
   ssFormatDT=MFMRDates$LONGv03, csANSIformCFID=MFMRFormat$BOLD,
   csColorMidStub=NULL, csColorPostNote=NULL, csColorTrailIcon=NULL,
   csANSIformMidStub=MFMRFormat$BOLD, csANSIformPostNote=MFMRFormat$BOLD,
@@ -113,6 +111,7 @@
   sbFormatANSI=FALSE, sbPrintPretty=FALSE
 ) {
 
+  # --- --- --- STANDARD: Function Self-ID - Part 1 - START --- --- --- #
   # Prime NB function parameters ...
   rdtFuncSTART <- base::Sys.time();    # -> Extract Function START Time ...
   rssFormatDTI <- ssFormatDT;          # -> DateTime Format for "FuncSelfID" Process ...
@@ -136,12 +135,15 @@
   if (sbRunSelfID) {
     base::cat(
       base::paste0(
-        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '",
+        base::ifelse(sbPrintPretty, MFMRIcons$ArrowRIGHT, " => "),
+        ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '",
         ssFuncType, "', Caller: '", ssFuncCallerID_, "', Time: ",
         base::format(rdtFuncSTART, rssFormatDTI), " }\n"
       )
     );
   }
+
+  # --- --- --- STANDARD - Function Self-ID - Part 1 - STOP --- --- --- #
 
   # Initialize the ANSI Text Format resetting code ...
   ### scTextFormatBOLD <- MFMRFormat$BOLD; # "\033[1m";
