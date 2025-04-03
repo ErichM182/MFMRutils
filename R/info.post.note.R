@@ -313,3 +313,232 @@
 }
 
 
+
+"info.post.note.v02" <- function(
+  ssPostNote="NOTE to POST !!!",
+  csTrailIcon=MFMRIcons$FireFlame, sbShowTrailIcon=FALSE,
+  sbRunSelfID=FALSE, ssFuncCallerID=NULL, ssFuncType=NULL,
+  sbPrePendNL=FALSE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
+  ssFormatDT=MFMRDates$LONGv03, csANSIformCFID=MFMRFormat$BOLD,
+  csColorMidStub=NULL, csColorPostNote=NULL, csColorTrailIcon=NULL,
+  csANSIformMidStub=MFMRFormat$BOLD, csANSIformPostNote=MFMRFormat$BOLD,
+  csColorPreStub=MFMRColors$YellowFORE, csColorCFID=MFMRColors$CyanFORE,
+  sbRetFuncInfo=FALSE, ssPreStub=" => ", ssMidStub=" | ",
+  sbUseRawForm=FALSE, sbPrintPretty=FALSE
+) {
+
+  ### STEP 1 - Define the "Function Self-ID" tag ... ####
+  ssFuncSelfID_ <- "Info-Post-Note";
+
+  ### STEP 2 - Capture the Dots Function Arguments ... ####
+  #            ( the "dots-args" will be handed over in subsequent steps )
+  vsDotsArgs_ <- base::list(...);
+
+  ### STEP 3 - Internalize ALL Function Arguments ... ####
+  #            ( i.e. hand-over all to func-args to func-local variables )
+  coFuncResList_ <- NULL;   # -> The <final> function outputs <results> object.
+  siPostMode123_ <- siPostMode123; ssFuncType_ <- ssFuncType;
+  csTrailIcon_ <- csTrailIcon; sbShowTrailIcon_ <- sbShowTrailIcon;
+  ssTimeStart_ <- ssTimeStart; ssTimeStop_ <- ssTimeStop; ssFormatDT_ <- ssFormatDT;
+  sbRunSelfID_ <- sbRunSelfID; ssFuncCallerID_ <- ssFuncCallerID; ssFuncType_ <- ssFuncType;
+
+
+  # Prime NB function parameters ...
+  rdtFuncSTART <- base::Sys.time();    # -> Extract Function START Time ...
+  rssFormatDTI <- ssFormatDT;          # -> DateTime Format for "FuncSelfID" Process ...
+  ssPreSTUB_ <- ssPreStub;             # -> A standardized start to all posted notes ...
+  ssFuncCallerID_ <- ssFuncCallerID;   # -> Simply use the normal text ...
+  ssMidSTUB_ <- ssMidStub;             # -> The middle separator stub ...
+
+
+  if (base::is.null(ssFuncCallerID)) {
+    ssFuncCallerID_ <- base::get0(
+      "rssTagProjID_",
+      envir = .GlobalEnv,
+      ifnotfound = "UNK. Proj. ID"
+    );
+  }
+
+  if (base::is.null(ssFuncType)) {
+    ssFuncType <- "Helper";   # ->  Options: "LARGE" ...or... "Helper" Function !!!
+  }
+
+  if (sbRunSelfID) {
+    base::cat(
+      base::paste0(
+        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '",
+        ssFuncType, "', Caller: '", ssFuncCallerID_, "', Time: ",
+        base::format(rdtFuncSTART, rssFormatDTI), " }\n"
+      )
+    );
+  }
+
+  # Initialize the ANSI Text Format resetting code ...
+  ### scTextFormatBOLD <- MFMRFormat$BOLD; # "\033[1m";
+  scTextFormatRESET <- MFMRFormat$RESET; # "\033[0m";   # -> Reset ANSI formatting !!!
+
+  # Update & format the caret (pre-stub) text object ...
+  if (sbPrintPretty) {
+    if (ssPreStub == " => " || ssPreStub == "=>" ||
+        ssPreStub == " -> "  || ssPreStub == "->") {
+      ssPreSTUB_ <- base::paste0(
+        csColorPreStub,         # -> Apply the ANSI text color scheme ...
+        " ",                    # -> Add a leading white space character ...
+        MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
+        " ",                    # -> Add a trailing white space character ...
+        scTextFormatRESET       # -> Deactivate the ANSI text formatting !!!
+      )
+    } else {
+      ssPreSTUB_ <- base::paste0(
+        csColorPreStub,     # -> Apply the ANSI text color scheme ...
+        " ",                # -> Add a leading white space character ...
+        ssPreStub,          # -> Apply the provided (requested) pre-stub !!!
+        " ",                # -> Add a trailing white space character ...
+        scTextFormatRESET   # -> Deactivate the ANSI text formatting !!!
+      )
+    }
+  } else {
+    if (ssPreStub == " => " || ssPreStub == "=>" ||
+        ssPreStub == " -> "  || ssPreStub == "->") {
+      ssPreSTUB_ <- " => ";  # -> Simply use a standard right arrow !!!
+    } else {
+      ssPreSTUB_ <- ssPreStub;
+    }
+  }
+
+  # Update & format the Caller Function ID text object ...
+  if (sbPrintPretty) {
+    ssFuncCallerID_ <- base::paste0(
+      csANSIformCFID,     # -> Apply the ANSI text format ...
+      csColorCFID,        # -> Apply the ANSI text color scheme ...
+      ssFuncCallerID,     # -> Apply the Calling Function's Identifier tag !!!
+      scTextFormatRESET   # -> Deactivate the ANSI text formatting !!!
+    );
+  } else {
+    ssFuncCallerID_ <- ssFuncCallerID;   # -> Simply use the normal text ...
+  }
+
+  # Update & format the middle separator (mid-stub) text object ...
+  if (sbPrintPretty) {
+    ssMidSTUB_ <- base::paste0(
+      csANSIformMidStub,   # -> Apply the ANSI text format ...
+      base::ifelse(        # -> Apply the ANSI text color scheme ...
+        base::is.null(csColorMidStub), csColorCFID, csColorMidStub
+      ),
+      ssMidStub,           # -> Insert the Mid-Stub character object !!!
+      scTextFormatRESET    # -> Deactivate the ANSI text formatting !!!
+    );
+  } else {
+    ssMidSTUB_ <- ssMidStub;
+  }
+
+  # Update & format the actual (main) Post Note text object ...
+  if (sbPrintPretty) {
+    ssPostNOTE_ <- base::paste0(
+      csANSIformPostNote,   # -> Apply the ANSI text format ...
+      base::ifelse(         # -> Apply the ANSI text color scheme ...
+        base::is.null(csColorPostNote), csColorCFID, csColorPostNote
+      ),
+      ssPostNote,           # -> Insert the Post Note text object !!!
+      scTextFormatRESET     # -> Deactivate the ANSI text formatting !!!
+    );
+  } else {
+    ssPostNOTE_ <- ssPostNote;
+  }
+
+  if (ssPostNote == "NOTE to POST !!!") {
+    sbShowTrailIcon <- TRUE;   # -> Activate the icon is on default text !!!
+  }
+
+  # Update & format the trailing icon object ...
+  csTrailingICON_ <- "";    # -> Start with a blank text object ...
+  if (sbShowTrailIcon) {
+    csTrailingICON_ <- base::paste0(
+      base::ifelse(         # -> Apply the ANSI text color scheme ...
+        base::is.null(csColorTrailIcon), "", csColorTrailIcon
+      ),
+      " ",                  # -> Add a leading whites pace character ...
+      csTrailIcon,          # -> Insert the Trailing Icon object !!!
+      " ",                  # -> Add a trailing white space character ...
+      scTextFormatRESET     # -> Deactivate the ANSI text formatting !!!
+    );
+  }
+
+  # Compile the function exiting parameters ...
+  rdtFuncSTOP <- base::Sys.time();   # ->  Extract Function STOP Time ...
+  rcoFuncINFO <- base::list(         # ->  Collate Key Function SelfID Information ...
+    "FuncID" = ssFuncSelfID, "CallerID" = ssFuncCallerID_,
+    "FuncSTART" = rdtFuncSTART, "FuncSTOP" = rdtFuncSTOP, "FuncType" = ssFuncType
+  )
+  if (sbRunSelfID) {
+    base::cat(
+      base::paste0(
+        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "STOP  { F-Type: '", ssFuncType,
+        "', Caller: '", ssFuncCallerID_, "', Time: ",
+        base::format(rdtFuncSTOP, rssFormatDTI), " }\n"
+      )
+    );
+  }
+
+  if (!sbRetFuncInfo) {
+    if (siPostMode123 == 1L) {
+      base::return(
+        base::cat(
+          base::paste0(
+            base::ifelse(sbPrePendNL, "\n", ""),
+            ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '", ssFuncType,
+            "', Caller: '", ssFuncCallerID_, "', Time: ",
+            base::format(rdtFuncSTART, rssFormatDTI), " }",
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
+          )
+        )
+      );
+    } else if (siPostMode123 == 2L) {
+      base::return(
+        base::cat(
+          base::paste0(
+            base::ifelse(sbPrePendNL, "\n", ""),
+            ssPreSTUB_, ssFuncCallerID_, ssMidSTUB_, ssPostNOTE_, csTrailingICON_,
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
+          )
+        )
+      );
+    } else {
+      base::return(
+        base::cat(
+          base::paste0(
+            base::ifelse(sbPrePendNL, "\n", ""),
+            ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "STOP  { F-Type: '", ssFuncType,
+            "', Caller: '", ssFuncCallerID_, "', Time: ",
+            base::format(rdtFuncSTOP, rssFormatDTI), " }",
+            base::ifelse(sbPostPendNL, "\n", ""),
+            base::ifelse(sbPostPend2ndNL, "\n", "")
+          )
+        )
+      );
+    }
+  } else {
+    ssPostNoteFINAL <- NULL;
+    if (siPostMode123 == 1L) {
+      ssPostNoteFINAL <- base::paste0(
+        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '", ssFuncType,
+        "', Caller: '", ssFuncCallerID_, "', Time: ",
+        base::format(rdtFuncSTART, rssFormatDTI), " }"
+      );
+    } else if (siPostMode123 == 2L) {
+      ssPostNoteFINAL <- base::paste0(
+        "> ", ssFuncCallerID_, " | ", ssPostNOTE_, csTrailingICON_
+      );
+    } else {
+      ssPostNoteFINAL <- base::paste0(
+        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "STOP  { F-Type: '", ssFuncType,
+        "', Caller: '", ssFuncCallerID_, "', Time: ",
+        base::format(rdtFuncSTOP, rssFormatDTI), " }"
+      );
+    }
+    base::return(base::list("Value" = ssPostNoteFINAL, "FI" = rcoFuncINFO));
+  }
+}
+

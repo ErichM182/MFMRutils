@@ -47,11 +47,27 @@
     if (siFuncMode12_ == 1L) {   # -> Run the `ENTER` func. mode code logic ...
 
       # 4.3.1.1 - Compile the `ENTER` notification (Func-Self-ID) text ...
-      ssNoteSelfID_ <- base::paste0(
-        "START { F-Type: '",
-        ssFuncType_, "', Caller: '", ssFuncCallerID_, "', Time: ",
-        base::format(ssTimeStart_, ssFormatDT_), " } ...\n"
-      );
+      if (base::is.null(vsDotsArgs_[["sbPrintPretty"]])) {
+        ssNoteSelfID_ <- base::paste0(
+          "START { F-Type: '",
+          ssFuncType_, "' < Caller: '", ssFuncCallerID_, "' > Time: ",
+          base::format(ssTimeStart_, ssFormatDT_), " }\n"
+        );
+      } else {
+        if (vsDotsArgs_[["sbPrintPretty"]]) {
+          ssNoteSelfID_ <- base::paste0(
+            "START { F-Type: '",
+            ssFuncType_, "' < Caller: '", ssFuncCallerID_, "' > Time: ",
+            base::format(ssTimeStart_, ssFormatDT_), " }\n"
+          );
+        } else {
+          ssNoteSelfID_ <- base::paste0(
+            "START { F-Type: '",
+            ssFuncType_, "' < Caller: '", ssFuncCallerID_, "' > Time: ",
+            base::format(ssTimeStart_, ssFormatDT_), " }\n"
+          );
+        }
+      }
 
     } else {   # -> Run the `EXIT` func. mode code logic ...
 
@@ -59,34 +75,31 @@
 
     # 4.3.1.2 - Post the `ENTER` notification (Func-Self-ID) text ...
     MFMRutils::info.post.note(
-      ssPostNote = ssNoteSelfID_
+      ssPostNote = ssNoteSelfID_,
+
+      sbPrintPretty = vsDotsArgs_[["sbPrintPretty"]],
+      ssFuncCallerID = vsDotsArgs_[["ssFuncCallerID"]]
     );
 
     # 4.3.1.3 - Output the `ENTER` "Func-Self-ID' properties ...
     coFuncResList_ <- base::list(
       "FuncType" = ssFuncType,
       "FuncSTART" = ssTimeStart_, "FuncSTOP" = ssTimeStop_,
-      "FuncID" = ssFuncSelfID_, "CallerID" = ssFuncCallerID_,
+      "FuncID" = ssFuncSelfID_, "CallerID" = ssFuncCallerID_
     );
-    base::return("FuncInfo" = coFuncResList_);
+    base::invisible(base::list("FuncInfo" = coFuncResList_));
 
   }
 
 }
 
-info.run.func.self.id(sbRunSelfID = T)
+### rssTagProjID_ <- "Test R ProJ"
+
+coResLst_ <- info.run.func.self.id(
+  ssFuncType = code.classify.func(4, 94),
+  ssFormatDT = MFMRDates$LONGv03, ssTimeStart = base::Sys.time(),
+  sbRunSelfID = T, sbPrintPretty = F, ssFuncCallerID = "Test-Func-ID"
+);
+base::cat(base::paste0(" > Func ID -> ", coResLst_$FuncInfo$FuncID, "\n"))
 
 
-### "test.dots.func.n02" <- function(sVarY=3, ...) {
-###   svDotsArgs <- base::list(...);
-###   base::cat(base::paste0(" => Var Y == ", sVarY, " !!!\n"));
-###   base::cat(base::paste0(" => sbVarZ == ", svDotsArgs[['sbVarZ']], " !!!\n"));
-###   base::cat(base::paste0(" => sbVarF == ", svDotsArgs[['sbVarF']], " !!!\n"));
-### }
-
-### "test.dots.func.n01" <- function(sVarX=28, ...) {
-###   base::cat(base::paste0(" => Var X == ", sVarX, " !!!\n"));
-###   test.dots.func.n02(sVarY = 21, ...);
-### }
-
-### test.dots.func.n01(sVarX=3, sbVarZ = 14, sbVarF = 7)

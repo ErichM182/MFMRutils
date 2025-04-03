@@ -28,9 +28,9 @@
 MFMRDates <- {   # -> Define a static list of Date-Time Text Formats !!!
   envList <- base::list2env(
     base::list(
-      LONGv01   = "%A, %d %B %Y @ %X",   ### -> Output: "Saturday, January 16 1982 @ 21:57:38" !!!
-      LONGv02   = "%a, %b %d %Y @ %X",   ### -> Output: "Sat, Jan 16 1982 @ 21:57:38" !!!
-      LONGv03   = "%a, %d %b %Y @ %X"   ### -> Output: "Sat, 16 Jan 1982 @ 21:57:38" !!!
+      LONGv01 = "%A, %d %B %Y @ %X",   ### -> Output: "Saturday, January 16 1982 @ 21:57:38" !!!
+      LONGv02 = "%a, %b %d %Y @ %X",   ### -> Output: "Sat, Jan 16 1982 @ 21:57:38" !!!
+      LONGv03 = "%a, %d %b %Y @ %X"    ### -> Output: "Sat, 16 Jan 1982 @ 21:57:38" !!!
     )
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
