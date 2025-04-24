@@ -324,20 +324,20 @@
   csANSIformMidStub=MFMRFormat$BOLD, csANSIformPostNote=MFMRFormat$BOLD,
   csColorPreStub=MFMRColors$YellowFORE, csColorCFID=MFMRColors$CyanFORE,
   sbRetFuncInfo=FALSE, ssPreStub=" => ", ssMidStub=" | ",
-  sbUseRawForm=FALSE, sbPrintPretty=FALSE
+  sbUseRawFormat=FALSE, sbPrintPretty=FALSE, ...
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
   ssFuncSelfID_ <- "Info-Post-Note";
 
-  ### STEP 2 - Capture the Dots Function Arguments ... ####
+  ### STEP 2 - Capture the Dots <elipsis> Function Arguments ... ####
   #            ( the "dots-args" will be handed over in subsequent steps )
   vsDotsArgs_ <- base::list(...);
 
   ### STEP 3 - Internalize ALL Function Arguments ... ####
   #            ( i.e. hand-over all to func-args to func-local variables )
   coFuncResList_ <- NULL;   # -> The <final> function outputs <results> object.
-  siPostMode123_ <- siPostMode123; ssFuncType_ <- ssFuncType;
+  ssFuncType_ <- ssFuncType;
   csTrailIcon_ <- csTrailIcon; sbShowTrailIcon_ <- sbShowTrailIcon;
   ssTimeStart_ <- ssTimeStart; ssTimeStop_ <- ssTimeStop; ssFormatDT_ <- ssFormatDT;
   sbRunSelfID_ <- sbRunSelfID; ssFuncCallerID_ <- ssFuncCallerID; ssFuncType_ <- ssFuncType;

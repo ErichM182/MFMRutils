@@ -1,9 +1,9 @@
 #? ### ### ### ### ### ### ###
 #' @title Classify any custom R function via its Code-Base-Weight (CBW)
 #' @description
-#' A silly <tiny> Helper Function that classifies a custom R function on the
-#' basis of the size of code that defines that functions (i.e. on the basis of
-#' the number of lines of code that constitutes the function itself). This custom
+#' A <tiny> Helper Function that classifies a custom R function on the basis
+#' of the size of code that defines that functions (i.e. on the basis of the
+#' number of lines of code that constitutes the function itself). This custom
 #' function was intended to mainly support the MFMR Suite of R Functions, but
 #' can be utilized as a standalone function in other R packages.
 #'
@@ -79,6 +79,10 @@
   }
 
   ### STEP 6 - Classify Function ... ####
-  base::invisible(ssFuncRes_);
+  base::return(ssFuncRes_);
 
 }
+
+
+# ssClassFunc <- code.classify.func()
+
