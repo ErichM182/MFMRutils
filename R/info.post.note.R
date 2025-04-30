@@ -4,7 +4,7 @@
 #' A Helper Function that standardizes the User / Project Information Posting
 #' (i.e. notification) Processes. This custom function was intended to mainly
 #' support the MFMR Suite of R Functions, but can be utilized as a standalone
-#' function in other (3rd Party) R packages.
+#' function in other (i.e. 3rd Party) R packages.
 #'
 #' @param ssNote the character vector (i.e. text string or note) to be printed
 #'               to the console. This text note is also returned as a function
@@ -61,17 +61,28 @@
 #' computed function information) as a list object.
 #'
 #' @examples
+#' 
 #' ### Print a dummy notification ...
-#' info.post.note()              # -> when "MFMRutils" library is loaded ...
-#' MFMRutils::info.post.note()   # -> when "MFMRutils" library is NOT loaded !!!
+#' info.post.note()              # -> when "MFMRutils" library is installed & loaded !!!
+#' MFMRutils::info.post.note()   # -> when "MFMRutils" library is installed, but NOT loaded !!!
 #'
-#' ### Print 3 different types of notifications ...
-#' info.post.note(siPostMode123 = 1L)   # -> Prints a START (header or beginning) notification ...
-#' info.post.note(siPostMode123 = 2L)   # -> Prints a Normal (default or body) notification ...
-#' info.post.note(siPostMode123 = 3L)   # -> Prints an STOP (footer or terminal) notification ...
 #'
-#' ### Print additional (function internal) information ...
-#' info.post.note(sbRetFuncInfo = TRUE)   # -> Outputs additional function information in list form ...
+#' ### Use "fall-through" function arguments to activate additional outputs ...
+#' info.post.note(sbRunSelfID = TRUE)   # -> Prints the custom R function's START (ENTRY) and
+#'                                      #    STOP (EXIT) "Self-Identifier" information ...
+#' info.post.note(                                  
+#'   sbRunSelfID = TRUE, 
+#'   ssFuncCallerID = "testR"           # -> Sets the Calling Function Identifier (tag) in the
+#' )                                    #    "Self-ID" info to a value of `testR` ...
+#' 
+#' info.post.note(                                  
+#'   sbRunSelfID = TRUE, 
+#'   ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
+#' )                                    #    info to a value of `MFMR-R-Suite` ...
+#'
+#'
+#' ~ ### Print additional (function internal) information ... ~
+#' ~ info.post.note(sbRetFuncInfo = TRUE) ~   # -> Outputs additional function information in list form ...
 #'
 #' @export
 #? ### ### ###
