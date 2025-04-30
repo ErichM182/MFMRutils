@@ -102,7 +102,7 @@
 #? ### ### ###
 "projs.init.dirs" <- function(
   ssFuncSelfID="Proj-Init-Dirs", svProjDirs=NULL, ssProjRoot=NULL,
-  ssFuncCallerID=NULL, sbPrintPretty=FALSE, ssFuncType=NULL
+  ssFuncCallerID=NULL, sbPrintPretty=FALSE, ssFuncType=NULL, ...
 ) {
 
   if (base::is.null(ssFuncCallerID)) {
@@ -149,11 +149,11 @@
     sItrDirsFL_ <- sItrDirsFL_ + 1;
     if (sItrDirsFL_ == 1) {
       ssNoteProjDirsHL_ <- "Create Project Dirs (if not exists) ...\n";
-      MFMRutils::info.post.note(
-        ssPostNote = ssNoteProjDirsHL_, siPostMode123 = 2,
-        ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
-        ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
-      );
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteProjDirsHL_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
     }
 
     # 3.2 - Check if Directory Path is located within Project <root> Path ...
@@ -172,20 +172,20 @@
       ssNoteDirCREATED_ <- base::paste0(
         'Project directory "', ssProjDirFIN_, '" created successfully !!!\n'
       );
-      MFMRutils::info.post.note(
-        ssPostNote = ssNoteDirCREATED_, siPostMode123 = 2,
-        ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
-        ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
-      );
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteDirCREATED_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
     } else {
       ssNoteDirEXISTS_ <- base::paste0(
         'Project directory "', ssProjDirFIN_, '" already exists !!!\n'
       );
-      MFMRutils::info.post.note(
-        ssPostNote = ssNoteDirEXISTS_, siPostMode123 = 2,
-        ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
-        ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
-      );
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteDirEXISTS_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
     }
   }
 }

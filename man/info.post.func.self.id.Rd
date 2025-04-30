@@ -21,7 +21,8 @@ info.post.func.self.id(
   csColorFuncType = NULL,
   csColorCallerID = NULL,
   csColorMain = NULL,
-  sbPrintPretty = TRUE
+  sbPrintPretty = TRUE,
+  ssFuncSelfID = NULL
 )
 }
 \arguments{
@@ -86,12 +87,8 @@ printed to the R Console.}
 }
 \value{
 This function returns a single \if{html}{\out{<abbreviated>}} character value that
-classifies five sizes (or classes) of custom R functions:
+classifies five sizes (or classes) of custom R functions: ...
 * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
-* "SML" -> a "Small" R Function (between 50 & 150 lines of code);
-* "MED" -> a "Medium" R Function (between 150 & 750 lines of code);
-* "LRG" -> a "Large" R Function (between 750 & 1500 lines of code);
-* "MSV" -> a "Massive" R Function (greater than 1500 lines of code);
 }
 \description{
 A \if{html}{\out{<tiny>}} Helper Function that compiles and prints the self-identification
@@ -103,19 +100,7 @@ of R Functions, but can be utilized as a standalone function in other R packages
 ### Classify your Custom R Function as follows:
 require(MFMRutils)   # -> Ensures the "MFMRutils" library is installed & loaded
 
-"my_cust_r_func" <- function() {   # -> Set this Code Editor Line Number `CELN`
-                                   #    as the `siFuncStartCELN` arg value !!!
-
-   # Define your custom function code logic here !!!
-
-   # Classify your custom function ...
-   ssFuncType <- MFMRutils::code.classify.func(1, 9)
-   base::cat(
-    base::paste0(
-      " => My Custom R Function Class == ", ssFuncType, " !!!\n"
-    )
-   )
-
-}   # -> Set this Code Editor Line Number `CELN`as the `siFuncStopCELN` arg value !!!
+info.post.func.self.id()   # -> Set this Code Editor Line Number `CELN`as the 
+                           #    `siFuncStopCELN` arg value !!!
 
 }

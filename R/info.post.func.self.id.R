@@ -50,31 +50,15 @@
 #'                         information text colour in the formatted text output.
 #'
 #' @returns This function returns a single <abbreviated> character value that
-#'          classifies five sizes (or classes) of custom R functions:
+#'          classifies five sizes (or classes) of custom R functions: ...
 #'          * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
-#'          * "SML" -> a "Small" R Function (between 50 & 150 lines of code);
-#'          * "MED" -> a "Medium" R Function (between 150 & 750 lines of code);
-#'          * "LRG" -> a "Large" R Function (between 750 & 1500 lines of code);
-#'          * "MSV" -> a "Massive" R Function (greater than 1500 lines of code);
 #'
 #' @examples
 #' ### Classify your Custom R Function as follows:
 #' require(MFMRutils)   # -> Ensures the "MFMRutils" library is installed & loaded
 #'
-#' "my_cust_r_func" <- function() {   # -> Set this Code Editor Line Number `CELN`
-#'                                    #    as the `siFuncStartCELN` arg value !!!
-#'
-#'    # Define your custom function code logic here !!!
-#'
-#'    # Classify your custom function ...
-#'    ssFuncType <- MFMRutils::code.classify.func(1, 9)
-#'    base::cat(
-#'     base::paste0(
-#'       " => My Custom R Function Class == ", ssFuncType, " !!!\n"
-#'     )
-#'    )
-#'
-#' }   # -> Set this Code Editor Line Number `CELN`as the `siFuncStopCELN` arg value !!!
+#' info.post.func.self.id()   # -> Set this Code Editor Line Number `CELN`as the 
+#'                            #    `siFuncStopCELN` arg value !!!
 #'
 #' @export
 #? ### ### ###
@@ -83,13 +67,14 @@
   csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
   csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
   csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, csColorMain=NULL,
-  sbPrintPretty=TRUE
+  sbPrintPretty=TRUE, ssFuncSelfID=NULL
 ) {
 
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
   #            ( this👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions]
   #            THAT DOES NOT SELF-IDENTIFY !!! )
-  ssFuncSelfID_ <- "RCF.Self-ID";
+  ssFuncSelfID_ <- "MFMR-Self.ID";
+  ### csTimeSTART_ <- base::Sys.time();
   ##### -> siFuncStartCELN_ <- 10; siFuncStopCELN_ <- 146; 
 
   
@@ -105,15 +90,23 @@
   csTimeStamp_ <- NULL;
   coListFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
   ssFuncType_ <- ssFuncType;
+  csBoldANSI_ <- MFMRutils::MFMRFormat$BOLD;
+  csResetANSI_ <- MFMRutils::MFMRFormat$RESET; 
   csIconSplit_ <- csIconSplit; csIconCarat_ <- csIconCarat; 
   ssFuncCallerID_ <- ssFuncCallerID; siFuncMode01_ <- siFuncMode01; 
-  csResetANSI_ <- MFMRFormat$RESET; csBoldANSI_ <- MFMRFormat$BOLD;
   
   
   
-  ### STEP 04 - Prime the DateTime Values ... ####
+  ### STEP 04 - Prime "Func-Self-ID" tag ... ####
+  if (!base::is.null(ssFuncSelfID)) {
+    ssFuncSelfID_ <- ssFuncSelfID;
+  }
+  
+  
+  
+  ### STEP 05 - Prime the DateTime Values ... ####
   csFormatDT_ <- base::ifelse(
-    base::is.null(csFormatDT), MFMRDates$LONGv03, csFormatDT
+    base::is.null(csFormatDT), MFMRutils::MFMRDates$LONGv03, csFormatDT
   );
   csTimeStart_ <- base::ifelse(
     base::is.null(csTimeStart), base::Sys.time(), csTimeStart
@@ -130,32 +123,39 @@
   
   
   
-  ### STEP 05 - Prime NB Colour Values ... ####
+  ### STEP 06 - Prime NB Colour Values ... ####
   csColorMain_ <- base::ifelse(
-    base::is.null(csColorMain), MFMRColors$CyanFORE, csColorMain
+    base::is.null(csColorMain), 
+    MFMRutils::MFMRColors$CyanFORE, csColorMain
   );
   csColorCarat_ <- base::ifelse(
-    base::is.null(csColorCarat), MFMRColors$YellowFORE, csColorCarat
+    base::is.null(csColorCarat), 
+    MFMRutils::MFMRColors$YellowFORE, csColorCarat
   );
   csColorSplit_ <- base::ifelse(
-    base::is.null(csColorSplit), MFMRColors$YellowFORE, csColorSplit
+    base::is.null(csColorSplit), 
+    MFMRutils::MFMRColors$YellowFORE, csColorSplit
   );
   csColorProjID_ <- base::ifelse(
-    base::is.null(csColorProjID), MFMRColors$GreenFORE, csColorProjID
+    base::is.null(csColorProjID), 
+    MFMRutils::MFMRColors$GreenFORE, csColorProjID
   );
   csColorFuncType_ <- base::ifelse(
-    base::is.null(csColorFuncType), MFMRColors$YellowFORE, csColorFuncType
+    base::is.null(csColorFuncType), 
+    MFMRutils::MFMRColors$YellowFORE, csColorFuncType
   );
   csColorCallerID_ <- base::ifelse(
-    base::is.null(csColorCallerID), MFMRColors$MagentaFORE, csColorCallerID
+    base::is.null(csColorCallerID), 
+    MFMRutils::MFMRColors$MagentaFORE, csColorCallerID
   );
   csColorTimeStamp_ <- base::ifelse(
-    base::is.null(csColorTimeStamp), MFMRColors$YellowFORE, csColorTimeStamp
+    base::is.null(csColorTimeStamp), 
+    MFMRutils::MFMRColors$YellowFORE, csColorTimeStamp
   );
   
   
   
-  ### STEP 06 - Extract the String Formatting Setting ... ####
+  ### STEP 07 - Extract the String Formatting Setting ... ####
   sbPrintPretty_ <- sbPrintPretty; 
   ## base::ifelse(
   ##   base::is.null(vsDotsArgs_[["sbPrintPretty"]]), 
@@ -214,17 +214,17 @@
   
   
   
-  ### STEP 07 - Apply the Carat Icon Setting ... ####
+  ### STEP 08 - Apply the Carat Icon Setting ... ####
   if (!base::is.null(csIconCarat_)) {   # <- Check that "IconCarat" is NOT NULL !!!
     if (sbPrintPretty_) {
       if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
           csIconCarat_ == "->" || csIconCarat_ == " -> ") {
         csIconCarat_ <- base::paste0(
-          " ",                    # -> Add "leading" white space ...
-          csColorCarat_,          # -> Apply specified text colour ...
-          MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-          " ",                    # -> Add "trailing" white space ...
-          csResetANSI_            # -> Deactivate text formatting !!!
+          " ",                               # -> Add "leading" white space ...
+          csColorCarat_,                     # -> Apply specified text colour ...
+          MFMRutils::MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
+          " ",                               # -> Add "trailing" white space ...
+          csResetANSI_                       # -> Deactivate text formatting !!!
         );
       } else {
         csIconCarat_ <- base::paste0(
@@ -239,11 +239,11 @@
   } else {
     if (sbPrintPretty_) {
       csIconCarat_ <- base::paste0(
-        " ",                    # -> Add "leading" white space ...
-        csColorCarat_,          # -> Apply specified text colour ...
-        MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-        " ",                    # -> Add "trailing" white space ...
-        csResetANSI_            # -> Deactivate text formatting !!!
+        " ",                               # -> Add "leading" white space ...
+        csColorCarat_,                     # -> Apply specified text colour ...
+        MFMRutils::MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
+        " ",                               # -> Add "trailing" white space ...
+        csResetANSI_                       # -> Deactivate text formatting !!!
       );
     } else {
       csIconCarat_ <- " => ";   # -> Apply a simple <default> Carat Icon !!!
@@ -252,7 +252,7 @@
   
   
   
-  ### STEP 08 - Apply the "Project-ID" Text Formatting ... ####
+  ### STEP 09 - Apply the "Project-ID" Text Formatting ... ####
   if (!base::is.null(ssProjID)) {
     ssProjID_ <- ssProjID;
   } else {
@@ -273,7 +273,7 @@
   
   
   
-  ### STEP 09 - Apply the "Split-Icon" Text Formatting ... ####
+  ### STEP 10 - Apply the "Split-Icon" Text Formatting ... ####
   if (!base::is.null(csIconSplit_)) {
     if (sbPrintPretty_) {
       csIconSplit_ <- base::paste0(
@@ -298,7 +298,7 @@
   
   
   
-  ### STEP 10 - Apply the "Func-Type" Text Formatting ... ####
+  ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
   if (!base::is.null(ssFuncType_)) {
     if (sbPrintPretty_) {
       ssFuncType_ <- base::paste0(
@@ -323,7 +323,7 @@
   
   
   
-  ### STEP 11 - Apply the "Caller-ID" Text Formatting ... ####
+  ### STEP 12 - Apply the "Caller-ID" Text Formatting ... ####
   if (!base::is.null(ssFuncCallerID_)) {
     if (sbPrintPretty_) {
       ssFuncCallerID_ <- base::paste0(
@@ -348,7 +348,7 @@
   
   
   
-  ### STEP 12 - Apply the "Time-Stamp" Text Formatting ... ####
+  ### STEP 13 - Apply the "Time-Stamp" Text Formatting ... ####
   if (siFuncMode01_ == 1L) {   # -> Apply the ENTER function Info !!!
     if (sbPrintPretty_) {
       csTimeStamp_ <- base::paste0(
@@ -359,9 +359,6 @@
       );
     } else {
       csTimeStamp_ <- csTimeStartFORMATTED_;
-      ## csTimeStamp_ <- base::format(        # -> Add the "Time-Stamp" string value !!!
-      ##   csTimeStart_, csFormatDT_
-      ## );
     }
   } else if (siFuncMode01_ == 0L) {   # -> Apply the EXIT function Info !!!
     if (sbPrintPretty_) {
@@ -391,19 +388,19 @@
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
           ),
           base::paste0(
-            csBoldANSI_, csColorMain_, "' < F-Type: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "'  <F-Type: '", csResetANSI_
           ), 
           ssFuncType_,
           base::paste0(
-            csBoldANSI_, csColorMain_, "' > Caller: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "'>  Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
           base::paste0(
-            csBoldANSI_, csColorMain_, "' < Time: ", csResetANSI_
+            csBoldANSI_, csColorMain_, "'  <Time: ", csResetANSI_
           ), 
           csTimeStamp_,
           base::paste0(
-            csBoldANSI_, csColorMain_, " > }\n", csResetANSI_
+            csBoldANSI_, csColorMain_, ">  }\n", csResetANSI_
           )
         )
       );
@@ -412,9 +409,9 @@
         base::paste0(
           csIconCarat_, ssProjID_, csIconSplit_,
           "F-START {  F-ID: '", ssFuncSelfID_, 
-          "'  < F-Type: '", ssFuncType_, 
-          "' >  Caller: '", ssFuncCallerID_,
-          "'  < Time: ", csTimeStamp_, " >  }\n"
+          "'  <F-Type: '", ssFuncType_, "'> ",
+          " Caller: '", ssFuncCallerID_,
+          "'  <Time: ", csTimeStamp_, ">  }\n"
         )
       );
     }
@@ -431,11 +428,11 @@
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
           ),
           base::paste0(
-            csBoldANSI_, csColorMain_, "' < Caller: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "'  <Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
           base::paste0(
-            csBoldANSI_, csColorMain_, "' > Time: ", csResetANSI_
+            csBoldANSI_, csColorMain_, "'>  Time: ", csResetANSI_
           ), 
           csTimeStamp_,
           base::paste0(
@@ -454,7 +451,7 @@
         base::paste0(
           csIconCarat_, ssProjID_, csIconSplit_,
           "F-STOP { F-ID: '", ssFuncSelfID_, 
-          "'  < Caller: '", ssFuncCallerID_, "' > ",
+          "'  <Caller: '", ssFuncCallerID_, "'> ",
           " Time: ", csTimeStamp_, "",
           " ( F-Dur: ", csDeltaTIME_, " ) }\n"
         )
