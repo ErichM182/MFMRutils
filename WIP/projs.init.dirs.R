@@ -1,10 +1,10 @@
 #? ### ### ### ### ### ### ###
-#' @title Post interactive (real-time) Project Notifications
+#' @title Initialize R Project Directories
 #' @description
-#' A Helper Function that standardizes the User / Project Information Posting
-#' (i.e. notification) Processes. This custom function was intended to mainly
-#' support the MFMR Suite of R Functions, but can be utilized as a standalone
-#' function in other R packages.
+#' A Helper Function that standardizes the R Project Directory creation (i.e.
+#' initialization) process. This custom function was intended to mainly support
+#' the MFMR Suite of R Functions, but can be utilized as a standalone function
+#' in other R packages.
 #'
 #' @param ssPostNote the character vector (i.e. string or text or note) to be
 #' printed to the console. This text note is also returned as a function output
@@ -91,80 +91,103 @@
 #' MFMRutils::info.post.note()   # -> when "MFMRutils" library is NOT loaded !!!
 #'
 #' ### Print 3 different types of notifications ...
-#' info.post.note(siPostMode123 = 1L)   # -> Prints a START (header or beginning) notification ...
-#' info.post.note(siPostMode123 = 2L)   # -> Prints a Normal (default or body) notification ...
-#' info.post.note(siPostMode123 = 3L)   # -> Prints an STOP (footer or terminal) notification ...
+#' info.post.note(siPostMode123 = 1L)   # -> Prints a START (header) or beginning notification ...
+#' info.post.note(siPostMode123 = 2L)   # -> Prints a Normal (default) or body notification ...
+#' info.post.note(siPostMode123 = 3L)   # -> Prints an STOP (footer) or terminal notification ...
 #'
 #' ### Print additional (function internal) information ...
 #' info.post.note(sbRetFuncInfo = TRUE)   # -> Outputs additional function information in list form ...
 #'
 #' @export
 #? ### ### ###
-"info.post.note" <- function(
-  ssNote="NOTE to POST !!!", 
-  ssHeader=NULL, csIconCarat="=>",
-  csColorNote=MFMRutils::MFMRColors$CyanFORE,
-  csColorHeader=MFMRutils::MFMRColors$GreenFORE, 
-  csColorCarat=MFMRutils::MFMRColors$YellowFORE, 
-  csColorSplit=MFMRutils::MFMRColors$YellowFORE,
-  csIconSplit="|", csIconTail=MFMRIcons$FireFlame, sbShowTail=TRUE,
-  sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, sbPrintPretty=FALSE, ...
+"projs.init.dirs" <- function(
+  ssFuncSelfID="Proj-Init-Dirs", svProjDirs=NULL, ssProjRoot=NULL,
+  ssFuncCallerID=NULL, sbPrintPretty=FALSE, ssFuncType=NULL, ...
 ) {
-  
-  ### STEP 01 - Define the "Function Self-ID" tag ... ####
-  #            ( this👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions]
-  #            THAT DOES NOT SELF-IDENTIFY !!! )
-  ssFuncSelfID_ <- "MFMR-Post.Note";
-  csTimeSTART_ <- base::Sys.time();
-  siStartCELN_ <- 112; siStopCELN_ <- 165;
-  
-  
-  
-  ### STEP 02 - Capture NB Function "DotsArgs" here ... ####
-  #            ( the "dots-args" will be handed over in subsequent steps ) ...
-  vsDotsArgs_ <- base::list(...);
-  sbDotArgRunSelfID_ <- vsDotsArgs_[["sbRunSelfID"]];
-  ssDotArgFuncCallrID_ <- vsDotsArgs_[["ssFuncCallerID"]];
-  
-  
-  
-  ### STEP 03 - Internalize ALL Function Arguments here ... ####
-  #            ( i.e. hand-over all to func-args to func-local variables )
-  coListFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
-  csIconSplit_ <- csIconSplit; csIconTail_ <- csIconTail;
-  sbShowTail_ <- sbShowTail; sbPrintPretty_ <- sbPrintPretty;
-  csColorCarat_ <- csColorCarat; csColorSplit_ <- csColorSplit;
-  csColorHeader_ <- csColorHeader; csColorNote_ <- csColorNote;
-  sbPostPendNL_ <- sbPostPendNL; sbPostPend2ndNL_ <- sbPostPend2ndNL;
-  csIconCarat_ <- csIconCarat; ssHeader_ <- ssHeader; ssNote_ <- ssNote;
-  
-  
-  
-  ### STEP 04 - Prime the "Header" text ... ####
-  if (base::is.null(ssHeader_)) {
-    ssHeader_ <- base::get0(
+
+  if (base::is.null(ssFuncCallerID)) {
+    ssFuncCallerID <- base::get0(
       "rssTagProjID_",
       envir = .GlobalEnv,
       ifnotfound = "UNK. Proj. ID"
     );
   }
-  
-  
-  
-  ### STEP 05 - Prime the "Header" text ... ####
-  if (!base::is.null(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
-    MFMRutils::info.post.func.self.id(
-      ssProjID = ssHeader_, siFuncMode01 = 1L, 
-      sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
-      ssFuncSelfID = ssFuncSelfID_, ssFuncCallerID = ssDotArgFuncCallrID_,
-      ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_)
+
+  if (base::is.null(ssFuncType)) {
+    ssFuncType <- "Helper";   # ->  Options: "LARGE" ...or... "Helper" Function !!!
+  }
+
+  if (sbRunSelfID) {
+    base::cat(
+      base::paste0(
+        ssPreSTUB_, ssFuncSelfID, ssMidSTUB_, "START  { F-Type: '",
+        ssFuncType, "', Caller: '", ssFuncCallerID_, "', Time: ",
+        base::format(rdtFuncSTART, rssFormatDTI), " }\n"
+      )
     );
   }
 
-  
+  # STEP 1 - Ensure that "svProjDirs" is NOT NULL !!!
+  svProjDirs_ <- svProjDirs;
+  if (base::is.null(svProjDirs_)) {
+    svProjDirs_ <- c(   # -> Add two standard Data directory paths ...
+      "./Data/Inputs (raw)", "./Data/Outputs (proc)"
+    );
+  }
+
+  # STEP 2 - Ensure that "ssProjRoot" is NOT NULL !!!
+  ssProjRoot_ <- ssProjRoot;
+  if (base::is.null(svProjDirs_)) {
+    ssProjRoot_ <- ".";   # -> Add the default "Project Root" notation !!!
+  }
+
+  # STEP 3 - Create requested Project Directories accordingly ...
+  sItrDirsFL_ <- 0;
+  for (ssProjDir in svProjDirs_) {
+
+    # 3.1 - Post a high-level (once-off) Dir Creation notification ...
+    sItrDirsFL_ <- sItrDirsFL_ + 1;
+    if (sItrDirsFL_ == 1) {
+      ssNoteProjDirsHL_ <- "Create Project Dirs (if not exists) ...\n";
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteProjDirsHL_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
+    }
+
+    # 3.2 - Check if Directory Path is located within Project <root> Path ...
+    ssProjDirFIN_ <- "Short";
+    if (base::grepl(ssProjRoot_, ssProjDir)) {
+      # Shorten Directory Path (if it matches the Project Path) !!!
+      ssProjDirFIN_ <- base::sub(ssProjRoot_, ".", ssProjDir);
+    } else {
+      # ... else simply assign it as the final project directory ...
+      ssProjDirFIN_ <- ssProjDir;
+    }
+
+    # 3.3 - Create the Project Directories as requested ...
+    if (!base::dir.exists(ssProjDir)) {
+      base::dir.create(ssProjDir, recursive = TRUE);
+      ssNoteDirCREATED_ <- base::paste0(
+        'Project directory "', ssProjDirFIN_, '" created successfully !!!\n'
+      );
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteDirCREATED_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
+    } else {
+      ssNoteDirEXISTS_ <- base::paste0(
+        'Project directory "', ssProjDirFIN_, '" already exists !!!\n'
+      );
+      ### MFMRutils::info.post.note(
+      ###   ssPostNote = ssNoteDirEXISTS_, siPostMode123 = 2,
+      ###   ssFuncType = ssFuncType, ssFuncSelfID = ssFuncSelfID,
+      ###   ssFuncCallerID = ssFuncCallerID, sbPrintPretty = sbPrintPretty
+      ### );
+    }
+  }
 }
 
-## MFMRutils::info.post.note(
-##   sbRunSelfID = T, sbPrintPretty = T, ssFuncCallerID = "TESTr"
-## )
 
