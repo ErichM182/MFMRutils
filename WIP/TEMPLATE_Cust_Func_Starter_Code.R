@@ -104,7 +104,7 @@
   #            THAT DOES NOT SELF-IDENTIFY !!! )
   ssFuncSelfID_ <- "MFMR-Post.Note";
   csTimeSTART_ <- base::Sys.time();
-  siStartCELN_ <- 100; siStopCELN_ <- 191;
+  siStartCELN_ <- 100; siStopCELN_ <- 197;
   
   
   
@@ -167,7 +167,18 @@
   
   
   
+  ### . --- --- --- > Custom Function CODE LOGIC - START < --- --- --- . ####
   ### STEP 06 - Execute this Custom Function's Code logic here ... ####
+  ## 6.1 - Prime the carat symbol accordingly ... ####
+  if (sbPrintPretty) {
+    
+  }
+  
+  ## 6.7 - LASLTY -> Prime FUNCTION RESULTS accordingly ... ####
+  coListFuncRes_ <- base::list(
+    "kRes01" = "1982-01-16", "kRes02" = 1982L, "kRes03" = 16L
+  );
+  ### . --- --- --- > Custom Function CODE LOGIC - STOP < --- --- --- . ####
   
   
   
@@ -186,6 +197,11 @@
       csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
     );
   }
+  
+  
+  
+  ### STEP 08 - Return FUNCTION OUTPUTS to function call ... ####
+  base::invisible(coListFuncRes_);
   
   
 }

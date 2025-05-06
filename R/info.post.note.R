@@ -56,9 +56,9 @@
 #'
 #' @returns
 #' * This function prints the specified text (notification) directly to the
-#' console even if the function outputs are assigned to a variable.
-#' * This function also outputs additional function information (i.e. internally
-#' computed function information) as a list object.
+#' active R-Session Console <even if the function outputs are assigned to a variable> !!!
+#' * This function also outputs the full (complete) notification message as an
+#' invisible function return value (result).
 #'
 #' @examples
 #' 
@@ -80,10 +80,6 @@
 #'   ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
 #' )                                    #    info to a value of `MFMR-R-Suite` ...
 #'
-#'
-#' ~ ### Print additional (function internal) information ... ~
-#' ~ info.post.note(sbRetFuncInfo = TRUE) ~   # -> Outputs additional function information in list form ...
-#'
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
@@ -104,7 +100,7 @@
   #            THAT DOES NOT SELF-IDENTIFY !!! )
   ssFuncSelfID_ <- "MFMR-Post.Note";
   csTimeSTART_ <- base::Sys.time();
-  siStartCELN_ <- 81; siStopCELN_ <- 165;
+  siStartCELN_ <- 100; siStopCELN_ <- 165;
   
   
   
@@ -167,7 +163,94 @@
   
   
   
-  ### STEP 06 - Execute the Custom Function Code logic here ... ####
+  ### . --- --- --- > Custom Function CODE LOGIC - START < --- --- --- . ####
+  ### STEP 06 - Execute this Custom Function's Code logic here ... ####
+  ## 6.1 - Prime Standard Text Formatters here ... ####
+  csFormatBOLD_ <- MFMRutils::MFMRFormat$BOLD;
+  csFormatRESET_ <- MFMRutils::MFMRFormat$RESET;
+  
+  
+  ## 6.2 - Prime the CARAT icon accordingly ... ####
+  if (sbPrintPretty) {
+    if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
+        csIconCarat_ == "->" || csIconCarat_ == " -> ") {
+      csIconCarat_ <- base::paste0(
+        csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
+        MFMRutils::MFMRIcons$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
+        csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
+      );
+    } else {
+      csIconCarat_ <- base::paste0(
+        csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
+        csIconCarat_,                        # -> Adds the user-defined carat icon (symbol or text object) ...
+        csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
+      );
+    }
+  }
+  
+  
+  ## 6.3 - Prime the HEADER text accordingly ... ####
+  if (sbPrintPretty) {
+    ssHeader_ <- base::paste0(
+      csFormatBOLD_, csColorHeader_,   # -> Adds the BOLD & Colour text formats ...
+      ssHeader_,                       # -> Adds the HEADER text value ...
+      csFormatRESET_                   # -> Closes text formatting ...
+    );
+  }
+  
+  
+  ## 6.4 - Prime the SPLIT icon accordingly ... ####
+  if (sbPrintPretty) {
+    if (csIconSplit_ == "|" || csIconSplit_ == " | "  || csIconSplit_ == "  |  ") {
+      csIconSplit_ <- base::paste0(
+        csFormatBOLD_, csColorSplit_,   # -> Adds the BOLD & Colour text formats ...
+        " | ",                          # -> Adds a default <standardized> SPLIT icon ...
+        csFormatRESET_                  # -> Closes text formatting ...
+      );
+    } else {
+      csIconSplit_ <- base::paste0(
+        csFormatBOLD_, csColorSplit_, " ",   # -> Adds the BOLD & Colour text formats ...
+        csIconSplit_,                        # -> Adds the user-defined SPLIT icon ...
+        csFormatRESET_, " "                  # -> Closes text formatting ...
+      );
+    }
+  }
+  
+  
+  ## 6.5 - Prime the NOTE text accordingly ... ####
+  if (sbPrintPretty) {
+    ssNote_ <- base::paste0(
+      csFormatBOLD_, csColorNote_,   # -> Adds the BOLD & Colour text formats ...
+      ssNote_,                       # -> Adds the NOTE text value ...
+      csFormatRESET_                 # -> Closes text formatting ...
+    );
+  }
+  
+  
+  ## 6.6 - Prime the TAIL icon accordingly ... ####
+  if (sbShowTail_) {
+    if (sbPrintPretty) {
+      csIconTail_ <- base::paste0(
+        " ",          # -> Adds a pre-pended spacer ...
+        csIconTail_   # -> Adds the defined TAIL icon (or symbol) ...
+      );
+    }
+  } else {
+    csIconTail_ <- "";   # -> Assigns a "zero-byte" value <blank> as the TAIL icon !!!
+  }
+  
+  
+  ## 6.7 - FINALLY -> Compile & Post FULL MESSAGE text !!! ####
+  csFullNote_ <- base::paste0(
+    base::ifelse(sbPrePendNL, "\n", ""),       # -> Adds pre-pended NEW LINE (if so requested) !!!
+    csIconCarat_, ssHeader_, csIconSplit_,     # -> Adds CARAT icon, HEADER text & SPLIT icon in sequence ...
+    ssNote_, csIconTail_,                      # -> Adds NOTE (main body) text and TAIL icon (if requested) in sequence ...
+    base::ifelse(sbPostPendNL_, "\n", ""),     # -> Adds 1st post-pended NEW LINE (if so requested) !!!
+    base::ifelse(sbPostPend2ndNL_, "\n", "")   # -> Adds 2nd post-pended NEW LINE (if so requested) !!!
+  );
+    
+  base::cat(csFullNote_);   # -> Prints (outputs) full notification <message> to active R-Session Console window !!!
+  ### . --- --- --- > Custom Function CODE LOGIC - STOP < --- --- --- . ####
   
   
   
@@ -187,7 +270,8 @@
     );
   }
 
-  
+  ### Output the full notification text <message> as the function's return value ###
+  base::invisible(csFullNote_);
 }
 
 
