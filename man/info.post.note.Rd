@@ -88,9 +88,9 @@ are related to the "MFMRutils::info.post.func.self.id()" function
 \value{
 \itemize{
 \item This function prints the specified text (notification) directly to the
-console even if the function outputs are assigned to a variable.
-\item This function also outputs additional function information (i.e. internally
-computed function information) as a list object.
+active R-Session Console \if{html}{\out{<even if the function outputs are assigned to a variable>}} !!!
+\item This function also outputs the full (complete) notification message as an
+invisible function return value (result).
 }
 }
 \description{
@@ -118,9 +118,5 @@ info.post.note(
   sbRunSelfID = TRUE, 
   ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
 )                                    #    info to a value of `MFMR-R-Suite` ...
-
-
-~ ### Print additional (function internal) information ... ~
-~ info.post.note(sbRetFuncInfo = TRUE) ~   # -> Outputs additional function information in list form ...
 
 }
