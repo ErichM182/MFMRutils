@@ -87,16 +87,16 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  ssNote="NOTE to POST !!!",
-  ssHeader=NULL, csIconCarat="=>",
-  csIconSplit="|", sbShowTail=TRUE,
-  sbPrePendNL=FALSE, sbPrintPretty=TRUE,
-  sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, 
-  csIconTail=MFMRutils::MFMRIcons$FireFlame,
-  csColorNote=MFMRutils::MFMRColors$CyanFORE,
-  csColorHeader=MFMRutils::MFMRColors$GreenFORE, 
-  csColorCarat=MFMRutils::MFMRColors$YellowFORE, 
-  csColorSplit=MFMRutils::MFMRColors$YellowFORE, ...
+    ssNote="NOTE to POST !!!",
+    ssHeader=NULL, csIconCarat="=>",
+    csIconSplit="|", sbShowTail=TRUE,
+    sbPrePendNL=FALSE, sbPrintPretty=TRUE,
+    sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, 
+    csIconTail=MFMRutils::MFMRIcons$FireFlame,
+    csColorNote=MFMRutils::MFMRColors$CyanFORE,
+    csColorHeader=MFMRutils::MFMRColors$GreenFORE, 
+    csColorCarat=MFMRutils::MFMRColors$YellowFORE, 
+    csColorSplit=MFMRutils::MFMRColors$YellowFORE, ...
 ) {
   
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
@@ -104,7 +104,7 @@
   #            THAT DOES NOT SELF-IDENTIFY !!! )
   ssFuncSelfID_ <- "MFMR-Post.Note";
   csTimeSTART_ <- base::Sys.time();
-  siStartCELN_ <- 81; siStopCELN_ <- 165;
+  siStartCELN_ <- 100; siStopCELN_ <- 191;
   
   
   
@@ -167,7 +167,7 @@
   
   
   
-  ### STEP 06 - Execute the Custom Function Code logic here ... ####
+  ### STEP 06 - Execute this Custom Function's Code logic here ... ####
   
   
   
@@ -186,16 +186,8 @@
       csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
     );
   }
-
+  
   
 }
-
-
-
-### rssTagProjID_ <- "MFMR-R-Suite v101"
-
-### MFMRutils::info.post.note(
-###   sbRunSelfID = T, sbPrintPretty = T, ssFuncCallerID = "TESTr"
-### )
 
 
