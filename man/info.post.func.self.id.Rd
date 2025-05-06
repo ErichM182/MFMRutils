@@ -84,6 +84,11 @@ text colour in the formatted text output.}
 \item{sbPrintPretty}{a logical (boolean) value that defines whether the output
 text (Self-ID Function Info) should be formatted when
 printed to the R Console.}
+
+\item{ssFuncSelfID}{a character (text string) identifier for the active R
+Function being called (or being executed). If set to NULL
+the hard-coded "info.post.func.self.id()" function ID
+(i.e. "MFMR-Self.ID") will be used in the printed result.}
 }
 \value{
 This function returns a single \if{html}{\out{<abbreviated>}} character value that

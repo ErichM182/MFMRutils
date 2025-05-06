@@ -49,7 +49,7 @@
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  ssFuncSelfID_ <- "Code-Classify-Func";
+  ssFuncSelfID_ <- "MFMR.Classify-Func";
 
   ### STEP 2 - Internalize ALL Function Arguments ... ####
   #            ( i.e. hand-over all to func-args to func-local variables )

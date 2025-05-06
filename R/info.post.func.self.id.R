@@ -8,6 +8,10 @@
 #'
 #' @param ssProjID a character (string) identifier of the R Project <script>
 #'                 file that called the custom R function execution.
+#' @param ssFuncSelfID a character (text string) identifier for the active R 
+#'                     Function being called (or being executed). If set to NULL
+#'                     the hard-coded "info.post.func.self.id()" function ID 
+#'                     (i.e. "MFMR-Self.ID") will be used in the printed result. 
 #' @param ssFuncCallerID a character (string) value that identifies the parent
 #'                       function that invoked that execution of the active or
 #'                       current function.

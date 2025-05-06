@@ -8,116 +8,82 @@ info.post.note(
   ssNote = "NOTE to POST !!!",
   ssHeader = NULL,
   csIconCarat = "=>",
+  csIconSplit = "|",
+  sbShowTail = TRUE,
+  sbPrePendNL = FALSE,
+  sbPrintPretty = TRUE,
+  sbPostPendNL = TRUE,
+  sbPostPend2ndNL = FALSE,
+  csIconTail = MFMRutils::MFMRIcons$FireFlame,
   csColorNote = MFMRutils::MFMRColors$CyanFORE,
   csColorHeader = MFMRutils::MFMRColors$GreenFORE,
   csColorCarat = MFMRutils::MFMRColors$YellowFORE,
   csColorSplit = MFMRutils::MFMRColors$YellowFORE,
-  csIconSplit = "|",
-  csIconTail = MFMRIcons$FireFlame,
-  sbShowTail = TRUE,
-  sbPostPendNL = TRUE,
-  sbPostPend2ndNL = FALSE,
-  sbPrintPretty = FALSE,
   ...
 )
 }
 \arguments{
-\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the END of a posted note.}
+\item{ssNote}{the character vector (i.e. text string or note) to be printed
+to the console. This text note is also returned as a function
+output under the "value" option of this function's results list.}
 
-\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a
-second line (blank space or row) should be added to the END of a posted note.
-This function argument can be useful for clearly delineating sections within
-a custom R Function and/or R Project.}
+\item{ssHeader}{a character vector (string or text) that defines the starting
+text of the output message (notification). This function
+argument is useful in standardizing the notification format
+for an entire R Project.}
 
-\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
-ANSI text font formatting should be applied to the printed notification or not.}
+\item{csIconCarat}{a character vector (text string or object) that defines
+the leading symbol (icon) of the printed notification.}
 
-\item{ssPostNote}{the character vector (i.e. string or text or note) to be
-printed to the console. This text note is also returned as a function output
-under the "value" option of this function's results list.}
+\item{csIconSplit}{a character vector (text string or object) that defines
+the middle of the output message (i.e. separator between
+the "ssHeader" and the "ssNote" parts of the note).}
 
-\item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a
-self-identifier (tag) for this "info.post.note()" function.}
-
-\item{sbRunSelfID}{a logical (i.e. boolean) value that specifies whether the
-"info.post.note()" function should output its own identifier information
-alongside the user specified info (notification).}
-
-\item{ssFuncCallerID}{a character vector (string or text) serving as the
-identifier (tag) for the R Function or R Project that called (invoked) this
-"info.post.note()" function.}
-
-\item{ssFuncType}{a character vector (string or text) that specifies the
-function type. OPTIONS: "Helper" (small to medium custom functions; less than
-300 lines of code) and "LARGE" (massive custom function with >300 lines of
-code). If set to NULL the function type will be assigned the default value
-of "Helper".}
-
-\item{siPostMode123}{an integer value that defines the form of the output
-(notification) message to be printed to the console. OPTIONS: 1L (applies the
-"START" or "HEADER" form to the printed message), 2L (applies the "Normal"
-or "DEFAULT" form to the printed message) and 3L (applies the "STOP" or
-"TERMINAL" form to the printed message). This function argument is extremely
-useful for defining the beginning and terminal sections of custom R Functions
-and/or R Projects.}
-
-\item{sbRetFuncInfo}{a logical (boolean) value that specifies whether to
-output or return the function (i.e. internally processed) information in the
-results of the current function. This function argument can be useful when
-nesting multiple custom functions.}
-
-\item{ssPreStub}{a character vector (string or text) that defines the
-starting text of the output message (notification). This function argument
-is useful in standardizing the notification format for an entire R Project.}
-
-\item{ssMidStub}{a character vector (string or text) that defines the middle
-(ID "tag" and Messages) text of the output message (notification). This
-function argument is useful in standardizing the notification format for an
-entire R Project.}
+\item{sbShowTail}{a logical (boolean) value that specifies whether to show or
+print the trailing (terminal or "tail") icon object or not.}
 
 \item{sbPrePendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the START of a posted note.}
+line (blank space or row) should be added to the START of
+a posted note.}
 
-\item{sbShowTrailIcon}{a logical (boolean) value that specifies whether a
-show (print) the trailing (terminal) icon object or not.}
+\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
+ANSI text font formatting (i.e. colour & weight) should
+be applied to the printed notification or not.}
 
-\item{csTrailIcon}{a complex (string) object value that defines the image to
-be used for the trailing (terminal) icon object.}
+\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new
+line (blank space or row) should be added to the END of
+a posted note.}
 
-\item{csColorPreStub}{a character (string) value that defines the text color
-for the caret (pre-stub) object of the posted note.}
+\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a
+second line (blank space or row) should be added to
+the END of a posted note. This function argument can
+be useful for clearly delineating sections within a
+custom R Function or R Project output (printed) code.}
 
-\item{csColorMidStub}{a character (string) value that defines the text color
-for the middle separator (mid-stub) object of the posted note.}
+\item{csIconTail}{a compound character vector (text string or object) value
+that defines the image (icon) to be used for the trailing
+(terminal or "tail") icon object of the posted note.}
 
-\item{csColorCFID}{a character (string) value that defines the text color for
-the CFID (Calling Function ID) object of the posted note.}
+\item{csColorNote}{a character (text string) value that defines the text color
+for the note (main text) object of the posted note.}
 
-\item{csColorPostNote}{a character (string) value that defines the text color
-for the actual (main) notification text object of the posted note.}
+\item{csColorHeader}{a character (text string) value that defines the text
+color for the header object of the posted note.}
 
-\item{csColorTrailIcon}{a character (string) value that defines the text color
-for the trailing (terminal) icon object of the posted note.}
+\item{csColorCarat}{a character (text string) value that defines the object
+color for the leading (starting) symbol (icon) object of
+the posted (output) notification (note).}
 
-\item{ssFormatDT}{a character vector (string or text) that specifies the
-DateTime format to be used for displaying date-times in the console.}
+\item{csColorSplit}{a character (text string) value that defines the text color
+for the middle separator (icon) object of the posted note.}
 
-\item{sbFormatANSI}{a logical (boolean) argument whether to format the output
-post with "ANSI" formatting or to simply apply no formatting to the output
-post / notification.}
-
-\item{csANSIformCFID}{a character (string) value that defines the ANSI text
-font formatting for the CFID (Calling Function ID) string or character object
-of the posted note.}
-
-\item{csANSIformMidStub}{a character (string) value that defines the ANSI
-text font formatting for the middle separator (mid-stub) object of the posted
-note.}
-
-\item{csANSIformPostNote}{a character (string) value that defines the ANSI
-text font formatting for the actual (main) notification text object of the
-posted note.}
+\item{...}{all "fall-through" function arguments to be used as inputs to any
+nested functions. In this specific case these "fall-through" args
+are related to the "MFMRutils::info.post.func.self.id()" function
+(e.g. "ssProjID", "csFormatDT", "csIconSplit", "csIconCarat",
+"sbRunSelfID", "csColorMain", "csColorSplit", "csColorCarat",
+"csColorProjID", "ssFuncCallerID", "csColorCallerID",
+"csColorFuncType", "csColorTimeStamp") <- list is NOT exhaustive !!!}
 }
 \value{
 \itemize{
@@ -131,19 +97,30 @@ computed function information) as a list object.
 A Helper Function that standardizes the User / Project Information Posting
 (i.e. notification) Processes. This custom function was intended to mainly
 support the MFMR Suite of R Functions, but can be utilized as a standalone
-function in other R packages.
+function in other (i.e. 3rd Party) R packages.
 }
 \examples{
+
 ### Print a dummy notification ...
-info.post.note()              # -> when "MFMRutils" library is loaded ...
-MFMRutils::info.post.note()   # -> when "MFMRutils" library is NOT loaded !!!
+info.post.note()              # -> when "MFMRutils" library is installed & loaded !!!
+MFMRutils::info.post.note()   # -> when "MFMRutils" library is installed, but NOT loaded !!!
 
-### Print 3 different types of notifications ...
-info.post.note(siPostMode123 = 1L)   # -> Prints a START (header or beginning) notification ...
-info.post.note(siPostMode123 = 2L)   # -> Prints a Normal (default or body) notification ...
-info.post.note(siPostMode123 = 3L)   # -> Prints an STOP (footer or terminal) notification ...
 
-### Print additional (function internal) information ...
-info.post.note(sbRetFuncInfo = TRUE)   # -> Outputs additional function information in list form ...
+### Use "fall-through" function arguments to activate additional outputs ...
+info.post.note(sbRunSelfID = TRUE)   # -> Prints the custom R function's START (ENTRY) and
+                                     #    STOP (EXIT) "Self-Identifier" information ...
+info.post.note(                                  
+  sbRunSelfID = TRUE, 
+  ssFuncCallerID = "testR"           # -> Sets the Calling Function Identifier (tag) in the
+)                                    #    "Self-ID" info to a value of `testR` ...
+
+info.post.note(                                  
+  sbRunSelfID = TRUE, 
+  ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
+)                                    #    info to a value of `MFMR-R-Suite` ...
+
+
+~ ### Print additional (function internal) information ... ~
+~ info.post.note(sbRetFuncInfo = TRUE) ~   # -> Outputs additional function information in list form ...
 
 }
