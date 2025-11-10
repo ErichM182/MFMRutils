@@ -2,7 +2,7 @@ Package: MFMRutils
 Title: The Utility Package for the MFMR Suite of R Packages
 Description: This package constitutes multiple standalone helper functions that 
              support the larger MFMR Suite of R Libraries.
-Version: 2025.05.06.005
+Version: 2025.11.10.019
 BugReports: https://github.com/swat-grn-mfmr/MFMRutils/issues
 Authors@R: 
   person(
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Imports:
     desc,
     devtools
