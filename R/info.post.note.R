@@ -63,7 +63,8 @@
 #' @examples
 #' 
 #' ### Print a dummy notification ...
-#' info.post.note()              # -> when "MFMRutils" library is installed & loaded !!!
+#' require(MFMRutils)            # -> Loads library <if previously installed> ...
+#' info.post.note()              # -> when "MFMRutils" library is loaded !!!
 #' MFMRutils::info.post.note()   # -> when "MFMRutils" library is installed, but NOT loaded !!!
 #'
 #'
