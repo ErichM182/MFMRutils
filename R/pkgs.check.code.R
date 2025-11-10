@@ -54,20 +54,20 @@
   ) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- MFMRFormat$BOLD; # "\033[1m";
-    csANSIitalics <- MFMRFormat$ITALICS; # "\033[3m";
+    csANSIbold <- ENVFormats$BOLD; # "\033[1m";
+    csANSIitalics <- ENVFormats$ITALICS; # "\033[3m";
 
-    csANSIred <- MFMRColors$RedFORE; # "\033[91m";
-    csANSIblue <- MFMRColors$BlueFORE; # "\033[94m";
-    csANSIgreen <- MFMRColors$GreenFORE; # "\033[92m";
-    csANSIyellow <- MFMRColors$YellowFORE; # "\033[93m";
+    csANSIred <- ENVColors$RedFORE; # "\033[91m";
+    csANSIblue <- ENVColors$BlueFORE; # "\033[94m";
+    csANSIgreen <- ENVColors$GreenFORE; # "\033[92m";
+    csANSIyellow <- ENVColors$YellowFORE; # "\033[93m";
 
-    csANSIreset <- MFMRFormat$RESET; # "\033[0m";
+    csANSIreset <- ENVFormats$RESET; # "\033[0m";
 
     # Unicode characters for CheckMark and Cross ...
-    csUniCodeCross <- MFMRIcons$XSlanted;
-    csUniCodeCheckmark <- MFMRIcons$CheckMark;
-    csUniCodeArrowRight <- MFMRIcons$ArrowRIGHT;
+    csUniCodeCross <- ENVIcons$XSlanted;
+    csUniCodeCheckmark <- ENVIcons$CheckMark;
+    csUniCodeArrowRight <- ENVIcons$ArrowRIGHT;
 
     # Create the output string
     output <- base::paste0(
@@ -163,22 +163,22 @@
   if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- MFMRFormat$BOLD; # "\033[1m";
-    csANSIitalics <- MFMRFormat$ITALICS; # "\033[3m";
+    csANSIbold <- ENVFormats$BOLD; # "\033[1m";
+    csANSIitalics <- ENVFormats$ITALICS; # "\033[3m";
 
-    csANSIred <- MFMRColors$RedFORE; # "\033[91m";
-    csANSIblue <- MFMRColors$BlueFORE; # "\033[94m";
-    csANSIgreen <- MFMRColors$GreenFORE; # "\033[92m";
-    csANSIyellow <- MFMRColors$YellowFORE; # "\033[93m";
+    csANSIred <- ENVColors$RedFORE; # "\033[91m";
+    csANSIblue <- ENVColors$BlueFORE; # "\033[94m";
+    csANSIgreen <- ENVColors$GreenFORE; # "\033[92m";
+    csANSIyellow <- ENVColors$YellowFORE; # "\033[93m";
 
-    csANSIreset <- MFMRFormat$RESET; # "\033[0m";
+    csANSIreset <- ENVFormats$RESET; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodeEyes = MFMRIcons$OoglyEyes;
-    csUniCodeArrowRight <- MFMRIcons$ArrowRIGHT;
-    csUniCodePointUP <- MFMRIcons$PointUP;
-    csUniCodeCryingEmoticon <- MFMRIcons$SmileySad;
-    csUniCodePonderingEmoticon <- MFMRIcons$SmileyPonder;
+    csUniCodeEyes = ENVIcons$OoglyEyes;
+    csUniCodeArrowRight <- ENVIcons$ArrowRIGHT;
+    csUniCodePointUP <- ENVIcons$PointUP;
+    csUniCodeCryingEmoticon <- ENVIcons$SmileySad;
+    csUniCodePonderingEmoticon <- ENVIcons$SmileyPonder;
 
     # Calculate delta in hours between current time and midnight ...
     ssHrsSinceMidNight <- base::as.character(

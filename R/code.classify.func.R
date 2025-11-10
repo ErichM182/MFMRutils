@@ -49,22 +49,33 @@
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  ssFuncSelfID_ <- "MFMR.Classify-Func";
+  ssFuncSelfID_ <- "MFMR.Class-Func";
 
+  
+  
   ### STEP 2 - Internalize ALL Function Arguments ... ####
-  #            ( i.e. hand-over all to func-args to func-local variables )
+  # NOTES: hand-over all func-args to func-local <internal> variables ...
   ssFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
   siFuncStartCELN_ <- siFuncStartCELN; siFuncStopCELN_ <- siFuncStopCELN;
+  
+  
+  ### Assign "Local Aliases" for frequently used functions !!!
+  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  isNULL <- base::is.null;
 
+  
+  
   ### STEP 3 - Calculate Function Code DELTA ... ####
-  if (base::is.null(siFuncStartCELN_)) {
+  if (isNULL(siFuncStartCELN_)) {
     siFuncStartCELN_ <- 1L;
   }
-  if (base::is.null(siFuncStopCELN_)) {
+  if (isNULL(siFuncStopCELN_)) {
     siFuncStopCELN_ <- 7L;
   }
   siCodeDELTA_ <- siFuncStopCELN_ - siFuncStartCELN_;
 
+  
+  
   ### STEP 4 - Classify Function ... ####
   if (siCodeDELTA_ <= 50L) {
     ssFuncRes_ <- "TNY";   # -> "TNY" == "TINY Function" !!!
@@ -78,7 +89,9 @@
     ssFuncRes_ <- "MSV";   # -> "MSV" == "MASSIVE Function" !!!
   }
 
-  ### STEP 6 - Classify Function ... ####
+  
+  
+  ### STEP 5 - Output Result ... ####
   base::return(ssFuncRes_);
 
 }

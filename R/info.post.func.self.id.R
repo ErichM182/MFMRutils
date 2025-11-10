@@ -71,52 +71,63 @@
   csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
   csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
   csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, csColorMain=NULL,
-  sbPrintPretty=TRUE, ssFuncSelfID=NULL
+  sbPrintPretty=TRUE, ssFuncSelfID=NULL, ...
 ) {
 
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
-  #            ( this👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions]
-  #            THAT DOES NOT SELF-IDENTIFY !!! )
-  ssFuncSelfID_ <- "MFMR-Self.ID";
+  # NOTES: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT
+  #        DOES NOT SELF-IDENTIFY (i.e. self-ID here causes infinite recursion) !!!
+  ssFuncSelfID_ <- "MFMR-Func.Self.ID";
   ### csTimeSTART_ <- base::Sys.time();
   ##### -> siFuncStartCELN_ <- 10; siFuncStopCELN_ <- 146; 
 
   
   
   ### STEP 02 - Capture the Dots Function Arguments ... ####
-  #            ( the "dots-args" will be handed over in subsequent steps ) ...
-  ## vsDotsArgs_ <- base::list(...);
+  # NOTES: the "dots-args" are handed over in subsequent steps (as required) ...
+  vsDotsArgs_ <- base::list(...);
+  
+  
+  ### Assign "Local Aliases" for frequently used functions !!!
+  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  baseCAT   <- base::cat;
+  elseIF    <- base::ifelse;
+  isNULL    <- base::is.null;
+  conCatSTR <- base::paste0;
 
   
   
   ### STEP 03 - Internalize ALL Function Arguments here ... ####
-  #            ( i.e. hand-over all to func-args to func-local variables )
-  csTimeStamp_ <- NULL;
-  coListFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
-  ssFuncType_ <- ssFuncType;
-  csBoldANSI_ <- MFMRutils::MFMRFormat$BOLD;
-  csResetANSI_ <- MFMRutils::MFMRFormat$RESET; 
-  csIconSplit_ <- csIconSplit; csIconCarat_ <- csIconCarat; 
-  ssFuncCallerID_ <- ssFuncCallerID; siFuncMode01_ <- siFuncMode01; 
+  # NOTES: hand-over all func-args to func-local <internal> variables ...
+  csTimeStamp_    <- NULL;
+  ssProjID_       <- ssProjID;
+  coListFuncRes_  <- NULL;   # -> The <final> function outputs <results> object.
+  ssFuncType_     <- ssFuncType;
+  csIconSplit_    <- csIconSplit;    
+  csIconCarat_    <- csIconCarat; 
+  siFuncMode01_   <- siFuncMode01; 
+  ssFuncCallerID_ <- ssFuncCallerID; 
+  csBoldANSI_     <- MFMRutils::ENVFormats$BOLD;
+  csResetANSI_    <- MFMRutils::ENVFormats$RESET; 
   
   
   
   ### STEP 04 - Prime "Func-Self-ID" tag ... ####
-  if (!base::is.null(ssFuncSelfID)) {
+  if (!isNULL(ssFuncSelfID)) {
     ssFuncSelfID_ <- ssFuncSelfID;
   }
   
   
   
   ### STEP 05 - Prime the DateTime Values ... ####
-  csFormatDT_ <- base::ifelse(
-    base::is.null(csFormatDT), MFMRutils::MFMRDates$LONGv03, csFormatDT
+  csTimeStart_ <- elseIF(
+    isNULL(csTimeStart), base::Sys.time(), csTimeStart
   );
-  csTimeStart_ <- base::ifelse(
-    base::is.null(csTimeStart), base::Sys.time(), csTimeStart
+  csTimeStop_ <- elseIF(
+    isNULL(csTimeStop), base::Sys.time(), csTimeStop
   );
-  csTimeStop_ <- base::ifelse(
-    base::is.null(csTimeStop), base::Sys.time(), csTimeStop
+  csFormatDT_ <- elseIF(
+    isNULL(csFormatDT), MFMRutils::ENVDates$LONGv03, csFormatDT
   );
   csTimeStartFORMATTED_ <- base::strftime(
     x = csTimeStart_, format = csFormatDT_
@@ -128,44 +139,44 @@
   
   
   ### STEP 06 - Prime NB Colour Values ... ####
-  csColorMain_ <- base::ifelse(
-    base::is.null(csColorMain), 
-    MFMRutils::MFMRColors$CyanFORE, csColorMain
+  csColorMain_ <- elseIF(
+    isNULL(csColorMain), 
+    MFMRutils::ENVColors$CyanFORE, csColorMain
   );
-  csColorCarat_ <- base::ifelse(
-    base::is.null(csColorCarat), 
-    MFMRutils::MFMRColors$YellowFORE, csColorCarat
+  csColorCarat_ <- elseIF(
+    isNULL(csColorCarat), 
+    MFMRutils::ENVColors$YellowFORE, csColorCarat
   );
-  csColorSplit_ <- base::ifelse(
-    base::is.null(csColorSplit), 
-    MFMRutils::MFMRColors$YellowFORE, csColorSplit
+  csColorSplit_ <- elseIF(
+    isNULL(csColorSplit), 
+    MFMRutils::ENVColors$YellowFORE, csColorSplit
   );
-  csColorProjID_ <- base::ifelse(
-    base::is.null(csColorProjID), 
-    MFMRutils::MFMRColors$GreenFORE, csColorProjID
+  csColorProjID_ <- elseIF(
+    isNULL(csColorProjID), 
+    MFMRutils::ENVColors$GreenFORE, csColorProjID
   );
-  csColorFuncType_ <- base::ifelse(
-    base::is.null(csColorFuncType), 
-    MFMRutils::MFMRColors$YellowFORE, csColorFuncType
+  csColorFuncType_ <- elseIF(
+    isNULL(csColorFuncType), 
+    MFMRutils::ENVColors$YellowFORE, csColorFuncType
   );
-  csColorCallerID_ <- base::ifelse(
-    base::is.null(csColorCallerID), 
-    MFMRutils::MFMRColors$MagentaFORE, csColorCallerID
+  csColorCallerID_ <- elseIF(
+    isNULL(csColorCallerID), 
+    MFMRutils::ENVColors$MagentaFORE, csColorCallerID
   );
-  csColorTimeStamp_ <- base::ifelse(
-    base::is.null(csColorTimeStamp), 
-    MFMRutils::MFMRColors$YellowFORE, csColorTimeStamp
+  csColorTimeStamp_ <- elseIF(
+    isNULL(csColorTimeStamp), 
+    MFMRutils::ENVColors$YellowFORE, csColorTimeStamp
   );
   
   
   
   ### STEP 07 - Extract the String Formatting Setting ... ####
-  sbPrintPretty_ <- sbPrintPretty; 
-  ## base::ifelse(
-  ##   base::is.null(vsDotsArgs_[["sbPrintPretty"]]), 
+  sbPrintPretty_ <- sbPrintPretty;
+  ## elseIF(
+  ##   isNULL(vsDotsArgs_[["sbPrintPretty"]]), 
   ##   FALSE, vsDotsArgs_[["sbPrintPretty"]]
   ## );
-  rcf_calc.time.delta_ <- function(csTimeStart, csTimeStop) {
+  "rcf_calc.time.delta_" <- function(csTimeStart, csTimeStop) {
     csTimeDeltaRAW_ <- base::as.numeric(
       csTimeStop - csTimeStart, units = "secs"
     );
@@ -179,19 +190,19 @@
       ssFloatsAsInts_ <- base::sub(
         "^0\\.", "", base::format(ssFloatVals_, scientific = FALSE)
       );
-      csTimeDeltaRESULT_ <- base::paste0(
+      csTimeDeltaRESULT_ <- conCatSTR(
         ssFloatsAsInts_, " milli-secs"
       );
     } else if (csTimeDeltaROUND_ > 0.999 && csTimeDeltaROUND_ <= 60.0) {
       ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
-      csTimeDeltaRESULT_ <- base::paste0(
+      csTimeDeltaRESULT_ <- conCatSTR(
         ssIntsONLY_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 60.0 && csTimeDeltaROUND_ <= 3600) {
       ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
       ssDeltaSecs_ <- ssIntsONLY_ %% 60;
       ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
-      csTimeDeltaRESULT_ <- base::paste0(
+      csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 3600 && csTimeDeltaROUND_ <= 216000) {
@@ -199,7 +210,7 @@
       ssDeltaSecs_ <- ssIntsONLY_ %% 60;
       ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
       ssDeltaHrs_ <- base::trunc(ssIntsONLY_ / (60 * 60));
-      csTimeDeltaRESULT_ <- base::paste0(
+      csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaHrs_, " hrs, ", ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 216000 && csTimeDeltaROUND_ <= 5184000) {
@@ -208,7 +219,7 @@
       ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
       ssDeltaHrs_ <- base::trunc(ssIntsONLY_ / (60 * 60));
       ssDeltaDays_ <- base::trunc(ssIntsONLY_ / (60 * 60 * 24));
-      csTimeDeltaRESULT_ <- base::paste0(
+      csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaDays_, " days, ", ssDeltaHrs_, " hrs, ", 
         ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
@@ -219,19 +230,19 @@
   
   
   ### STEP 08 - Apply the Carat Icon Setting ... ####
-  if (!base::is.null(csIconCarat_)) {   # <- Check that "IconCarat" is NOT NULL !!!
+  if (!isNULL(csIconCarat_)) {   # <- Check that "IconCarat" is NOT NULL !!!
     if (sbPrintPretty_) {
       if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
           csIconCarat_ == "->" || csIconCarat_ == " -> ") {
-        csIconCarat_ <- base::paste0(
+        csIconCarat_ <- conCatSTR(
           " ",                               # -> Add "leading" white space ...
           csColorCarat_,                     # -> Apply specified text colour ...
-          MFMRutils::MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
+          MFMRutils::ENVIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
           " ",                               # -> Add "trailing" white space ...
           csResetANSI_                       # -> Deactivate text formatting !!!
         );
       } else {
-        csIconCarat_ <- base::paste0(
+        csIconCarat_ <- conCatSTR(
           " ",             # -> Add "leading" white space ...
           csColorCarat_,   # -> Apply specified text colour ...
           csIconCarat_,    # -> Assign the specified Carat Icon !!!
@@ -242,10 +253,10 @@
     }
   } else {
     if (sbPrintPretty_) {
-      csIconCarat_ <- base::paste0(
+      csIconCarat_ <- conCatSTR(
         " ",                               # -> Add "leading" white space ...
         csColorCarat_,                     # -> Apply specified text colour ...
-        MFMRutils::MFMRIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
+        MFMRutils::ENVIcons$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
         " ",                               # -> Add "trailing" white space ...
         csResetANSI_                       # -> Deactivate text formatting !!!
       );
@@ -257,17 +268,15 @@
   
   
   ### STEP 09 - Apply the "Project-ID" Text Formatting ... ####
-  if (!base::is.null(ssProjID)) {
-    ssProjID_ <- ssProjID;
-  } else {
-    ssProjID_ <- base::get0(   # -> Searches the Global Environment of the
+  if (isNULL(ssProjID_)) {
+    ssProjID_ <- base::get0(         # -> Searches the Global Environment of the
       "rssTagProjID_",               #    Active R Session for the <somewhat>
       envir = .GlobalEnv,            #    unique variable name "rssTagProjID_"
       ifnotfound = "UNK. Proj. ID"   #    and extracts the value contained in
     );                               #    that variable (if it exists) ... or
   }                                  #    else returns the "NOT-FOUND" value.
   if (sbPrintPretty_) {
-    ssProjID_ <- base::paste0(
+    ssProjID_ <- conCatSTR(
       csBoldANSI_,      # -> Apply a BOLD text formatting ... 
       csColorProjID_,   # -> Apply the specified text colour ... 
       ssProjID_,        # -> Add the "Caller-ID" string value !!!
@@ -278,9 +287,9 @@
   
   
   ### STEP 10 - Apply the "Split-Icon" Text Formatting ... ####
-  if (!base::is.null(csIconSplit_)) {
+  if (!isNULL(csIconSplit_)) {
     if (sbPrintPretty_) {
-      csIconSplit_ <- base::paste0(
+      csIconSplit_ <- conCatSTR(
         csBoldANSI_,     # -> Apply a BOLD text formatting ... 
         csColorSplit_,   # -> Apply the specified text colour ... 
         csIconSplit_,    # -> Add the "Split-Icon" string value !!!
@@ -289,7 +298,7 @@
     }
   } else {
     if (sbPrintPretty_) {
-      csIconSplit_ <- base::paste0(
+      csIconSplit_ <- conCatSTR(
         csBoldANSI_,     # -> Apply a BOLD text formatting ... 
         csColorSplit_,   # -> Apply the specified text colour ... 
         " | ",           # -> Add the <default> "Split-Icon" string value !!!
@@ -303,9 +312,9 @@
   
   
   ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
-  if (!base::is.null(ssFuncType_)) {
+  if (!isNULL(ssFuncType_)) {
     if (sbPrintPretty_) {
-      ssFuncType_ <- base::paste0(
+      ssFuncType_ <- conCatSTR(
         csBoldANSI_,        # -> Apply a BOLD text formatting ... 
         csColorFuncType_,   # -> Apply the specified text colour ... 
         ssFuncType_,        # -> Add the "Func-Type" string value !!!
@@ -314,7 +323,7 @@
     }
   } else {
     if (sbPrintPretty_) {
-      ssFuncType_ <- base::paste0(
+      ssFuncType_ <- conCatSTR(
         csBoldANSI_,     # -> Apply a BOLD text formatting ... 
         csColorSplit_,   # -> Apply the specified text colour ... 
         "UNK.",          # -> Add the <default> "Func-Type" string value !!!
@@ -328,9 +337,9 @@
   
   
   ### STEP 12 - Apply the "Caller-ID" Text Formatting ... ####
-  if (!base::is.null(ssFuncCallerID_)) {
+  if (!isNULL(ssFuncCallerID_)) {
     if (sbPrintPretty_) {
-      ssFuncCallerID_ <- base::paste0(
+      ssFuncCallerID_ <- conCatSTR(
         csBoldANSI_,        # -> Apply a BOLD text formatting ... 
         csColorCallerID_,   # -> Apply the specified text colour ... 
         ssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
@@ -339,7 +348,7 @@
     }
   } else {
     if (sbPrintPretty_) {
-      ssFuncCallerID_ <- base::paste0(
+      ssFuncCallerID_ <- conCatSTR(
         csBoldANSI_,        # -> Apply a BOLD text formatting ... 
         csColorCallerID_,   # -> Apply the specified text colour ... 
         "UNK.",             # -> Add the <default> "Caller-ID" string value !!!
@@ -355,7 +364,7 @@
   ### STEP 13 - Apply the "Time-Stamp" Text Formatting ... ####
   if (siFuncMode01_ == 1L) {   # -> Apply the ENTER function Info !!!
     if (sbPrintPretty_) {
-      csTimeStamp_ <- base::paste0(
+      csTimeStamp_ <- conCatSTR(
         csBoldANSI_,             # -> Apply a BOLD text formatting ... 
         csColorTimeStamp_,       # -> Apply the specified text colour ... 
         csTimeStartFORMATTED_,   # ...
@@ -366,7 +375,7 @@
     }
   } else if (siFuncMode01_ == 0L) {   # -> Apply the EXIT function Info !!!
     if (sbPrintPretty_) {
-      csTimeStamp_ <- base::paste0(
+      csTimeStamp_ <- conCatSTR(
         csBoldANSI_,            # -> Apply a BOLD text formatting ... 
         csColorTimeStamp_,      # -> Apply the specified text colour ... 
         csTimeStopFORMATTED_,   # ...
@@ -382,35 +391,35 @@
   # 4.3.1.2 - Post the `ENTER` notification (Func-Self-ID) text ...
   if (siFuncMode01_ == 1L) {   # -> Apply the ENTER function Info Post !!!
     if (sbPrintPretty_) {
-      base::cat(
-        base::paste0(
+      baseCat(
+        conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "F-START { F-ID: '", csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "'  <F-Type: '", csResetANSI_
           ), 
           ssFuncType_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "'>  Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "'  <Time: ", csResetANSI_
           ), 
           csTimeStamp_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, ">  }\n", csResetANSI_
           )
         )
       );
     } else {
-      base::cat(
-        base::paste0(
+      baseCat(
+        conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
           "F-START {  F-ID: '", ssFuncSelfID_, 
           "'  <F-Type: '", ssFuncType_, "'> ",
@@ -422,37 +431,37 @@
   } else if (siFuncMode01_ == 0L) {   # -> Apply the EXIT function Info Post !!!
      csDeltaTIME_ <- rcf_calc.time.delta_(csTimeStart_, csTimeStop_);
      if (sbPrintPretty_) {
-      base::cat(
-        base::paste0(
+      baseCat(
+        conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "F-STOP { F-ID: '", csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "'  <Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, "'>  Time: ", csResetANSI_
           ), 
           csTimeStamp_,
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, " ( F-Dur: ", csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorTimeStamp_, csDeltaTIME_, csResetANSI_
           ),
-          base::paste0(
+          conCatSTR(
             csBoldANSI_, csColorMain_, " ) }\n", csResetANSI_
           )
         )
       );
     } else {
-      base::cat(
-        base::paste0(
+      baseCat(
+        conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
           "F-STOP { F-ID: '", ssFuncSelfID_, 
           "'  <Caller: '", ssFuncCallerID_, "'> ",

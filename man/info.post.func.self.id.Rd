@@ -22,7 +22,8 @@ info.post.func.self.id(
   csColorCallerID = NULL,
   csColorMain = NULL,
   sbPrintPretty = TRUE,
-  ssFuncSelfID = NULL
+  ssFuncSelfID = NULL,
+  ...
 )
 }
 \arguments{

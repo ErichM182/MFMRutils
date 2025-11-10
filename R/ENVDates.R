@@ -1,0 +1,35 @@
+#? ### ### ### ### ### ### ###
+#' @title The Date-Time Formats for use in R (the `MFMRutils` selection)
+#' @name ENVDates
+#' @description
+#' A collection of frequently used Date-Time (text) Formats to support the MFMR
+#' Suite of R Functions.
+#'
+#' @examples
+#' ### Easily print & assign Date Formats as follows ...
+#' ENVDates$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
+#' ENVDates$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
+#' ENVDates$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+#'
+#' ### Use with the direct-access R operator "::" from anywhere ...
+#' MFMRutils::ENVFormats$BOLD   ### -> sets the text font format to BOLD !!!
+#'
+#' @export
+#? ### ### ###
+"ENVDates" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+  
+  # -> Define a static list of Date-Time Text Formats !!!
+  envList <- base::list2env(
+    base::list(
+      LONGv01 = "%A, %d %B %Y @ %X",   ### -> Output: "Saturday, January 16 1982 @ 21:57:38" !!!
+      LONGv02 = "%a, %b %d %Y @ %X",   ### -> Output: "Sat, Jan 16 1982 @ 21:57:38" !!!
+      LONGv03 = "%a, %d %b %Y @ %X"    ### -> Output: "Sat, 16 Jan 1982 @ 21:57:38" !!!
+    )
+  );
+  
+  # Set R Environment Bindings = TRUE makes the bindings immutable ...
+  base::lockEnvironment(envList, bindings = TRUE);
+  
+  # Return (export) the env-locked list ...
+  envList;   # <- MUST BE LIKE THIS ... DO NOT use `base::return(envList)` !!!
+}

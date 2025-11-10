@@ -78,7 +78,7 @@
   if (base::is.null(vsEnumVals)) {
     ssPostNote = MFMRutils::info.post.note(
       ssFuncCallerID = base::paste0(ssTagFuncID, " ", 79),
-      csColorPostNote = MFMRColors$RedFORE, csColorCFID = MFMRColors$RedFORE,
+      csColorPostNote = ENVColors$RedFORE, csColorCFID = ENVColors$RedFORE,
       ssPostNote = "The `vsEnumVals` function argument should not be NULL !!!\n"
     )
   } else {
@@ -96,3 +96,5 @@
   }
 
 }
+
+

@@ -9,30 +9,32 @@ projs.check.libs(
   sbFixLibs = FALSE,
   sbQuietInstall = FALSE,
   sbShowLibs = TRUE,
-  ssFuncSelfID = "Check Proj. Libs",
+  ssFuncSelfID = "MFMRutils-Check.Libs",
   sbRunSelfID = FALSE,
   ssFuncCallerID = NULL,
-  sbUpdateLibs = TRUE,
-  ssFuncType = NULL,
+  sbUpdateLibs = FALSE,
   ssFormatDT = "\%a, \%b \%d \%Y \%X",
-  sbPrintPretty = FALSE
+  sbPrintPretty = TRUE,
+  ...
 )
 }
 \arguments{
-\item{vsReqLibs}{a vector argument containing the discrete (i.e. comma-separated)
-character values (i.e. strings or texts) of the 3rd Party R
-Libraries required for the active R project.}
+\item{vsReqLibs}{a vector of strings (characters) containing the discrete (i.e.
+comma-separated) character values of the R Libraries required.}
 
-\item{sbFixLibs}{a logical (boolean) argument that specifies whether to fix (
-i.e. install or update) any missing required R libraries.}
+\item{sbFixLibs}{a logical (boolean) value that specifies whether to fix (i.e.
+install or update) any missing R libraries as specified in
+the 'vsReqLibs' function argument.}
 
-\item{sbQuietInstall}{a logical (boolean) argument that specifies whether the
-R library install or update should be verbose or not.}
+\item{sbQuietInstall}{a logical (boolean) value that specifies whether the R
+library install or update should be verbose \link{FALSE} or
+not \link{TRUE}.}
 
-\item{sbShowLibs}{a logical (boolean) argument specifies whether the input R
-libraries (i.e. required R libraries) should be printed out
-to the R Console or returned to the function output (result)
-at the completion of the function code execution.}
+\item{sbShowLibs}{a logical (boolean) value that specifies whether the input R
+libraries (i.e. 'vsReqLibs') should be printed out to the R
+Console or returned to the function output (result) upon
+completion of the function code execution. If set to \link{TRUE}
+then both actions (i.e. show & return) will be executed.}
 
 \item{ssFuncSelfID}{a character vector (i.e. string or text) serving as a
 self-identifier (tag) for this "projs.check.libs()" function.}
@@ -45,17 +47,11 @@ information alongside the user specified info (notification).}
 identifier (tag) for the R Function or R Project that
 called (invoked) this "projs.check.libs()" function.}
 
-\item{sbUpdateLibs}{a logical (boolean) argument that specifies whether any
+\item{sbUpdateLibs}{a logical (boolean) value that specifies whether any
 outdated R libraries should be updated or not. If set to
 \link{FALSE} the function will merely post all outdated R libs
 to the R Console and not take any further action towards
 "fixing" the outdated R libraries.}
-
-\item{ssFuncType}{a character vector (string or text) that specifies the
-function type. OPTIONS: "Helper" (small to medium custom
-functions; less than 300 lines of code) and "LARGE" (massive
-custom function with >300 lines of code). If set to NULL
-the function type will be assigned the default value of "Helper".}
 
 \item{ssFormatDT}{a character vector (string or text) that specifies the
 DateTime format to be used for displaying date-times in
@@ -93,8 +89,8 @@ options(repos = c(CRAN = "https://cloud.r-project.org"))
 vsReqLibs_ <- c("ggplot2", "dplyr")   # <- Specify the required R Libraries accordingly !!!
 projs.check.libs(           # -> Run the function with the "vsReqLibs" function argument
   vsReqLibs = vsReqLibs_,   #    provided accordingly ...
-  sbFixLibs = TRUE   # -> Set the "sbFixLibs" function argument to TRUE to ensure all
-)                    #    missing R Libraries are installed !!!
+  sbFixLibs = TRUE   # -> Set the "sbFixLibs" function argument to TRUE to ensure
+)                    #    all missing R Libraries are installed !!!
 
 
 
