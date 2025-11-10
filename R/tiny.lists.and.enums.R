@@ -35,7 +35,7 @@ MFMRDates <- {   # -> Define a static list of Date-Time Text Formats !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # -> return (export) the env-locked list !!!
+  base::return(envList);   # -> return (export) the env-locked list !!!
 }
 
 
@@ -75,7 +75,7 @@ MFMRFormat <- {   # -> Define a static list of "ANSI" Text Formats !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # -> return (export) the env-locked list !!!
+  base::return(envList);   # -> return (export) the env-locked list !!!
 }
 
 
@@ -122,7 +122,7 @@ MFMRColors <- {   # -> Define a static list of "ANSI" Text & Object Colours !!!
       MagentaBACK = "\033[45m",   ### Output: "magenta-background"
       CyanBACK    = "\033[46m",   ### Output: "cyan-background"
       WhiteBACK   = "\033[47m",   ### Output: "white-background"
-
+      
       BlackBrightFORE   = "\033[90m",   ### Output: "black-bright-text"
       RedBrightFORE     = "\033[91m",   ### Output: "red-bright-text"
       GreenBrightFORE   = "\033[92m",   ### Output: "green-bright-text"
@@ -143,7 +143,7 @@ MFMRColors <- {   # -> Define a static list of "ANSI" Text & Object Colours !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # -> return (export) the env-locked list !!!
+  base::return(envList);   # -> return (export) the env-locked list !!!
 }
 
 
@@ -187,7 +187,7 @@ MFMRIcons <- {   # -> Define a static list of Unicode Character Icons !!!
   );
   # Set R Environment Bindings = TRUE makes the bindings immutable ...
   base::lockEnvironment(envList, bindings = TRUE);
-  envList;   # -> return (export) the env-locked list !!!
+  base::return(envList);   # -> return (export) the env-locked list !!!
 }
 
 
