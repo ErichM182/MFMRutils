@@ -102,7 +102,7 @@ function in other (i.e. 3rd Party) R packages.
 \examples{
 
 ### Print a dummy notification ...
-require(MFMRutils)            # -> Loads library if previously installed.
+require(MFMRutils)            # -> Loads library <if previously installed> ...
 info.post.note()              # -> when "MFMRutils" library is loaded !!!
 MFMRutils::info.post.note()   # -> when "MFMRutils" library is installed, but NOT loaded !!!
 

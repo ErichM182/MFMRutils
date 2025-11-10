@@ -16,7 +16,7 @@
 #'                       usually identified by a closing curly brace.
 #'
 #' @returns This function returns a single <abbreviated> character value that
-#'          classifies five sizes (or classes) of custom R functions:
+#'          classifies five categories (or classes) of custom R functions:
 #'          * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
 #'          * "SML" -> a "Small" R Function (between 50 & 150 lines of code);
 #'          * "MED" -> a "Medium" R Function (between 150 & 750 lines of code);
