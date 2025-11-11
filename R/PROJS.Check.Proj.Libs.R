@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Install required R Project Libraries
+#' 
 #' @description
 #' A Helper Function to install 3rd Party R Libraries required by an R Project
 #' but that are not currently installed. This custom function was intended to
@@ -74,7 +75,7 @@
 #'
 #' @export
 #? ### ### ###
-"projs.check.libs" <- function(
+"projs.check.proj.libs" <- function(
   vsReqLibs=NULL, sbFixLibs=FALSE, sbQuietInstall=FALSE, sbShowLibs=TRUE,
   ssFuncSelfID="MFMRutils-Check.Libs", sbRunSelfID=FALSE, ssFuncCallerID=NULL,
   sbUpdateLibs=FALSE, ssFormatDT="%a, %b %d %Y %X", sbPrintPretty=TRUE, ...
@@ -83,9 +84,9 @@
   ### STEP 01 - Define the "Function Self-ID" info ... ####
   # NOTES: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT
   #        DOES NOT SELF-IDENTIFY (i.e. self-ID here causes infinite recursion) !!!
-  dtFuncSTART <- base::Sys.time();         # -> Extract Function START Time ...
-  ssFuncIdTAG_ <- "MFMRutils-Check.Libs";  # -> Set Function Identifier TAG ...
-  ssFormatDTI <- "%a, %b %d %Y @ %X";      # -> DateTime Format for "FuncSelfID" Process ...
+  dtFuncSTART <- base::Sys.time();      # -> Extract Function START Time ...
+  ssFuncIdTAG_ <- "Check.Proj.Libs";    # -> Set Function Identifier TAG ...
+  ssFormatDTI <- "%a, %b %d %Y @ %X";   # -> DateTime Format for "FuncSelfID" Process ...
   
   
   

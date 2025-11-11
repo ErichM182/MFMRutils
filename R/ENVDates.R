@@ -1,22 +1,22 @@
 #? ### ### ### ### ### ### ###
 #' @title The Date-Time Formats for use in R (the `MFMRutils` selection)
-#' @name ENVDates
+#' @name EnvDATES
 #' @description
 #' A collection of frequently used Date-Time (text) Formats to support the MFMR
 #' Suite of R Functions.
 #'
 #' @examples
 #' ### Easily print & assign Date Formats as follows ...
-#' ENVDates$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
-#' ENVDates$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
-#' ENVDates$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+#' EnvDATES$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
+#' EnvDATES$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
+#' EnvDATES$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::ENVFormats$BOLD   ### -> sets the text font format to BOLD !!!
+#' MFMRutils::EnvDATES$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
 #'
 #' @export
 #? ### ### ###
-"ENVDates" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"EnvDATES" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of Date-Time Text Formats !!!
   envList <- base::list2env(

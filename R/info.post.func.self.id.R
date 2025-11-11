@@ -79,33 +79,46 @@
 ) {
 
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
-  # NB: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
-  #     NOT SELF-IDENTIFY (i.e. Self-ID here causes infinite recursion) !!!
-  ssFuncTAG_ <- base::paste0(
-    MFMRutils::pkgs.get.lib.info()[['PkgNAME']], "_", "Func.Self.ID"
-  );
+  # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
+  #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
+  ssTagFuncID_ <- "Func.Self.ID";
+  ssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
   
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
-  rasANY         <- base::any;
-  rasCAT         <- base::cat;
-  rasLIST        <- base::list;
-  rasIsNA        <- base::is.na;
-  rasTRUNC       <- base::trunc;
-  rasLENGTH      <- base::length;
-  rasRETURN      <- base::return;
-  rasIfELSE      <- base::ifelse;
-  rasPASTE0      <- base::paste0;
-  rasIsNULL      <- base::is.null;
-  rasStrFormTIME <- base::strftime;
-  rasAsNUMERIC   <- base::as.numeric;
-  rasSysTimeNOW_ <- base::Sys.time();
-  rasMfmrDATES   <- MFMRutils::ENVDates
-  rasMfmrICONS   <- MFMRutils::ENVIcons
-  rasMfmrCOLORS  <- MFMRutils::ENVColors
-  rcsAnsiBOLD_   <- MFMRutils::ENVFormats$BOLD;
-  rcsAnsiRESET_  <- MFMRutils::ENVFormats$RESET;
+  rasABS              <- base::abs;
+  rasANY              <- base::any;
+  rasCAT              <- base::cat;
+  rasSUB              <- base::sub;
+  rasGET0             <- base::get0;
+  rasLIST             <- base::list;
+  rasIsNA             <- base::is.na;
+  rasTRUNC            <- base::trunc;
+  rasROUND            <- base::round;
+  rasLENGTH           <- base::length;
+  rasRETURN           <- base::return;
+  rasIfELSE           <- base::ifelse;
+  rasPASTE0           <- base::paste0;
+  rasFORMAT           <- base::format;
+  rasIsNULL           <- base::is.null;
+  rasStrFormTIME      <- base::strftime;
+  rasINVISIBLE        <- base::invisible;
+  rasAsNUMERIC        <- base::as.numeric;
+  rasMfmrDATES        <- MFMRutils::EnvDATES
+  rasMfmrICONS        <- MFMRutils::EnvICONS
+  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS
+  rasMfmrClassifyFUNC <- MFMRutils::code.classify.func;
+  
+  
+  ### Prime selected variables (akin to constants) ...
+  rcsSysTimeNOW_    <- base::Sys.time();
+  rcsColorsCYAN_    <- rasMfmrCOLORS$CyanFORE;
+  rcsColorsGREEN_   <- rasMfmrCOLORS$GreenFORE;
+  rcsColorsYELLOW_  <- rasMfmrCOLORS$YellowFORE;
+  rcsColorsMAGENTA_ <- rasMfmrCOLORS$MagentaFORE;
+  rcsAnsiBOLD_      <- MFMRutils::EnvFORMATS$BOLD;
+  rcsAnsiRESET_     <- MFMRutils::EnvFORMATS$RESET;
   
   
   ### Compile Useful <internal> Custom Functions here !!!
@@ -125,13 +138,13 @@
     );
     csTimeDelta_ <- rasAsNUMERIC(csTimeDeltaRAW_[[1]]);
     csTimeDeltaRESULT_ <- NULL;
-    csTimeDeltaROUND_ <- base::round(csTimeDelta_, 3);
+    csTimeDeltaROUND_ <- rasROUND(csTimeDelta_, 3);
     if (csTimeDeltaROUND_ <= 0.999) {
-      ssFloatVals_ <- base::abs(
+      ssFloatVals_ <- rasABS(
         csTimeDeltaROUND_ - rasTRUNC(csTimeDeltaROUND_)
       );
-      ssFloatsAsInts_ <- base::sub(
-        "^0\\.", "", base::format(ssFloatVals_, scientific = FALSE)
+      ssFloatsAsInts_ <- rasSUB(
+        "^0\\.", "", rasFORMAT(ssFloatVals_, scientific = FALSE)
       );
       csTimeDeltaRESULT_ <- rasPASTE0(
         ssFloatsAsInts_, " milli-secs"
@@ -167,7 +180,7 @@
         ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
     }
-    base::return(csTimeDeltaRESULT_);
+    rasRETURN(csTimeDeltaRESULT_);
   }
 
   
@@ -181,17 +194,17 @@
   ssFuncSelfID_     <- ssFuncSelfID     %?!% "UNDEFINED";
   siFuncMode01_     <- siFuncMode01     %?!% 1L;
   csIconCarat_      <- csIconCarat      %?!% rasMfmrICONS$FireFlame;
-  csColorCarat_     <- csColorCarat     %?!% rasMfmrCOLORS$YellowFORE;
+  csColorCarat_     <- csColorCarat     %?!% rcsColorsYELLOW_;
   csIconSplit_      <- csIconSplit      %?!% " | ";
-  csColorSplit_     <- csColorSplit     %?!% rasMfmrCOLORS$YellowFORE;
-  csTimeStart_      <- csTimeStart      %?!% rasSysTimeNOW_;
-  csTimeStop_       <- csTimeStop       %?!% rasSysTimeNOW_;
+  csColorSplit_     <- csColorSplit     %?!% rcsColorsYELLOW_;
+  csTimeStart_      <- csTimeStart      %?!% rcsSysTimeNOW_;
+  csTimeStop_       <- csTimeStop       %?!% rcsSysTimeNOW_;
   csFormatDT_       <- csFormatDT       %?!% rasMfmrDATES$LONGv03;
-  csColorTimeStamp_ <- csColorTimeStamp %?!% rasMfmrCOLORS$YellowFORE;
-  csColorProjID_    <- csColorProjID    %?!% rasMfmrCOLORS$GreenFORE;
-  csColorFuncType_  <- csColorFuncType  %?!% rasMfmrCOLORS$YellowFORE;
-  csColorCallerID_  <- csColorCallerID  %?!% rasMfmrCOLORS$MagentaFORE;
-  csColorMain_      <- csColorMain      %?!% rasMfmrCOLORS$CyanFORE;
+  csColorTimeStamp_ <- csColorTimeStamp %?!% rcsColorsYELLOW_;
+  csColorProjID_    <- csColorProjID    %?!% rcsColorsGREEN_;
+  csColorFuncType_  <- csColorFuncType  %?!% rcsColorsYELLOW_;
+  csColorCallerID_  <- csColorCallerID  %?!% rcsColorsMAGENTA_;
+  csColorMain_      <- csColorMain      %?!% rcsColorsCYAN_;
   sbPrintPretty_    <- sbPrintPretty    %?!% TRUE;
   siStartCELN_      <- siStartCELN      %?!% 1L;
   siStopCELN_       <- siStopCELN       %?!% 28L;
@@ -291,7 +304,7 @@
   
   
   ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
-  ssFuncType_ <- MFMRutils::code.classify.func(
+  ssFuncType_ <- rasMfmrClassifyFUNC(
     siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
   );
   if (!rasIsNULL(ssFuncType_)) {
@@ -460,7 +473,7 @@
     "ProjID" = ssProjID_, "CallerID" = ssFuncCallerID_,
     "FuncSTART" = csTimeStart_, "FuncSTOP" = csTimeStop_
   );
-  base::invisible(rasLIST("SelfID" = coListFuncRes_));
+  rasINVISIBLE(rasLIST("SelfID" = coListFuncRes_));
 }
 
 
