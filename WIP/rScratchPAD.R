@@ -48,6 +48,15 @@ vsDotsArgs_ <- list(
 vsDotsArgs_['ssProjID']
 
 
-info.post.func.self.id()
+info.post.func.self.id(
+  ssProjID = "rProjTESTr",
+  ssFuncSelfID = "rcFuncSelfID",
+  ssFuncCallerID = "rcf_TEST_FUNC", 
+  siFuncMode01 = 1L
+)
 
 
+
+FALSE | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
+c(FALSE, TRUE) | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
+c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE) | FALSE

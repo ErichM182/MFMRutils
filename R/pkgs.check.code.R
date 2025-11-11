@@ -145,6 +145,7 @@
   ssDateTimeCURR <- base::Sys.time();
 
   # 2. Extract the current version number from the DESCRIPTION file ...
+  ### rvsLibINFO_ <- MFMRutils::pkgs.get.lib.info();
   ssFileDESC <- base::file.path("./DESCRIPTION");     # -> Identifies the "DESCRIPTION" file (with path).
   ssVersCURR <- desc::desc_get_version(ssFileDESC);   # -> Extracts the current version number from "DESCRIPTION" file.
   ssProjID <- desc::desc_get_field(   # -> Extracts the R-Libs Project ID ...

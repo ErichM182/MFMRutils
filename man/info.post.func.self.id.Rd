@@ -5,11 +5,10 @@
 \title{Compile & print custom function Self-ID Information}
 \usage{
 info.post.func.self.id(
-  ...,
   ssProjID = NULL,
+  ssFuncSelfID = NULL,
+  siFuncMode01 = NULL,
   ssFuncCallerID = NULL,
-  siFuncMode01 = 1L,
-  ssFuncType = NULL,
   csIconCarat = NULL,
   csColorCarat = NULL,
   csIconSplit = NULL,
@@ -22,16 +21,19 @@ info.post.func.self.id(
   csColorFuncType = NULL,
   csColorCallerID = NULL,
   csColorMain = NULL,
-  sbPrintPretty = TRUE
+  sbPrintPretty = NULL,
+  siStartCELN = NULL,
+  siStopCELN = NULL
 )
 }
 \arguments{
 \item{ssProjID}{a character (string) identifier of the R Project \if{html}{\out{<script>}}
 file that called the custom R function execution.}
 
-\item{ssFuncCallerID}{a character (string) value that identifies the parent
-function that invoked that execution of the active or
-current function.}
+\item{ssFuncSelfID}{a character (text string) identifier for the active R
+Function being called (or being executed). If set to NULL
+the hard-coded "info.post.func.self.id()" function ID
+(i.e. "MFMR-Self.ID") will be used in the printed result.}
 
 \item{siFuncMode01}{an integer (long) value that identifies the two run-time
 states of this \code{Self-ID} custom function. A value of \code{1L}
@@ -39,9 +41,9 @@ sets the function mode to the \code{ENTER} (start) state; while
 a value of \code{0L} sets the function mode to the \code{EXIT} (stop)
 run-time state.}
 
-\item{ssFuncType}{a character (string) value that defines the function type
-of the active function being executed. This value can be
-compiled with the \code{MFMRutils::code.classify.func()} function.}
+\item{ssFuncCallerID}{a character (string) value that identifies the parent
+function that invoked that execution of the active or
+current function.}
 
 \item{csIconCarat}{a character (string) value that defines the leading icon
 (carat) object to be used when printing the \code{Self-ID}
@@ -85,10 +87,14 @@ text colour in the formatted text output.}
 text (Self-ID Function Info) should be formatted when
 printed to the R Console.}
 
-\item{ssFuncSelfID}{a character (text string) identifier for the active R
-Function being called (or being executed). If set to NULL
-the hard-coded "info.post.func.self.id()" function ID
-(i.e. "MFMR-Self.ID") will be used in the printed result.}
+\item{siStartCELN}{an integer that denotes the START of the function's block of
+code. The Code Editor Line Number (\code{CELN}) of the first line
+of code that defines a custom function.}
+
+\item{siStopCELN}{an integer that denotes the STOP (end) of the function's
+block of code. The Code Editor Line Number (\code{CELN}) of the
+last line of code that defines a custom function - usually
+identified by a closing curly brace.}
 }
 \value{
 This function returns a single \if{html}{\out{<abbreviated>}} character value that

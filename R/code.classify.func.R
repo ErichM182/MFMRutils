@@ -49,7 +49,9 @@
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  ssFuncSelfID_ <- "MFMR.Class-Func";
+  ssFuncSelfID_ <- base::paste0(
+    "MFMRutils::Classify.Func"
+  );
 
   
   
