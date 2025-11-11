@@ -85,9 +85,9 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  ssNote="NOTE to POST !!!", ssHeader=NULL, csIconCarat="=>", csIconSplit="|", 
-  sbShowTail=TRUE, sbPrePendNL=FALSE, sbPrintPretty=TRUE, sbPostPendNL=TRUE, 
-  sbPostPend2ndNL=FALSE,
+  ssNote="NOTE to POST !!!", ssHeader=NULL, 
+  csIconCarat="=>", csIconSplit="|", sbShowTail=TRUE, sbPrePendNL=FALSE, 
+  sbPrintPretty=TRUE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
   csIconTail=MFMRutils::ENVIcons$FireFlame,
   csColorNote=MFMRutils::ENVColors$CyanFORE,
   csColorHeader=MFMRutils::ENVColors$GreenFORE, 
@@ -104,19 +104,19 @@
   
   ### STEP 02 - Capture NB "DotsArgs" Inputs here ... ####
   # NOTES: the "dots-args" are handed over in subsequent steps (as required) ...
-  vsDotsArgs_ <- base::list(...);
-  ssDotArgProjID_ <- vsDotsArgs_[["ssProjID"]];
-  csDotArgFormatDT_ <- vsDotsArgs_[["csFormatDT"]];
-  csDotArgIconSplit_ <- vsDotsArgs_[["csIconSplit"]];
-  csDotArgIconCarat_ <- vsDotsArgs_[["csIconCarat"]];
-  sbDotArgRunSelfID_ <- vsDotsArgs_[["sbRunSelfID"]];
-  csDotArgColorMain_ <- vsDotsArgs_[["csColorMain"]];
-  csDotArgColorSplit_ <- vsDotsArgs_[["csColorSplit"]];
-  csDotArgColorCarat_ <- vsDotsArgs_[["csColorCarat"]];
-  csDotArgColorProjID_ <- vsDotsArgs_[["csColorProjID"]];
-  ssDotArgFuncCallrID_ <- vsDotsArgs_[["ssFuncCallerID"]];
-  csDotArgColorCallerID_ <- vsDotsArgs_[["csColorCallerID"]];
-  csDotArgColorFuncType_ <- vsDotsArgs_[["csColorFuncType"]];
+  vsDotsArgs_             <- base::list(...);
+  ssDotArgProjID_         <- vsDotsArgs_[["ssProjID"]];
+  csDotArgFormatDT_       <- vsDotsArgs_[["csFormatDT"]];
+  csDotArgIconSplit_      <- vsDotsArgs_[["csIconSplit"]];
+  csDotArgIconCarat_      <- vsDotsArgs_[["csIconCarat"]];
+  sbDotArgRunSelfID_      <- vsDotsArgs_[["sbRunSelfID"]];
+  csDotArgColorMain_      <- vsDotsArgs_[["csColorMain"]];
+  csDotArgColorSplit_     <- vsDotsArgs_[["csColorSplit"]];
+  csDotArgColorCarat_     <- vsDotsArgs_[["csColorCarat"]];
+  csDotArgColorProjID_    <- vsDotsArgs_[["csColorProjID"]];
+  ssDotArgFuncCallrID_    <- vsDotsArgs_[["ssFuncCallerID"]];
+  csDotArgColorCallerID_  <- vsDotsArgs_[["csColorCallerID"]];
+  csDotArgColorFuncType_  <- vsDotsArgs_[["csColorFuncType"]];
   csDotArgColorTimeStamp_ <- vsDotsArgs_[["csColorTimeStamp"]];
   
   

@@ -67,125 +67,94 @@
 #' @export
 #? ### ### ###
 "info.post.func.self.id" <- function(
-  ssProjID=NULL, ssFuncCallerID=NULL, siFuncMode01=1L, ssFuncType=NULL,
+  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncType=NULL,
   csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
   csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
   csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, csColorMain=NULL,
-  sbPrintPretty=TRUE, ssFuncSelfID=NULL, ...
+  sbPrintPretty=NULL, ssFuncCallerID=NULL
 ) {
 
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
-  # NOTES: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT
-  #        DOES NOT SELF-IDENTIFY (i.e. self-ID here causes infinite recursion) !!!
-  ssFuncSelfID_ <- "MFMR-Func.Self.ID";
-  ### csTimeSTART_ <- base::Sys.time();
-  ##### -> siFuncStartCELN_ <- 10; siFuncStopCELN_ <- 146; 
-
-  
-  
-  ### STEP 02 - Capture the Dots Function Arguments ... ####
-  # NOTES: the "dots-args" are handed over in subsequent steps (as required) ...
-  vsDotsArgs_ <- base::list(...);
+  # NB: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
+  #     NOT SELF-IDENTIFY (i.e. Self-ID here causes infinite recursion) !!!
+  ssFuncTAG_ <- "MFMR-Func.Self.ID";
   
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  baseCAT   <- base::cat;
-  elseIF    <- base::ifelse;
-  isNULL    <- base::is.null;
-  conCatSTR <- base::paste0;
+  baseANY      <- base::any;
+  baseCAT      <- base::cat;
+  baseNA       <- base::is.na;
+  baseTRUNC    <- base::trunc;
+  baseLEN      <- base::length;
+  baseRET      <- base::return;
+  ifELSE       <- base::ifelse;
+  conCatSTR    <- base::paste0;
+  isNULL       <- base::is.null;
+  baseSFTIME   <- base::strftime;
+  baseAsNUM    <- base::as.numeric;
+  csBoldANSI_  <- MFMRutils::ENVFormats$BOLD;
+  csResetANSI_ <- MFMRutils::ENVFormats$RESET;
+  
+  
+  ### Compile Useful <internal> Custom Functions here !!!
+  # Define custom null-coalescing operator ...
+  `%?!%` <- function(e1, e2) {
+    if (isNULL(e1) || baseLEN(e1) == 0 || baseANY(baseNA(e1))) {
+      baseRET(e2);
+    } else {
+      baseRET(e1)
+    }
+  }
 
   
   
-  ### STEP 03 - Internalize ALL Function Arguments here ... ####
+  ### STEP 02 - Internalize ALL Function Arguments here ... ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
-  csTimeStamp_    <- NULL;
-  ssProjID_       <- ssProjID;
-  coListFuncRes_  <- NULL;   # -> The <final> function outputs <results> object.
-  ssFuncType_     <- ssFuncType;
-  csIconSplit_    <- csIconSplit;    
-  csIconCarat_    <- csIconCarat; 
-  siFuncMode01_   <- siFuncMode01; 
-  ssFuncCallerID_ <- ssFuncCallerID; 
-  csBoldANSI_     <- MFMRutils::ENVFormats$BOLD;
-  csResetANSI_    <- MFMRutils::ENVFormats$RESET; 
+  csTimeStamp_      <- NULL;
+  coListFuncRes_    <- NULL;   # -> The <final> function outputs <results> object.
+  ssProjID_         <- ssProjID         %?!% "UNDEFINED";
+  ssFuncCallerID_   <- ssFuncCallerID   %?!% "UNDEFINED";
+  ssFuncSelfID_     <- ssFuncSelfID     %?!% "UNDEFINED";
+  siFuncMode01_     <- siFuncMode01     %?!% 1L;
+  ssFuncType_       <- ssFuncType       %?!% "UNDEFINED";
+  csIconCarat_      <- csIconCarat      %?!% MFMRutils::ENVIcons$FireFlame;
+  csColorCarat_     <- csColorCarat     %?!% MFMRutils::ENVColors$YellowFORE;
+  csIconSplit_      <- csIconSplit      %?!% " | ";
+  csColorSplit_     <- csColorSplit     %?!% MFMRutils::ENVColors$YellowFORE;
+  csTimeStart_      <- csTimeStart      %?!% base::Sys.time();
+  csTimeStop_       <- csTimeStop       %?!% base::Sys.time();
+  csFormatDT_       <- csFormatDT       %?!% MFMRutils::ENVDates$LONGv03;
+  csColorTimeStamp_ <- csColorTimeStamp %?!% MFMRutils::ENVColors$YellowFORE;
+  csColorProjID_    <- csColorProjID    %?!% MFMRutils::ENVColors$GreenFORE;
+  csColorFuncType_  <- csColorFuncType  %?!% MFMRutils::ENVColors$YellowFORE;
+  csColorCallerID_  <- csColorCallerID  %?!% MFMRutils::ENVColors$MagentaFORE;
+  csColorMain_      <- csColorMain      %?!% MFMRutils::ENVColors$CyanFORE;
+  sbPrintPretty_    <- sbPrintPretty    %?!% TRUE;
   
   
   
-  ### STEP 04 - Prime "Func-Self-ID" tag ... ####
-  if (!isNULL(ssFuncSelfID)) {
-    ssFuncSelfID_ <- ssFuncSelfID;
-  }
-  
-  
-  
-  ### STEP 05 - Prime the DateTime Values ... ####
-  csTimeStart_ <- elseIF(
-    isNULL(csTimeStart), base::Sys.time(), csTimeStart
-  );
-  csTimeStop_ <- elseIF(
-    isNULL(csTimeStop), base::Sys.time(), csTimeStop
-  );
-  csFormatDT_ <- elseIF(
-    isNULL(csFormatDT), MFMRutils::ENVDates$LONGv03, csFormatDT
-  );
-  csTimeStartFORMATTED_ <- base::strftime(
+  ### STEP 04 - Prime the DateTime Values ... ####
+  csTimeStartFORMATTED_ <- baseSFTIME(
     x = csTimeStart_, format = csFormatDT_
   );
-  csTimeStopFORMATTED_ <- base::strftime(
+  csTimeStopFORMATTED_ <- baseSFTIME(
     x = csTimeStop_, format = csFormatDT_
   );
   
   
   
-  ### STEP 06 - Prime NB Colour Values ... ####
-  csColorMain_ <- elseIF(
-    isNULL(csColorMain), 
-    MFMRutils::ENVColors$CyanFORE, csColorMain
-  );
-  csColorCarat_ <- elseIF(
-    isNULL(csColorCarat), 
-    MFMRutils::ENVColors$YellowFORE, csColorCarat
-  );
-  csColorSplit_ <- elseIF(
-    isNULL(csColorSplit), 
-    MFMRutils::ENVColors$YellowFORE, csColorSplit
-  );
-  csColorProjID_ <- elseIF(
-    isNULL(csColorProjID), 
-    MFMRutils::ENVColors$GreenFORE, csColorProjID
-  );
-  csColorFuncType_ <- elseIF(
-    isNULL(csColorFuncType), 
-    MFMRutils::ENVColors$YellowFORE, csColorFuncType
-  );
-  csColorCallerID_ <- elseIF(
-    isNULL(csColorCallerID), 
-    MFMRutils::ENVColors$MagentaFORE, csColorCallerID
-  );
-  csColorTimeStamp_ <- elseIF(
-    isNULL(csColorTimeStamp), 
-    MFMRutils::ENVColors$YellowFORE, csColorTimeStamp
-  );
-  
-  
-  
   ### STEP 07 - Extract the String Formatting Setting ... ####
-  sbPrintPretty_ <- sbPrintPretty;
-  ## elseIF(
-  ##   isNULL(vsDotsArgs_[["sbPrintPretty"]]), 
-  ##   FALSE, vsDotsArgs_[["sbPrintPretty"]]
-  ## );
-  "rcf_calc.time.delta_" <- function(csTimeStart, csTimeStop) {
-    csTimeDeltaRAW_ <- base::as.numeric(
+  rcf_calc.time.delta_ <- function(csTimeStart, csTimeStop) {
+    csTimeDeltaRAW_ <- baseAsNUM(
       csTimeStop - csTimeStart, units = "secs"
     );
-    csTimeDelta_ <- base::as.numeric(csTimeDeltaRAW_[[1]]);
+    csTimeDelta_ <- baseAsNUM(csTimeDeltaRAW_[[1]]);
     csTimeDeltaRESULT_ <- NULL;
     csTimeDeltaROUND_ <- base::round(csTimeDelta_, 3);
     if (csTimeDeltaROUND_ <= 0.999) {
       ssFloatVals_ <- base::abs(
-        csTimeDeltaROUND_ - base::trunc(csTimeDeltaROUND_)
+        csTimeDeltaROUND_ - baseTRUNC(csTimeDeltaROUND_)
       );
       ssFloatsAsInts_ <- base::sub(
         "^0\\.", "", base::format(ssFloatVals_, scientific = FALSE)
@@ -194,31 +163,31 @@
         ssFloatsAsInts_, " milli-secs"
       );
     } else if (csTimeDeltaROUND_ > 0.999 && csTimeDeltaROUND_ <= 60.0) {
-      ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
+      ssIntsONLY_ <- baseTRUNC(csTimeDeltaROUND_);
       csTimeDeltaRESULT_ <- conCatSTR(
         ssIntsONLY_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 60.0 && csTimeDeltaROUND_ <= 3600) {
-      ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
+      ssIntsONLY_ <- baseTRUNC(csTimeDeltaROUND_);
       ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-      ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
+      ssDeltaMins_ <- baseTRUNC(ssIntsONLY_ / 60);
       csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 3600 && csTimeDeltaROUND_ <= 216000) {
-      ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
+      ssIntsONLY_ <- baseTRUNC(csTimeDeltaROUND_);
       ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-      ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
-      ssDeltaHrs_ <- base::trunc(ssIntsONLY_ / (60 * 60));
+      ssDeltaMins_ <- baseTRUNC(ssIntsONLY_ / 60);
+      ssDeltaHrs_ <- baseTRUNC(ssIntsONLY_ / (60 * 60));
       csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaHrs_, " hrs, ", ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
       );
     } else if (csTimeDeltaROUND_ > 216000 && csTimeDeltaROUND_ <= 5184000) {
-      ssIntsONLY_ <- base::trunc(csTimeDeltaROUND_);
+      ssIntsONLY_ <- baseTRUNC(csTimeDeltaROUND_);
       ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-      ssDeltaMins_ <- base::trunc(ssIntsONLY_ / 60);
-      ssDeltaHrs_ <- base::trunc(ssIntsONLY_ / (60 * 60));
-      ssDeltaDays_ <- base::trunc(ssIntsONLY_ / (60 * 60 * 24));
+      ssDeltaMins_ <- baseTRUNC(ssIntsONLY_ / 60);
+      ssDeltaHrs_ <- baseTRUNC(ssIntsONLY_ / (60 * 60));
+      ssDeltaDays_ <- baseTRUNC(ssIntsONLY_ / (60 * 60 * 24));
       csTimeDeltaRESULT_ <- conCatSTR(
         ssDeltaDays_, " days, ", ssDeltaHrs_, " hrs, ", 
         ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
@@ -391,11 +360,11 @@
   # 4.3.1.2 - Post the `ENTER` notification (Func-Self-ID) text ...
   if (siFuncMode01_ == 1L) {   # -> Apply the ENTER function Info Post !!!
     if (sbPrintPretty_) {
-      baseCat(
+      baseCAT(
         conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
           conCatSTR(
-            csBoldANSI_, csColorMain_, "F-START { F-ID: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "F-START { F-SID: '", csResetANSI_
           ),
           conCatSTR(
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
@@ -405,7 +374,7 @@
           ), 
           ssFuncType_,
           conCatSTR(
-            csBoldANSI_, csColorMain_, "'>  Caller: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "'>  F-Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
           conCatSTR(
@@ -418,12 +387,12 @@
         )
       );
     } else {
-      baseCat(
+      baseCAT(
         conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
-          "F-START {  F-ID: '", ssFuncSelfID_, 
+          "F-START {  F-SID: '", ssFuncSelfID_, 
           "'  <F-Type: '", ssFuncType_, "'> ",
-          " Caller: '", ssFuncCallerID_,
+          " F-Caller: '", ssFuncCallerID_,
           "'  <Time: ", csTimeStamp_, ">  }\n"
         )
       );
@@ -431,17 +400,17 @@
   } else if (siFuncMode01_ == 0L) {   # -> Apply the EXIT function Info Post !!!
      csDeltaTIME_ <- rcf_calc.time.delta_(csTimeStart_, csTimeStop_);
      if (sbPrintPretty_) {
-      baseCat(
+       baseCAT(
         conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
           conCatSTR(
-            csBoldANSI_, csColorMain_, "F-STOP { F-ID: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "F-STOP { F-SID: '", csResetANSI_
           ),
           conCatSTR(
             csBoldANSI_, csColorCallerID_, ssFuncSelfID_, csResetANSI_
           ),
           conCatSTR(
-            csBoldANSI_, csColorMain_, "'  <Caller: '", csResetANSI_
+            csBoldANSI_, csColorMain_, "'  <F-Caller: '", csResetANSI_
           ), 
           ssFuncCallerID_,
           conCatSTR(
@@ -460,11 +429,11 @@
         )
       );
     } else {
-      baseCat(
+      baseCAT(
         conCatSTR(
           csIconCarat_, ssProjID_, csIconSplit_,
-          "F-STOP { F-ID: '", ssFuncSelfID_, 
-          "'  <Caller: '", ssFuncCallerID_, "'> ",
+          "F-STOP { F-SID: '", ssFuncSelfID_, 
+          "'  <F-Caller: '", ssFuncCallerID_, "'> ",
           " Time: ", csTimeStamp_, "",
           " ( F-Dur: ", csDeltaTIME_, " ) }\n"
         )

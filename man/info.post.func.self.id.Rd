@@ -5,6 +5,7 @@
 \title{Compile & print custom function Self-ID Information}
 \usage{
 info.post.func.self.id(
+  ...,
   ssProjID = NULL,
   ssFuncCallerID = NULL,
   siFuncMode01 = 1L,
@@ -21,9 +22,7 @@ info.post.func.self.id(
   csColorFuncType = NULL,
   csColorCallerID = NULL,
   csColorMain = NULL,
-  sbPrintPretty = TRUE,
-  ssFuncSelfID = NULL,
-  ...
+  sbPrintPretty = TRUE
 )
 }
 \arguments{
