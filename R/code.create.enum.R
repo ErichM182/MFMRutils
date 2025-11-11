@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Create Environment-safe and Immutable Enumerated R Data Objects
+#' 
 #' @description
 #' A Helper Function that compiles an Environment-safe and immutable (locked)) R
 #' Enumerated Data Object from an input list or vector of character objects.
@@ -78,7 +79,7 @@
   if (base::is.null(vsEnumVals)) {
     ssPostNote = MFMRutils::info.post.note(
       ssFuncCallerID = base::paste0(ssTagFuncID, " ", 79),
-      csColorPostNote = ENVColors$RedFORE, csColorCFID = ENVColors$RedFORE,
+      csColorPostNote = EnvCOLORS$RedFORE, csColorCFID = EnvCOLORS$RedFORE,
       ssPostNote = "The `vsEnumVals` function argument should not be NULL !!!\n"
     )
   } else {

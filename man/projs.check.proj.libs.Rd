@@ -2,7 +2,7 @@
 % Please edit documentation in R/PROJS.Check.Proj.Libs.R
 \name{projs.check.proj.libs}
 \alias{projs.check.proj.libs}
-\title{Install required R Project Libraries}
+\title{Install Required R Project Libraries}
 \usage{
 projs.check.proj.libs(
   vsReqLibs = NULL,

@@ -7,6 +7,9 @@
 #'
 #' @param ssPathFileDESC a character (string) value that denotes the <local> path
 #'                       <directory> to the R Library "DESCRIPTION" file.
+#' @param sbIsAbsolutePath a logical (boolean) value that specifies whether the 
+#'                         DESCRIPTION File Path argument `ssPathFileDESC` is set
+#'                         (or provided) as an absolute path or not.
 #'
 #' @examples
 #' ### Activate the "MFMRutils" R Library (if previously installed) ...

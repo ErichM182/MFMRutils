@@ -7,9 +7,9 @@
 #'
 #' @examples
 #' ### Easily print & assign Date Formats as follows ...
-#' ENVLibsMFMR$UTILS   ### -> formats Date to "Saturday, January 16 1982" !!!
-#' ENVLibsMFMR$UTILS   ### -> formats Date to "Sat, Jan 16 1982" !!!
-#' ENVLibsMFMR$UTILS   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+#' EnvLibsMFMR$UTILS   ### -> formats Date to "Saturday, January 16 1982" !!!
+#' EnvLibsMFMR$UTILS   ### -> formats Date to "Sat, Jan 16 1982" !!!
+#' EnvLibsMFMR$UTILS   ### -> formats Date to "Sat, 16 Jan 1982" !!!
 #'
 #' @export
 #? ### ### ###

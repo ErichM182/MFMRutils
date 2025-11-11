@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title CRAN Code Check with real-time File Version Tracking
+#' 
 #' @description
 #' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure
 #' during active R Package Development. This function programmatically updates the
@@ -54,20 +55,20 @@
   ) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- ENVFormats$BOLD; # "\033[1m";
-    csANSIitalics <- ENVFormats$ITALICS; # "\033[3m";
+    csANSIbold <- EnvFORMATS$BOLD; # "\033[1m";
+    csANSIitalics <- EnvFORMATS$ITALICS; # "\033[3m";
 
-    csANSIred <- ENVColors$RedFORE; # "\033[91m";
-    csANSIblue <- ENVColors$BlueFORE; # "\033[94m";
-    csANSIgreen <- ENVColors$GreenFORE; # "\033[92m";
-    csANSIyellow <- ENVColors$YellowFORE; # "\033[93m";
+    csANSIred <- EnvCOLORS$RedFORE; # "\033[91m";
+    csANSIblue <- EnvCOLORS$BlueFORE; # "\033[94m";
+    csANSIgreen <- EnvCOLORS$GreenFORE; # "\033[92m";
+    csANSIyellow <- EnvCOLORS$YellowFORE; # "\033[93m";
 
-    csANSIreset <- ENVFormats$RESET; # "\033[0m";
+    csANSIreset <- EnvFORMATS$RESET; # "\033[0m";
 
     # Unicode characters for CheckMark and Cross ...
-    csUniCodeCross <- ENVIcons$XSlanted;
-    csUniCodeCheckmark <- ENVIcons$CheckMark;
-    csUniCodeArrowRight <- ENVIcons$ArrowRIGHT;
+    csUniCodeCross <- EnvICONS$XSlanted;
+    csUniCodeCheckmark <- EnvICONS$CheckMark;
+    csUniCodeArrowRight <- EnvICONS$ArrowRIGHT;
 
     # Create the output string
     output <- base::paste0(
@@ -164,22 +165,22 @@
   if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
 
     # ANSI escape codes for colors ...
-    csANSIbold <- ENVFormats$BOLD; # "\033[1m";
-    csANSIitalics <- ENVFormats$ITALICS; # "\033[3m";
+    csANSIbold <- EnvFORMATS$BOLD; # "\033[1m";
+    csANSIitalics <- EnvFORMATS$ITALICS; # "\033[3m";
 
-    csANSIred <- ENVColors$RedFORE; # "\033[91m";
-    csANSIblue <- ENVColors$BlueFORE; # "\033[94m";
-    csANSIgreen <- ENVColors$GreenFORE; # "\033[92m";
-    csANSIyellow <- ENVColors$YellowFORE; # "\033[93m";
+    csANSIred <- EnvCOLORS$RedFORE; # "\033[91m";
+    csANSIblue <- EnvCOLORS$BlueFORE; # "\033[94m";
+    csANSIgreen <- EnvCOLORS$GreenFORE; # "\033[92m";
+    csANSIyellow <- EnvCOLORS$YellowFORE; # "\033[93m";
 
-    csANSIreset <- ENVFormats$RESET; # "\033[0m";
+    csANSIreset <- EnvFORMATS$RESET; # "\033[0m";
 
     # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodeEyes = ENVIcons$OoglyEyes;
-    csUniCodeArrowRight <- ENVIcons$ArrowRIGHT;
-    csUniCodePointUP <- ENVIcons$PointUP;
-    csUniCodeCryingEmoticon <- ENVIcons$SmileySad;
-    csUniCodePonderingEmoticon <- ENVIcons$SmileyPonder;
+    csUniCodeEyes = EnvICONS$OoglyEyes;
+    csUniCodeArrowRight <- EnvICONS$ArrowRIGHT;
+    csUniCodePointUP <- EnvICONS$PointUP;
+    csUniCodeCryingEmoticon <- EnvICONS$SmileySad;
+    csUniCodePonderingEmoticon <- EnvICONS$SmileyPonder;
 
     # Calculate delta in hours between current time and midnight ...
     ssHrsSinceMidNight <- base::as.character(

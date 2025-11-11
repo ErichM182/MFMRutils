@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
-#' @title Post Standardized Project Notifications
+#' @title Post Standardized R-Project Notifications
+#' 
 #' @description
 #' A Helper Function that standardizes the User / Project Information Posting
 #' (i.e. notification) Processes. This custom function was intended to mainly
@@ -63,8 +64,8 @@
 #' @examples
 #' 
 #' ### Print a dummy notification ...
-#' require(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
-#' info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
+#' library(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
+#' ## info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
 #' MFMRutils::info.post.note()   # -> use this when "MFMRutils" is installed, 
 #'                               #    but NOT <already> loaded !!!
 #'
@@ -75,7 +76,7 @@
 #' info.post.note(                                  
 #'   sbRunSelfID = TRUE, 
 #'   ssFuncCallerID = "rTestFunc"       # -> Sets the Calling Function Identifier (tag) in the
-#'                                      #    "Self-ID" info to a value of `rTestFunc` ...
+#' )                                    #    "Self-ID" info to a value of `rTestFunc` ...
 #' 
 #' info.post.note(                                  
 #'   sbRunSelfID = TRUE, 
@@ -88,17 +89,18 @@
   ssHeader=NULL, ssNote="NOTE to POST !!!",
   csIconCarat="=>", csIconSplit="|", sbShowTail=TRUE, sbPrePendNL=FALSE, 
   sbPrintPretty=TRUE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
-  csIconTail=MFMRutils::ENVIcons$FireFlame,
-  csColorNote=MFMRutils::ENVColors$CyanFORE,
-  csColorHeader=MFMRutils::ENVColors$GreenFORE, 
-  csColorCarat=MFMRutils::ENVColors$YellowFORE, 
-  csColorSplit=MFMRutils::ENVColors$YellowFORE, ...
+  csIconTail=MFMRutils::EnvICONS$FireFlame,
+  csColorNote=MFMRutils::EnvCOLORS$CyanFORE,
+  csColorHeader=MFMRutils::EnvCOLORS$GreenFORE, 
+  csColorCarat=MFMRutils::EnvCOLORS$YellowFORE, 
+  csColorSplit=MFMRutils::EnvCOLORS$YellowFORE, ...
 ) {
   
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
   csTimeSTART_ <- base::Sys.time();
-  ssFuncSelfID_ <- "MFMR-Post.Note";
+  rssTagFuncID_ <- "MFMR-Post.Note";
   siStartCELN_ <- 87; siStopCELN_ <- 286;
+  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
   
   
   
@@ -160,10 +162,10 @@
     MFMRutils::info.post.func.self.id(
       ssProjID = ssDotArgProjID_, siFuncMode01 = 1L,
       sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
-      ssFuncSelfID = ssFuncSelfID_, ssFuncCallerID = ssDotArgFuncCallrID_,
+      ssFuncSelfID = rssTagFuncID_, ssFuncCallerID = ssDotArgFuncCallrID_,
       csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
       csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
-      ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
+      ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
       csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
       csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,
       csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
@@ -175,8 +177,8 @@
   ### . --- --- --- > Custom Function CODE LOGIC - START < --- --- --- . ####
   ### STEP 06 - Execute this Custom Function's Code logic here ... ####
   ## 6.1 - Prime Standard Text Formatters here ... ####
-  csFormatBOLD_ <- MFMRutils::ENVFormats$BOLD;
-  csFormatRESET_ <- MFMRutils::ENVFormats$RESET;
+  csFormatBOLD_ <- MFMRutils::EnvFORMATS$BOLD;
+  csFormatRESET_ <- MFMRutils::EnvFORMATS$RESET;
   
   
   ## 6.2 - Prime the CARAT icon accordingly ... ####
@@ -185,7 +187,7 @@
         csIconCarat_ == "->" || csIconCarat_ == " -> ") {
       csIconCarat_ <- conCatSTR(
         csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
-        MFMRutils::ENVIcons$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
+        MFMRutils::EnvICONS$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
         csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
       );
     } else {
@@ -268,10 +270,10 @@
     csTimeSTOP_ <- base::Sys.time();
     MFMRutils::info.post.func.self.id(
       sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
-      ssFuncSelfID = ssFuncSelfID_, ssFuncCallerID = ssDotArgFuncCallrID_,
+      ssFuncSelfID = rssTagFuncID_, ssFuncCallerID = ssDotArgFuncCallrID_,
       csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
       csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
-      ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
+      ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
       csTimeStop = csTimeSTOP_, ssProjID = ssDotArgProjID_, siFuncMode01 = 0L,
       csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
       csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,

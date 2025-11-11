@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile & print custom function Self-ID Information
+#' 
 #' @description
 #' A <tiny> Helper Function that compiles and prints the self-identification 
 #' information (i.e. self-id, type, caller, run-time duration etc.) of a custom 
@@ -62,11 +63,16 @@
 #'          * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
 #'
 #' @examples
-#' ### Classify your Custom R Function as follows:
-#' require(MFMRutils)   # -> Ensures the "MFMRutils" library is installed & loaded
-#'
-#' info.post.func.self.id()   # -> Set this Code Editor Line Number `CELN`as the 
-#'                            #    `siFuncStopCELN` arg value !!!
+#' ### Run Self-Identification (Self-ID) on your Custom R Function as follows:
+#' library(MFMRutils)         # -> Loads the "MFMRutils" R Library ...
+#' info.post.func.self.id()   # -> Runs the default <NULL> function state ...
+#' 
+#' ### Prime the relevant function arguments as needed ...
+#' info.post.func.self.id(
+#'  ssProjID = "rTestProject",
+#'  ssFuncSelfID = "rcfTextFUNC", 
+#'  siFuncMode01 = 1L
+#' )
 #'
 #' @export
 #? ### ### ###
@@ -81,8 +87,8 @@
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
-  ssTagFuncID_ <- "Func.Self.ID";
-  ssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  rssTagFuncID_ <- "INFO.Func.Self.ID";
+  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
   
   
   ### Assign "Local Aliases" for frequently used functions !!!
@@ -105,9 +111,9 @@
   rasStrFormTIME      <- base::strftime;
   rasINVISIBLE        <- base::invisible;
   rasAsNUMERIC        <- base::as.numeric;
-  rasMfmrDATES        <- MFMRutils::EnvDATES
-  rasMfmrICONS        <- MFMRutils::EnvICONS
-  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS
+  rasMfmrDATES        <- MFMRutils::EnvDATES;
+  rasMfmrICONS        <- MFMRutils::EnvICONS;
+  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
   rasMfmrClassifyFUNC <- MFMRutils::code.classify.func;
   
   
@@ -127,7 +133,7 @@
     if (rasIsNULL(e1) || rasLENGTH(e1) == 0 || rasANY(rasIsNA(e1))) {
       rasRETURN(e2);
     } else {
-      rasRETURN(e1)
+      rasRETURN(e1);
     }
   }
   

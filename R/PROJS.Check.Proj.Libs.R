@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title Install required R Project Libraries
+#' @title Install Required R Project Libraries
 #' 
 #' @description
 #' A Helper Function to install 3rd Party R Libraries required by an R Project
@@ -82,8 +82,6 @@
 ) {
   
   ### STEP 01 - Define the "Function Self-ID" info ... ####
-  # NOTES: This👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT
-  #        DOES NOT SELF-IDENTIFY (i.e. self-ID here causes infinite recursion) !!!
   dtFuncSTART <- base::Sys.time();      # -> Extract Function START Time ...
   ssFuncIdTAG_ <- "Check.Proj.Libs";    # -> Set Function Identifier TAG ...
   ssFormatDTI <- "%a, %b %d %Y @ %X";   # -> DateTime Format for "FuncSelfID" Process ...

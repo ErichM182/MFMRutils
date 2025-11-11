@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Fetch the active Code Editor Gutter Line Number (CEGLN a.k.a. CELN)
+#' 
 #' @description
 #' A SPECIAL HELPER Function that extracts the Code Editor Gutter Line Number
 #' (CEGLN a.k.a. CELN) at the code editor line location from which the

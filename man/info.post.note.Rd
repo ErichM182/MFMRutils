@@ -2,7 +2,7 @@
 % Please edit documentation in R/INFO.Post.Note.R
 \name{info.post.note}
 \alias{info.post.note}
-\title{Post Standardized Project Notifications}
+\title{Post Standardized R-Project Notifications}
 \usage{
 info.post.note(
   ssHeader = NULL,
@@ -14,11 +14,11 @@ info.post.note(
   sbPrintPretty = TRUE,
   sbPostPendNL = TRUE,
   sbPostPend2ndNL = FALSE,
-  csIconTail = MFMRutils::ENVIcons$FireFlame,
-  csColorNote = MFMRutils::ENVColors$CyanFORE,
-  csColorHeader = MFMRutils::ENVColors$GreenFORE,
-  csColorCarat = MFMRutils::ENVColors$YellowFORE,
-  csColorSplit = MFMRutils::ENVColors$YellowFORE,
+  csIconTail = MFMRutils::EnvICONS$FireFlame,
+  csColorNote = MFMRutils::EnvCOLORS$CyanFORE,
+  csColorHeader = MFMRutils::EnvCOLORS$GreenFORE,
+  csColorCarat = MFMRutils::EnvCOLORS$YellowFORE,
+  csColorSplit = MFMRutils::EnvCOLORS$YellowFORE,
   ...
 )
 }
@@ -102,8 +102,8 @@ function in other (3rd Party) R packages.
 \examples{
 
 ### Print a dummy notification ...
-require(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
-info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
+library(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
+## info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
 MFMRutils::info.post.note()   # -> use this when "MFMRutils" is installed, 
                               #    but NOT <already> loaded !!!
 
@@ -114,7 +114,7 @@ info.post.note(sbRunSelfID = TRUE)   # -> Prints the custom R function's START (
 info.post.note(                                  
   sbRunSelfID = TRUE, 
   ssFuncCallerID = "rTestFunc"       # -> Sets the Calling Function Identifier (tag) in the
-                                     #    "Self-ID" info to a value of `rTestFunc` ...
+)                                    #    "Self-ID" info to a value of `rTestFunc` ...
 
 info.post.note(                                  
   sbRunSelfID = TRUE, 

@@ -1,3 +1,3 @@
 > R-Libs Project ID: MFMRutils
-> Last Code Push (vers)  ==>  2025.11.11.019
-> Last Code Push (time)  ==>  20:10:52.922 CAT
+> Last Code Push (vers)  ==>  2025.11.11.041
+> Last Code Push (time)  ==>  22:20:16.066 CAT

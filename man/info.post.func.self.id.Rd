@@ -108,10 +108,15 @@ R function. This custom function was intended to mainly support the MFMR Suite
 of R Functions, but can be utilized as a standalone function in other R packages.
 }
 \examples{
-### Classify your Custom R Function as follows:
-require(MFMRutils)   # -> Ensures the "MFMRutils" library is installed & loaded
+### Run Self-Identification (Self-ID) on your Custom R Function as follows:
+library(MFMRutils)         # -> Loads the "MFMRutils" R Library ...
+info.post.func.self.id()   # -> Runs the default <NULL> function state ...
 
-info.post.func.self.id()   # -> Set this Code Editor Line Number `CELN`as the 
-                           #    `siFuncStopCELN` arg value !!!
+### Prime the relevant function arguments as needed ...
+info.post.func.self.id(
+ ssProjID = "rTestProject",
+ ssFuncSelfID = "rcfTextFUNC", 
+ siFuncMode01 = 1L
+)
 
 }

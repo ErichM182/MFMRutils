@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
-#' @title Classify any custom R function via its Code-Base-Weight (CBW)
+#' @title Classify R functions via their Code-Base-Weights (CBWs)
+#' 
 #' @description
 #' A <tiny> Helper Function that classifies a custom R function on the basis
 #' of the size of code that defines that functions (i.e. on the basis of the
@@ -49,9 +50,8 @@
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  ssFuncSelfID_ <- base::paste0(
-    "MFMRutils::Classify.Func"
-  );
+  rssTagFuncID_ <- "CODE.Classify.Func";
+  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
 
   
   
@@ -63,15 +63,15 @@
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  isNULL <- base::is.null;
+  rasIsNULL <- base::is.null;
 
   
   
   ### STEP 3 - Calculate Function Code DELTA ... ####
-  if (isNULL(siFuncStartCELN_)) {
+  if (rasIsNULL(siFuncStartCELN_)) {
     siFuncStartCELN_ <- 1L;
   }
-  if (isNULL(siFuncStopCELN_)) {
+  if (rasIsNULL(siFuncStopCELN_)) {
     siFuncStopCELN_ <- 7L;
   }
   siCodeDELTA_ <- siFuncStopCELN_ - siFuncStartCELN_;

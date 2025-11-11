@@ -2,7 +2,7 @@
 % Please edit documentation in R/CODE.Classify.Func.R
 \name{code.classify.func}
 \alias{code.classify.func}
-\title{Classify any custom R function via its Code-Base-Weight (CBW)}
+\title{Classify R functions via their Code-Base-Weights (CBWs)}
 \usage{
 code.classify.func(siFuncStartCELN = NULL, siFuncStopCELN = NULL)
 }
