@@ -5,19 +5,25 @@
 \alias{pkgs.get.lib.info}
 \title{Extract R Package \if{html}{\out{<Library>}} Information}
 \usage{
-pkgs.get.lib.info(ssPathToFileDESC = "./DESCRIPTION")
+pkgs.get.lib.info(ssPathFileDESC = "./DESCRIPTION")
+}
+\arguments{
+\item{ssPathFileDESC}{a character (string) value that denotes the \if{html}{\out{<local>}} path
+\if{html}{\out{<directory>}} to the R Library "DESCRIPTION" file.}
 }
 \description{
 A tiny R function that extracts relevant package information from \if{html}{\out{<internal>}}
 R Library Attributes.
 }
 \examples{
-### Easily print & assign Date Formats as follows ...
-ENVDates$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
-ENVDates$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
-ENVDates$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+### Activate the "MFMRutils" R Library (if previously installed) ...
+library(MFMRutils)   # -> Loads the "MFMRutils" library !!!
 
-### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::ENVFormats$BOLD   ### -> sets the text font format to BOLD !!!
+### Extract the R Library Information (for active R Library <project>) ...
+rlsLibINFO <- pkgs.get.lib.info()
+
+rlsLibINFO[["PkgNAME"]]      # <- Returns 'Package Name' value <result> ...
+rlsLibINFO[["PkgVERSION"]]   # <- Returns 'Package Version' value <result> ...
+
 
 }

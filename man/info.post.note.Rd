@@ -5,8 +5,8 @@
 \title{Post Standardized Project Notifications}
 \usage{
 info.post.note(
-  ssNote = "NOTE to POST !!!",
   ssHeader = NULL,
+  ssNote = "NOTE to POST !!!",
   csIconCarat = "=>",
   csIconSplit = "|",
   sbShowTail = TRUE,
@@ -23,14 +23,14 @@ info.post.note(
 )
 }
 \arguments{
-\item{ssNote}{the character vector (i.e. text string or note) to be printed
-to the R console. This text note is also returned as a function
-output under the "value" option of this function's results list.}
-
 \item{ssHeader}{a character vector (string or text) that defines the starting
 text of the output message (notification). This function
 argument is useful in standardizing the notification format
 for an entire R Project.}
+
+\item{ssNote}{the character vector (i.e. text string or note) to be printed
+to the R console. This text note is also returned as a function
+output under the "value" option of this function's results list.}
 
 \item{csIconCarat}{a character vector (text string or object) that defines
 the leading symbol (icon) of the printed notification.}

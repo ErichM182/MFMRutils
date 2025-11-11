@@ -85,7 +85,7 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  ssNote="NOTE to POST !!!", ssHeader=NULL, 
+  ssHeader=NULL, ssNote="NOTE to POST !!!",
   csIconCarat="=>", csIconSplit="|", sbShowTail=TRUE, sbPrePendNL=FALSE, 
   sbPrintPretty=TRUE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
   csIconTail=MFMRutils::ENVIcons$FireFlame,

@@ -5,18 +5,25 @@
 #' A tiny R function that extracts relevant package information from <internal> 
 #' R Library Attributes.
 #'
-#' @examples
-#' ### Easily print & assign Date Formats as follows ...
-#' ENVDates$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
-#' ENVDates$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
-#' ENVDates$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
 #'
-#' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::ENVFormats$BOLD   ### -> sets the text font format to BOLD !!!
+#' @param ssPathFileDESC a character (string) value that denotes the <local> path
+#'                       <directory> to the R Library "DESCRIPTION" file.
+#'
+#'
+#' @examples
+#' ### Activate the "MFMRutils" R Library (if previously installed) ...
+#' library(MFMRutils)   # -> Loads the "MFMRutils" library !!!
+#' 
+#' ### Extract the R Library Information (for active R Library <project>) ...
+#' rlsLibINFO <- pkgs.get.lib.info()
+#' 
+#' rlsLibINFO[["PkgNAME"]]      # <- Returns 'Package Name' value <result> ...
+#' rlsLibINFO[["PkgVERSION"]]   # <- Returns 'Package Version' value <result> ...
+#' 
 #'
 #' @export
 #? ### ### ###
-"pkgs.get.lib.info" <- function(ssPathToFileDESC="./DESCRIPTION") {
+"pkgs.get.lib.info" <- function(ssPathFileDESC="./DESCRIPTION") {
   
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
   ssFuncTAG_ <- "MFMRutils_Get.Lib.Info";
@@ -25,7 +32,7 @@
   # NB: Assign "Local Aliases" for frequently used functions !!!
   rasGetFIELD      <- desc::desc_get_field;
   rasGetVERS       <- desc::desc_get_version;
-  rscPathFileDESC_ <- base::file.path(ssPathToFileDESC);
+  rscPathFileDESC_ <- base::file.path(ssPathFileDESC);
   
   ### STEP 02 - Create <internal> "Aliases" ... ####
   base::return(

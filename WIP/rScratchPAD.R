@@ -30,6 +30,9 @@
   return(e1)
 }
 
+library("MFMRutils")
+
+
 # Make it a primitive-like function by setting its class
 class(`???`) <- c("function", "primitive")
 attr(`???`, "srcref") <- NULL
@@ -48,11 +51,11 @@ vsDotsArgs_ <- list(
 vsDotsArgs_['ssProjID']
 
 
-info.post.func.self.id(
+MFMRutils::info.post.func.self.id(
   ssProjID = "rProjTESTr",
   ssFuncSelfID = "rcFuncSelfID",
   ssFuncCallerID = "rcf_TEST_FUNC", 
-  siFuncMode01 = 1L
+  siFuncMode01 = 0L
 )
 
 
