@@ -1,24 +1,24 @@
 #? ### ### ### ### ### ### ###
 #' @title Unicode Icons for use in R (the `MFMRutils` selection)
-#' @name MFMRIcons
+#' @name EnvICONS
 #' @description
 #' A collection of frequently used icons (Unicode characters) meant to support
 #' the MFMR Suite of R Functions.
 #'
-#' @usage MFMRIcons   ### -> if "MFMRutils" library is already installed & loaded !!!
+#' @usage EnvICONS   ### -> if "MFMRutils" library is already installed & loaded !!!
 #'
 #' @examples
 #' ### Easily print & assign icons as follows ...
-#' MFMRIcons$OoglyEyes      ### -> prints "👀" to the R console !!!
-#' MFMRIcons$CheckMark      ### -> prints "✔" to the R console !!!
-#' MFMRIcons$SmileyPonder   ### -> prints "🤔" to the R console !!!
+#' EnvICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
+#' EnvICONS$CheckMark      ### -> prints "✔" to the R console !!!
+#' EnvICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::MFMRIcons$OoglyEyes   ### -> prints "👀" to the R console !!!
+#' MFMRutils::EnvICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
 #'
 #' @export
 #? ### ### ###
-"MFMRIcons" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"EnvICONS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(

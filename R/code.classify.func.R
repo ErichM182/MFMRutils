@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
-#' @title Classify any custom R function via its Code-Base-Weight (CBW)
+#' @title Classify R functions via their Code-Base-Weights (CBWs)
+#' 
 #' @description
 #' A <tiny> Helper Function that classifies a custom R function on the basis
 #' of the size of code that defines that functions (i.e. on the basis of the
@@ -49,22 +50,34 @@
 ) {
 
   ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  ssFuncSelfID_ <- "MFMR.Classify-Func";
+  rssTagFuncID_ <- "CODE.Classify.Func";
+  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
 
+  
+  
   ### STEP 2 - Internalize ALL Function Arguments ... ####
-  #            ( i.e. hand-over all to func-args to func-local variables )
+  # NOTES: hand-over all func-args to func-local <internal> variables ...
   ssFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
   siFuncStartCELN_ <- siFuncStartCELN; siFuncStopCELN_ <- siFuncStopCELN;
+  
+  
+  ### Assign "Local Aliases" for frequently used functions !!!
+  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  rasIsNULL <- base::is.null;
 
+  
+  
   ### STEP 3 - Calculate Function Code DELTA ... ####
-  if (base::is.null(siFuncStartCELN_)) {
+  if (rasIsNULL(siFuncStartCELN_)) {
     siFuncStartCELN_ <- 1L;
   }
-  if (base::is.null(siFuncStopCELN_)) {
+  if (rasIsNULL(siFuncStopCELN_)) {
     siFuncStopCELN_ <- 7L;
   }
   siCodeDELTA_ <- siFuncStopCELN_ - siFuncStartCELN_;
 
+  
+  
   ### STEP 4 - Classify Function ... ####
   if (siCodeDELTA_ <= 50L) {
     ssFuncRes_ <- "TNY";   # -> "TNY" == "TINY Function" !!!
@@ -78,7 +91,9 @@
     ssFuncRes_ <- "MSV";   # -> "MSV" == "MASSIVE Function" !!!
   }
 
-  ### STEP 6 - Classify Function ... ####
+  
+  
+  ### STEP 5 - Output Result ... ####
   base::return(ssFuncRes_);
 
 }
