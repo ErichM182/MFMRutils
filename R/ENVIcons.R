@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Unicode Icons for use in R (the `MFMRutils` selection)
 #' @name EnvICONS
+#' 
 #' @description
 #' A collection of frequently used icons (Unicode characters) meant to support
 #' the MFMR Suite of R Functions.

@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Text Formats for use in R (the `MFMRutils` selection)
 #' @name EnvFORMATS
+#' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
 #' Text Font Formats to support the MFMR Suite of R Functions.

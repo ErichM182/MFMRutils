@@ -84,7 +84,7 @@
   sbPrintPretty=NULL, siStartCELN=NULL, siStopCELN=NULL
 ) {
 
-  ### STEP 01 - Define the "Function Self-ID" tag ... ####
+  ####   STEP 01 - Define "Function Self-ID" Tags   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   rssTagFuncIDv01_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
@@ -115,7 +115,9 @@
   rasMfmrDATES        <- MFMRutils::EnvDATES;
   rasMfmrICONS        <- MFMRutils::EnvICONS;
   rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
-  rasMfmrClassifyFUNC <- MFMRutils::code.classify.func;
+  
+  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
+  ####### rasMfmrClassifyFUNC <- MFMRutils::code.classify.func; 
   
   
   ### Prime selected variables (akin to constants) ...
@@ -194,7 +196,7 @@
 
   
   
-  ### STEP 02 - Internalize ALL Function Arguments here ... ####
+  ####   STEP 02 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
   csTimeStamp_      <- NULL;
   coListFuncRes_    <- NULL;   # -> The <final> function outputs <results> object.
@@ -316,9 +318,11 @@
   
   
   ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
-  ssFuncType_ <- rasMfmrClassifyFUNC(
-    siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
-  );
+  ssFuncType_ <- "HELPr";
+  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
+  ####### ssFuncType_ <- rasMfmrClassifyFUNC(
+  #######   siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
+  ####### );
   if (!rasIsNULL(ssFuncType_)) {
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
