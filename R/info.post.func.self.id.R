@@ -84,11 +84,12 @@
   sbPrintPretty=NULL, siStartCELN=NULL, siStopCELN=NULL
 ) {
 
-  ### STEP 01 - Define the "Function Self-ID" tag ... ####
+  ####   STEP 01 - Define "Function Self-ID" Tags   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
-  rssTagFuncID_ <- "INFO.Func.Self.ID";
-  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  rssTagFuncIDv01_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_ <- "INFO.Post.Func.Self.ID";   # <- Function ID - LONG !!!
+  rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
   
   
   ### Assign "Local Aliases" for frequently used functions !!!
@@ -114,11 +115,15 @@
   rasMfmrDATES        <- MFMRutils::EnvDATES;
   rasMfmrICONS        <- MFMRutils::EnvICONS;
   rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
-  rasMfmrClassifyFUNC <- MFMRutils::code.classify.func;
+  
+  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
+  ####### rasMfmrClassifyFUNC <- MFMRutils::code.classify.func; 
   
   
   ### Prime selected variables (akin to constants) ...
   rcsSysTimeNOW_    <- base::Sys.time();
+  rcsIconSPARK_     <- rasMfmrICONS$SparkRed;
+  rcsIconSKULL_     <- rasMfmrICONS$SkullOnly;
   rcsColorsCYAN_    <- rasMfmrCOLORS$CyanFORE;
   rcsColorsGREEN_   <- rasMfmrCOLORS$GreenFORE;
   rcsColorsYELLOW_  <- rasMfmrCOLORS$YellowFORE;
@@ -191,7 +196,7 @@
 
   
   
-  ### STEP 02 - Internalize ALL Function Arguments here ... ####
+  ####   STEP 02 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
   csTimeStamp_      <- NULL;
   coListFuncRes_    <- NULL;   # -> The <final> function outputs <results> object.
@@ -199,7 +204,6 @@
   ssFuncCallerID_   <- ssFuncCallerID   %?!% "UNDEFINED";
   ssFuncSelfID_     <- ssFuncSelfID     %?!% "UNDEFINED";
   siFuncMode01_     <- siFuncMode01     %?!% 1L;
-  csIconCarat_      <- csIconCarat      %?!% rasMfmrICONS$FireFlame;
   csColorCarat_     <- csColorCarat     %?!% rcsColorsYELLOW_;
   csIconSplit_      <- csIconSplit      %?!% " | ";
   csColorSplit_     <- csColorSplit     %?!% rcsColorsYELLOW_;
@@ -214,6 +218,10 @@
   sbPrintPretty_    <- sbPrintPretty    %?!% TRUE;
   siStartCELN_      <- siStartCELN      %?!% 1L;
   siStopCELN_       <- siStopCELN       %?!% 28L;
+  csIconCarat_      <- csIconCarat      %?!% rasIfELSE(
+                                               siFuncMode01_ == 1L,
+                                               rcsIconSPARK_, rcsIconSKULL_
+                                             );
   
   
   
@@ -310,15 +318,17 @@
   
   
   ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
-  ssFuncType_ <- rasMfmrClassifyFUNC(
-    siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
-  );
+  ssFuncType_ <- "HELPr";
+  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
+  ####### ssFuncType_ <- rasMfmrClassifyFUNC(
+  #######   siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
+  ####### );
   if (!rasIsNULL(ssFuncType_)) {
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
         rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorFuncType_,   # -> Apply the specified text colour ... 
-        ssFuncType_,        # -> Add the "Func-Type" string value !!!
+        csColorFuncType_,    # -> Apply the specified text colour ... 
+        ssFuncType_,         # -> Add the "Func-Type" string value !!!
         rcsAnsiRESET_        # -> Deactivate text formatting !!!
       );
     }
@@ -326,8 +336,8 @@
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
         rcsAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
-        csColorSplit_,   # -> Apply the specified text colour ... 
-        "UNK.",          # -> Add the <default> "Func-Type" string value !!!
+        csColorSplit_,    # -> Apply the specified text colour ... 
+        "UNK.",           # -> Add the <default> "Func-Type" string value !!!
         rcsAnsiRESET_     # -> Deactivate text formatting !!!
       );
     } else {
@@ -342,8 +352,8 @@
     if (sbPrintPretty_) {
       ssFuncCallerID_ <- rasPASTE0(
         rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorCallerID_,   # -> Apply the specified text colour ... 
-        ssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
+        csColorCallerID_,    # -> Apply the specified text colour ... 
+        ssFuncCallerID_,     # -> Add the "Caller-ID" string value !!!
         rcsAnsiRESET_        # -> Deactivate text formatting !!!
       );
     }
@@ -351,8 +361,8 @@
     if (sbPrintPretty_) {
       ssFuncCallerID_ <- rasPASTE0(
         rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorCallerID_,   # -> Apply the specified text colour ... 
-        "UNK.",             # -> Add the <default> "Caller-ID" string value !!!
+        csColorCallerID_,    # -> Apply the specified text colour ... 
+        "UNK.",              # -> Add the <default> "Caller-ID" string value !!!
         rcsAnsiRESET_        # -> Deactivate text formatting !!!
       );
     } else {

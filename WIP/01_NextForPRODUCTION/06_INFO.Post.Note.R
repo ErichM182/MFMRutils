@@ -98,9 +98,10 @@
   
   ### STEP 01 - Define the "Function Self-ID" tag ... ####
   csTimeSTART_ <- base::Sys.time();
-  rssTagFuncID_ <- "MFMR-Post.Note";
-  siStartCELN_ <- 87; siStopCELN_ <- 286;
-  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  rssTagFuncIDv01_ <- "Post.Note";        # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_ <- "INFO.Post.Note";   # <- Function ID - LONG !!!
+  rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  siStartCELN_ <- 88; siStopCELN_ <- 286;   # <- FIRST and LAST CELNs of func !!!
   
   
   

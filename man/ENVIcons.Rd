@@ -5,7 +5,7 @@
 \alias{EnvICONS}
 \title{Unicode Icons for use in R (the \code{MFMRutils} selection)}
 \format{
-An object of class \code{environment} of length 9.
+An object of class \code{environment} of length 33.
 }
 \usage{
 EnvICONS   ### -> if "MFMRutils" library is already installed & loaded !!!

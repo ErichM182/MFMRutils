@@ -48,10 +48,25 @@
 "code.classify.func" <- function(
   siFuncStartCELN=NULL, siFuncStopCELN=NULL
 ) {
-
-  ### STEP 1 - Define the "Function Self-ID" tag ... ####
-  rssTagFuncID_ <- "CODE.Classify.Func";
-  rssTagLibrID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  
+  ### STEP 01 - Define the "Function Self-ID" tags ... ####
+  rssTagFuncIDv01_ <- "Classify.Func";             # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_ <- "CODE.Classify.Func";   # <- Function ID - LONG !!!
+  rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  
+  
+  ### Assign "Local Aliases" for frequently used functions !!!
+  # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
+  
+  
+  ### Prime selected variables (akin to constants) ...
+  
+  
+  ### Compile Useful <internal> Custom Functions here !!!
+  
+  
+  
+  ### STEP 02 - Internalize ALL Function Arguments ... ####
 
   
   
