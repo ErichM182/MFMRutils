@@ -1,5 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile & print custom function Self-ID Information
+#' @name info.post.func.self.id
 #' 
 #' @description
 #' A <tiny> Helper Function that compiles and prints the self-identification 
@@ -89,7 +90,7 @@
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   rssTagFuncIDv01_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
   rssTagFuncIDv02_ <- "INFO.Post.Func.Self.ID";   # <- Function ID - LONG !!!
-  rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  ### rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
   
   
   ### Assign "Local Aliases" for frequently used functions !!!
@@ -112,6 +113,7 @@
   rasStrFormTIME      <- base::strftime;
   rasINVISIBLE        <- base::invisible;
   rasAsNUMERIC        <- base::as.numeric;
+  `%?!%`              <- MFMRutils::`%?!%`;   # <- VERY COOL Operator !!!  
   rasMfmrDATES        <- MFMRutils::EnvDATES;
   rasMfmrICONS        <- MFMRutils::EnvICONS;
   rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
@@ -132,16 +134,7 @@
   rcsAnsiRESET_     <- MFMRutils::EnvFORMATS$RESET;
   
   
-  ### Compile Useful <internal> Custom Functions here !!!
-  # Define custom null-coalescing operator ...
-  `%?!%` <- function(e1, e2) {
-    if (rasIsNULL(e1) || rasLENGTH(e1) == 0 || rasANY(rasIsNA(e1))) {
-      rasRETURN(e2);
-    } else {
-      rasRETURN(e1);
-    }
-  }
-  
+  ####### ### Compile Useful <internal> Custom Functions here !!!
   # Define a custom function to Extract the String Formatting Setting ... ####
   rcf_calc.time.delta <- function(csTimeStart, csTimeStop) {
     csTimeDeltaRAW_ <- rasAsNUMERIC(
@@ -218,10 +211,8 @@
   sbPrintPretty_    <- sbPrintPretty    %?!% TRUE;
   siStartCELN_      <- siStartCELN      %?!% 1L;
   siStopCELN_       <- siStopCELN       %?!% 28L;
-  csIconCarat_      <- csIconCarat      %?!% rasIfELSE(
-                                               siFuncMode01_ == 1L,
-                                               rcsIconSPARK_, rcsIconSKULL_
-                                             );
+  csIconCarat_      <- csIconCarat      %?!% rasIfELSE(siFuncMode01_ == 1L,
+                                                       rcsIconSPARK_, rcsIconSKULL_);
   
   
   
