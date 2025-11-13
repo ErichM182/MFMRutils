@@ -95,31 +95,29 @@
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
-  rasABS         <- base::abs;
-  rasANY         <- base::any;
-  rasCAT         <- base::cat;
-  rasSUB         <- base::sub;
-  rasGET0        <- base::get0;
-  rasLIST        <- base::list;
-  rasIsNA        <- base::is.na;
-  rasTRUNC       <- base::trunc;
-  rasROUND       <- base::round;
-  rasLENGTH      <- base::length;
-  rasRETURN      <- base::return;
-  rasIfELSE      <- base::ifelse;
-  rasPASTE0      <- base::paste0;
-  rasFORMAT      <- base::format;
-  rasIsNULL      <- base::is.null;
-  rasStrFormTIME <- base::strftime;
-  rasINVISIBLE   <- base::invisible;
-  rasAsNUMERIC   <- base::as.numeric;
-  `%?!%`         <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!!  
-  rasMfmrDATES   <- MFMRutils::EnvDATES;
-  rasMfmrICONS   <- MFMRutils::EnvICONS;
-  rasMfmrCOLORS  <- MFMRutils::EnvCOLORS;
-  
-  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
-  ####### rasMfmrClassifyFUNC <- MFMRutils::code.classify.func; 
+  rasABS           <- base::abs;
+  rasANY           <- base::any;
+  rasCAT           <- base::cat;
+  rasSUB           <- base::sub;
+  rasGET0          <- base::get0;
+  rasLIST          <- base::list;
+  rasIsNA          <- base::is.na;
+  rasTRUNC         <- base::trunc;
+  rasROUND         <- base::round;
+  rasLENGTH        <- base::length;
+  rasRETURN        <- base::return;
+  rasIfELSE        <- base::ifelse;
+  rasPASTE0        <- base::paste0;
+  rasFORMAT        <- base::format;
+  rasIsNULL        <- base::is.null;
+  rasStrFormTIME   <- base::strftime;
+  rasINVISIBLE     <- base::invisible;
+  rasAsNUMERIC     <- base::as.numeric;
+  `%?!%`           <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!!  
+  rasMfmrDATES     <- MFMRutils::EnvDATES;
+  rasMfmrICONS     <- MFMRutils::EnvICONS;
+  rasMfmrCOLORS    <- MFMRutils::EnvCOLORS;
+  rasMfmrClassFUNC <- MFMRutils::code.classify.func; 
   
   
   ### Prime selected variables (akin to constants) ...
@@ -308,12 +306,10 @@
   
   
   
-  ### STEP 11 - Apply the "Func-Type" Text Formatting ... ####
-  ssFuncType_ <- "HELPr";
-  #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
-  ####### ssFuncType_ <- rasMfmrClassifyFUNC(
-  #######   siFuncStartCELN = siStartCELN_, siFuncStopCELN = siStopCELN_
-  ####### );
+  ###   STEP 11 - Apply the "Func-Type" Text Formatting   ####
+  ssFuncType_ <- rasMfmrClassFUNC(
+    siStartCELN = siStartCELN_, siStopCELN = siStopCELN_
+  );
   if (!rasIsNULL(ssFuncType_)) {
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
