@@ -20,7 +20,7 @@ info.post.func.self.id(
   csColorProjID = NULL,
   csColorFuncType = NULL,
   csColorCallerID = NULL,
-  csColorMain = NULL,
+  csColorMainText = NULL,
   sbPrintPretty = NULL,
   siStartCELN = NULL,
   siStopCELN = NULL
@@ -80,7 +80,7 @@ colour in the formatted text output.}
 \item{csColorCallerID}{a character (string) value that sets the \code{CallerID} text
 colour in the formatted text output.}
 
-\item{csColorMain}{a character (string) value that sets the \code{Main} information
+\item{csColorMainText}{a character (string) value that sets the \code{Main} information
 text colour in the formatted text output.}
 
 \item{sbPrintPretty}{a logical (boolean) value that defines whether the output

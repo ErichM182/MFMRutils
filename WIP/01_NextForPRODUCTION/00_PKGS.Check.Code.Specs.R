@@ -44,7 +44,7 @@
 #' pkgs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation Process.
 #' pkgs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete CRAN Code Validation Process.
 #'
-#' ### Check (i.e. "devtools::check()") overrides the documentation process ...
+#' ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
 #' # The Documentation Process will only be executed once if both are TRUE !!!
 #' pkgs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
 #'
@@ -54,47 +54,103 @@
   sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek"
 ) {
   
-  ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  rssTagFuncIDv01_ <- "Check.Code.Specs";        # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "PKGS.Check.Code.Specs";   # <- Function ID - LONG !!!
-  rssTagFuncLibID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
+  RCT_TAG_FUNC_ID_SHRT_ <- "Check.Code.Specs";        # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "PKGS.Check.Code.Specs";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  
+  RCT_SYS_DATE_TIME_START_ <- base::Sys.time();
+  RCT_START_CELN_ <- 53L; RCT_STOP_CELN_ <- 390L;
   
   
   
-  ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
+  ####   STEP 02 - Internalize ALL Function Arguments   ####
+  sbCheckDocs_ <- sbCheckDocs;
+  sbCheckCRAN_ <- sbCheckCRAN;
+  ssTimeZone_  <- ssTimeZone;
+  
+  
+  
+  ####   STEP 03 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasCAT      <- base::cat;
-  rasLIST     <- base::list;
-  rasRETURN   <- base::return;
-  rasPASTE0   <- base::paste0;
-  rasIfELSE   <- base::ifelse;
-  rasFORMAT   <- base::format;
-  rasUNLIST   <- base::unlist;
-  rasStrSPLIT <- base::strsplit;
-  rasAsNUM    <- base::as.numeric;
-  rasAsCHAR   <- base::as.character;
+  rasCAT              <- base::cat;
+  rasLIST             <- base::list;
+  rasTRUNC            <- base::trunc;
+  rasROUND            <- base::round;
+  rasRETURN           <- base::return;
+  rasPASTE0           <- base::paste0;
+  rasIfELSE           <- base::ifelse;
+  rasFORMAT           <- base::format;
+  rasUNLIST           <- base::unlist;
+  rasLENGTH           <- base::length;
+  rasSPRINTF          <- base::sprintf;
+  rasSysTIME          <- base::Sys.time;
+  rasDiffTIME         <- base::difftime;
+  rasStrSPLIT         <- base::strsplit;
+  rasINVISIBLE        <- base::invisible;
+  rasFilePATH         <- base::file.path;
+  rasDirCREATE        <- base::dir.create;
+  rasAsNUM            <- base::as.numeric;
+  rasSysSetENV        <- base::Sys.setenv;
+  rasWriteLINES       <- base::writeLines;
+  rasFileCREATE       <- base::file.create;
+  rasFileEXISTS       <- base::file.exists;
+  rasAsCHAR           <- base::as.character;
+  rasDescSetVERSION   <- desc::desc_set_version;
+  rasDevToolsCHECK    <- devtools::check;
+  rasDevToolsDOCUMENT <- devtools::document;
+  rasDevToolsLoadALL  <- devtools::load_all;
+  rasDevToolsCleanDLL <- devtools::clean_dll;
+  rasMfmrICONS        <- MFMRutils::EnvICONS;
+  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
+  rasMfmrFORMATS      <- MFMRutils::EnvFORMATS;
+  rasMfmrPullLibrINFO <- MFMRutils::pkgs.pull.libr.info;
+  
+  
+  
+  ####   STEP 04 - Define Critical Constants   ####
+  rasSysSetENV(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
+  RCT_SYS_DATE_TIME_NOW_ <- rasSysTIME();
+  
+  RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
+  RCT_ANSI_RESET_   <- rasMfmrFORMATS$RESET;
+  RCT_ANSI_ITALICS_ <- rasMfmrFORMATS$ITALICS;
+  
+  RCT_COLOR_RED_    <- rasMfmrCOLORS$RedFORE;
+  RCT_COLOR_BLUE_   <- rasMfmrCOLORS$BlueFORE;
+  RCT_COLOR_GREEN_  <- rasMfmrCOLORS$GreenFORE;
+  RCT_COLOR_TELLOW_ <- rasMfmrCOLORS$YellowFORE;
+  
+  RCT_ICON_POINT_UP_      <- rasMfmrICONS$PointUP;
+  RCT_ICON_WHITE_X_       <- rasMfmrICONS$X_White;
+  RCT_ICON_SMILEY_SAD_    <- rasMfmrICONS$SmileySad;
+  RCT_ICON_OOGLY_EYES_    <- rasMfmrICONS$OoglyEyes;
+  RCT_ICON_CHECK_MARK_    <- rasMfmrICONS$CheckMark;
+  RCT_ICON_ARROW_RIGHT_   <- rasMfmrICONS$ArrowRIGHT;
+  RCT_ICON_SMILEY_PONDER_ <- rasMfmrICONS$SmileyPonder;
+  
   
 
   # Define a special (colour-formatting) <internal> function ...
   "rcf_format.outputs.pkgs.check.code" <- function(
-    errors, warnings, notes, ssProjID, ssProjVers
+    errors, warnings, notes, ssActProjID_, ssProjVers
   ) {
     
-    # ANSI escape codes for colors ...
-    csANSIbold <- EnvFORMATS$BOLD; # "\033[1m";
-    csANSIitalics <- EnvFORMATS$ITALICS; # "\033[3m";
+    # ANSI escape codes for TEXT FORMATS ...
+    csANSIbold    <- RCT_ANSI_BOLD_;      # "\033[1m";
+    csANSIreset   <- RCT_ANSI_RESET_;     # "\033[0m";
+    csANSIitalics <- RCT_ANSI_ITALICS_;   # "\033[3m";
     
-    csANSIred <- EnvCOLORS$RedFORE; # "\033[91m";
-    csANSIblue <- EnvCOLORS$BlueFORE; # "\033[94m";
-    csANSIgreen <- EnvCOLORS$GreenFORE; # "\033[92m";
-    csANSIyellow <- EnvCOLORS$YellowFORE; # "\033[93m";
+    # ANSI escape codes for COLORS ...
+    csANSIred    <- RCT_COLOR_RED_;      # "\033[91m";
+    csANSIblue   <- RCT_COLOR_BLUE_;     # "\033[94m";
+    csANSIgreen  <- RCT_COLOR_GREEN_;    # "\033[92m";
+    csANSIyellow <- RCT_COLOR_TELLOW_;   # "\033[93m";
     
-    csANSIreset <- EnvFORMATS$RESET; # "\033[0m";
-    
-    # Unicode characters for CheckMark and Cross ...
-    csUniCodeCross <- EnvICONS$XSlanted;
-    csUniCodeCheckmark <- EnvICONS$CheckMark;
-    csUniCodeArrowRight <- EnvICONS$ArrowRIGHT;
+    # Unicode characters for ICONS ...
+    csUniCodeCross      <- RCT_ICON_WHITE_X_;
+    csUniCodeCheckmark  <- RCT_ICON_CHECK_MARK_;
+    csUniCodeArrowRight <- RCT_ICON_ARROW_RIGHT_;
     
     # Create the output string
     output <- rasPASTE0(
@@ -104,7 +160,7 @@
       ),
       rasPASTE0(csANSIbold, "R Project: ", csANSIreset),
       rasPASTE0(
-        csANSIbold, csANSIblue, "", ssProjID, csANSIreset
+        csANSIbold, csANSIblue, "", ssActProjID_, csANSIreset
       ),
       rasPASTE0(
         csANSIbold, csANSIblue, " v", ssProjVers, csANSIreset
@@ -167,54 +223,48 @@
     );
   }
 
-  # 1. Extract the current DateTime & create the new version number ...
-  base::Sys.setenv(TZ = ssTimeZone);
-  ssDateTimeCURR <- base::Sys.time();
-
   # 2. Extract the current version number from the DESCRIPTION file ...
-  ### rvsLibINFO_ <- MFMRutils::pkgs.get.lib.info();
-  ssFileDESC <- base::file.path("./DESCRIPTION");     # -> Identifies the "DESCRIPTION" file (with path).
-  ssVersCURR <- desc::desc_get_version(ssFileDESC);   # -> Extracts the current version number from "DESCRIPTION" file.
-  ssProjID <- desc::desc_get_field(   # -> Extracts the R-Libs Project ID ...
-    key = "Package", file = ssFileDESC
-  );
+  rssPathFileDESC_ <- "./DESCRIPTION";
+  rlsLibrINFO_     <- rasMfmrPullLibrINFO(rssPathFileDESC_);   # -> Identifies the "DESCRIPTION" file (with path).
+  ssActProjID_     <- rlsLibrINFO_[["NAME"]];   # -> Extracts the R-Libs Project ID ...
+  ssProjVersCURR_  <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
 
   # 3. Increment the active version number ...
-  vsVersOLD <- rasUNLIST(   # -> Extracts the last section of the split ...
-    rasStrSPLIT(rasAsCHAR(ssVersCURR), split = "\\.")
+  vsProjVersOLD_ <- rasUNLIST(   # -> Extracts the last section of the split ...
+    rasStrSPLIT(rasAsCHAR(ssProjVersCURR_), split = "\\.")
   );   # -> VERY NB: Extracts only the 4th value of the split string !!!
-  snVersNEW <- rasAsNUM(vsVersOLD[4]) + 1;   # -> Increment the version number !!!
-  sbIsSameYr = rasAsNUM(vsVersOLD[1]) == rasAsNUM(rasFORMAT(ssDateTimeCURR, "%Y"));
-  sbIsSameMn = rasAsNUM(vsVersOLD[2]) == rasAsNUM(rasFORMAT(ssDateTimeCURR, "%m"));
-  sbIsSameDy = rasAsNUM(vsVersOLD[3]) == rasAsNUM(rasFORMAT(ssDateTimeCURR, "%d"));
+  snVersNEW  <- rasAsNUM(vsProjVersOLD_[4]) + 1;   # -> Increment the version number !!!
+  sbIsSameYr <- rasAsNUM(vsProjVersOLD_[1]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y"));
+  sbIsSameMn <- rasAsNUM(vsProjVersOLD_[2]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%m"));
+  sbIsSameDy <- rasAsNUM(vsProjVersOLD_[3]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%d"));
 
   if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
     
     # ANSI escape codes for colors ...
-    csANSIbold    <- EnvFORMATS$BOLD;      # "\033[1m";
-    csANSIitalics <- EnvFORMATS$ITALICS;   # "\033[3m";
+    csANSIbold    <- RCT_ANSI_BOLD_;      # "\033[1m";
+    csANSIreset   <- RCT_ANSI_RESET_;     # "\033[0m";
+    csANSIitalics <- RCT_ANSI_ITALICS_;   # "\033[3m";
     
-    csANSIred    <- EnvCOLORS$RedFORE;      # "\033[91m";
-    csANSIblue   <- EnvCOLORS$BlueFORE;     # "\033[94m";
-    csANSIgreen  <- EnvCOLORS$GreenFORE;    # "\033[92m";
-    csANSIyellow <- EnvCOLORS$YellowFORE;   # "\033[93m";
+    csANSIred    <- RCT_COLOR_RED_;      # "\033[91m";
+    csANSIblue   <- RCT_COLOR_BLUE_;     # "\033[94m";
+    csANSIgreen  <- RCT_COLOR_GREEN_;    # "\033[92m";
+    csANSIyellow <- RCT_COLOR_TELLOW_;   # "\033[93m";
     
-    csANSIreset <- EnvFORMATS$RESET;   # "\033[0m";
     
     # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodeEyes = EnvICONS$OoglyEyes;
-    csUniCodeArrowRight <- EnvICONS$ArrowRIGHT;
-    csUniCodePointUP <- EnvICONS$PointUP;
-    csUniCodeCryingEmoticon <- EnvICONS$SmileySad;
-    csUniCodePonderingEmoticon <- EnvICONS$SmileyPonder;
+    csUniCodePointUP           <- RCT_ICON_POINT_UP_;
+    csUniCodeEyes              <- RCT_ICON_OOGLY_EYES_;
+    csUniCodeCryingEmoticon    <- RCT_ICON_SMILEY_SAD_;
+    csUniCodeArrowRight        <- RCT_ICON_ARROW_RIGHT_;
+    csUniCodePonderingEmoticon <- RCT_ICON_SMILEY_PONDER_;
     
     # Calculate delta in hours between current time and midnight ...
     ssHrsSinceMidNight <- rasAsCHAR(
-      base::round(
+      rasROUND(
         digits = 3,
-        x = base::difftime(
-          time1 = ssDateTimeCURR, units = "hours",
-          time2 = base::trunc(ssDateTimeCURR, "days") + 1
+        x = rasDiffTIME(
+          time1 = RCT_SYS_DATE_TIME_NOW_, units = "hours",
+          time2 = rasTRUNC(RCT_SYS_DATE_TIME_NOW_, "days") + 1
         )
       )
     );
@@ -275,64 +325,66 @@
   } else {
     ssVersNEW <- NULL;
     if (sbIsSameYr && sbIsSameMn && sbIsSameDy) {   # -> If TRUE then it's the SAME DAY ... so simply increment from the last number value (or count) !!!
-      ssVersNEW <- base::sprintf(   # -> Increments & pads the value with leading zeros (to create a 3-digit character value) ...
-        fmt = "%03d", rasAsNUM(vsVersOLD[4]) + 1
+      ssVersNEW <- rasSPRINTF(   # -> Increments & pads the value with leading zeros (to create a 3-digit character value) ...
+        fmt = "%03d", rasAsNUM(vsProjVersOLD_[4]) + 1
       );
     } else {    # -> If FALSE then it's a NEW DAY ... which means start count at 1 !!!
-      ssVersNEW <- base::sprintf(   # -> Starts count at 1 ... and pads the value with leading zeros (to create a 3-digit character value) ...
+      ssVersNEW <- rasSPRINTF(   # -> Starts count at 1 ... and pads the value with leading zeros (to create a 3-digit character value) ...
         fmt = "%03d", 0 + 1
       );
     }
     ssVersNewFULL <- rasPASTE0(   # -> Format the NEW Version Date accordingly ...
-      rasFORMAT(ssDateTimeCURR, "%Y.%m.%d"), ".", ssVersNEW
+      rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y.%m.%d"), ".", ssVersNEW
     );
     
     # 4. Update the version number (accordingly) in the "DESCRIPTION" file ...
-    desc::desc_set_version(ssVersNewFULL, file = ssFileDESC);
+    rasDescSetVERSION(ssVersNewFULL, file = rssPathFileDESC_);
     
     # 5. Create a Secondary Version Tracking File (in the "WIP" directory) ...
-    ssVersFileWIP <- base::file.path("./WIP/DevsVersTimeStamp.txt");
-    ssVersNewTimeStamp <- rasPASTE0(   # -> Creates a Devs TimeStamp ...
-      "> R-Libs Project ID: ", ssProjID, "\n",
+    ssVersFileWIP_  <- rasFilePATH("./WIP/DevsVersTimeStamp.txt");
+    vsDirsToCreate_ <- c("./WIP/00_Helpers", "./WIP/01_NextForPROD");
+    ssVersNewTimeSTAMP_ <- rasPASTE0(   # -> Creates a Devs TimeStamp ...
+      "> R-Libs Project ID: ", ssActProjID_, "\n",
       "> Last Code Push (vers)  ==>  ", ssVersNewFULL, "\n",
-      "> Last Code Push (time)  ==>  ", rasFORMAT(ssDateTimeCURR, "%H:%M:%OS3 %Z")
+      "> Last Code Push (time)  ==>  ", rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%H:%M:%OS3 %Z")
     );
-    if (base::file.exists(ssVersFileWIP)) {   # -> File already exists ...
-      base::writeLines(   # -> Writes the new version number into file ...
-        con = ssVersFileWIP, text = ssVersNewTimeStamp
+    if (rasFileEXISTS(ssVersFileWIP_)) {   # -> File already exists ...
+      rasWriteLINES(   # -> Writes the new version number into file ...
+        con = ssVersFileWIP_, text = ssVersNewTimeSTAMP_
       );
     } else {   # -> File DOES NOT already exist ...
-      base::dir.create(path = "./WIP", recursive = T);   # -> Creates the "WIP" directory ...
-      base::file.create(ssVersFileWIP);   # -> Creates the required file ...
-      base::writeLines(   # -> Writes the new version number into file ...
-        con = ssVersFileWIP, text = ssVersNewTimeStamp
+      rasDirCREATE(path = vsDirsToCreate_[1], recursive = T, showWarnings = F);   # -> Creates the "WIP" directory ...
+      rasDirCREATE(path = vsDirsToCreate_[2], recursive = T, showWarnings = F);   # -> Creates the "WIP" directory ...
+      rasFileCREATE(ssVersFileWIP_);   # -> Creates the required file ...
+      rasWriteLINES(   # -> Writes the new version number into file ...
+        con = ssVersFileWIP_, text = ssVersNewTimeSTAMP_
       );
     }
     
     # 6. Finally - Run the required R-Libs Project Documentation & CRAN Checks !!!
     if (sbCheckCRAN) {   # -> Runs the COMPLETE Documentation & CRAN Requirements Checking Processes !!!
-      devtools::clean_dll();
-      devtools::load_all();
-      coCheckResult <- devtools::check();
-      snLenNOTEs <- base::length(coCheckResult$notes);
-      snLenERRORs <- base::length(coCheckResult$errors);
-      snLenWARNINGs <- base::length(coCheckResult$warnings);
-      rcf_format.outputs.pkgs.check.code.specs(
+      rasDevToolsCleanDLL();
+      rasDevToolsLoadALL();
+      coCheckResult <- rasDevToolsCHECK();
+      snLenNOTEs    <- rasLENGTH(coCheckResult$notes);
+      snLenERRORs   <- rasLENGTH(coCheckResult$errors);
+      snLenWARNINGs <- rasLENGTH(coCheckResult$warnings);
+      rcf_format.outputs.pkgs.check.code(
         errors = snLenERRORs, warnings = snLenWARNINGs,
-        notes = snLenNOTEs, ssProjID = ssProjID, ssProjVers = ssVersNewFULL
+        notes = snLenNOTEs, ssActProjID_ = ssActProjID_, ssProjVers = ssVersNewFULL
       );
     }
     if (!sbCheckCRAN && sbCheckDocs) {   # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
-      devtools::document(roclets = c('rd', 'collate', 'namespace'));
+      rasDevToolsDOCUMENT(roclets = c('rd', 'collate', 'namespace'));
     }
     
     # 7. Return the new created Project Version Number as a character object ...
     rasRETURN(
-      base::invisible(
+      rasINVISIBLE(
         rasLIST(
-          "ProjID" = ssProjID,
+          "ProjID" = ssActProjID_,
           "CodeVers" = rasPASTE0("v", ssVersNewFULL),
-          "CodeTime" = rasFORMAT(ssDateTimeCURR, "%H:%M:%OS3 %Z")
+          "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%H:%M:%OS3 %Z")
         )
       )
     );

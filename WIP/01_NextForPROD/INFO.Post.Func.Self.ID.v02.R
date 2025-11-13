@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile & print custom function Self-ID Information
-#' @name info.post.func.self.id
+#' @name info.post.func.self.id.v02
 #' 
 #' @description
 #' A <tiny> Helper Function that compiles and prints the self-identification 
@@ -77,8 +77,8 @@
 #'
 #' @export
 #? ### ### ###
-"info.post.func.self.id" <- function(
-  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, 
+"info.post.func.self.id.v02" <- function(
+  EnvFSID[['COLOR_PROJ_ID']] =NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, 
   csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
   csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
   csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, csColorMainText=NULL,
