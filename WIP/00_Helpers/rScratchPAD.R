@@ -33,7 +33,10 @@ rlsLibINFO_$AUTHORS
 
 
 
-pkgs.check.code.specs(sbCheckCRAN=T)
+MFMRutils::pkgs.check.code.specs(
+  sbCheckCRAN = T,
+  sbRunSelfID = T 
+);
 
 
 "rcf_null.args.test" <- function(w, x=NULL, y, z=NULL) {

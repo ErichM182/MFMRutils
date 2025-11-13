@@ -45,7 +45,7 @@
       COLOR_TIME_STAMP  = "csColorTimeStamp",
       IS_PRINT_PRETTY   = "sbPrintPretty",
       IS_RUN_SELF_ID    = "sbRunSelfID",
-      IS_DEBUG_MODE     = "sbDebugMode"
+      IS_DEBUG_MODE     = "rsbRunModeDEBUG_"
     )
   );
   

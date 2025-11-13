@@ -117,18 +117,19 @@
   rsiStartCELN_      <- siStartCELN;
   rsiStopCELN_       <- siStopCELN;
   rcsIconCarat_      <- csIconCarat;
-  sbRunSelfID_       <- sbRunSelfID;
+  rsbRunSelfID_      <- sbRunSelfID;
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
   rsbRunModeDEBUG_ <- base::get0( # -> Searches the Global Environment of the Active
-    x = "rsbRunModeDEBUG_",       #    R Session for the <somewhat> uniquely named
+    "rsbRunModeDEBUG_",           #    R Session for the <somewhat> uniquely named
     envir = .GlobalEnv,           #    variable "rsbRunModeDEBUG_" & extracts its value.
     ifnotfound = FALSE            # <- Returns a value of "FALSE" if the variable
   );                              #    was NOT FOUND in the Active R Session !!!
   
   
-  if (sbRunSelfID_ || rsbRunModeDEBUG_) {
+  ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
+  if (rsbRunSelfID_ || rsbRunModeDEBUG_) {
     
     ####   STEP 03 - Alias ALL Required Functions   ####
     ## Assign "Local Aliases" for frequently used functions !!!
@@ -175,54 +176,54 @@
     ####### ### Compile Useful <internal> Custom Functions here !!!
     # Define a custom function to Extract the String Formatting Setting ... ####
     rcf_calc.time.delta <- function(csTimeStart, csTimeStop) {
-      csTimeDeltaRAW_ <- rasAsNUMERIC(
+      rcsTimeDeltaRAW_ <- rasAsNUMERIC(
         csTimeStop - csTimeStart, units = "secs"
       );
-      csTimeDelta_ <- rasAsNUMERIC(csTimeDeltaRAW_[[1]]);
-      csTimeDeltaRESULT_ <- NULL;
-      csTimeDeltaROUND_ <- rasROUND(csTimeDelta_, 3);
-      if (csTimeDeltaROUND_ <= 0.999) {
-        ssFloatVals_ <- rasABS(
-          csTimeDeltaROUND_ - rasTRUNC(csTimeDeltaROUND_)
+      rcsTimeDelta_ <- rasAsNUMERIC(rcsTimeDeltaRAW_[[1]]);
+      rcsTimeDeltaRESULT_ <- NULL;
+      rcsTimeDeltaROUND_ <- rasROUND(rcsTimeDelta_, 3);
+      if (rcsTimeDeltaROUND_ <= 0.999) {
+        rssFloatVals_ <- rasABS(
+          rcsTimeDeltaROUND_ - rasTRUNC(rcsTimeDeltaROUND_)
         );
-        ssFloatsAsInts_ <- rasSUB(
-          "^0\\.", "", rasFORMAT(ssFloatVals_, scientific = FALSE)
+        rssFloatsAsInts_ <- rasSUB(
+          "^0\\.", "", rasFORMAT(rssFloatVals_, scientific = FALSE)
         );
-        csTimeDeltaRESULT_ <- rasPASTE0(
-          ssFloatsAsInts_, " milli-secs"
+        rcsTimeDeltaRESULT_ <- rasPASTE0(
+          rssFloatsAsInts_, " milli-secs"
         );
-      } else if (csTimeDeltaROUND_ > 0.999 && csTimeDeltaROUND_ <= 60.0) {
-        ssIntsONLY_ <- rasTRUNC(csTimeDeltaROUND_);
-        csTimeDeltaRESULT_ <- rasPASTE0(
-          ssIntsONLY_, " secs"
+      } else if (rcsTimeDeltaROUND_ > 0.999 && rcsTimeDeltaROUND_ <= 60.0) {
+        rssIntsONLY_ <- rasTRUNC(rcsTimeDeltaROUND_);
+        rcsTimeDeltaRESULT_ <- rasPASTE0(
+          rssIntsONLY_, " secs"
         );
-      } else if (csTimeDeltaROUND_ > 60.0 && csTimeDeltaROUND_ <= 3600) {
-        ssIntsONLY_ <- rasTRUNC(csTimeDeltaROUND_);
-        ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-        ssDeltaMins_ <- rasTRUNC(ssIntsONLY_ / 60);
-        csTimeDeltaRESULT_ <- rasPASTE0(
-          ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
+      } else if (rcsTimeDeltaROUND_ > 60.0 && rcsTimeDeltaROUND_ <= 3600) {
+        rssIntsONLY_ <- rasTRUNC(rcsTimeDeltaROUND_);
+        rssDeltaSecs_ <- rssIntsONLY_ %% 60;
+        rssDeltaMins_ <- rasTRUNC(rssIntsONLY_ / 60);
+        rcsTimeDeltaRESULT_ <- rasPASTE0(
+          rssDeltaMins_, " mins, ", rssDeltaSecs_, " secs"
         );
-      } else if (csTimeDeltaROUND_ > 3600 && csTimeDeltaROUND_ <= 216000) {
-        ssIntsONLY_ <- rasTRUNC(csTimeDeltaROUND_);
-        ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-        ssDeltaMins_ <- rasTRUNC(ssIntsONLY_ / 60);
-        ssDeltaHrs_ <- rasTRUNC(ssIntsONLY_ / (60 * 60));
-        csTimeDeltaRESULT_ <- rasPASTE0(
-          ssDeltaHrs_, " hrs, ", ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
+      } else if (rcsTimeDeltaROUND_ > 3600 && rcsTimeDeltaROUND_ <= 216000) {
+        rssIntsONLY_ <- rasTRUNC(rcsTimeDeltaROUND_);
+        rssDeltaSecs_ <- rssIntsONLY_ %% 60;
+        rssDeltaMins_ <- rasTRUNC(rssIntsONLY_ / 60);
+        rssDeltaHrs_ <- rasTRUNC(rssIntsONLY_ / (60 * 60));
+        rcsTimeDeltaRESULT_ <- rasPASTE0(
+          rssDeltaHrs_, " hrs, ", rssDeltaMins_, " mins, ", rssDeltaSecs_, " secs"
         );
-      } else if (csTimeDeltaROUND_ > 216000 && csTimeDeltaROUND_ <= 5184000) {
-        ssIntsONLY_ <- rasTRUNC(csTimeDeltaROUND_);
-        ssDeltaSecs_ <- ssIntsONLY_ %% 60;
-        ssDeltaMins_ <- rasTRUNC(ssIntsONLY_ / 60);
-        ssDeltaHrs_ <- rasTRUNC(ssIntsONLY_ / (60 * 60));
-        ssDeltaDays_ <- rasTRUNC(ssIntsONLY_ / (60 * 60 * 24));
-        csTimeDeltaRESULT_ <- rasPASTE0(
-          ssDeltaDays_, " days, ", ssDeltaHrs_, " hrs, ", 
-          ssDeltaMins_, " mins, ", ssDeltaSecs_, " secs"
+      } else if (rcsTimeDeltaROUND_ > 216000 && rcsTimeDeltaROUND_ <= 5184000) {
+        rssIntsONLY_ <- rasTRUNC(rcsTimeDeltaROUND_);
+        rssDeltaSecs_ <- rssIntsONLY_ %% 60;
+        rssDeltaMins_ <- rasTRUNC(rssIntsONLY_ / 60);
+        rssDeltaHrs_ <- rasTRUNC(rssIntsONLY_ / (60 * 60));
+        rssDeltaDays_ <- rasTRUNC(rssIntsONLY_ / (60 * 60 * 24));
+        rcsTimeDeltaRESULT_ <- rasPASTE0(
+          rssDeltaDays_, " days, ", rssDeltaHrs_, " hrs, ", 
+          rssDeltaMins_, " mins, ", rssDeltaSecs_, " secs"
         );
       }
-      rasRETURN(csTimeDeltaRESULT_);
+      rasRETURN(rcsTimeDeltaRESULT_);
     }
     
     
@@ -232,8 +233,8 @@
     rcsTimeStamp_      <- NULL;
     rcoListFuncRes_    <- NULL;   # -> The <final> function output <results> object.
     rssProjID_         <- rssProjID_         %?!% NULL;
-    rssFuncSelfID_     <- rssFuncSelfID_     %?!% "UNDEFINED";
-    rssFuncCallerID_   <- rssFuncCallerID_   %?!% RCT_TAG_FUNC_ID_FULL_;
+    rssFuncSelfID_     <- rssFuncSelfID_     %?!% RCT_TAG_FUNC_ID_FULL_;
+    rssFuncCallerID_   <- rssFuncCallerID_   %?!% "UNDEFINED";
     rsiFuncMode01_     <- rsiFuncMode01_     %?!% 0L;
     rcsColorCarat_     <- rcsColorCarat_     %?!% rcsColorsYELLOW_;
     rcsIconSplit_      <- rcsIconSplit_      %?!% " | ";

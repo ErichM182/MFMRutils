@@ -20,6 +20,9 @@
 #'                    pre-check documentation steps).
 #' @param ssTimeZone a simple character vector (string) that defines the Time Zone
 #'                   to be used for the package documentation.
+#' @param ... the fall-through (DotsArgs) function arguments used to prime nested
+#'            functions within this main function. These "DotsArgs" pertain mostly
+#'            to the "Func-SELF-ID" SuiteMFMR helper function.
 #'
 #' @returns
 #' * This function returns the programmatically amended or updated (real-time or
@@ -51,24 +54,40 @@
 #' @export
 #? ### ### ###
 "pkgs.check.code.specs" <- function(
-  sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek"
+  sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek", ...
 ) {
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   RCT_TAG_FUNC_ID_SHRT_ <- "Check.Code.Specs";        # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "PKGS.Check.Code.Specs";   # <- Function ID - LONG !!!
+  
+  base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
+  RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
+  RCT_FUNC_CELN_START_ <- 53L; RCT_FUNC_CELN_STOP_ <- 390L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
   
-  RCT_SYS_DATE_TIME_START_ <- base::Sys.time();
-  RCT_START_CELN_ <- 53L; RCT_STOP_CELN_ <- 390L;
+  ### SPECIAL: This a CRITICAL "Alias" that needs to be executed here ALWAYS !!!
+  `%?!%` <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!! 
   
   
   
   ####   STEP 02 - Internalize ALL Function Arguments   ####
-  sbCheckDocs_ <- sbCheckDocs;
-  sbCheckCRAN_ <- sbCheckCRAN;
-  ssTimeZone_  <- ssTimeZone;
+  rvsDotsArgs_   <- base::list(...);
+  rsbCheckDocs_  <- sbCheckDocs;
+  rsbCheckCRAN_  <- sbCheckCRAN;
+  rssTimeZone_   <- ssTimeZone;
+  sbPrintPretty_ <- rvsDotsArgs_[["sbPrintPretty"]] %?!% TRUE;
+  sbRunSelfID_   <- rvsDotsArgs_[["sbRunSelfID"]]   %?!% TRUE;
   
+  
+  
+  ####   STEP 03 - Run <ENTRY> Function SELF-ID (if requested)   ####
+  MFMRutils::info.post.func.self.id(
+    siFuncMode01 = 1L, ssFuncCallerID = RCT_TAG_FUNC_ID_FULL_,
+    sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
+    siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
+    csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_START_
+  );
   
   
   ####   STEP 03 - Define "Local Aliases" for Key Functions   ####
@@ -109,7 +128,6 @@
   
   
   ####   STEP 04 - Define Critical Constants   ####
-  rasSysSetENV(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_SYS_DATE_TIME_NOW_ <- rasSysTIME();
   
   RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
@@ -133,7 +151,7 @@
 
   # Define a special (colour-formatting) <internal> function ...
   "rcf_format.outputs.pkgs.check.code" <- function(
-    errors, warnings, notes, ssActProjID_, ssProjVers
+    errors, warnings, notes, ssActProjID, ssProjVers
   ) {
     
     # ANSI escape codes for TEXT FORMATS ...
@@ -160,7 +178,7 @@
       ),
       rasPASTE0(csANSIbold, "R Project: ", csANSIreset),
       rasPASTE0(
-        csANSIbold, csANSIblue, "", ssActProjID_, csANSIreset
+        csANSIbold, csANSIblue, "", ssActProjID, csANSIreset
       ),
       rasPASTE0(
         csANSIbold, csANSIblue, " v", ssProjVers, csANSIreset
@@ -362,7 +380,7 @@
     }
     
     # 6. Finally - Run the required R-Libs Project Documentation & CRAN Checks !!!
-    if (sbCheckCRAN) {   # -> Runs the COMPLETE Documentation & CRAN Requirements Checking Processes !!!
+    if (rsbCheckCRAN_) {   # -> Runs the COMPLETE Documentation & CRAN Requirements Checking Processes !!!
       rasDevToolsCleanDLL();
       rasDevToolsLoadALL();
       coCheckResult <- rasDevToolsCHECK();
@@ -371,12 +389,25 @@
       snLenWARNINGs <- rasLENGTH(coCheckResult$warnings);
       rcf_format.outputs.pkgs.check.code(
         errors = snLenERRORs, warnings = snLenWARNINGs,
-        notes = snLenNOTEs, ssActProjID_ = ssActProjID_, ssProjVers = ssVersNewFULL
+        notes = snLenNOTEs, ssActProjID = ssActProjID_, ssProjVers = ssVersNewFULL
       );
     }
-    if (!sbCheckCRAN && sbCheckDocs) {   # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
+    if (!rsbCheckCRAN_ && rsbCheckDocs_) {   # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
       rasDevToolsDOCUMENT(roclets = c('rd', 'collate', 'namespace'));
     }
+    
+    
+    
+    ####   STEP 03 - Run <EXIT> Function SELF-ID (if requested)   ####
+    RCT_FUNC_RUN_TIME_STOP_ <- rasSysTIME();
+    MFMRutils::info.post.func.self.id(
+      siFuncMode01 = 0L, ssFuncCallerID = RCT_TAG_FUNC_ID_FULL_,
+      sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
+      siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
+      csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_STOP_
+    );
+    
+    
     
     # 7. Return the new created Project Version Number as a character object ...
     rasRETURN(
@@ -389,6 +420,7 @@
       )
     );
   }
+  
 }
 
 
