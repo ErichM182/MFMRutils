@@ -3,19 +3,22 @@
 \docType{data}
 \name{EnvICONS}
 \alias{EnvICONS}
-\title{Unicode Icons for use in R (the \code{MFMRutils} selection)}
+\title{Icons for use in R (the "SuiteMFMR" selection)}
 \format{
 An object of class \code{environment} of length 33.
 }
 \usage{
-EnvICONS   ### -> if "MFMRutils" library is already installed & loaded !!!
+EnvICONS
 }
 \description{
-A collection of frequently used icons (Unicode characters) meant to support
-the MFMR Suite of R Functions.
+A collection of frequently used icons (in unicode form) \if{html}{\out{<originally>}} meant to
+support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 }
 \examples{
-### Easily print & assign icons as follows ...
+### Load the required R Library ...
+library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+
+### ... then easily assign ICONS as follows ...
 EnvICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
 EnvICONS$CheckMark      ### -> prints "✔" to the R console !!!
 EnvICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!

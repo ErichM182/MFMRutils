@@ -90,7 +90,7 @@
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   rssTagFuncIDv01_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
   rssTagFuncIDv02_ <- "INFO.Post.Func.Self.ID";   # <- Function ID - LONG !!!
-  ### rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
+  rssTagFuncLibID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
   
   
   ### Assign "Local Aliases" for frequently used functions !!!

@@ -3,25 +3,29 @@
 \docType{data}
 \name{EnvDATES}
 \alias{EnvDATES}
-\title{The Date-Time Formats for use in R (the \code{MFMRutils} selection)}
+\title{Date-Time Formats for use in R (the "SuiteMFMR" selection)}
 \format{
-An object of class \code{environment} of length 3.
+An object of class \code{environment} of length 6.
 }
 \usage{
 EnvDATES
 }
 \description{
-A collection of frequently used Date-Time (text) Formats to support the MFMR
-Suite of R Functions.
+A collection of frequently used Date and Date-Time (text) Formats to support
+the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 }
 \examples{
-### Easily print & assign Date Formats as follows ...
-EnvDATES$LONGv01   ### -> formats Date to "Saturday, January 16 1982" !!!
-EnvDATES$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
-EnvDATES$LONGv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+### Load the required R Library ...
+library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+
+### ... then easily assign DATE FORMATS as follows ...
+EnvDATES$SHORTv01   ### -> formats Date to "Saturday, January 16 1982" !!!
+EnvDATES$LONGv02    ### -> formats Date to "Sat, Jan 16 1982 @ 21:57:38" !!!
+EnvDATES$LONGv03    ### -> formats Date to "Sat, 16 Jan 1982 @ 21:57:38" !!!
+EnvDATES$SHORTv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::EnvDATES$LONGv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
+MFMRutils::EnvDATES$SHORTv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
 
 }
 \keyword{datasets}
