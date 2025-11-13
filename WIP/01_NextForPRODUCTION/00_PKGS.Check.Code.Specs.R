@@ -63,13 +63,16 @@
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasCAT    <- base::cat;
-  rasRETURN <- base::return;
-  rasPASTE0 <- base::paste0;
-  rasIfELSE <- base::ifelse;
-  rasFORMAT <- base::format;
-  rasAsNUM  <- base::as.numeric;
-  rasAsCHAR <- base::as.character;
+  rasCAT      <- base::cat;
+  rasLIST     <- base::list;
+  rasRETURN   <- base::return;
+  rasPASTE0   <- base::paste0;
+  rasIfELSE   <- base::ifelse;
+  rasFORMAT   <- base::format;
+  rasUNLIST   <- base::unlist;
+  rasStrSPLIT <- base::strsplit;
+  rasAsNUM    <- base::as.numeric;
+  rasAsCHAR   <- base::as.character;
   
 
   # Define a special (colour-formatting) <internal> function ...
@@ -177,8 +180,8 @@
   );
 
   # 3. Increment the active version number ...
-  vsVersOLD <- base::unlist(   # -> Extracts the last section of the split ...
-    base::strsplit(rasAsCHAR(ssVersCURR), split = "\\.")
+  vsVersOLD <- rasUNLIST(   # -> Extracts the last section of the split ...
+    rasStrSPLIT(rasAsCHAR(ssVersCURR), split = "\\.")
   );   # -> VERY NB: Extracts only the 4th value of the split string !!!
   snVersNEW <- rasAsNUM(vsVersOLD[4]) + 1;   # -> Increment the version number !!!
   sbIsSameYr = rasAsNUM(vsVersOLD[1]) == rasAsNUM(rasFORMAT(ssDateTimeCURR, "%Y"));
@@ -326,7 +329,7 @@
     # 7. Return the new created Project Version Number as a character object ...
     rasRETURN(
       base::invisible(
-        base::list(
+        rasLIST(
           "ProjID" = ssProjID,
           "CodeVers" = rasPASTE0("v", ssVersNewFULL),
           "CodeTime" = rasFORMAT(ssDateTimeCURR, "%H:%M:%OS3 %Z")
