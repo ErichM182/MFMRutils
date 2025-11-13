@@ -74,9 +74,14 @@ info.post.func.self.id(
 )
 
 
-rlsLibINFO_ <- pkgs.get.lib.info()
+rlsLibINFO_ <- MFMRutils::pkgs.pull.libr.info()
 rlsLibINFO_$NAME
+rlsLibINFO_[['NAME']]
 rlsLibINFO_$VERSION
+rlsLibINFO_$DESC
+rlsLibINFO_[['DESC']]
+rlsLibINFO_$AUTHORS
+
 
 FALSE | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
 c(FALSE, TRUE) | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)

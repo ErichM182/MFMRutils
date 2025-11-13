@@ -17,8 +17,8 @@ length or class \if{html}{\out{<data type>}} NULL Checks).}
 \description{
 The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
 the DART Programming Language. The operator evaluates whether the "Left-Hand" R
-Object is NULL (in terms of its value or length or class \if{html}{\out{<data type>}}) and
-returns the "Right-Hand" R Object if the "Left-Hand" Object is NULL.
+Object is NULL (in terms of its value or length or class \if{html}{\out{<data type>}}) and returns
+the "Right-Hand" R Object if the "Left-Hand" Object is \if{html}{\out{<indeed>}} NULL.
 }
 \examples{
 ### Use the Null-Coalescing Operator (NCO) as follows: ...

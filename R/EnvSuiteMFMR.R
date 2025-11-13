@@ -4,13 +4,14 @@
 #' 
 #' @description
 #' The complete list of R Libraries that make up the "MFMR R Library Suite". This
-#' Environment-Locked List contains the "standard" IDs for the MFMR R Libraries.
+#' Environment-Locked List contains the "standard" IDs <tags> for the "MFMR Suite 
+#' of R Libraries" (aka "SuiteMFMR").
 #'
 #' @examples
 #' ### Load the required R Library ...
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
-#' ### Easily extract the 'SuiteMFMR' R Library Identifiers <tags> as follows ...
+#' ### ... then easily extract the "SuiteMFMR" R Library IDs as follows ...
 #' EnvSuiteMFMR$UTILS   # -> extracts the 'Utils' MFMR R Library Identifier !!!
 #' EnvSuiteMFMR$PLOTS   # -> extracts the 'Plots' MFMR R Library Identifier !!!
 #' EnvSuiteMFMR$STATS   # -> extracts the 'Stats' MFMR R Library Identifier !!!
@@ -19,7 +20,7 @@
 #? ### ### ###
 "EnvSuiteMFMR" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
-  # -> Define a static list of MFMR R Suite Library Identifiers (IDs) !!!
+  # -> Define a static list of MFMR R Suite Library Identifiers (IDs) or TAGs !!!
   envList <- base::list2env(
     base::list(
       SUITE = "SuiteMFMR",   # -> ... !!!

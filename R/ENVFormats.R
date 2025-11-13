@@ -1,15 +1,16 @@
 #? ### ### ### ### ### ### ###
-#' @title ANSI Text Formats for use in R (the `MFMRutils` selection)
+#' @title ANSI Text Formats for use in R (the "SuiteMFMR" selection)
 #' @name EnvFORMATS
 #' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
-#' Text Font Formats to support the MFMR Suite of R Functions.
-#'
-#' @usage EnvFORMATS   ### -> if "MFMRutils" is already installed & loaded !!!
+#' Text Font Formats to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 #'
 #' @examples
-#' ### Easily print & assign icons as follows ...
+#' ### Load the required R Library ...
+#' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+#' 
+#' ### ... then easily apply TEXT FORMATS as follows ...
 #' EnvFORMATS$BOLD      ### -> sets the text font format to BOLD !!!
 #' EnvFORMATS$ITALICS   ### -> sets the text font format to ITALICS !!!
 #' EnvFORMATS$RESET     ### -> removes actively applied ANSI Text Formatting !!!

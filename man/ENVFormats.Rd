@@ -3,19 +3,22 @@
 \docType{data}
 \name{EnvFORMATS}
 \alias{EnvFORMATS}
-\title{ANSI Text Formats for use in R (the \code{MFMRutils} selection)}
+\title{ANSI Text Formats for use in R (the "SuiteMFMR" selection)}
 \format{
 An object of class \code{environment} of length 5.
 }
 \usage{
-EnvFORMATS   ### -> if "MFMRutils" is already installed & loaded !!!
+EnvFORMATS
 }
 \description{
 A collection of frequently used ANSI (American National Standards Institute)
-Text Font Formats to support the MFMR Suite of R Functions.
+Text Font Formats to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 }
 \examples{
-### Easily print & assign icons as follows ...
+### Load the required R Library ...
+library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+
+### ... then easily apply TEXT FORMATS as follows ...
 EnvFORMATS$BOLD      ### -> sets the text font format to BOLD !!!
 EnvFORMATS$ITALICS   ### -> sets the text font format to ITALICS !!!
 EnvFORMATS$RESET     ### -> removes actively applied ANSI Text Formatting !!!

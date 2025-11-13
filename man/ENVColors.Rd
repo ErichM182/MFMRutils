@@ -3,19 +3,22 @@
 \docType{data}
 \name{EnvCOLORS}
 \alias{EnvCOLORS}
-\title{ANSI Colours for use in R (the \code{MFMRutils} selection)}
+\title{ANSI Colours for use in R (the "SuiteMFMR" selection)}
 \format{
 An object of class \code{environment} of length 32.
 }
 \usage{
-EnvCOLORS   ### -> if [MFMRutils] is already installed & loaded !!!
+EnvCOLORS
 }
 \description{
 A collection of frequently used ANSI (American National Standards Institute)
-Colours to support the MFMR Suite of R Functions.
+Colours to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 }
 \examples{
-### Easily print & assign icons as follows ...
+### Load the required R Library ...
+library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+
+### ... the easily assign COLORS as follows ...
 EnvCOLORS$BlackFORE     ### -> outputs the text in black font colour !!!
 EnvCOLORS$CyanFORE      ### -> outputs the text in cyan font colour !!!
 EnvCOLORS$MagentaBACK   ### -> outputs the text background in black font colour !!!

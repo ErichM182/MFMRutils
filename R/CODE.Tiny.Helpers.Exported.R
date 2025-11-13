@@ -5,8 +5,8 @@
 #' @description
 #' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
 #' the DART Programming Language. The operator evaluates whether the "Left-Hand" R
-#' Object is NULL (in terms of its value or length or class <data type>) and 
-#' returns the "Right-Hand" R Object if the "Left-Hand" Object is NULL.
+#' Object is NULL (in terms of its value or length or class <data type>) and returns
+#' the "Right-Hand" R Object if the "Left-Hand" Object is <indeed> NULL.
 #'
 #' @param coLHO a dynamic (complex) object that captures the "Left-Hand" R Object
 #'              to be evaluated against the "NULL Criteria" (i.e. by way of value, 
