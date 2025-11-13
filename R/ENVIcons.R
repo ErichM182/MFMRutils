@@ -1,15 +1,16 @@
 #? ### ### ### ### ### ### ###
-#' @title Unicode Icons for use in R (the `MFMRutils` selection)
+#' @title Icons for use in R (the "SuiteMFMR" selection)
 #' @name EnvICONS
 #' 
 #' @description
-#' A collection of frequently used icons (Unicode characters) meant to support
-#' the MFMR Suite of R Functions.
-#'
-#' @usage EnvICONS   ### -> if "MFMRutils" library is already installed & loaded !!!
+#' A collection of frequently used icons (in unicode form) <originally> meant to
+#' support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 #'
 #' @examples
-#' ### Easily print & assign icons as follows ...
+#' ### Load the required R Library ...
+#' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
+#' 
+#' ### ... then easily assign ICONS as follows ...
 #' EnvICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
 #' EnvICONS$CheckMark      ### -> prints "✔" to the R console !!!
 #' EnvICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!

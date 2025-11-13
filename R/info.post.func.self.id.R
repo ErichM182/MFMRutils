@@ -95,28 +95,28 @@
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
-  rasABS              <- base::abs;
-  rasANY              <- base::any;
-  rasCAT              <- base::cat;
-  rasSUB              <- base::sub;
-  rasGET0             <- base::get0;
-  rasLIST             <- base::list;
-  rasIsNA             <- base::is.na;
-  rasTRUNC            <- base::trunc;
-  rasROUND            <- base::round;
-  rasLENGTH           <- base::length;
-  rasRETURN           <- base::return;
-  rasIfELSE           <- base::ifelse;
-  rasPASTE0           <- base::paste0;
-  rasFORMAT           <- base::format;
-  rasIsNULL           <- base::is.null;
-  rasStrFormTIME      <- base::strftime;
-  rasINVISIBLE        <- base::invisible;
-  rasAsNUMERIC        <- base::as.numeric;
-  `%?!%`              <- MFMRutils::`%?!%`;   # <- VERY COOL Operator !!!  
-  rasMfmrDATES        <- MFMRutils::EnvDATES;
-  rasMfmrICONS        <- MFMRutils::EnvICONS;
-  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
+  rasABS         <- base::abs;
+  rasANY         <- base::any;
+  rasCAT         <- base::cat;
+  rasSUB         <- base::sub;
+  rasGET0        <- base::get0;
+  rasLIST        <- base::list;
+  rasIsNA        <- base::is.na;
+  rasTRUNC       <- base::trunc;
+  rasROUND       <- base::round;
+  rasLENGTH      <- base::length;
+  rasRETURN      <- base::return;
+  rasIfELSE      <- base::ifelse;
+  rasPASTE0      <- base::paste0;
+  rasFORMAT      <- base::format;
+  rasIsNULL      <- base::is.null;
+  rasStrFormTIME <- base::strftime;
+  rasINVISIBLE   <- base::invisible;
+  rasAsNUMERIC   <- base::as.numeric;
+  `%?!%`         <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!!  
+  rasMfmrDATES   <- MFMRutils::EnvDATES;
+  rasMfmrICONS   <- MFMRutils::EnvICONS;
+  rasMfmrCOLORS  <- MFMRutils::EnvCOLORS;
   
   #? TODO: Re-activate the code snippet later (once function is fully baked) !!!
   ####### rasMfmrClassifyFUNC <- MFMRutils::code.classify.func; 
@@ -232,11 +232,11 @@
       if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
           csIconCarat_ == "->" || csIconCarat_ == " -> ") {
         csIconCarat_ <- rasPASTE0(
-          " ",                               # -> Add "leading" white space ...
-          csColorCarat_,                     # -> Apply specified text colour ...
+          " ",                       # -> Add "leading" white space ...
+          csColorCarat_,             # -> Apply specified text colour ...
           rasMfmrICONS$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-          " ",                               # -> Add "trailing" white space ...
-          rcsAnsiRESET_                       # -> Deactivate text formatting !!!
+          " ",                       # -> Add "trailing" white space ...
+          rcsAnsiRESET_              # -> Deactivate text formatting !!!
         );
       } else {
         csIconCarat_ <- rasPASTE0(
@@ -244,18 +244,18 @@
           csColorCarat_,   # -> Apply specified text colour ...
           csIconCarat_,    # -> Assign the specified Carat Icon !!!
           " ",             # -> Add "trailing" white space ...
-          rcsAnsiRESET_     # -> Deactivate text formatting !!!
+          rcsAnsiRESET_    # -> Deactivate text formatting !!!
         );
       }
     }
   } else {
     if (sbPrintPretty_) {
       csIconCarat_ <- rasPASTE0(
-        " ",                               # -> Add "leading" white space ...
-        csColorCarat_,                     # -> Apply specified text colour ...
+        " ",                       # -> Add "leading" white space ...
+        csColorCarat_,             # -> Apply specified text colour ...
         rasMfmrICONS$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-        " ",                               # -> Add "trailing" white space ...
-        rcsAnsiRESET_                       # -> Deactivate text formatting !!!
+        " ",                       # -> Add "trailing" white space ...
+        rcsAnsiRESET_              # -> Deactivate text formatting !!!
       );
     } else {
       csIconCarat_ <- " => ";   # -> Apply a simple <default> Carat Icon !!!
@@ -274,10 +274,10 @@
   }                                  #    else returns the "NOT-FOUND" value.
   if (sbPrintPretty_) {
     ssProjID_ <- rasPASTE0(
-      rcsAnsiBOLD_,      # -> Apply a BOLD text formatting ... 
+      rcsAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
       csColorProjID_,   # -> Apply the specified text colour ... 
       ssProjID_,        # -> Add the "Caller-ID" string value !!!
-      rcsAnsiRESET_      # -> Deactivate text formatting !!!
+      rcsAnsiRESET_     # -> Deactivate text formatting !!!
     );
   }
   
@@ -287,19 +287,19 @@
   if (!rasIsNULL(csIconSplit_)) {
     if (sbPrintPretty_) {
       csIconSplit_ <- rasPASTE0(
-        rcsAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
+        rcsAnsiBOLD_,    # -> Apply a BOLD text formatting ... 
         csColorSplit_,   # -> Apply the specified text colour ... 
         csIconSplit_,    # -> Add the "Split-Icon" string value !!!
-        rcsAnsiRESET_     # -> Deactivate text formatting !!!
+        rcsAnsiRESET_    # -> Deactivate text formatting !!!
       );
     }
   } else {
     if (sbPrintPretty_) {
       csIconSplit_ <- rasPASTE0(
-        rcsAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
+        rcsAnsiBOLD_,    # -> Apply a BOLD text formatting ... 
         csColorSplit_,   # -> Apply the specified text colour ... 
         " | ",           # -> Add the <default> "Split-Icon" string value !!!
-        rcsAnsiRESET_     # -> Deactivate text formatting !!!
+        rcsAnsiRESET_    # -> Deactivate text formatting !!!
       );
     } else {
       csIconSplit_ <- " | ";   # -> Add a <basic> "Split-Icon" string value !!!
@@ -317,19 +317,19 @@
   if (!rasIsNULL(ssFuncType_)) {
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
-        rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorFuncType_,    # -> Apply the specified text colour ... 
-        ssFuncType_,         # -> Add the "Func-Type" string value !!!
-        rcsAnsiRESET_        # -> Deactivate text formatting !!!
+        rcsAnsiBOLD_,       # -> Apply a BOLD text formatting ... 
+        csColorFuncType_,   # -> Apply the specified text colour ... 
+        ssFuncType_,        # -> Add the "Func-Type" string value !!!
+        rcsAnsiRESET_       # -> Deactivate text formatting !!!
       );
     }
   } else {
     if (sbPrintPretty_) {
       ssFuncType_ <- rasPASTE0(
-        rcsAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
-        csColorSplit_,    # -> Apply the specified text colour ... 
-        "UNK.",           # -> Add the <default> "Func-Type" string value !!!
-        rcsAnsiRESET_     # -> Deactivate text formatting !!!
+        rcsAnsiBOLD_,    # -> Apply a BOLD text formatting ... 
+        csColorSplit_,   # -> Apply the specified text colour ... 
+        "UNK.",          # -> Add the <default> "Func-Type" string value !!!
+        rcsAnsiRESET_    # -> Deactivate text formatting !!!
       );
     } else {
       ssFuncType_ <- "UNK.";   # -> Add a <basic> "Func-Type" string value !!!
@@ -342,19 +342,19 @@
   if (!rasIsNULL(ssFuncCallerID_)) {
     if (sbPrintPretty_) {
       ssFuncCallerID_ <- rasPASTE0(
-        rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorCallerID_,    # -> Apply the specified text colour ... 
-        ssFuncCallerID_,     # -> Add the "Caller-ID" string value !!!
-        rcsAnsiRESET_        # -> Deactivate text formatting !!!
+        rcsAnsiBOLD_,       # -> Apply a BOLD text formatting ... 
+        csColorCallerID_,   # -> Apply the specified text colour ... 
+        ssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
+        rcsAnsiRESET_       # -> Deactivate text formatting !!!
       );
     }
   } else {
     if (sbPrintPretty_) {
       ssFuncCallerID_ <- rasPASTE0(
-        rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-        csColorCallerID_,    # -> Apply the specified text colour ... 
-        "UNK.",              # -> Add the <default> "Caller-ID" string value !!!
-        rcsAnsiRESET_        # -> Deactivate text formatting !!!
+        rcsAnsiBOLD_,       # -> Apply a BOLD text formatting ... 
+        csColorCallerID_,   # -> Apply the specified text colour ... 
+        "UNK.",             # -> Add the <default> "Caller-ID" string value !!!
+        rcsAnsiRESET_       # -> Deactivate text formatting !!!
       );
     } else {
       ssFuncCallerID_ <- "UNK.";   # -> Add a <basic> "Caller-ID" string value !!!
@@ -367,10 +367,10 @@
   if (siFuncMode01_ == 1L) {   # -> Apply the ENTER function Info !!!
     if (sbPrintPretty_) {
       csTimeStamp_ <- rasPASTE0(
-        rcsAnsiBOLD_,             # -> Apply a BOLD text formatting ... 
+        rcsAnsiBOLD_,            # -> Apply a BOLD text formatting ... 
         csColorTimeStamp_,       # -> Apply the specified text colour ... 
         csTimeStartFORMATTED_,   # ...
-        rcsAnsiRESET_             # -> Deactivate text formatting !!!
+        rcsAnsiRESET_            # -> Deactivate text formatting !!!
       );
     } else {
       csTimeStamp_ <- csTimeStartFORMATTED_;
@@ -378,10 +378,10 @@
   } else if (siFuncMode01_ == 0L) {   # -> Apply the EXIT function Info !!!
     if (sbPrintPretty_) {
       csTimeStamp_ <- rasPASTE0(
-        rcsAnsiBOLD_,            # -> Apply a BOLD text formatting ... 
+        rcsAnsiBOLD_,           # -> Apply a BOLD text formatting ... 
         csColorTimeStamp_,      # -> Apply the specified text colour ... 
         csTimeStopFORMATTED_,   # ...
-        rcsAnsiRESET_            # -> Deactivate text formatting !!!
+        rcsAnsiRESET_           # -> Deactivate text formatting !!!
       );
     } else {
       csTimeStamp_ <- csTimeStopFORMATTED_;
@@ -451,7 +451,7 @@
           ), 
           csTimeStamp_,
           rasPASTE0(
-            rcsAnsiBOLD_, csColorMain_, " ( F-Dur: ", rcsAnsiRESET_
+            rcsAnsiBOLD_, csColorMain_, " ( F-RunTime: ", rcsAnsiRESET_
           ),
           rasPASTE0(
             rcsAnsiBOLD_, csColorTimeStamp_, csDeltaTIME_, rcsAnsiRESET_
@@ -468,7 +468,7 @@
           "F-STOP { <F-SID: '", ssFuncSelfID_, 
           "'  F-Caller: '", ssFuncCallerID_, "'> ",
           " Time: ", csTimeStamp_, "",
-          " ( F-Dur: ", csDeltaTIME_, " ) }\n"
+          " ( F-RunTime: ", csDeltaTIME_, " ) }\n"
         )
       );
     }
