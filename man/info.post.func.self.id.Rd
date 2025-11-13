@@ -20,10 +20,11 @@ info.post.func.self.id(
   csColorProjID = NULL,
   csColorFuncType = NULL,
   csColorCallerID = NULL,
-  csColorMain = NULL,
-  sbPrintPretty = NULL,
+  siStopCELN = NULL,
   siStartCELN = NULL,
-  siStopCELN = NULL
+  csColorMainText = NULL,
+  sbPrintPretty = NULL,
+  sbRunSelfID = FALSE
 )
 }
 \arguments{
@@ -36,9 +37,9 @@ the hard-coded "info.post.func.self.id()" function ID
 (i.e. "MFMR-Self.ID") will be used in the printed result.}
 
 \item{siFuncMode01}{an integer (long) value that identifies the two run-time
-states of this \code{Self-ID} custom function. A value of \code{1L}
-sets the function mode to the \code{ENTER} (start) state; while
-a value of \code{0L} sets the function mode to the \code{EXIT} (stop)
+states of this "Self-ID" custom function. A value of "1L"
+sets the function mode to the "ENTER" (start) state; while
+a value of "0L" sets the function mode to the "EXIT" (stop)
 run-time state.}
 
 \item{ssFuncCallerID}{a character (string) value that identifies the parent
@@ -46,55 +47,58 @@ function that invoked that execution of the active or
 current function.}
 
 \item{csIconCarat}{a character (string) value that defines the leading icon
-(carat) object to be used when printing the \code{Self-ID}
+(carat) object to be used when printing the "Self-ID"
 information to the R Console.}
 
-\item{csColorCarat}{a character (string) value that sets the \verb{Carat Icon} object
+\item{csColorCarat}{a character (string) value that sets the "Carat Icon" object
 colour in the formatted text output.}
 
 \item{csIconSplit}{a character (string) value that defines the middle \if{html}{\out{<split>}}
-icon (object) that should be used for printing the \code{Self-ID}
+icon (object) that should be used for printing the "Self-ID"
 information to the R Console.}
 
-\item{csColorSplit}{a character (string) value that sets the \code{Split} information
+\item{csColorSplit}{a character (string) value that sets the "Split" information
 text colour in the formatted text output.}
 
-\item{csTimeStart}{a character (string) value that defines the \code{START-Time}
+\item{csTimeStart}{a character (string) value that defines the "START-Time"
 of the active function.}
 
-\item{csTimeStop}{a character (string) value that defines the \code{STOP-Time}
+\item{csTimeStop}{a character (string) value that defines the "STOP-Time"
 of the active function.}
 
-\item{csFormatDT}{a character (string) value that specifies how \code{DateTime} info
+\item{csFormatDT}{a character (string) value that specifies how "DateTime" info
 should be formatted when printed out to the R Console.}
 
-\item{csColorTimeStamp}{a character (string) value that sets the \code{TimeStamp}
+\item{csColorTimeStamp}{a character (string) value that sets the "TimeStamp"
 information text colour in the formatted text output.}
 
-\item{csColorProjID}{a character (string) value that sets the \code{ProjID} text
+\item{csColorProjID}{a character (string) value that sets the "ProjID" text
 colour in the formatted text output.}
 
-\item{csColorFuncType}{a character (string) value that sets the \code{FuncType} text
+\item{csColorFuncType}{a character (string) value that sets the "FuncType" text
 colour in the formatted text output.}
 
-\item{csColorCallerID}{a character (string) value that sets the \code{CallerID} text
+\item{csColorCallerID}{a character (string) value that sets the "CallerID" text
 colour in the formatted text output.}
 
-\item{csColorMain}{a character (string) value that sets the \code{Main} information
+\item{siStopCELN}{an integer that denotes the STOP (end) of the function's
+block of code. The Code Editor Line Number ("CELN") of the
+last line of code that defines a custom function - usually
+identified by a closing curly brace.}
+
+\item{siStartCELN}{an integer that denotes the START of the function's block of
+code. The Code Editor Line Number ("CELN") of the first line
+of code that defines a custom function.}
+
+\item{csColorMainText}{a character (string) value that sets the "Main" information
 text colour in the formatted text output.}
 
 \item{sbPrintPretty}{a logical (boolean) value that defines whether the output
 text (Self-ID Function Info) should be formatted when
 printed to the R Console.}
 
-\item{siStartCELN}{an integer that denotes the START of the function's block of
-code. The Code Editor Line Number (\code{CELN}) of the first line
-of code that defines a custom function.}
-
-\item{siStopCELN}{an integer that denotes the STOP (end) of the function's
-block of code. The Code Editor Line Number (\code{CELN}) of the
-last line of code that defines a custom function - usually
-identified by a closing curly brace.}
+\item{sbRunSelfID}{a logical (boolean) value that defines whether the SELF-ID
+procedure should be executed (TRUE) or not (FALSE).}
 }
 \value{
 This function returns a single \if{html}{\out{<abbreviated>}} character value that
