@@ -18,9 +18,9 @@
 #'                       function that invoked that execution of the active or
 #'                       current function.
 #' @param siFuncMode01 an integer (long) value that identifies the two run-time 
-#'                     states of this `Self-ID` custom function. A value of `1L` 
-#'                     sets the function mode to the `ENTER` (start) state; while 
-#'                     a value of `0L` sets the function mode to the `EXIT` (stop) 
+#'                     states of this "Self-ID" custom function. A value of 1L 
+#'                     sets the function mode to the "ENTER" (start) state; while 
+#'                     a value of 0L sets the function mode to the "EXIT" (stop) 
 #'                     run-time state.
 #' @param csColorProjID a character (string) value that sets the `ProjID` text
 #'                      colour in the formatted text output.
@@ -77,13 +77,7 @@
 #'
 #' @export
 #? ### ### ###
-"info.post.func.self.id.v02" <- function(
-  EnvFSID[['COLOR_PROJ_ID']] =NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, 
-  csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
-  csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
-  csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, csColorMainText=NULL,
-  sbPrintPretty=NULL, siStartCELN=NULL, siStopCELN=NULL
-) {
+"info.post.func.self.id.v02" <- function(...) {
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
@@ -91,6 +85,30 @@
   rssTagFuncIDv01_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
   rssTagFuncIDv02_ <- "INFO.Post.Func.Self.ID";   # <- Function ID - LONG !!!
   rssTagFuncLibID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  
+  
+  
+  ####   STEP 02 - Internalize ALL Function Arguments   ####
+  vsDotsArgs_       <- base::list(...);
+  ssProjID_         <- vsDotsArgs_[[EnvArgsFSID$PROJ_ID]];
+  ssFuncCallerID_   <- ssFuncCallerID   %?!% "UNDEFINED";
+  ssFuncSelfID_     <- ssFuncSelfID     %?!% "UNDEFINED";
+  siFuncMode01_     <- siFuncMode01     %?!% 1L;
+  csColorCarat_     <- csColorCarat     %?!% rcsColorsYELLOW_;
+  csIconSplit_      <- csIconSplit      %?!% " | ";
+  csColorSplit_     <- csColorSplit     %?!% rcsColorsYELLOW_;
+  csTimeStart_      <- csTimeStart      %?!% rcsSysTimeNOW_;
+  csTimeStop_       <- csTimeStop       %?!% rcsSysTimeNOW_;
+  csFormatDT_       <- csFormatDT       %?!% rasMfmrDATES$LONGv03;
+  csColorTimeStamp_ <- csColorTimeStamp %?!% rcsColorsYELLOW_;
+  csColorProjID_    <- csColorProjID    %?!% rcsColorsGREEN_;
+  csColorFuncType_  <- csColorFuncType  %?!% rcsColorsYELLOW_;
+  csColorCallerID_  <- csColorCallerID  %?!% rcsColorsMAGENTA_;
+  csColorMainText_  <- csColorMainText  %?!% rcsColorsCYAN_;
+  sbPrintPretty_    <- sbPrintPretty    %?!% TRUE;
+  siStartCELN_      <- siStartCELN      %?!% 1L;
+  siStopCELN_       <- siStopCELN       %?!% 28L;
+  csIconCarat_      <- csIconCarat 
   
   
   ### Assign "Local Aliases" for frequently used functions !!!

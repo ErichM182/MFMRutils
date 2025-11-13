@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The Func-Self-ID Args List (for use with "SuiteMFMR")
-#' @name EnvFSID
+#' @name EnvArgsFSID
 #' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
@@ -20,7 +20,7 @@
 #'
 #' @export
 #? ### ### ###
-"EnvFSID" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"EnvArgsFSID" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
@@ -43,7 +43,9 @@
       COLOR_FUNC_TYPE   = "csColorFuncType", 
       COLOR_FUNC_CALLER = "csColorCallerID", 
       COLOR_TIME_STAMP  = "csColorTimeStamp",
-      IS_PRINT_PRETTY   = "sbPrintPretty"
+      IS_PRINT_PRETTY   = "sbPrintPretty",
+      IS_RUN_SELF_ID    = "sbRunSelfID",
+      IS_DEBUG_MODE     = "sbDebugMode"
     )
   );
   
