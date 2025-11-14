@@ -27,15 +27,15 @@ rlsLibINFO_ <- MFMRutils::pkgs.pull.libr.info()
 rlsLibINFO_$NAME
 rlsLibINFO_[['NAME']]
 rlsLibINFO_$VERSION
+rlsLibINFO_[['VERSION']]
 rlsLibINFO_$DESC
 rlsLibINFO_[['DESC']]
 rlsLibINFO_$AUTHORS
 
 
-
+RCT_TAG_PROJ_ID_ <- "rTestPROJ";
 MFMRutils::pkgs.check.code.specs(
-  sbCheckCRAN = T,
-  sbRunSelfID = T 
+  sbCheckCRAN = T
 );
 
 

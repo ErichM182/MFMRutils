@@ -90,8 +90,8 @@
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
-  RCT_TAG_FUNC_ID_SHRT_ <- "Func.Self.ID";             # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Func.SID";                 # <- FSID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
   
   
@@ -152,7 +152,7 @@
     rasStrFormTIME   <- base::strftime;
     rasINVISIBLE     <- base::invisible;
     rasAsNUMERIC     <- base::as.numeric;
-    `%?!%`           <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!!  
+    `%?!%`           <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!  
     rasMfmrDATES     <- MFMRutils::EnvDATES;
     rasMfmrICONS     <- MFMRutils::EnvICONS;
     rasMfmrCOLORS    <- MFMRutils::EnvCOLORS;
@@ -241,7 +241,7 @@
     rcsColorSplit_     <- rcsColorSplit_     %?!% rcsColorsYELLOW_;
     rcsTimeStart_      <- rcsTimeStart_      %?!% rcsSysTimeNOW_;
     rcsTimeStop_       <- rcsTimeStop_       %?!% rcsSysTimeNOW_;
-    rcsFormatDT_       <- rcsFormatDT_       %?!% rasMfmrDATES$LONGv03;
+    rcsFormatDT_       <- rcsFormatDT_       %?!% rasMfmrDATES$LONG_V03;
     rcsColorTimeStamp_ <- rcsColorTimeStamp_ %?!% rcsColorsYELLOW_;
     rcsColorProjID_    <- rcsColorProjID_    %?!% rcsColorsGREEN_;
     rcsColorFuncType_  <- rcsColorFuncType_  %?!% rcsColorsYELLOW_;

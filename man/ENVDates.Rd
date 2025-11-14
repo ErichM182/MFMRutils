@@ -19,13 +19,13 @@ the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 
 ### ... then easily assign DATE FORMATS as follows ...
-EnvDATES$SHORTv01   ### -> formats Date to "Saturday, January 16 1982" !!!
-EnvDATES$LONGv02    ### -> formats Date to "Sat, Jan 16 1982 @ 21:57:38" !!!
-EnvDATES$LONGv03    ### -> formats Date to "Sat, 16 Jan 1982 @ 21:57:38" !!!
-EnvDATES$SHORTv03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
+EnvDATES$SHORT_V01   ### -> formats Date to "Saturday, January 16 1982" !!!
+EnvDATES$LONG_V02    ### -> formats Date to "Sat, Jan 16 1982 @ 21:57:38" !!!
+EnvDATES$LONG_V03    ### -> formats Date to "Sat, 16 Jan 1982 @ 21:57:38" !!!
+EnvDATES$SHORT_V03   ### -> formats Date to "Sat, 16 Jan 1982" !!!
 
 ### Use with the direct-access R operator "::" from anywhere ...
-MFMRutils::EnvDATES$SHORTv02   ### -> formats Date to "Sat, Jan 16 1982" !!!
+MFMRutils::EnvDATES$SHORT_V02   ### -> formats Date to "Sat, Jan 16 1982" !!!
 
 }
 \keyword{datasets}
