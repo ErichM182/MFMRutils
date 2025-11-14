@@ -57,8 +57,8 @@
   sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek", ...
 ) {
   
-  ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Check.Code.Specs";        # <- Function ID - SHORT !!!
+  ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
+  RCT_TAG_FUNC_ID_SHRT_ <- "Code.Specs";              # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "PKGS.Check.Code.Specs";   # <- Function ID - LONG !!!
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
@@ -66,31 +66,33 @@
   RCT_FUNC_CELN_START_ <- 53L; RCT_FUNC_CELN_STOP_ <- 390L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
   
-  ### SPECIAL: This a CRITICAL "Alias" that needs to be executed here ALWAYS !!!
-  `%?!%` <- MFMRutils::`%?!%`;   # <- VERY COOL Operator <NCO> !!! 
+  ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
+  `%?!%` <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!! 
   
   
   
   ####   STEP 02 - Internalize ALL Function Arguments   ####
-  rvsDotsArgs_   <- base::list(...);
-  rsbCheckDocs_  <- sbCheckDocs;
-  rsbCheckCRAN_  <- sbCheckCRAN;
-  rssTimeZone_   <- ssTimeZone;
-  sbPrintPretty_ <- rvsDotsArgs_[["sbPrintPretty"]] %?!% TRUE;
-  sbRunSelfID_   <- rvsDotsArgs_[["sbRunSelfID"]]   %?!% TRUE;
+  rvsDotsArgs_    <- base::list(...);
+  rsbCheckDocs_   <- sbCheckDocs;
+  rsbCheckCRAN_   <- sbCheckCRAN;
+  rssTimeZone_    <- ssTimeZone;
+  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% TRUE;
+  sbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
+  ssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rProjMAIN)";
   
   
   
   ####   STEP 03 - Run <ENTRY> Function SELF-ID (if requested)   ####
   MFMRutils::info.post.func.self.id(
-    siFuncMode01 = 1L, ssFuncCallerID = RCT_TAG_FUNC_ID_FULL_,
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
+    siFuncMode01 = 1L, ssFuncCallerID = ssFuncCallerID_,
     sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
     siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
     csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_START_
   );
   
   
-  ####   STEP 03 - Define "Local Aliases" for Key Functions   ####
+  ####   STEP 04 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasCAT              <- base::cat;
   rasLIST             <- base::list;
@@ -123,21 +125,17 @@
   rasMfmrICONS        <- MFMRutils::EnvICONS;
   rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
   rasMfmrFORMATS      <- MFMRutils::EnvFORMATS;
+  rasMfmrCONSTS       <- MFMRutils::EnvMiscCONSTs ;
   rasMfmrPullLibrINFO <- MFMRutils::pkgs.pull.libr.info;
   
   
   
-  ####   STEP 04 - Define Critical Constants   ####
+  ####   STEP 05 - Define Critical Constants   ####
   RCT_SYS_DATE_TIME_NOW_ <- rasSysTIME();
   
   RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
   RCT_ANSI_RESET_   <- rasMfmrFORMATS$RESET;
   RCT_ANSI_ITALICS_ <- rasMfmrFORMATS$ITALICS;
-  
-  RCT_COLOR_RED_    <- rasMfmrCOLORS$RedFORE;
-  RCT_COLOR_BLUE_   <- rasMfmrCOLORS$BlueFORE;
-  RCT_COLOR_GREEN_  <- rasMfmrCOLORS$GreenFORE;
-  RCT_COLOR_TELLOW_ <- rasMfmrCOLORS$YellowFORE;
   
   RCT_ICON_POINT_UP_      <- rasMfmrICONS$PointUP;
   RCT_ICON_WHITE_X_       <- rasMfmrICONS$X_White;
@@ -146,6 +144,17 @@
   RCT_ICON_CHECK_MARK_    <- rasMfmrICONS$CheckMark;
   RCT_ICON_ARROW_RIGHT_   <- rasMfmrICONS$ArrowRIGHT;
   RCT_ICON_SMILEY_PONDER_ <- rasMfmrICONS$SmileyPonder;
+  
+  RCT_COLOR_RED_          <- rasMfmrCOLORS$RedFORE;
+  RCT_COLOR_BLUE_         <- rasMfmrCOLORS$BlueFORE;
+  RCT_COLOR_GREEN_        <- rasMfmrCOLORS$GreenFORE;
+  RCT_COLOR_TELLOW_       <- rasMfmrCOLORS$YellowFORE;
+  RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_FILE_R_PKG_DESC;
+  RCT_FOLDER_WIP_PROD_    <- rasMfmrCONSTS$PATH_FOLDER_WIP_PROD;
+  RCT_FORMAT_TIME_DEV_01_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V01;
+  RCT_FORMAT_TIME_DEV_02_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V02;
+  RCT_FOLDER_WIP_HELPERS_ <- rasMfmrCONSTS$PATH_FOLDER_WIP_HELPERS;
+  RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
   
   
 
@@ -242,10 +251,9 @@
   }
 
   # 2. Extract the current version number from the DESCRIPTION file ...
-  rssPathFileDESC_ <- "./DESCRIPTION";
-  rlsLibrINFO_     <- rasMfmrPullLibrINFO(rssPathFileDESC_);   # -> Identifies the "DESCRIPTION" file (with path).
-  ssActProjID_     <- rlsLibrINFO_[["NAME"]];   # -> Extracts the R-Libs Project ID ...
-  ssProjVersCURR_  <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
+  rlsLibrINFO_    <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);   # -> Identifies the "DESCRIPTION" file (with path).
+  ssActProjID_    <- rlsLibrINFO_[["NAME"]];   # -> Extracts the R-Libs Project ID ...
+  ssProjVersCURR_ <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
 
   # 3. Increment the active version number ...
   vsProjVersOLD_ <- rasUNLIST(   # -> Extracts the last section of the split ...
@@ -352,19 +360,19 @@
       );
     }
     ssVersNewFULL <- rasPASTE0(   # -> Format the NEW Version Date accordingly ...
-      rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y.%m.%d"), ".", ssVersNEW
+      rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_01_), ".", ssVersNEW
     );
     
     # 4. Update the version number (accordingly) in the "DESCRIPTION" file ...
-    rasDescSetVERSION(ssVersNewFULL, file = rssPathFileDESC_);
+    rasDescSetVERSION(ssVersNewFULL, file = RCT_FILE_R_PKG_DESC_);
     
     # 5. Create a Secondary Version Tracking File (in the "WIP" directory) ...
-    ssVersFileWIP_  <- rasFilePATH("./WIP/DevsVersTimeStamp.txt");
-    vsDirsToCreate_ <- c("./WIP/00_Helpers", "./WIP/01_NextForPROD");
+    ssVersFileWIP_  <- rasFilePATH(RCT_FILE_DEV_TIME_LOG_);
+    vsDirsToCreate_ <- c(RCT_FOLDER_WIP_HELPERS_, RCT_FOLDER_WIP_PROD_);
     ssVersNewTimeSTAMP_ <- rasPASTE0(   # -> Creates a Devs TimeStamp ...
       "> R-Libs Project ID: ", ssActProjID_, "\n",
       "> Last Code Push (vers)  ==>  ", ssVersNewFULL, "\n",
-      "> Last Code Push (time)  ==>  ", rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%H:%M:%OS3 %Z")
+      "> Last Code Push (time)  ==>  ", rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
     );
     if (rasFileEXISTS(ssVersFileWIP_)) {   # -> File already exists ...
       rasWriteLINES(   # -> Writes the new version number into file ...
@@ -392,16 +400,19 @@
         notes = snLenNOTEs, ssActProjID = ssActProjID_, ssProjVers = ssVersNewFULL
       );
     }
-    if (!rsbCheckCRAN_ && rsbCheckDocs_) {   # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
+    
+    # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
+    if (!rsbCheckCRAN_ && rsbCheckDocs_) {   
       rasDevToolsDOCUMENT(roclets = c('rd', 'collate', 'namespace'));
     }
     
     
     
-    ####   STEP 03 - Run <EXIT> Function SELF-ID (if requested)   ####
+    ####   STEP 06 - Run <EXIT> Function SELF-ID (if requested)   ####
     RCT_FUNC_RUN_TIME_STOP_ <- rasSysTIME();
     MFMRutils::info.post.func.self.id(
-      siFuncMode01 = 0L, ssFuncCallerID = RCT_TAG_FUNC_ID_FULL_,
+      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
+      siFuncMode01 = 0L, ssFuncCallerID = ssFuncCallerID_,
       sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
       siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
       csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_STOP_
@@ -415,7 +426,7 @@
         rasLIST(
           "ProjID" = ssActProjID_,
           "CodeVers" = rasPASTE0("v", ssVersNewFULL),
-          "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%H:%M:%OS3 %Z")
+          "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
         )
       )
     );
