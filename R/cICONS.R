@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Icons for use in R (the "SuiteMFMR" selection)
-#' @name EnvICONS
+#' @name cICONS
 #' 
 #' @description
 #' A collection of frequently used icons (in unicode form) <originally> meant to
@@ -11,16 +11,16 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily assign ICONS as follows ...
-#' EnvICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
-#' EnvICONS$CheckMark      ### -> prints "✔" to the R console !!!
-#' EnvICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!
+#' cICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
+#' cICONS$CheckMark      ### -> prints "✔" to the R console !!!
+#' cICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::EnvICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
+#' MFMRutils::cICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
 #'
 #' @export
 #? ### ### ###
-"EnvICONS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cICONS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(

@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Text Formats for use in R (the "SuiteMFMR" selection)
-#' @name EnvFORMATS
+#' @name cFORMATS
 #' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
@@ -11,16 +11,16 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily apply TEXT FORMATS as follows ...
-#' EnvFORMATS$BOLD      ### -> sets the text font format to BOLD !!!
-#' EnvFORMATS$ITALICS   ### -> sets the text font format to ITALICS !!!
-#' EnvFORMATS$RESET     ### -> removes actively applied ANSI Text Formatting !!!
+#' cFORMATS$BOLD      ### -> sets the text font format to BOLD !!!
+#' cFORMATS$ITALICS   ### -> sets the text font format to ITALICS !!!
+#' cFORMATS$RESET     ### -> removes actively applied ANSI Text Formatting !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::EnvFORMATS$BOLD   ### -> sets the text font format to BOLD !!!
+#' MFMRutils::cFORMATS$BOLD   ### -> sets the text font format to BOLD !!!
 #'
 #' @export
 #? ### ### ###
-"EnvFORMATS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cFORMATS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(

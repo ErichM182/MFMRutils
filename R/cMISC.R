@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The "SuiteMFMR" List of Useful Constants
-#' @name EnvMiscCONSTs
+#' @name cMISC
 #' 
 #' @description
 #' A collection of surprisingly useful CONSTANTS that are required throughout the
@@ -13,16 +13,16 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily apply TEXT FORMATS as follows ...
-#' EnvMiscCONSTs$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress (WIP) 
-#'                                      #    path for the R Library Development
-#'                                      #    Staging Folder ("01_NextForPROD") !!!
+#' cMISC$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress (WIP) 
+#'                              #    path for the R Library Development
+#'                              #    Staging Folder ("01_NextForPROD") !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::EnvMiscCONSTs$PATH_FOLDER_WIP_PROD
+#' MFMRutils::cMISC$PATH_FOLDER_WIP_PROD
 #'
 #' @export
 #? ### ### ###
-"EnvMiscCONSTs" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cMISC" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
