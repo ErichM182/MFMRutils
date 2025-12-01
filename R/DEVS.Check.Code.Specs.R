@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title CRAN Code Validation with File Version Tracking ("SuiteMFMR" DevTools)
-#' @name pkgs.check.code.specs
+#' @name devs.check.code.specs
 #' 
 #' @description
 #' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure
@@ -44,27 +44,29 @@
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' pkgs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation Process.
-#' pkgs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete CRAN Code Validation Process.
+#' devs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation 
+#'                                             #    Process.
+#' devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete CRAN Code Validation 
+#'                                             #    Process.
 #'
 #' ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
 #' # The Documentation Process will only be executed once if both are TRUE !!!
-#' pkgs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
+#' devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
 #'
 #' @export
 #? ### ### ###
-"pkgs.check.code.specs" <- function(
+"devs.check.code.specs" <- function(
   sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek", ...
 ) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
   RCT_TAG_FUNC_ID_SHRT_ <- "Code.Specs";              # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "PKGS.Check.Code.Specs";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Check.Code.Specs";   # <- Function ID - LONG !!!
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
   RCT_FUNC_CELN_START_ <- 53L; RCT_FUNC_CELN_STOP_ <- 390L;
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
   `%?!%` <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!! 
@@ -122,11 +124,11 @@
   rasDevToolsDOCUMENT <- devtools::document;
   rasDevToolsLoadALL  <- devtools::load_all;
   rasDevToolsCleanDLL <- devtools::clean_dll;
-  rasMfmrICONS        <- MFMRutils::EnvICONS;
-  rasMfmrCOLORS       <- MFMRutils::EnvCOLORS;
-  rasMfmrFORMATS      <- MFMRutils::EnvFORMATS;
-  rasMfmrCONSTS       <- MFMRutils::EnvMiscCONSTs ;
-  rasMfmrPullLibrINFO <- MFMRutils::pkgs.pull.libr.info;
+  rasMfmrCONSTS       <- MFMRutils::cMISC;
+  rasMfmrICONS        <- MFMRutils::cICONS;
+  rasMfmrCOLORS       <- MFMRutils::cCOLORS;
+  rasMfmrFORMATS      <- MFMRutils::cFORMATS;
+  rasMfmrPullLibrINFO <- MFMRutils::devs.pull.libr.info;
   
   
   

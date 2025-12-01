@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The MFMR Suite <list> of R Libraries ...
-#' @name EnvSuiteMFMR
+#' @name cMFMR
 #' 
 #' @description
 #' The complete list of R Libraries that make up the "MFMR R Library Suite". This
@@ -12,13 +12,13 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily extract the "SuiteMFMR" R Library IDs as follows ...
-#' EnvSuiteMFMR$UTILS   # -> extracts the 'Utils' MFMR R Library Identifier !!!
-#' EnvSuiteMFMR$PLOTS   # -> extracts the 'Plots' MFMR R Library Identifier !!!
-#' EnvSuiteMFMR$STATS   # -> extracts the 'Stats' MFMR R Library Identifier !!!
+#' cMFMR$UTILS   # -> extracts the 'Utils' MFMR R Library Identifier !!!
+#' cMFMR$PLOTS   # -> extracts the 'Plots' MFMR R Library Identifier !!!
+#' cMFMR$STATS   # -> extracts the 'Stats' MFMR R Library Identifier !!!
 #'
 #' @export
 #? ### ### ###
-"EnvSuiteMFMR" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cMFMR" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of MFMR R Suite Library Identifiers (IDs) or TAGs !!!
   envList <- base::list2env(

@@ -5,6 +5,9 @@
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
 #' Colours to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
+#' 
+#' @section CONSTANTS:
+#' Functions for checking data integrity ...
 #'
 #' @examples
 #' ### Load the required R Library ...

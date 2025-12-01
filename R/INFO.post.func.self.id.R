@@ -92,7 +92,7 @@
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Func.SID";                 # <- FSID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
@@ -153,9 +153,9 @@
     rasINVISIBLE     <- base::invisible;
     rasAsNUMERIC     <- base::as.numeric;
     `%?!%`           <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!  
-    rasMfmrDATES     <- MFMRutils::EnvDATES;
-    rasMfmrICONS     <- MFMRutils::EnvICONS;
-    rasMfmrCOLORS    <- MFMRutils::EnvCOLORS;
+    rasMfmrDATES     <- MFMRutils::cDATES;
+    rasMfmrICONS     <- MFMRutils::cICONS;
+    rasMfmrCOLORS    <- MFMRutils::cCOLORS;
     rasMfmrClassFUNC <- MFMRutils::code.classify.func;
     
     
@@ -169,8 +169,8 @@
     rcsColorsGREEN_   <- rasMfmrCOLORS$GreenFORE;
     rcsColorsYELLOW_  <- rasMfmrCOLORS$YellowFORE;
     rcsColorsMAGENTA_ <- rasMfmrCOLORS$MagentaFORE;
-    rcsAnsiBOLD_      <- MFMRutils::EnvFORMATS$BOLD;
-    rcsAnsiRESET_     <- MFMRutils::EnvFORMATS$RESET;
+    rcsAnsiBOLD_      <- MFMRutils::cFORMATS$BOLD;
+    rcsAnsiRESET_     <- MFMRutils::cFORMATS$RESET;
     
     
     ####### ### Compile Useful <internal> Custom Functions here !!!
@@ -421,7 +421,7 @@
           rcsAnsiRESET_            # -> Deactivate text formatting !!!
         );
       } else {
-        rcsTimeStamp_ <- csTimeStopFORMATTED_;
+        rcsTimeStamp_ <- rcsTimeStopFORMATTED_;
       }
     }
     
