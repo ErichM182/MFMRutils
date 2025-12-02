@@ -33,8 +33,6 @@
   rssTagFuncIDv02_ <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
   ### rssTagFuncLibID_ <- MFMRutils::devs.get.libr.info()[["NAME"]];
   
-  
-  
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
   rasANY_    <- base::any;
@@ -42,8 +40,6 @@
   rasLENGTH_ <- base::length;
   rasRETURN_ <- base::return;
   rasIsNULL_ <- base::is.null;
-  
-  
   
   ####   STEP 03 - Execute MAIN <function> CODE LOGIC   ####
   if (rasIsNULL_(coLHO) || rasLENGTH_(coLHO) == 0 || rasANY_(rasIsNA_(coLHO))) {

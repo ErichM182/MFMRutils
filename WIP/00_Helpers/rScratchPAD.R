@@ -23,7 +23,7 @@ info.post.func.self.id(
 )
 
 
-rlsLibINFO_ <- MFMRutils::pkgs.pull.libr.info()
+rlsLibINFO_ <- MFMRutils::devs.pull.libr.info()
 rlsLibINFO_$NAME
 rlsLibINFO_[['NAME']]
 rlsLibINFO_$VERSION
