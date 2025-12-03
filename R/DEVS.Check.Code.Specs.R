@@ -65,7 +65,7 @@
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
-  RCT_FUNC_CELN_START_ <- 53L; RCT_FUNC_CELN_STOP_ <- 390L;
+  RCT_FUNC_CELN_START_ <- 58L; RCT_FUNC_CELN_STOP_ <- 390L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
@@ -78,8 +78,8 @@
   rsbCheckDocs_   <- sbCheckDocs;
   rsbCheckCRAN_   <- sbCheckCRAN;
   rssTimeZone_    <- ssTimeZone;
-  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% TRUE;
   sbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
+  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% FALSE;
   ssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rProjMAIN)";
   
   

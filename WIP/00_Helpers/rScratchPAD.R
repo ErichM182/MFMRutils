@@ -1,5 +1,7 @@
 
 
+MFMRutils::cMISC$PATH_TO_FILE_R_PKG_DESC
+
 
 MFMRutils::info.post.func.self.id(
   ssProjID = "rProjTESTr",
