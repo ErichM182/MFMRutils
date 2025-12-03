@@ -160,18 +160,18 @@
     
 
   # 2. Extract the current version number from the DESCRIPTION file ...
-  rlsLibrINFO_    <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);   # -> Identifies the "DESCRIPTION" file (with path).
-  ssActProjID_    <- rlsLibrINFO_[["NAME"]];   # -> Extracts the R-Libs Project ID ...
-  ssProjVersCURR_ <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
+  rlsLibrINFO_     <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);   # -> Identifies the "DESCRIPTION" file (with path).
+  rssActProjID_    <- rlsLibrINFO_[["NAME"]];      # -> Extracts the R-Libs Project ID ...
+  rssProjVersCURR_ <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
 
   # 3. Increment the active version number ...
-  vsProjVersOLD_ <- rasUNLIST(   # -> Extracts the last section of the split ...
-    rasStrSPLIT(rasAsCHAR(ssProjVersCURR_), split = "\\.")
+  rvsProjVersOLD_ <- rasUNLIST(   # -> Extracts the last section of the split ...
+    rasStrSPLIT(rasAsCHAR(rssProjVersCURR_), split = "\\.")
   );   # -> VERY NB: Extracts only the 4th value of the split string !!!
-  snVersNEW  <- rasAsNUM(vsProjVersOLD_[4]) + 1;   # -> Increment the version number !!!
-  sbIsSameYr <- rasAsNUM(vsProjVersOLD_[1]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y"));
-  sbIsSameMn <- rasAsNUM(vsProjVersOLD_[2]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%m"));
-  sbIsSameDy <- rasAsNUM(vsProjVersOLD_[3]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%d"));
+  snVersNEW  <- rasAsNUM(rvsProjVersOLD_[4]) + 1;   # -> Increment the version number !!!
+  sbIsSameYr <- rasAsNUM(rvsProjVersOLD_[1]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y"));
+  sbIsSameMn <- rasAsNUM(rvsProjVersOLD_[2]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%m"));
+  sbIsSameDy <- rasAsNUM(rvsProjVersOLD_[3]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%d"));
 
   if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
     
@@ -261,7 +261,7 @@
     ssVersNEW <- NULL;
     if (sbIsSameYr && sbIsSameMn && sbIsSameDy) {   # -> If TRUE then it's the SAME DAY ... so simply increment from the last number value (or count) !!!
       ssVersNEW <- rasSPRINTF(   # -> Increments & pads the value with leading zeros (to create a 3-digit character value) ...
-        fmt = "%03d", rasAsNUM(vsProjVersOLD_[4]) + 1
+        fmt = "%03d", rasAsNUM(rvsProjVersOLD_[4]) + 1
       );
     } else {    # -> If FALSE then it's a NEW DAY ... which means start count at 1 !!!
       ssVersNEW <- rasSPRINTF(   # -> Starts count at 1 ... and pads the value with leading zeros (to create a 3-digit character value) ...
@@ -279,7 +279,7 @@
     ssVersFileWIP_  <- rasFilePATH(RCT_FILE_DEV_TIME_LOG_);
     vsDirsToCreate_ <- c(RCT_FOLDER_WIP_HELPERS_, RCT_FOLDER_WIP_PROD_);
     ssVersNewTimeSTAMP_ <- rasPASTE0(   # -> Creates a Devs TimeStamp ...
-      "> R-Libs Project ID: ", ssActProjID_, "\n",
+      "> R-Libs Project ID: ", rssActProjID_, "\n",
       "> Last Code Push (vers)  ==>  ", ssVersNewFULL, "\n",
       "> Last Code Push (time)  ==>  ", rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
     );
@@ -306,7 +306,7 @@
       snLenWARNINGs_ <- rasLENGTH(coCheckResult_$warnings);
       MFMRutils:::devs.print.code.check.res(
         snLenERRORs = snLenERRORs_, snLenWARNs = snLenWARNINGs_,
-        snLenNOTEs = snLenNOTEs_, ssActProjID = ssActProjID_, ssProjVers = ssVersNewFULL
+        snLenNOTEs = snLenNOTEs_, ssActProjID = rssActProjID_, ssProjVers = ssVersNewFULL
       );
     }
     
@@ -333,7 +333,7 @@
     rasRETURN(
       rasINVISIBLE(
         rasLIST(
-          "ProjID" = ssActProjID_,
+          "ProjID" = rssActProjID_,
           "CodeVers" = rasPASTE0("v", ssVersNewFULL),
           "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
         )

@@ -130,6 +130,7 @@
   
   # Create the output string
   output <- rasPASTE0(
+    
     # R Project ID & Version information print out ...
     rasPASTE0(
       csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
@@ -158,9 +159,8 @@
         csUniCodeCross, csANSIreset
       ),
       rasPASTE0(
-        csANSIitalics, csANSIbold, csANSIgreen, snLenERRORs,
-        rasIfELSE(snLenERRORs == 1, " ERROR ", " ERRORs "),
-        csUniCodeCheckmark, csANSIreset
+        csANSIitalics, csANSIbold, csANSIgreen, 
+        "0 ERRORs ", csUniCodeCheckmark, csANSIreset
       )
     ),
     rasPASTE0(csANSIbold, "  |  ", csANSIreset),
@@ -172,9 +172,8 @@
         csUniCodeCross, csANSIreset
       ),
       rasPASTE0(
-        csANSIitalics, csANSIbold, csANSIgreen, snLenWARNs,
-        rasIfELSE(snLenWARNs == 1, " WARNING ", " WARNINGs "),
-        csUniCodeCheckmark, csANSIreset
+        csANSIitalics, csANSIbold, csANSIgreen, 
+        "0 WARNINGs ", csUniCodeCheckmark, csANSIreset
       )
     ),
     rasPASTE0(csANSIbold, "  |  ", csANSIreset),
@@ -186,9 +185,8 @@
         csUniCodeCross, csANSIreset
       ),
       rasPASTE0(
-        csANSIitalics, csANSIbold, csANSIgreen, snLenNOTEs,
-        rasIfELSE(snLenNOTEs == 1, " NOTE ", " NOTEs "),
-        csUniCodeCheckmark, csANSIreset
+        csANSIitalics, csANSIbold, csANSIgreen,  
+        "0 NOTEs ", csUniCodeCheckmark, csANSIreset
       )
     )
   )
