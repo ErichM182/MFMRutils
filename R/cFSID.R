@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The Func-Self-ID Args List (for use with "SuiteMFMR")
-#' @name EnvArgsFSID
+#' @name cFSID
 #' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
@@ -11,16 +11,16 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily apply TEXT FORMATS as follows ...
-#' EnvFORMATS$BOLD      ### -> sets the text font format to BOLD !!!
-#' EnvFORMATS$ITALICS   ### -> sets the text font format to ITALICS !!!
-#' EnvFORMATS$RESET     ### -> removes actively applied ANSI Text Formatting !!!
+#' cFSID$PROJ_ID     ### -> sets the text font format to BOLD !!!
+#' cFSID$FUNC_MODE   ### -> sets the text font format to ITALICS !!!
+#' cFSID$TIME_STOP   ### -> removes actively applied ANSI Text Formatting !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::EnvFORMATS$BOLD   ### -> sets the text font format to BOLD !!!
+#' MFMRutils::cFSID$PROJ_ID   ### -> sets the text font format to BOLD !!!
 #'
 #' @export
 #? ### ### ###
-"EnvArgsFSID" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cFSID" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(

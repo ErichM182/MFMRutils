@@ -1,26 +1,29 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Colours for use in R (the "SuiteMFMR" selection)
-#' @name EnvCOLORS
+#' @name cCOLORS
 #' 
 #' @description
 #' A collection of frequently used ANSI (American National Standards Institute)
 #' Colours to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
+#' 
+#' @section CONSTANTS:
+#' Functions for checking data integrity ...
 #'
 #' @examples
 #' ### Load the required R Library ...
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... the easily assign COLORS as follows ...
-#' EnvCOLORS$BlackFORE     ### -> outputs the text in black font colour !!!
-#' EnvCOLORS$CyanFORE      ### -> outputs the text in cyan font colour !!!
-#' EnvCOLORS$MagentaBACK   ### -> outputs the text background in black font colour !!!
+#' cCOLORS$BlackFORE     ### -> outputs the text in black font colour !!!
+#' cCOLORS$CyanFORE      ### -> outputs the text in cyan font colour !!!
+#' cCOLORS$MagentaBACK   ### -> outputs the text background in black font colour !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::EnvCOLORS$CyanFORE   ### -> outputs the text in cyan font colour !!!
+#' MFMRutils::cCOLORS$CyanFORE   ### -> outputs the text in cyan font colour !!!
 #'
 #' @export
 #? ### ### ###
-"EnvCOLORS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"cCOLORS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text & Object Colours !!!
   envList <- base::list2env(

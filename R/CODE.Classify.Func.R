@@ -53,7 +53,7 @@
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
   rssTagFuncIDv01_ <- "Classify.Func";        # <- Function ID - SHORT !!!
   rssTagFuncIDv02_ <- "CODE.Classify.Func";   # <- Function ID - LONG !!!
-  rssTagFuncLibID_ <- MFMRutils::pkgs.pull.libr.info()[["NAME"]];
+  rssTagFuncLibID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   

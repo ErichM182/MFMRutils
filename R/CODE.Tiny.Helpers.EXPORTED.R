@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The Null-Coalescing Operator ("SuiteMFMR" helper)
-#' @name %?!%
+#' @name `%?!%`
 #' 
 #' @description
 #' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
@@ -31,25 +31,21 @@
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
   rssTagFuncIDv01_ <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
   rssTagFuncIDv02_ <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
-  ### rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
-  
-  
+  ### rssTagFuncLibID_ <- MFMRutils::devs.get.libr.info()[["NAME"]];
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
-  rasANY    <- base::any;
-  rasIsNA   <- base::is.na;
-  rasLENGTH <- base::length;
-  rasRETURN <- base::return;
-  rasIsNULL <- base::is.null;
-  
-  
+  rasANY_    <- base::any;
+  rasIsNA_   <- base::is.na;
+  rasLENGTH_ <- base::length;
+  rasRETURN_ <- base::return;
+  rasIsNULL_ <- base::is.null;
   
   ####   STEP 03 - Execute MAIN <function> CODE LOGIC   ####
-  if (rasIsNULL(coLHO) || rasLENGTH(coLHO) == 0 || rasANY(rasIsNA(coLHO))) {
-    rasRETURN(coRHO);
+  if (rasIsNULL_(coLHO) || rasLENGTH_(coLHO) == 0 || rasANY_(rasIsNA_(coLHO))) {
+    rasRETURN_(coRHO);
   } else {
-    rasRETURN(coLHO);
+    rasRETURN_(coLHO);
   }
   
 }
