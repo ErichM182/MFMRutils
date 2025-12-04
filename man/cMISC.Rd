@@ -5,7 +5,7 @@
 \alias{cMISC}
 \title{The "SuiteMFMR" List of Useful Constants}
 \format{
-An object of class \code{environment} of length 6.
+An object of class \code{environment} of length 10.
 }
 \usage{
 cMISC
