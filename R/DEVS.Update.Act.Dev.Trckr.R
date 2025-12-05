@@ -37,35 +37,37 @@
   
   
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
-  rasBaseCLASS         <- base::class;
-  rasBaseRETURN        <- base::return;
-  rasBasePASTE0        <- base::paste0;
-  rasBaseFORMAT        <- base::format;
-  rasBaseIfELSE        <- base::ifelse;
-  rasBaseUNLIST        <- base::unlist;
-  rasBaseOPTIONS       <- base::options;
-  rasBaseSPRINTF       <- base::sprintf;
-  rasBaseTryCATCH      <- base::tryCatch;
-  rasBaseSysTimeNOW    <- base::Sys.time;
-  rasBaseStrSPLIT      <- base::strsplit;
-  rasBaseReadCHAR      <- base::readChar;
-  rasBaseReadLINE      <- base::readline;
-  rasBaseFileINFO      <- base::file.info;
-  rasBaseFilePATH      <- base::file.path;
-  rasBaseReadLINES     <- base::readLines;
-  rasBaseAsNUMERIC     <- base::as.numeric;
-  rasBaseDirCREATE     <- base::dir.create;
-  rasBaseWriteLINES    <- base::writeLines;
-  rasMfmrCONSTS        <- MFMRutils::cMISC;
-  `%?!%`               <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
-  rasBaseFileEXISTS    <- base::file.exists;
-  rasBaseFileCREATE    <- base::file.create;
-  rasBaseAsCHAR        <- base::as.character;
-  rasJsonLiteFromJSON  <- jsonlite::fromJSON;
-  rasStringrStrEXTRACT <- stringr::str_extract;
-  rasUtilsLibsInfoCRAN <- utils::available.packages;
-  rasMfmrPullLibrINFO  <- MFMRutils::devs.pull.libr.info;
-  rasMfmrPatchLibrVERS <- MFMRutils:::devs.patch.libr.vers.number;
+  rasBaseCLASS           <- base::class;
+  rasBaseRETURN          <- base::return;
+  rasBasePASTE0          <- base::paste0;
+  rasBaseFORMAT          <- base::format;
+  rasBaseIfELSE          <- base::ifelse;
+  rasBaseUNLIST          <- base::unlist;
+  rasBaseIsNULL          <- base::is.null;
+  rasBaseOPTIONS         <- base::options;
+  rasBaseSPRINTF         <- base::sprintf;
+  rasBaseTryCATCH        <- base::tryCatch;
+  rasBaseSysTimeNOW      <- base::Sys.time;
+  rasBaseStrSPLIT        <- base::strsplit;
+  rasBaseReadCHAR        <- base::readChar;
+  rasBaseReadLINE        <- base::readline;
+  rasBaseFileINFO        <- base::file.info;
+  rasBaseFilePATH        <- base::file.path;
+  rasBaseReadLINES       <- base::readLines;
+  rasBaseAsNUMERIC       <- base::as.numeric;
+  rasBaseDirCREATE       <- base::dir.create;
+  rasBaseWriteLINES      <- base::writeLines;
+  rasMfmrCONSTS          <- MFMRutils::cMISC;
+  `%?!%`                 <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
+  rasBaseFileEXISTS      <- base::file.exists;
+  rasBaseFileCREATE      <- base::file.create;
+  rasBaseAsCHAR          <- base::as.character;
+  rasJsonLiteFromJSON    <- jsonlite::fromJSON;
+  rasStringrStrEXTRACT   <- stringr::str_extract;
+  rasUtilsPackageVERSION <- utils::packageVersion;
+  rasDescSetVERSION      <- desc::desc_set_version;
+  rasMfmrPullLibrINFO    <- MFMRutils::devs.pull.libr.info;
+  rasMfmrPatchLibrVERS   <- MFMRutils:::devs.patch.libr.vers.number;
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
@@ -85,7 +87,7 @@
   
   
   ####   STEP 05 - COMPILE Important CODE VERSIONING INFO   ####
-  rsnVersStubDEVS_  <- 0; rsnVersStubBETA_   <- 0;
+  rsnVersStubDEBUG_ <- 0; rsnVersStubBETA_   <- 0;
   rsnVersStubALPHA_ <- 0; rsnVersStubSTABLE_ <- 0;
   rssVersNewDEVS_ <- "0.0.0.001"; rssVersNewPROD_ <- "0.0.1"; 
   
@@ -245,7 +247,17 @@
   }
   
   
-  ####   STEP 06 - Compile FINAL CODE VERSION Numbers   ####
+  ####   STEP 06 - Extract the (3rd Party) Support Libs Version Numbers   ####
+  rssVersDESC_ <- rasUtilsPackageVERSION(pkg = "desc");
+  rssVersDEVTOOLS_ <- rasUtilsPackageVERSION(pkg = "devtools");
+  rssVersROXYGEN2_ <- rasUtilsPackageVERSION(pkg = "roxygen2");
+  if (!rasBaseIsNULL(RCT_REGENT_LIBS_VERS_ROXYGEN2_) && 
+      rssVersDEVTOOLS_ != RCT_REGENT_LIBS_VERS_ROXYGEN2_) {
+    rssVersROXYGEN2_ <- RCT_REGENT_LIBS_VERS_ROXYGEN2_
+  }
+  
+  
+  ####   STEP 07 - Compile FINAL OUTPUT Particulars   ####
   rssVersNewPROD_ <- rasBasePASTE0(
     rsnVersStubSTABLE_, ".", rsnVersStubBETA_, ".", rsnVersStubALPHA_
   );
@@ -254,26 +266,45 @@
     rasBaseSPRINTF(fmt = "%03d", rsnVersStubDEBUG_)
   );
   
-  
-  
+  ### Update the Library <code> Development Tracking Data prior to writing to file ... 
   RCT_ACT_DEV_INFO_HEADER_ <- rasBasePASTE0(
-    "=== === === === === === === === === === === === === === === === === === === === ===",
-    "|        Active Development Tracking Information (regent R Library Project)       |",
-    "=== === === === === === === === === === === === === === === === === === === === ==="
+    "=== === === === === === === === === === === === === === === === === === === === ===", "\n",
+    "|        Active Development Tracking Information (regent R Library Project)       |", "\n",
+    "=== === === === === === === === === === === === === === === === === === === === ===", "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_01_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
-    "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (KEY Stats) ...", "\n",
-    '> R-Library Project ID: "', RCT_REGENT_R_LIB_ID_, '" \n',
+    "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...", "\n",
+    '> R-Library Project ID: `', RCT_REGENT_R_LIB_ID_, '` \n',
     "> Code Push TYPE  ==>  ", RCT_CODE_PUSH_TYPE_, "\n",
-    "> Code Push TIME  ==>  ", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_),
+    "> Code Push TIME  ==>  ", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_), "\n",
     "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_02_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
     "-> R-Library (3rd Party) Development Support Packages: ", "\n",
-    "> desc      ==>  v", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_),
-    "> devtools  ==>  v", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_),
-    "> roxygen2  ==>  v", RCT_REGENT_LIBS_VERS_ROXYGEN2_, "\n"
+    "> desc      ==>  v", rssVersDESC_, "\n",
+    "> devtools  ==>  v", rssVersDEVTOOLS_, "\n",
+    "> roxygen2  ==>  v", rssVersROXYGEN2_, "\n"
+  );
+  
+  
+  ####   STEP 08 - Write Updated DATA to ( Act_Dev_TRCKR.txt ) File   ####
+  rasBaseWriteLINES(   # -> Writes the compiled data to the "Act_Dev_TRCKR.txt" file ...
+    con = RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_, 
+    text = rasBasePASTE0(
+      RCT_ACT_DEV_INFO_HEADER_, "\n", 
+      RCT_ACT_DEV_INFO_BODY_LVL_01_, "\n",
+      RCT_ACT_DEV_INFO_BODY_LVL_02_
+    )
+  );
+  
+  
+  ####   STEP 08 - Patch (update) Version in Project DESCRIPTION File   ####
+  rasDescSetVERSION(
+    file = RCT_FILE_R_PKG_DESC_,
+    version = rasBaseIfELSE(
+      sbIsProdRel, rssVersNewPROD_, rssVersNewDEVS_
+    )
   );
   
 }

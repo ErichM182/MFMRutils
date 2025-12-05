@@ -2,7 +2,7 @@ Package: MFMRutils
 Title: The Utility Package for the MFMR Suite of R Libraries
 Description: A package comprising multiple standalone helper functions that 
              support the larger MFMR Suite of R Libraries.
-Version: 0.0.0.001
+Version: 0.0.0.000
 BugReports: https://github.com/swat-grn-mfmr/MFMRutils/issues
 Authors@R:
   person(
