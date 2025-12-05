@@ -16,9 +16,12 @@
 #'                    Code Check (DevTools) function.
 #' @param ssActProjID a simple string (character vector) that receives the R Project Identifier (ID)
 #'                    for the active R Library Project.
-#' @param ssProjVers a simple string (character vector) that receives the R Project Verion Number
-#'                   for the active R Library Project..
+#' @param ssProjVers a simple string (character vector) that receives the R Project Version Number
+#'                   for the active R Library Project.
 #'
+#' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
+#'                    process (action) is a "Production Release" action or not.
+#'                    
 #' @returns
 #' * This function returns the programmatically amended or updated (real-time or
 #'   active) version number for the active R Library Project as a list of character
@@ -36,7 +39,8 @@
 #' @noRd
 #? ### ### ###
 "devs.print.code.check.res" <- function(
-  snLenERRORs=NULL, snLenWARNs=NULL, snLenNOTEs=NULL, ssActProjID=NULL, ssProjVers=NULL
+  snLenERRORs=NULL, snLenWARNs=NULL, snLenNOTEs=NULL, 
+  ssActProjID=NULL, ssProjVers=NULL, sbIsProdRel=FALSE
 ) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####

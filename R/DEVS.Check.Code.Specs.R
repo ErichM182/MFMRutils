@@ -65,7 +65,7 @@
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
-  RCT_FUNC_CELN_START_ <- 53L; RCT_FUNC_CELN_STOP_ <- 390L;
+  RCT_FUNC_CELN_START_ <- 58L; RCT_FUNC_CELN_STOP_ <- 390L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
@@ -78,8 +78,8 @@
   rsbCheckDocs_   <- sbCheckDocs;
   rsbCheckCRAN_   <- sbCheckCRAN;
   rssTimeZone_    <- ssTimeZone;
-  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% TRUE;
   sbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
+  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% FALSE;
   ssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rProjMAIN)";
   
   
@@ -151,12 +151,12 @@
   RCT_COLOR_BLUE_         <- rasMfmrCOLORS$BlueFORE;
   RCT_COLOR_GREEN_        <- rasMfmrCOLORS$GreenFORE;
   RCT_COLOR_TELLOW_       <- rasMfmrCOLORS$YellowFORE;
-  RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_FILE_R_PKG_DESC;
   RCT_FOLDER_WIP_PROD_    <- rasMfmrCONSTS$PATH_FOLDER_WIP_PROD;
   RCT_FORMAT_TIME_DEV_01_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V01;
   RCT_FORMAT_TIME_DEV_02_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V02;
   RCT_FOLDER_WIP_HELPERS_ <- rasMfmrCONSTS$PATH_FOLDER_WIP_HELPERS;
   RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
+  RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_TO_FILE_R_PACKAGE_DESC;
     
 
   # 2. Extract the current version number from the DESCRIPTION file ...
