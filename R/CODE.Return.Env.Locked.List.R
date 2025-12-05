@@ -3,13 +3,16 @@
 #' @name code.return.env.locked.list
 #' 
 #' @description
-#' A tiny R function that extracts relevant package information from <internal> 
-#' R Library Attributes.
+#' A relatively small R function that compiles and returns R Environment Locked lists.
 #'
 #' @param vsListNames a vector of characters (strings) that captures the "names" of the environment
-#'                    locked list. The "vsListNames" vector length must match "lsListVals" length.
+#'                    locked list. The "vsListNames" function argument must match the "lsListVals" 
+#'                    function argument in terms of length (i.e. number of vector elements), as well 
+#'                    as the required (correct) NAME-VALUE pairing (i.e. NAME-VALUE pairs).
 #' @param lsListVals a list of R Objects that contains the "values" of the environment locked list.
-#'                    The "lsListVals" list length must match the "vsListNames" vector length.
+#'                   The "lsListVals" function argument must match the "vsListNames" function
+#'                   argument in terms of length (i.e. number of vector elements), as well as the
+#'                   required (correct) NAME-VALUE pairing (i.e. NAME-VALUE pairs).
 #' @param sbLockList a logical (boolean) value that denotes whether the returned <output> list
 #'                   should be R environment locked <Default == FALSE>. If TRUE, individual list
 #'                   bindings (values) are locked, preventing modification of existing list elements.
@@ -28,12 +31,32 @@
 #'   "Value for VAR_Y", TRUE, "R-List for VAR_G"
 #' )
 #' 
+#' 
+#' 
+#' ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ... 
 #' rlsEnvLockdLIST <- code.return.env.locked.list(
-#'   vsListNames = vsListNames_, vsListVals = vsListVals_, sbLockList = TRUE
-#' )   ### <- Extracts Library Information ... 
+#'   vsListNames = vsListNames_, vsListVals = vsListVals_, 
+#'   sbLockList = TRUE   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
+#' )
 #' 
 #' rlsEnvLockdLIST$VAR_X        # -> Returns the value FALSE !!!
 #' rlsEnvLockdLIST[["VAR_C"]]   # -> Returns the value 'R-Object for VAR_C' !!! 
+#' rlsEnvLockdLIST$VAR_G        # -> Returns the value 'R-List for VAR_G' !!! 
+#' 
+#' ## Immutability test (OPTION 1 test) ...
+#' rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Will trigger an error !!!
+#' 
+#' 
+#'  
+#' ### Function-use OPTION 2 (secondary purpose) -> Create Mutable R List Objects ... 
+#' rlsEnvLockdLIST <- code.return.env.locked.list(
+#'   vsListNames = vsListNames_, vsListVals = vsListVals_, 
+#'   sbLockList = FALSE   # <- Set to 'FALSE' to create a mutable R List !!!
+#' )
+#' 
+#' ## Mutability test (OPTION 2 test) ...
+#' rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new value to the "VAR_G"
+#'                                                          #    element (name) of the R list.
 #'
 #' @export
 #? ### ### ###
@@ -48,7 +71,6 @@
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
   rasBaseANY             <- base::any;
   rasBaseSTOP            <- base::stop;
-  rasBasePASTE           <- base::paste;
   rasBaseLENGTH          <- base::length;
   rasBaseRETURN          <- base::return;
   rasBasePASTE0          <- base::paste0;
@@ -70,30 +92,38 @@
   # 1. Input Validation ...
   if (rasBaseLENGTH(vsListNames_) != rasBaseLENGTH(lsListVals_)) {
     rasBaseSTOP(
-      "The length of 'vsListNames' (", rasBaseLENGTH(vsListNames_), ") ",
-      "must match the length of 'lsListVals' (", rasBaseLENGTH(vsListNames_), ")."
+      " -> Function NAMES vs. VALUES LENGTH MISS-MATCH !!!", "\n",
+      " -> The length of 'vsListNames' (", rasBaseLENGTH(vsListNames_), ") ",
+      "must match the length of 'lsListVals' (", rasBaseLENGTH(lsListVals_), ") !!!."
     );
   }
   
   if (!rasBaseIsCHARACTER(vsListNames_)) {
-    rasBaseSTOP("The 'vsListNames' function argument must be a character vector (character) !!!");
+    rasBaseSTOP(
+      " -> The 'vsListNames' function argument must be a character vector (character) !!!"
+    );
   }
   
   if (!rasBaseIsLIST(lsListVals_)) {
-    rasBaseSTOP("The 'lsListVals' function argument must be an R List Object (list) !!!");
+    rasBaseSTOP(" -> The 'lsListVals' function argument must be an R List Object (list) !!!");
   }
   
   if (rasBaseANY(rasBaseDUPLICATED(vsListNames_))) {
     vsDuplicateNames_ <- vsListNames_[rasBaseDUPLICATED(vsListNames_)]
     rasBaseSTOP(
-      "Duplicate name values found in 'vsListNames' function argument: ", 
-      rasBasePASTE(unique(vsDuplicateNames_), collapse = ", ")
+      " -> Duplicate name values found in 'vsListNames' function argument: ", 
+      rasBasePASTE0(
+        '[ ',
+        rasBasePASTE0('"', unique(vsDuplicateNames_), collapse = '", '),
+        '" ]'
+      )
     );
   }
   
-  if (rasBaseANY(vsListNames_ == "")) {
+  if (rasBaseANY(vsListNames_ == "") || rasBaseANY(vsListNames_ == " ") || 
+      rasBaseANY(vsListNames_ == "  ") || rasBaseANY(vsListNames_ == "   ")) {
     rasBaseSTOP(
-      "Empty name values are not allowed (empty values found in 'vsListNames' argument) !!!"
+      " -> Empty name values are not allowed (empty values found in 'vsListNames' argument) !!!"
     );
   }
   

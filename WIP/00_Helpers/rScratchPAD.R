@@ -7,16 +7,24 @@ rlsListVals_  <- list(
   1982, "Value for VAR_B", "R-Object for VAR_C", FALSE, 
   "Value for VAR_Y", TRUE, "R-List for VAR_G"
 )
+class(rlsListVals_)
+class(rvsListNames_)
+
+tstLEN_ <- "";
+nchar(tstLEN_)
 
 
 
 rlsEnvLockdLIST <- code.return.env.locked.list(
-  vsListNames = rvsListNames_, lsListVals = rlsListVals_, sbLockList = TRUE
+  vsListNames = rvsListNames_, lsListVals = rlsListVals_, 
+  sbLockList = TRUE
 )   ### <- Extracts Library Information ... 
 
 rlsEnvLockdLIST$VAR_X        # -> Returns the value FALSE !!!
 rlsEnvLockdLIST[["VAR_C"]]   # -> Returns the value 'R-Object for VAR_C' !!! 
+rlsEnvLockdLIST$`128`        # -> Returns the value FALSE !!!
 
+rlsEnvLockdLIST$VAR_X <- FALSE
 
 
 create_env_locked_list <- function(names, values, lock_values = TRUE) {

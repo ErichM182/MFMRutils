@@ -137,9 +137,11 @@
         );
         
         ### STEP 2.1.1b: Patch the various Version Number stubs (accordingly) ...
+        rsnListFULL_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_);
         rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_ALPHA"]];
         rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_BETA"]];
         rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_STABLE"]];
+        
         
       } else {   # <- Local vs. Remote Library Name[s] DID NOT MATCH (Name-Check FAILED) !!!
         cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!");
