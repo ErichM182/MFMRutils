@@ -3,26 +3,24 @@
 #' @name devs.patch.libr.vers.number
 #' 
 #' @description
-#' A Helper Function that formats and prints (to console) the CRAN Code Validation
-#' results as returned from the DevTools Code Check function. This function merely 
-#' receives the output from the DevTools Code Check function and applies ANSI text
-#' formatting to the results.
+#' A Helper Function that updates (patches) the R Library Version Numbers accordingly (i.e. in 
+#' terms of the DEVELOPMENT <debug> and PRODUCTION <alpha, beta & stable> code base releases). The 
+#' function keeps track of the developmental progress of the code base and accurately updates the
+#' <appropriate> version numbers as code is committed and upgraded on the developmental cycle.
 #'
 #' @param rvsVersNumVect a vector of characters (strings) that defines the <regent> R Library's
 #'                       active development (or production) code release status (version number).
 #'                    
 #' @returns
-#' * This function returns the programmatically amended or updated (real-time or
-#'   active) version number for the active R Library Project as a list of character
-#'   objects.
+#' * This function returns an environment locked list containing the updated version numbers for 
+#'   the relevant development and production release code commits <debug, alpha, beta & stable>.
 #'
 #' @examples
-#' ### Run R Package DevCode easily as follows ...
+#' ### Run R Package Version Updates easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' devs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation 
-#'                                             #    Process.
+#' devs.patch.libr.vers.number()   # -> Executes only the DevTools Documentation Process.
 #'
 #' @keywords internal
 #' @noRd

@@ -1,59 +1,96 @@
 
 
-MFMRutils::cMISC$PATH_TO_FILE_R_PKG_DESC
 
-
-MFMRutils::info.post.func.self.id(
-  ssProjID = "rProjTESTr",
-  ssFuncSelfID = "rcFuncSelfID",
-  ssFuncCallerID = "rcf_TEST_FUNC", 
-  siFuncMode01 = 1L, sbRunSelfID = T
-);
-
-MFMRutils::info.post.func.self.id(
-  ssProjID = "rProjTESTr",
-  ssFuncSelfID = "rcFuncSelfID",
-  ssFuncCallerID = "rcf_TEST_FUNC", 
-  siFuncMode01 = 0L, sbRunSelfID = T
-);
-
-info.post.func.self.id(
-  ssProjID = "rProjTESTr",
-  ssFuncSelfID = "rcFuncSelfID",
-  ssFuncCallerID = "rcf_TEST_FUNC", 
-  siFuncMode01 = 1L
+# Testing the ENVIRO-LOCKED R List Helper Function ...
+rvsListNames_ <- c("VAR_A", "VAR_B", "VAR_C", "VAR_X", "VAR_Y", "VAR_Z", "VAR_G")
+rlsListVals_  <- list(
+  1982, "Value for VAR_B", "R-Object for VAR_C", FALSE, 
+  "Value for VAR_Y", TRUE, "R-List for VAR_G"
 )
 
 
-rlsLibINFO_ <- MFMRutils::devs.pull.libr.info()
-rlsLibINFO_$NAME
-rlsLibINFO_[['NAME']]
-rlsLibINFO_$VERSION
-rlsLibINFO_[['VERSION']]
-rlsLibINFO_$DESC
-rlsLibINFO_[['DESC']]
-rlsLibINFO_$AUTHORS
+
+rlsEnvLockdLIST <- code.return.env.locked.list(
+  vsListNames = rvsListNames_, lsListVals = rlsListVals_, sbLockList = TRUE
+)   ### <- Extracts Library Information ... 
+
+rlsEnvLockdLIST$VAR_X        # -> Returns the value FALSE !!!
+rlsEnvLockdLIST[["VAR_C"]]   # -> Returns the value 'R-Object for VAR_C' !!! 
 
 
-RCT_TAG_PROJ_ID_ <- "rTestPROJ";
-MFMRutils::pkgs.check.code.specs(
-  sbCheckCRAN = T
-);
 
-
-"rcf_null.args.test" <- function(w, x=NULL, y, z=NULL) {
-  cat(
-    paste0(
-      # " -> Value of Func-Arg 'w' == ", w, " !!!\n",
-      " -> Value of Func-Arg 'x' == ", x, " !!!\n",
-      " -> Value of Func-Arg 'y' == ", y, " !!!\n",
-      " -> Value of Func-Arg 'z' == ", z, " !!!\n"
-    )
+create_env_locked_list <- function(names, values, lock_values = TRUE) {
+  
+  # Input validation
+  if (!is.character(names)) {
+    stop("'names' must be a character vector")
+  }
+  
+  if (!is.list(values)) {
+    stop("'values' must be a list")
+  }
+  
+  if (length(names) != length(values)) {
+    stop("Length of 'names' (", length(names), 
+         ") must equal length of 'values' (", length(values), ")")
+  }
+  
+  if (any(duplicated(names))) {
+    dup_names <- names[duplicated(names)]
+    stop("Duplicate names found: ", paste(unique(dup_names), collapse = ", "))
+  }
+  
+  if (any(names == "")) {
+    stop("Empty names are not allowed")
+  }
+  
+  # Create new environment
+  env <- new.env(parent = emptyenv())
+  
+  # Assign values to environment
+  for (i in seq_along(names)) {
+    assign(names[i], values[[i]], envir = env)
+  }
+  
+  # Lock environment if requested
+  if (lock_values) {
+    lockEnvironment(env, bindings = TRUE)
+  }
+  
+  # Create S3 object with custom class
+  obj <- structure(
+    list(
+      .env = env,
+      .locked = lock_values,
+      .names = names
+    ),
+    class = "env_locked_list"
   )
+  
+  # Add active bindings for element access
+  for (name in names) {
+    makeActiveBinding(
+      sym = name,
+      fun = local({
+        current_name <- name
+        function() {
+          if (exists(current_name, envir = env, inherits = FALSE)) {
+            get(current_name, envir = env)
+          } else {
+            stop("Element '", current_name, "' not found")
+          }
+        }
+      }),
+      env = obj
+    )
+  }
+  
+  return(obj)
 }
-rcf_null.args.test()
 
 
-FALSE | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
-c(FALSE, TRUE) | c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE, FALSE)
-c(TRUE, FALSE, FALSE, FALSE, TRUE, TRUE, TRUE) | FALSE
+
+rlsEnvLockdLIST_v01 <- create_env_locked_list(
+  names = rvsListNames_, values = rlsListVals_, lock_values = TRUE
+)
+
