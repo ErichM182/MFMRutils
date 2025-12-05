@@ -20,7 +20,15 @@
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' devs.patch.libr.vers.number()   # -> Executes only the DevTools Documentation Process.
+#' rvsVersNumVect_ <- c("1", "2", "8", "999")
+#' rlsLibrVers <- devs.patch.libr.vers.number(rvsVersNumVect_)   # -> Patches (updates) the library
+#'                                                               #    <code commit> version number
+#'                                                               #    accordingly ...
+#'                                                               
+#' rlsLibrVers$VERS_DEBUG    # <- Updated the <debug release> version number accordingly !!!
+#' rlsLibrVers$VERS_ALPHA    # <- Updated the <alpha release> version number accordingly !!!
+#' rlsLibrVers$VERS_BETA     # <- Updated the <beta release> version number accordingly !!!
+#' rlsLibrVers$VERS_STABLE   # <- Updated the <stable release> version number accordingly !!!
 #'
 #' @keywords internal
 #' @noRd
@@ -140,12 +148,16 @@
   ####   STEP 07 - Return LIST to Function Call   ####
   rasMfmrReturnLockedLIST(
     vsListNames = c(
-      "VERS_DEVS_DEBUG", "VERS_PROD_ALPHA",
-      "VERS_PROD_BETA", "VERS_PROD_STABLE"
+      "VERS_DEBUG",   # <- The ACTIVE DEVELOPMENT <debug release> VERSION STUB !!!
+      "VERS_ALPHA",   # <- The ALPHA PRODUCTION <alpha release> VERSION STUB !!!
+      "VERS_BETA",    # <- The BETA PRODUCTION <beta release> VERSION STUB !!!
+      "VERS_STABLE"   # <- The STABLE PRODUCTION <stable release> VERSION STUB !!!
     ),
     lsListVals = rasBaseLIST(
-      rsnVersDevsDEBUG_, rsnVersProdALPHA_,
-      rsnVersProdBETA_, rsnVersProdSTABLE_
+      rsnVersDevsDEBUG_,   # <- The ACTIVE DEVELOPMENT <debug release> VERSION VALUE !!! 
+      rsnVersProdALPHA_,   # <- The ALPHA PRODUCTION <alpha release> VERSION VALUE !!!
+      rsnVersProdBETA_,    # <- The BETA PRODUCTION <beta release> VERSION VALUE !!!
+      rsnVersProdSTABLE_   # <- The STABLE PRODUCTION <stable release> VERSION VALUE !!!
     ),
     sbLockList = TRUE
   );

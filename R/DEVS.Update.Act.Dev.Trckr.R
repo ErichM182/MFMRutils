@@ -138,9 +138,10 @@
         
         ### STEP 2.1.1b: Patch the various Version Number stubs (accordingly) ...
         rsnListFULL_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_);
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_PROD_STABLE"]];
+        
+        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_STABLE"]];
         
         
       } else {   # <- Local vs. Remote Library Name[s] DID NOT MATCH (Name-Check FAILED) !!!
@@ -174,9 +175,9 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_STABLE"]];
+        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
         
       } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
         
@@ -186,9 +187,9 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_STABLE"]];
+        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
         
       }
       
@@ -221,10 +222,10 @@
       );
       
       ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_DEVS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_PROD_STABLE"]];
+      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
       
     } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
       
@@ -234,10 +235,10 @@
       );
       
       ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_DEVS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_PROD_STABLE"]];
+      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
       
     }
     

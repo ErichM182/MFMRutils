@@ -27,78 +27,19 @@ rlsEnvLockdLIST$`128`        # -> Returns the value FALSE !!!
 rlsEnvLockdLIST$VAR_X <- FALSE
 
 
-create_env_locked_list <- function(names, values, lock_values = TRUE) {
-  
-  # Input validation
-  if (!is.character(names)) {
-    stop("'names' must be a character vector")
-  }
-  
-  if (!is.list(values)) {
-    stop("'values' must be a list")
-  }
-  
-  if (length(names) != length(values)) {
-    stop("Length of 'names' (", length(names), 
-         ") must equal length of 'values' (", length(values), ")")
-  }
-  
-  if (any(duplicated(names))) {
-    dup_names <- names[duplicated(names)]
-    stop("Duplicate names found: ", paste(unique(dup_names), collapse = ", "))
-  }
-  
-  if (any(names == "")) {
-    stop("Empty names are not allowed")
-  }
-  
-  # Create new environment
-  env <- new.env(parent = emptyenv())
-  
-  # Assign values to environment
-  for (i in seq_along(names)) {
-    assign(names[i], values[[i]], envir = env)
-  }
-  
-  # Lock environment if requested
-  if (lock_values) {
-    lockEnvironment(env, bindings = TRUE)
-  }
-  
-  # Create S3 object with custom class
-  obj <- structure(
-    list(
-      .env = env,
-      .locked = lock_values,
-      .names = names
-    ),
-    class = "env_locked_list"
-  )
-  
-  # Add active bindings for element access
-  for (name in names) {
-    makeActiveBinding(
-      sym = name,
-      fun = local({
-        current_name <- name
-        function() {
-          if (exists(current_name, envir = env, inherits = FALSE)) {
-            get(current_name, envir = env)
-          } else {
-            stop("Element '", current_name, "' not found")
-          }
-        }
-      }),
-      env = obj
-    )
-  }
-  
-  return(obj)
-}
 
 
 
-rlsEnvLockdLIST_v01 <- create_env_locked_list(
-  names = rvsListNames_, values = rlsListVals_, lock_values = TRUE
+
+
+### Run 2 different types of code check/validation processes ...
+rvsVersNumVect_ <- c("9", "9", "9")
+rlsLibrVers <- MFMRutils:::devs.patch.libr.vers.number(
+  rvsVersNumVect = rvsVersNumVect_
 )
+names(rlsLibrVers)
 
+rlsLibrVers$VERS_DEBUG
+rlsLibrVers$VERS_ALPHA
+rlsLibrVers$VERS_BETA
+rlsLibrVers$VERS_STABLE
