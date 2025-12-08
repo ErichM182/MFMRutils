@@ -11,32 +11,35 @@
 #'
 #' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
 #'                    process (action) is a "Production Release" action or not.
+#' @param sbAudioNote a logical (boolean) value that specifies whether an audio notification should
+#'                    be played at the completion of this function (i.e. upon successful patching or
+#'                    updating of the "Active Development Information Tracker File").
 #'
 #' @returns
-#' * This function returns the programmatically amended or updated (real-time or
-#'   active) version number for the active R Library Project as a list of character
-#'   objects.
+#' * This function programmatically amends <patches or updates> the active (i.e. regent) R Library
+#'   Project's Code Development Tracking Information (i.e. tracker file) for code versioning and
+#'   project (i.e. library code) development tracking purposes.
 #'
 #' @examples
 #' ### Run R Package DevCode easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' devs.update.act.dev.trackr.file()   # -> Executes only the DevTools Documentation 
-#'                                     #    Process.
+#' devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation 
+#'                                    #    Process.
 #'
-#' @keywords internal
-#' @noRd
+#' @export
 #? ### ### ###
-"devs.patch.code.dev.trckr.file" <- function(sbIsProdRel=FALSE) {
+"devs.patch.code.dev.trckr.file" <- function(sbIsProdRel=FALSE, sbAudioNote=FALSE) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Patch.Code.Trckr";                 # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Patch.TRCKR";                      # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
+  rasBeeprBEEP            <- beepr::beep;
   rasBaseCLASS            <- base::class;
   rasBaseRETURN           <- base::return;
   rasBasePASTE0           <- base::paste0;
@@ -71,7 +74,8 @@
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
-  sbIsProdRel_ <- sbIsProdRel;
+  rsbIsProdRel_ <- sbIsProdRel;
+  rsbAudioNote_ <- sbAudioNote;
   
   
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
@@ -100,21 +104,20 @@
   RCT_REGENT_LIBS_VERS_ROXYGEN2_ <- RCT_REGENT_R_LIB_DESC_INFO_[["R_OXYGEN_NOTE"]];
   
   RCT_CODE_PUSH_TYPE_ <- rasBaseIfELSE(
-    sbIsProdRel_, "PRODUCTION (Public) Release", "DEVELOPMENT (ACT-DEV) Release"
+    rsbIsProdRel_, "PRODUCTION (public) Release", "DEVELOPMENT (act-dev) Release"
   );
   
   #### Update the Code Version stubs accordingly ... 
   ## NOTE: Full <debug> Code Version Form -> "STABLE.BETA.ALPHA.DEV" == "0.0.1.001" !!!
   ##       Production Version Form -> "STABLE.BETA.ALPHA" == "0.0.1" !!!
   rvsLibrVersPartsCRAN_ <- c(-999, -999, -999, -999);
-  if (sbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check or Code Commit) !!!
+  if (rsbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check or Code Commit) !!!
     
     # STEP 1 - Source CRAN: get current <extant> R Library Version from CRAN ...
     RCT_NULL_ERROR_TEXT_ <- "R-Library NOT in CRAN !!!";
     RCT_LIB_INFO_CRAN_ <- rasBaseTryCATCH(
       {
         rasJsonLiteFromJSON(
-          ### txt = rasBasePASTE0("https://crandb.r-pkg.org/", "MFMRutils")
           txt = rasBasePASTE0("https://crandb.r-pkg.org/", RCT_REGENT_R_LIB_ID_)
         )
       }, 
@@ -309,5 +312,11 @@
       sbIsProdRel, rssVersNewPROD_, rssVersNewDEVS_
     )
   );
+  
+  
+  ####   STEP 10 - COMPLETION AUDIO Feedback (only prod-release)   ####
+  if (rsbAudioNote_) {
+    rasBeeprBEEP(2);   # <- Plays the "Coin" audio clip from the `beepr` R Library !!!
+  }
   
 }

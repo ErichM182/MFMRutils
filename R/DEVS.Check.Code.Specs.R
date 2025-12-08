@@ -3,41 +3,38 @@
 #' @name devs.check.code.specs
 #' 
 #' @description
-#' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure
-#' during active R Package Development. This function programmatically updates the
-#' package version number in the R Project DESCRIPTION file before running the
-#' required documentation and/or CRAN Package Pre-Submission Code Requirement
-#' Checks (i.e. CRAN Code Validation) during iterative development cycles. This 
-#' Helper Function was originally crafted as technical support tool for the "MFMR
-#' Suite of R Libraries" (aka "SuiteMFMR"), but may also be helpful as a support
-#' tool during the R Package Development Cycle of other (3rd Party) R Projects.
+#' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure during active R
+#' Package Development. This function programmatically updates the package version number in the R 
+#' Project DESCRIPTION file before running the required documentation and/or CRAN Package 
+#' Pre-Submission Code Requirement Checks (i.e. CRAN Code Validation) during iterative development 
+#' cycles. This Helper Function was originally crafted as technical support tool for the "MFMR
+#' Suite of R Libraries" (aka "SuiteMFMR"), but may also be helpful as a support tool during the R 
+#' Package Development Cycle of other (3rd Party) R Projects.
 #'
-#' @param sbCheckDocs a logical (boolean) value that specifies whether to run the
-#'                    standard package documentation process (only - not the FULL
-#'                    CRAN Code Validation Process/Check).
-#' @param sbCheckCRAN a logical (boolean) value that specifies whether to run the
-#'                    FULL CRAN Code Validation Process/Check (inclusive of the 
-#'                    pre-check documentation steps).
-#' @param ssTimeZone a simple character vector (string) that defines the Time Zone
-#'                   to be used for the package documentation.
-#' @param ... the fall-through (DotsArgs) function arguments used to prime nested
-#'            functions within this main function. These "DotsArgs" pertain mostly
-#'            to the "Func-SELF-ID" SuiteMFMR helper function.
+#' @param sbCheckDocs a logical (boolean) value that specifies whether to run the standard package 
+#'                    documentation process only (not the FULL CRAN Code Validation Process/Check).
+#' @param sbCheckCRAN a logical (boolean) value that specifies whether to run the FULL CRAN Code 
+#'                    Validation Process/Check (inclusive of the pre-check documentation steps).
+#' @param ssTimeZone a simple character vector (string) that defines the Time Zone to be used for 
+#'                   the package documentation.
+#' @param ... the fall-through function arguments (i.e. DotsArgs) used for nested functions within 
+#'            this main function. The "DotsArgs" implementation here pertain to the following nested 
+#'            R functions (i.e. R functions used within this main R function): <br>
+#'               1. [MFMRutils::info.post.func.self.id()], and <br>
+#'               2. [MFMRutils::devs.patch.code.dev.trckr.file()].
 #'
 #' @returns
-#' * This function returns the programmatically amended or updated (real-time or
-#'   active) version number for the active R Library Project as a list of character
-#'   objects.
-#' * This function creates a Work-In-Progress (WIP) directory at the root of the
-#'   active R-Libs Project (i.e. "./WIP" <- if not already exists). The "./WIP"
-#'   folder and all of its contents are included in GIT push-&-pull processes. You
-#'   must MANUALLY ADD the following code stub (^WIP$) <sans parentheses> to the 
-#'   ".Rbuildignore" R Project file to ensure the "./WIP" folder + contents are 
-#'   excluded from the R Project Build Process. (<- this is IMPORTANT !!!)
-#' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP"
-#'   folder for secondary development version tracking purposes (as needed).
+#' * This function returns the programmatically amended or updated (real-time or active) version 
+#'   number for the active R Library Project as a list of character objects.
+#' * This function creates a Work-In-Progress (WIP) directory at the root of the active R-Libs 
+#'   Project (i.e. "./WIP" <- if not already exists). The "./WIP" folder and all of its contents 
+#'   are included in GIT push-&-pull processes. You must MANUALLY ADD the following code stub 
+#'   (^WIP$) <sans parentheses> to the ".Rbuildignore" R Project file to ensure the "./WIP" 
+#'   folder + contents are excluded from the R Project Build Process. (<- this is IMPORTANT !!!)
+#' * This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP" folder for secondary 
+#'   development version tracking purposes (as needed).
 #'
-#' @import desc devtools
+#' @import beepr desc devtools
 #'
 #' @examples
 #' ### Run R Package DevCode easily as follows ...
@@ -46,11 +43,11 @@
 #' ### Run 2 different types of code check/validation processes ...
 #' devs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation 
 #'                                             #    Process.
-#' devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete CRAN Code Validation 
-#'                                             #    Process.
+#' devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete (stringent) CRAN Code 
+#'                                             #    Validation Process.
 #'
 #' ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
-#' # The Documentation Process will only be executed once if both are TRUE !!!
+#' # The complete (CRAN) Documentation Process will only be executed once if both are TRUE !!!
 #' devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
 #'
 #' @export
@@ -60,75 +57,80 @@
 ) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Code.Specs";              # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Check.Specs";              # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Check.Code.Specs";   # <- Function ID - LONG !!!
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
-  RCT_FUNC_CELN_START_ <- 58L; RCT_FUNC_CELN_STOP_ <- 390L;
+  RCT_FUNC_CELN_START_ <- 57L; RCT_FUNC_CELN_STOP_ <- 390L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
-  ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
-  `%?!%` <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!! 
   
   
+  ####   STEP 02 - Define "Local Aliases" for ALL Functions   ####
+  ###    NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  rasCAT        <- base::cat;
+  rasBaseLIST   <- base::list;
+  rasTRUNC      <- base::trunc;
+  rasROUND      <- base::round;
+  rasRETURN     <- base::return;
+  rasPASTE0     <- base::paste0;
+  rasIfELSE     <- base::ifelse;
+  rasFORMAT     <- base::format;
+  rasUNLIST     <- base::unlist;
+  rasLENGTH     <- base::length;
+  rasSPRINTF    <- base::sprintf;
+  rasDiffTIME   <- base::difftime;
+  rasStrSPLIT   <- base::strsplit;
+  rasSysTimeNOW <- base::Sys.time;
+  rasINVISIBLE  <- base::invisible;
+  rasFilePATH   <- base::file.path;
+  rasDirCREATE  <- base::dir.create;
+  rasAsNUM      <- base::as.numeric;
+  rasSysSetENV  <- base::Sys.setenv;
+  rasWriteLINES <- base::writeLines;
+  rasFileCREATE <- base::file.create;
+  rasFileEXISTS <- base::file.exists;
+  rasAsCHAR     <- base::as.character;
   
-  ####   STEP 02 - Internalize ALL Function Arguments   ####
-  rvsDotsArgs_    <- base::list(...);
-  rsbCheckDocs_   <- sbCheckDocs;
-  rsbCheckCRAN_   <- sbCheckCRAN;
-  rssTimeZone_    <- ssTimeZone;
-  sbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
-  sbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% FALSE;
-  ssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rProjMAIN)";
+  rasDescSetVERSION <- desc::desc_set_version;
   
-  
-  
-  ####   STEP 03 - Run <ENTRY> Function SELF-ID (if requested)   ####
-  MFMRutils::info.post.func.self.id(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
-    siFuncMode01 = 1L, ssFuncCallerID = ssFuncCallerID_,
-    sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
-    siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
-    csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_START_
-  );
-  
-  
-  ####   STEP 04 - Define "Local Aliases" for Key Functions   ####
-  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasCAT              <- base::cat;
-  rasLIST             <- base::list;
-  rasTRUNC            <- base::trunc;
-  rasROUND            <- base::round;
-  rasRETURN           <- base::return;
-  rasPASTE0           <- base::paste0;
-  rasIfELSE           <- base::ifelse;
-  rasFORMAT           <- base::format;
-  rasUNLIST           <- base::unlist;
-  rasLENGTH           <- base::length;
-  rasSPRINTF          <- base::sprintf;
-  rasDiffTIME         <- base::difftime;
-  rasStrSPLIT         <- base::strsplit;
-  rasSysTimeNOW       <- base::Sys.time;
-  rasINVISIBLE        <- base::invisible;
-  rasFilePATH         <- base::file.path;
-  rasDirCREATE        <- base::dir.create;
-  rasAsNUM            <- base::as.numeric;
-  rasSysSetENV        <- base::Sys.setenv;
-  rasWriteLINES       <- base::writeLines;
-  rasFileCREATE       <- base::file.create;
-  rasFileEXISTS       <- base::file.exists;
-  rasAsCHAR           <- base::as.character;
   rasDevToolsCHECK    <- devtools::check;
   rasDevToolsLoadALL  <- devtools::load_all;
   rasDevToolsDOCUMENT <- devtools::document;
   rasDevToolsCleanDLL <- devtools::clean_dll;
+  
+  `%?!%`              <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!! 
   rasMfmrCONSTS       <- MFMRutils::cMISC;
   rasMfmrICONS        <- MFMRutils::cICONS;
   rasMfmrCOLORS       <- MFMRutils::cCOLORS;
   rasMfmrFORMATS      <- MFMRutils::cFORMATS;
-  rasDescSetVERSION   <- desc::desc_set_version;
   rasMfmrPullLibrINFO <- MFMRutils::devs.pull.libr.info;
+  
+  
+  
+  ####   STEP 03 - Internalize ALL Function Arguments   ####
+  rsbCheckDocs_ <- sbCheckDocs;
+  rsbCheckCRAN_ <- sbCheckCRAN;
+  rssTimeZone_  <- ssTimeZone;
+  
+  rvsDotsArgs_     <- rasBaseLIST(...);
+  rsbAudioNote_    <- rvsDotsArgs_[["sbAudioNote"]]  %?!% FALSE;
+  rsbIsProdRel_    <- rvsDotsArgs_[["sbIsProdRel"]]  %?!% FALSE;
+  rsbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
+  rsbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% FALSE;
+  rssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rsProjMAIN)";
+  
+  
+  
+  ####   STEP 04 - Run Function SELF-ID <ENTRY> (if requested)   ####
+  MFMRutils::info.post.func.self.id(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
+    siFuncMode01 = 1L, ssFuncCallerID = rssFuncCallerID_,
+    sbRunSelfID = rsbRunSelfID_, sbPrintPretty = rsbPrintPretty_, 
+    siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
+    csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_START_
+  );
   
   
   
@@ -317,12 +319,12 @@
     
     
     
-    ####   STEP 06 - Run <EXIT> Function SELF-ID (if requested)   ####
+    ####   STEP 06 - Run Function SELF-ID <EXIT> (if requested)   ####
     RCT_FUNC_RUN_TIME_STOP_ <- rasSysTimeNOW();
     MFMRutils::info.post.func.self.id(
       ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
-      siFuncMode01 = 0L, ssFuncCallerID = ssFuncCallerID_,
-      sbRunSelfID = sbRunSelfID_, sbPrintPretty = sbPrintPretty_, 
+      siFuncMode01 = 0L, ssFuncCallerID = rssFuncCallerID_,
+      sbRunSelfID = rsbRunSelfID_, sbPrintPretty = rsbPrintPretty_, 
       siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
       csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_STOP_
     );
@@ -332,7 +334,7 @@
     # 7. Return the new created Project Version Number as a character object ...
     rasRETURN(
       rasINVISIBLE(
-        rasLIST(
+        rasBaseLIST(
           "ProjID" = rssActProjID_,
           "CodeVers" = rasPASTE0("v", ssVersNewFULL),
           "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)

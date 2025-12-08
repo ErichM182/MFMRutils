@@ -12,20 +12,20 @@ devs.check.code.specs(
 )
 }
 \arguments{
-\item{sbCheckDocs}{a logical (boolean) value that specifies whether to run the
-standard package documentation process (only - not the FULL
-CRAN Code Validation Process/Check).}
+\item{sbCheckDocs}{a logical (boolean) value that specifies whether to run the standard package
+documentation process only (not the FULL CRAN Code Validation Process/Check).}
 
-\item{sbCheckCRAN}{a logical (boolean) value that specifies whether to run the
-FULL CRAN Code Validation Process/Check (inclusive of the
-pre-check documentation steps).}
+\item{sbCheckCRAN}{a logical (boolean) value that specifies whether to run the FULL CRAN Code
+Validation Process/Check (inclusive of the pre-check documentation steps).}
 
-\item{ssTimeZone}{a simple character vector (string) that defines the Time Zone
-to be used for the package documentation.}
+\item{ssTimeZone}{a simple character vector (string) that defines the Time Zone to be used for
+the package documentation.}
 
-\item{...}{the fall-through (DotsArgs) function arguments used to prime nested
-functions within this main function. These "DotsArgs" pertain mostly
-to the "Func-SELF-ID" SuiteMFMR helper function.}
+\item{...}{the fall-through function arguments (i.e. DotsArgs) used for nested functions within
+this main function. The "DotsArgs" implementation here pertain to the following nested
+R functions (i.e. R functions use within this main R function): \if{html}{\out{<br>}}
+1. \code{\link[=info.post.func.self.id]{info.post.func.self.id()}}, and \if{html}{\out{<br>}}
+2. \code{\link[=devs.patch.code.dev.trckr.file]{devs.patch.code.dev.trckr.file()}}.}
 }
 \value{
 \itemize{
@@ -43,14 +43,13 @@ folder for secondary development version tracking purposes (as needed).
 }
 }
 \description{
-A Helper Function that executes the CRAN pre-requisite Code Checking Procedure
-during active R Package Development. This function programmatically updates the
-package version number in the R Project DESCRIPTION file before running the
-required documentation and/or CRAN Package Pre-Submission Code Requirement
-Checks (i.e. CRAN Code Validation) during iterative development cycles. This
-Helper Function was originally crafted as technical support tool for the "MFMR
-Suite of R Libraries" (aka "SuiteMFMR"), but may also be helpful as a support
-tool during the R Package Development Cycle of other (3rd Party) R Projects.
+A Helper Function that executes the CRAN pre-requisite Code Checking Procedure during active R
+Package Development. This function programmatically updates the package version number in the R
+Project DESCRIPTION file before running the required documentation and/or CRAN Package
+Pre-Submission Code Requirement Checks (i.e. CRAN Code Validation) during iterative development
+cycles. This Helper Function was originally crafted as technical support tool for the "MFMR
+Suite of R Libraries" (aka "SuiteMFMR"), but may also be helpful as a support tool during the R
+Package Development Cycle of other (3rd Party) R Projects.
 }
 \examples{
 ### Run R Package DevCode easily as follows ...
@@ -59,8 +58,8 @@ library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 ### Run 2 different types of code check/validation processes ...
 devs.check.code.specs(sbCheckDocs = TRUE)   # -> Executes only the DevTools Documentation 
                                             #    Process.
-devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete CRAN Code Validation 
-                                            #    Process.
+devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete (stringent) CRAN Code 
+                                            #    Validation Process.
 
 ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
 # The Documentation Process will only be executed once if both are TRUE !!!
