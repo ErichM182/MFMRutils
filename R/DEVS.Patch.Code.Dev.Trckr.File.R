@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The Active Development Tracker File Updater ("SuiteMFMR" DevTools)
-#' @name devs.update.act.dev.trckr
+#' @name devs.patch.code.dev.trckr.file
 #' 
 #' @description
 #' A Helper Function that updates important information inside the "Active Development Information
@@ -28,46 +28,46 @@
 #' @keywords internal
 #' @noRd
 #? ### ### ###
-"devs.update.act.dev.trckr" <- function(sbIsProdRel=FALSE) {
+"devs.patch.code.dev.trckr.file" <- function(sbIsProdRel=FALSE) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Update.Dev.Trckr";            # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Update.Act.Dev.Trckr";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Patch.Code.Trckr";                 # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
-  rasBaseCLASS           <- base::class;
-  rasBaseRETURN          <- base::return;
-  rasBasePASTE0          <- base::paste0;
-  rasBaseFORMAT          <- base::format;
-  rasBaseIfELSE          <- base::ifelse;
-  rasBaseUNLIST          <- base::unlist;
-  rasBaseIsNULL          <- base::is.null;
-  rasBaseOPTIONS         <- base::options;
-  rasBaseSPRINTF         <- base::sprintf;
-  rasBaseTryCATCH        <- base::tryCatch;
-  rasBaseSysTimeNOW      <- base::Sys.time;
-  rasBaseStrSPLIT        <- base::strsplit;
-  rasBaseReadCHAR        <- base::readChar;
-  rasBaseReadLINE        <- base::readline;
-  rasBaseFileINFO        <- base::file.info;
-  rasBaseFilePATH        <- base::file.path;
-  rasBaseReadLINES       <- base::readLines;
-  rasBaseAsNUMERIC       <- base::as.numeric;
-  rasBaseDirCREATE       <- base::dir.create;
-  rasBaseWriteLINES      <- base::writeLines;
-  rasMfmrCONSTS          <- MFMRutils::cMISC;
-  `%?!%`                 <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
-  rasBaseFileEXISTS      <- base::file.exists;
-  rasBaseFileCREATE      <- base::file.create;
-  rasBaseAsCHAR          <- base::as.character;
-  rasJsonLiteFromJSON    <- jsonlite::fromJSON;
-  rasStringrStrEXTRACT   <- stringr::str_extract;
-  rasUtilsPackageVERSION <- utils::packageVersion;
-  rasDescSetVERSION      <- desc::desc_set_version;
-  rasMfmrPullLibrINFO    <- MFMRutils::devs.pull.libr.info;
-  rasMfmrPatchLibrVERS   <- MFMRutils:::devs.patch.libr.vers.number;
+  rasBaseCLASS            <- base::class;
+  rasBaseRETURN           <- base::return;
+  rasBasePASTE0           <- base::paste0;
+  rasBaseFORMAT           <- base::format;
+  rasBaseIfELSE           <- base::ifelse;
+  rasBaseUNLIST           <- base::unlist;
+  rasBaseIsNULL           <- base::is.null;
+  rasBaseOPTIONS          <- base::options;
+  rasBaseSPRINTF          <- base::sprintf;
+  rasBaseTryCATCH         <- base::tryCatch;
+  rasBaseStrSPLIT         <- base::strsplit;
+  rasBaseReadCHAR         <- base::readChar;
+  rasBaseReadLINE         <- base::readline;
+  rasBaseSysTimeNOW       <- base::Sys.time;
+  rasBaseFileINFO         <- base::file.info;
+  rasBaseFilePATH         <- base::file.path;
+  rasBaseReadLINES        <- base::readLines;
+  rasBaseAsNUMERIC        <- base::as.numeric;
+  rasBaseDirCREATE        <- base::dir.create;
+  rasBaseWriteLINES       <- base::writeLines;
+  rasMfmrCONSTS           <- MFMRutils::cMISC;
+  `%?!%`                  <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
+  rasBaseFileEXISTS       <- base::file.exists;
+  rasBaseFileCREATE       <- base::file.create;
+  rasBaseAsCHAR           <- base::as.character;
+  rasJsonLiteFromJSON     <- jsonlite::fromJSON;
+  rasStringrStrEXTRACT    <- stringr::str_extract;
+  rasUtilsPackageVERSION  <- utils::packageVersion;
+  rasDescSetVERSION       <- desc::desc_set_version;
+  rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrPatchLibrVersNUM <- MFMRutils:::devs.patch.libr.vers.number;
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
@@ -100,7 +100,7 @@
   RCT_REGENT_LIBS_VERS_ROXYGEN2_ <- RCT_REGENT_R_LIB_DESC_INFO_[["R_OXYGEN_NOTE"]];
   
   RCT_CODE_PUSH_TYPE_ <- rasBaseIfELSE(
-    sbIsProdRel_, "PRODUCTION Release", "ACT-DEV Release"
+    sbIsProdRel_, "PRODUCTION (Public) Release", "DEVELOPMENT (ACT-DEV) Release"
   );
   
   #### Update the Code Version stubs accordingly ... 
@@ -114,9 +114,8 @@
     RCT_LIB_INFO_CRAN_ <- rasBaseTryCATCH(
       {
         rasJsonLiteFromJSON(
-          # txt = rasBasePASTE0("https://crandb.r-pkg.org/", "desc")
-          txt = rasBasePASTE0("https://crandb.r-pkg.org/", "ggplot2")
-          # txt = rasBasePASTE0("https://crandb.r-pkg.org/", "MFMRutils")
+          ### txt = rasBasePASTE0("https://crandb.r-pkg.org/", "MFMRutils")
+          txt = rasBasePASTE0("https://crandb.r-pkg.org/", RCT_REGENT_R_LIB_ID_)
         )
       }, 
       error = function(e) {    # <- An ERROR occurred (during the online <CRAN> Library Check) ...
@@ -139,15 +138,15 @@
         );
         
         ### STEP 2.1.1b: Patch the various Version Number stubs (accordingly) ...
-        rsnListFULL_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_);
+        rsnListFullCRAN_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsCRAN_);
         
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_STABLE"]];
+        rsnVersStubALPHA_  <- rsnListFullCRAN_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullCRAN_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullCRAN_[["VERS_STABLE"]];
         
         
       } else {   # <- Local vs. Remote Library Name[s] DID NOT MATCH (Name-Check FAILED) !!!
-        cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!");
+       base::cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!\n");
       }
       
     } else {   # <- Online <CRAN> Check was NOT SUCCESSFUL (CRAN call FAILED) !!!
@@ -177,9 +176,10 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
+        rsnListFullTRCKR_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
+        rsnVersStubALPHA_  <- rsnListFullTRCKR_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullTRCKR_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullTRCKR_[["VERS_STABLE"]];
         
       } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
         
@@ -189,9 +189,10 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
+        rsnListFullDESC_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsDESC_);
+        rsnVersStubALPHA_  <- rsnListFullDESC_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullDESC_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullDESC_[["VERS_STABLE"]];
         
       }
       
@@ -224,10 +225,11 @@
       );
       
       ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
+      rsnListFullTRCKR_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
+      rsnVersStubDEBUG_  <- rsnListFullTRCKR_[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rsnListFullTRCKR_[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rsnListFullTRCKR_[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rsnListFullTRCKR_[["VERS_STABLE"]];
       
     } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
       
@@ -237,17 +239,18 @@
       );
       
       ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
+      rsnListFullDESC_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsDESC_);
+      rsnVersStubDEBUG_  <- rsnListFullDESC_[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rsnListFullDESC_[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rsnListFullDESC_[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rsnListFullDESC_[["VERS_STABLE"]];
       
     }
     
   }
   
   
-  ####   STEP 06 - Extract the (3rd Party) Support Libs Version Numbers   ####
+  ####   STEP 06 - Extract the (3rd Party) Support Libraries Version Numbers   ####
   rssVersDESC_ <- rasUtilsPackageVERSION(pkg = "desc");
   rssVersDEVTOOLS_ <- rasUtilsPackageVERSION(pkg = "devtools");
   rssVersROXYGEN2_ <- rasUtilsPackageVERSION(pkg = "roxygen2");
@@ -299,7 +302,7 @@
   );
   
   
-  ####   STEP 08 - Patch (update) Version in Project DESCRIPTION File   ####
+  ####   STEP 09 - Patch (update) Version in Project DESCRIPTION File   ####
   rasDescSetVERSION(
     file = RCT_FILE_R_PKG_DESC_,
     version = rasBaseIfELSE(
