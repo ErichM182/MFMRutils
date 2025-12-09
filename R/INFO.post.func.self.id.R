@@ -1,12 +1,12 @@
 #? ### ### ### ### ### ### ###
-#' @title Compile & print custom function Self-ID Information
+#' @title Print Self-ID Information for Custom R Functions
 #' @name info.post.func.self.id
 #' 
 #' @description
-#' A <tiny> Helper Function that compiles and prints the self-identification 
-#' information (i.e. self-id, type, caller, run-time duration etc.) of a custom 
-#' R function. This custom function was intended to mainly support the MFMR Suite 
-#' of R Functions, but can be utilized as a standalone function in other R packages.
+#' A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type, 
+#' caller, run-time duration etc.) information of a custom R function. This custom function was 
+#' intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone 
+#' function in other (i.e. 3rd Party) R packages.
 #'
 #' @param ssProjID a character (string) identifier of the R Project <script>
 #'                 file that called the custom R function execution.
@@ -152,7 +152,7 @@
     rasStrFormTIME   <- base::strftime;
     rasINVISIBLE     <- base::invisible;
     rasAsNUMERIC     <- base::as.numeric;
-    `%?!%`           <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!  
+    `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!  
     rasMfmrDATES     <- MFMRutils::cDATES;
     rasMfmrICONS     <- MFMRutils::cICONS;
     rasMfmrCOLORS    <- MFMRutils::cCOLORS;
@@ -232,25 +232,25 @@
     # NOTES: hand-over all func-args to func-local <internal> variables ...
     rcsTimeStamp_      <- NULL;
     rcoListFuncRes_    <- NULL;   # -> The <final> function output <results> object.
-    rssProjID_         <- rssProjID_         %?!% NULL;
-    rssFuncSelfID_     <- rssFuncSelfID_     %?!% RCT_TAG_FUNC_ID_FULL_;
-    rssFuncCallerID_   <- rssFuncCallerID_   %?!% "UNDEFINED";
-    rsiFuncMode01_     <- rsiFuncMode01_     %?!% 0L;
-    rcsColorCarat_     <- rcsColorCarat_     %?!% rcsColorsYELLOW_;
-    rcsIconSplit_      <- rcsIconSplit_      %?!% " | ";
-    rcsColorSplit_     <- rcsColorSplit_     %?!% rcsColorsYELLOW_;
-    rcsTimeStart_      <- rcsTimeStart_      %?!% rcsSysTimeNOW_;
-    rcsTimeStop_       <- rcsTimeStop_       %?!% rcsSysTimeNOW_;
-    rcsFormatDT_       <- rcsFormatDT_       %?!% rasMfmrDATES$LONG_V03;
-    rcsColorTimeStamp_ <- rcsColorTimeStamp_ %?!% rcsColorsYELLOW_;
-    rcsColorProjID_    <- rcsColorProjID_    %?!% rcsColorsGREEN_;
-    rcsColorFuncType_  <- rcsColorFuncType_  %?!% rcsColorsYELLOW_;
-    rcsColorCallerID_  <- rcsColorCallerID_  %?!% rcsColorsMAGENTA_;
-    rcsColorMainText_  <- rcsColorMainText_  %?!% rcsColorsCYAN_;
-    rsbPrintPretty_    <- rsbPrintPretty_    %?!% TRUE;
-    rsiStartCELN_      <- rsiStartCELN_      %?!% 1L;
-    rsiStopCELN_       <- rsiStopCELN_       %?!% 28L;
-    rcsIconCarat_      <- rcsIconCarat_      %?!% rasIfELSE(rsiFuncMode01_ == 1L,
+    rssProjID_         <- rssProjID_         %??% NULL;
+    rssFuncSelfID_     <- rssFuncSelfID_     %??% RCT_TAG_FUNC_ID_FULL_;
+    rssFuncCallerID_   <- rssFuncCallerID_   %??% "UNDEFINED";
+    rsiFuncMode01_     <- rsiFuncMode01_     %??% 0L;
+    rcsColorCarat_     <- rcsColorCarat_     %??% rcsColorsYELLOW_;
+    rcsIconSplit_      <- rcsIconSplit_      %??% " | ";
+    rcsColorSplit_     <- rcsColorSplit_     %??% rcsColorsYELLOW_;
+    rcsTimeStart_      <- rcsTimeStart_      %??% rcsSysTimeNOW_;
+    rcsTimeStop_       <- rcsTimeStop_       %??% rcsSysTimeNOW_;
+    rcsFormatDT_       <- rcsFormatDT_       %??% rasMfmrDATES$LONG_V03;
+    rcsColorTimeStamp_ <- rcsColorTimeStamp_ %??% rcsColorsYELLOW_;
+    rcsColorProjID_    <- rcsColorProjID_    %??% rcsColorsGREEN_;
+    rcsColorFuncType_  <- rcsColorFuncType_  %??% rcsColorsYELLOW_;
+    rcsColorCallerID_  <- rcsColorCallerID_  %??% rcsColorsMAGENTA_;
+    rcsColorMainText_  <- rcsColorMainText_  %??% rcsColorsCYAN_;
+    rsbPrintPretty_    <- rsbPrintPretty_    %??% TRUE;
+    rsiStartCELN_      <- rsiStartCELN_      %??% 1L;
+    rsiStopCELN_       <- rsiStopCELN_       %??% 28L;
+    rcsIconCarat_      <- rcsIconCarat_      %??% rasIfELSE(rsiFuncMode01_ == 1L,
                                                             rcsIconSPARK_, rcsIconSKULL_);
     
     

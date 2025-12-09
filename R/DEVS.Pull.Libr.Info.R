@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title Extract R Package <Library DESCRIPTION File> Information
+#' @title Extract R Package <DESCRIPTION File> Information (the easy way)
 #' @name devs.pull.libr.info
 #' 
 #' @description

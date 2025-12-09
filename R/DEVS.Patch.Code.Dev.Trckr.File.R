@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title The Active Development Tracker File Updater ("SuiteMFMR" DevTools)
+#' @title R Code Development Tracker File Updater ("SuiteMFMR" DevTools)
 #' @name devs.patch.code.dev.trckr.file
 #' 
 #' @description
@@ -32,50 +32,62 @@
 #? ### ### ###
 "devs.patch.code.dev.trckr.file" <- function(sbIsProdRel=FALSE, sbAudioNote=FALSE) {
   
+  
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
   RCT_TAG_FUNC_ID_SHRT_ <- "Patch.TRCKR";                      # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
+  
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
-  rasBeeprBEEP            <- beepr::beep;
-  rasBaseCLASS            <- base::class;
-  rasBaseRETURN           <- base::return;
-  rasBasePASTE0           <- base::paste0;
-  rasBaseFORMAT           <- base::format;
-  rasBaseIfELSE           <- base::ifelse;
-  rasBaseUNLIST           <- base::unlist;
-  rasBaseIsNULL           <- base::is.null;
-  rasBaseOPTIONS          <- base::options;
-  rasBaseSPRINTF          <- base::sprintf;
-  rasBaseTryCATCH         <- base::tryCatch;
-  rasBaseStrSPLIT         <- base::strsplit;
-  rasBaseReadCHAR         <- base::readChar;
-  rasBaseReadLINE         <- base::readline;
-  rasBaseSysTimeNOW       <- base::Sys.time;
-  rasBaseFileINFO         <- base::file.info;
-  rasBaseFilePATH         <- base::file.path;
-  rasBaseReadLINES        <- base::readLines;
-  rasBaseAsNUMERIC        <- base::as.numeric;
-  rasBaseDirCREATE        <- base::dir.create;
-  rasBaseWriteLINES       <- base::writeLines;
+  rasBaseLIST       <- base::list;
+  rasBaseCLASS      <- base::class;
+  rasBaseRETURN     <- base::return;
+  rasBasePASTE0     <- base::paste0;
+  rasBaseFORMAT     <- base::format;
+  rasBaseIfELSE     <- base::ifelse;
+  rasBaseUNLIST     <- base::unlist;
+  rasBaseIsNULL     <- base::is.null;
+  rasBaseOPTIONS    <- base::options;
+  rasBaseSPRINTF    <- base::sprintf;
+  rasBaseTryCATCH   <- base::tryCatch;
+  rasBaseStrSPLIT   <- base::strsplit;
+  rasBaseReadCHAR   <- base::readChar;
+  rasBaseReadLINE   <- base::readline;
+  rasBaseSysTimeNOW <- base::Sys.time;
+  rasBaseFileINFO   <- base::file.info;
+  rasBaseFilePATH   <- base::file.path;
+  rasBaseReadLINES  <- base::readLines;
+  rasBaseAsNUMERIC  <- base::as.numeric;
+  rasBaseDirCREATE  <- base::dir.create;
+  rasBaseWriteLINES <- base::writeLines;
+  rasBaseFileEXISTS <- base::file.exists;
+  rasBaseFileCREATE <- base::file.create;
+  rasBaseAsCHAR     <- base::as.character;
+  
+  rasBeeprBEEP <- beepr::beep;
+  
+  rasDescSetVERSION <- desc::desc_set_version;
+  
+  rasJsonLiteFromJSON <- jsonlite::fromJSON;
+  
+  `%??%`                  <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrCONSTS           <- MFMRutils::cMISC;
-  `%?!%`                  <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
-  rasBaseFileEXISTS       <- base::file.exists;
-  rasBaseFileCREATE       <- base::file.create;
-  rasBaseAsCHAR           <- base::as.character;
-  rasJsonLiteFromJSON     <- jsonlite::fromJSON;
-  rasStringrStrEXTRACT    <- stringr::str_extract;
-  rasUtilsPackageVERSION  <- utils::packageVersion;
-  rasDescSetVERSION       <- desc::desc_set_version;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrReturnLockedLIST <- MFMRutils::code.return.env.locked.list;
   rasMfmrPatchLibrVersNUM <- MFMRutils:::devs.patch.libr.vers.number;
+  
+  rasStringrStrEXTRACT <- stringr::str_extract;
+  
+  rasUtilsPackageVERSION <- utils::packageVersion;
+  
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
   rsbIsProdRel_ <- sbIsProdRel;
   rsbAudioNote_ <- sbAudioNote;
+  
   
   
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
@@ -88,6 +100,7 @@
     rsbIsNewActDevTRCKR_ <- TRUE;   # <- Save confirmation that "ActDev TRCKR" was newly created !!!
     rasBaseFileCREATE(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_);   # -> Creates the required file ...
   }
+  
   
   
   ####   STEP 05 - COMPILE Important CODE VERSIONING INFO   ####
@@ -253,6 +266,7 @@
   }
   
   
+  
   ####   STEP 06 - Extract the (3rd Party) Support Libraries Version Numbers   ####
   rssVersDESC_ <- rasUtilsPackageVERSION(pkg = "desc");
   rssVersDEVTOOLS_ <- rasUtilsPackageVERSION(pkg = "devtools");
@@ -263,6 +277,7 @@
   }
   
   
+  
   ####   STEP 07 - Compile FINAL OUTPUT Particulars   ####
   rssVersNewPROD_ <- rasBasePASTE0(
     rsnVersStubSTABLE_, ".", rsnVersStubBETA_, ".", rsnVersStubALPHA_
@@ -271,6 +286,7 @@
     rsnVersStubSTABLE_, ".", rsnVersStubBETA_, ".", rsnVersStubALPHA_, ".",
     rasBaseSPRINTF(fmt = "%03d", rsnVersStubDEBUG_)
   );
+  rcoCodePushDateTIME_ <- rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_);
   
   ### Update the Library <code> Development Tracking Data prior to writing to file ... 
   RCT_ACT_DEV_INFO_HEADER_ <- rasBasePASTE0(
@@ -282,7 +298,7 @@
     "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...", "\n",
     '> R-Library Project ID: `', RCT_REGENT_R_LIB_ID_, '` \n',
     "> Code Push TYPE  ==>  ", RCT_CODE_PUSH_TYPE_, "\n",
-    "> Code Push TIME  ==>  ", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_), "\n",
+    "> Code Push TIME  ==>  ", rcoCodePushDateTIME_, "\n",
     "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
@@ -292,6 +308,7 @@
     "> devtools  ==>  v", rssVersDEVTOOLS_, "\n",
     "> roxygen2  ==>  v", rssVersROXYGEN2_, "\n"
   );
+  
   
   
   ####   STEP 08 - Write Updated DATA to ( Act_Dev_TRCKR.txt ) File   ####
@@ -305,6 +322,7 @@
   );
   
   
+  
   ####   STEP 09 - Patch (update) Version in Project DESCRIPTION File   ####
   rasDescSetVERSION(
     file = RCT_FILE_R_PKG_DESC_,
@@ -314,9 +332,31 @@
   );
   
   
+  
   ####   STEP 10 - COMPLETION AUDIO Feedback (only prod-release)   ####
   if (rsbAudioNote_) {
     rasBeeprBEEP(2);   # <- Plays the "Coin" audio clip from the `beepr` R Library !!!
   }
+  
+  
+  
+  ####   STEP 11 - Output <key> Function Results   ####
+  rasMfmrReturnLockedLIST(
+    vsListNames = c(
+      "CODE_NAME_TAG",    # <- R Library Project Identifier -> TAG !!!
+      "CODE_VERS_PROD",   # <- R Library <Code> PRODUCTION VERSION NUMBER -> TAG !!!
+      "CODE_VERS_DEVS",   # <- R Library <Code> DEVELOPMENT <Debug> VERSION NUMBER -> TAG !!!
+      "CODE_PUSH_TYPE",   # <- R Library <Code> PUSH (i.e. Code Check or Commit) TYPE -> TAG !!!
+      "CODE_PUSH_DATE"    # <- R Library <Code> PUSH (i.e. Code Check or Commit) DateTime -> TAG !!!
+    ),
+    lsListVals = rasBaseLIST(
+      RCT_REGENT_R_LIB_ID_,   # <- R Library Project Identifier -> VALUE !!! 
+      rssVersNewPROD_,        # <- R Library <Code> PRODUCTION VERSION NUMBER -> VALUE !!!
+      rssVersNewDEVS_,        # <- R Library <Code> DEVELOPMENT <Debug> VERSION NUMBER -> VALUE !!!
+      RCT_CODE_PUSH_TYPE_,    # <- R Library <Code> PUSH (i.e. Code Check or Commit) TYPE -> VALUE.
+      rcoCodePushDateTIME_    # <- R Library <Code> PUSH (i.e. Code Check/Commit) DateTime -> VALUE.
+    ),
+    sbLockList = TRUE
+  );
   
 }

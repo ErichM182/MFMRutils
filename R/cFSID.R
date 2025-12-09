@@ -7,18 +7,17 @@
 #' Text Font Formats to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
 #'
 #' @examples
-#' ### Load the required R Library ...
-#' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
-#' 
-#' ### ... then easily apply TEXT FORMATS as follows ...
-#' cFSID$PROJ_ID     ### -> sets the text font format to BOLD !!!
-#' cFSID$FUNC_MODE   ### -> sets the text font format to ITALICS !!!
-#' cFSID$TIME_STOP   ### -> removes actively applied ANSI Text Formatting !!!
+#' ### Install the required R Library ...
+#' require(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::cFSID$PROJ_ID   ### -> sets the text font format to BOLD !!!
+#' MFMRutils:::cFSID$PROJ_ID     ### -> sets the text font format to BOLD !!!
+#' MFMRutils:::cFSID$PROJ_ID     ### -> sets the text font format to BOLD !!!
+#' MFMRutils:::cFSID$FUNC_MODE   ### -> sets the text font format to ITALICS !!!
+#' MFMRutils:::cFSID$TIME_STOP   ### -> removes actively applied ANSI Text Formatting !!!
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 #? ### ### ###
 "cFSID" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   

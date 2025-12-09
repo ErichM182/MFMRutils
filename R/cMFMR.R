@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title The MFMR Suite <list> of R Libraries ...
+#' @title The MFMR Suite of R Libraries <list> ...
 #' @name cMFMR
 #' 
 #' @description

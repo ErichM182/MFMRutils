@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title CRAN Code Validation with File Version Tracking ("SuiteMFMR" DevTools)
+#' @title CRAN Code Validation with Code Version Tracking ("SuiteMFMR" DevTools)
 #' @name devs.check.code.specs
 #' 
 #' @description
@@ -17,6 +17,8 @@
 #'                    Validation Process/Check (inclusive of the pre-check documentation steps).
 #' @param ssTimeZone a simple character vector (string) that defines the Time Zone to be used for 
 #'                   the package documentation.
+#' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
+#'                    process (action) is a "Production Release" code development action or not.
 #' @param ... the fall-through function arguments (i.e. DotsArgs) used for nested functions within 
 #'            this main function. The "DotsArgs" implementation here pertain to the following nested 
 #'            R functions (i.e. R functions used within this main R function): <br>
@@ -53,7 +55,8 @@
 #' @export
 #? ### ### ###
 "devs.check.code.specs" <- function(
-  sbCheckDocs=TRUE, sbCheckCRAN=FALSE, ssTimeZone="Africa/Windhoek", ...
+  sbCheckDocs=TRUE, sbCheckCRAN=FALSE, 
+  ssTimeZone="Africa/Windhoek", sbIsProdRel = FALSE, ...
 ) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
@@ -62,36 +65,36 @@
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
-  RCT_FUNC_CELN_START_ <- 57L; RCT_FUNC_CELN_STOP_ <- 390L;
+  RCT_FUNC_CELN_START_ <- 57L; RCT_FUNC_CELN_STOP_ <- 228L;
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
   ####   STEP 02 - Define "Local Aliases" for ALL Functions   ####
   ###    NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasCAT        <- base::cat;
-  rasBaseLIST   <- base::list;
-  rasTRUNC      <- base::trunc;
-  rasROUND      <- base::round;
-  rasRETURN     <- base::return;
-  rasPASTE0     <- base::paste0;
-  rasIfELSE     <- base::ifelse;
-  rasFORMAT     <- base::format;
-  rasUNLIST     <- base::unlist;
-  rasLENGTH     <- base::length;
-  rasSPRINTF    <- base::sprintf;
-  rasDiffTIME   <- base::difftime;
-  rasStrSPLIT   <- base::strsplit;
-  rasSysTimeNOW <- base::Sys.time;
-  rasINVISIBLE  <- base::invisible;
-  rasFilePATH   <- base::file.path;
-  rasDirCREATE  <- base::dir.create;
-  rasAsNUM      <- base::as.numeric;
-  rasSysSetENV  <- base::Sys.setenv;
-  rasWriteLINES <- base::writeLines;
-  rasFileCREATE <- base::file.create;
-  rasFileEXISTS <- base::file.exists;
-  rasAsCHAR     <- base::as.character;
+  rasBaseCAT        <- base::cat;
+  rasBaseLIST       <- base::list;
+  rasBaseTRUNC      <- base::trunc;
+  rasBaseROUND      <- base::round;
+  rasBaseRETURN     <- base::return;
+  rasBasePASTE0     <- base::paste0;
+  rasBaseIfELSE     <- base::ifelse;
+  rasBaseFORMAT     <- base::format;
+  rasBaseUNLIST     <- base::unlist;
+  rasBaseLENGTH     <- base::length;
+  rasBaseSPRINTF    <- base::sprintf;
+  rasBaseDiffTIME   <- base::difftime;
+  rasBaseStrSPLIT   <- base::strsplit;
+  rasBaseSysTimeNOW <- base::Sys.time;
+  rasBaseINVISIBLE  <- base::invisible;
+  rasBaseFilePATH   <- base::file.path;
+  rasBaseDirCREATE  <- base::dir.create;
+  rasBaseAsNUM      <- base::as.numeric;
+  rasBaseSysSetENV  <- base::Sys.setenv;
+  rasBaseWriteLINES <- base::writeLines;
+  rasBaseFileCREATE <- base::file.create;
+  rasBaseFileEXISTS <- base::file.exists;
+  rasBaseAsCHAR     <- base::as.character;
   
   rasDescSetVERSION <- desc::desc_set_version;
   
@@ -100,12 +103,15 @@
   rasDevToolsDOCUMENT <- devtools::document;
   rasDevToolsCleanDLL <- devtools::clean_dll;
   
-  `%?!%`              <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!! 
-  rasMfmrCONSTS       <- MFMRutils::cMISC;
-  rasMfmrICONS        <- MFMRutils::cICONS;
-  rasMfmrCOLORS       <- MFMRutils::cCOLORS;
-  rasMfmrFORMATS      <- MFMRutils::cFORMATS;
-  rasMfmrPullLibrINFO <- MFMRutils::devs.pull.libr.info;
+  `%??%`                       <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
+  rasMfmrCONSTS                <- MFMRutils::cMISC;
+  rasMfmrICONS                 <- MFMRutils::cICONS;
+  rasMfmrCOLORS                <- MFMRutils::cCOLORS;
+  rasMfmrFORMATS               <- MFMRutils::cFORMATS;
+  rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
+  rasMfmrInfoPostFuncSelfID    <- MFMRutils::info.post.func.self.id;
+  rasMfmrDevsPrintCodeCheckRES <- MFMRutils:::devs.print.code.check.res;
+  rasMfmrDevsPatchCodeDevTRCKR <- MFMRutils:::devs.patch.code.dev.trckr.file;
   
   
   
@@ -113,18 +119,18 @@
   rsbCheckDocs_ <- sbCheckDocs;
   rsbCheckCRAN_ <- sbCheckCRAN;
   rssTimeZone_  <- ssTimeZone;
+  rsbIsProdRel_ <- sbIsProdRel;
   
   rvsDotsArgs_     <- rasBaseLIST(...);
-  rsbAudioNote_    <- rvsDotsArgs_[["sbAudioNote"]]  %?!% FALSE;
-  rsbIsProdRel_    <- rvsDotsArgs_[["sbIsProdRel"]]  %?!% FALSE;
-  rsbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %?!% TRUE;
-  rsbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %?!% FALSE;
-  rssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %?!% "TOP-LVL (rsProjMAIN)";
+  rsbAudioNote_    <- rvsDotsArgs_[["sbAudioNote"]]    %??% FALSE;
+  rsbPrintPretty_  <- rvsDotsArgs_[["sbPrintPretty"]]  %??% TRUE;
+  rsbRunSelfID_    <- rvsDotsArgs_[["sbRunSelfID"]]    %??% FALSE;
+  rssFuncCallerID_ <- rvsDotsArgs_[["ssFuncCallerID"]] %??% "TOP-LVL (rsProjMAIN)";
   
   
   
   ####   STEP 04 - Run Function SELF-ID <ENTRY> (if requested)   ####
-  MFMRutils::info.post.func.self.id(
+  rasMfmrInfoPostFuncSelfID(
     ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
     siFuncMode01 = 1L, ssFuncCallerID = rssFuncCallerID_,
     sbRunSelfID = rsbRunSelfID_, sbPrintPretty = rsbPrintPretty_, 
@@ -135,7 +141,7 @@
   
   
   ####   STEP 05 - Define Critical Constants   ####
-  RCT_SYS_DATE_TIME_NOW_ <- rasSysTimeNOW();
+  RCT_SYS_DATE_TIME_NOW_ <- rasBaseSysTimeNOW();
   
   RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
   RCT_ANSI_RESET_   <- rasMfmrFORMATS$RESET;
@@ -160,188 +166,64 @@
   RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
   RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_TO_FILE_R_PACKAGE_DESC;
     
-
+  
+  
+  ####   STEP 06 - Patch CODE DEV TRACKER   ####
   # 2. Extract the current version number from the DESCRIPTION file ...
-  rlsLibrINFO_     <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);   # -> Identifies the "DESCRIPTION" file (with path).
-  rssActProjID_    <- rlsLibrINFO_[["NAME"]];      # -> Extracts the R-Libs Project ID ...
-  rssProjVersCURR_ <- rlsLibrINFO_[["VERSION"]];   # -> Extracts the current version number from "DESCRIPTION" file.
-
-  # 3. Increment the active version number ...
-  rvsProjVersOLD_ <- rasUNLIST(   # -> Extracts the last section of the split ...
-    rasStrSPLIT(rasAsCHAR(rssProjVersCURR_), split = "\\.")
-  );   # -> VERY NB: Extracts only the 4th value of the split string !!!
-  snVersNEW  <- rasAsNUM(rvsProjVersOLD_[4]) + 1;   # -> Increment the version number !!!
-  sbIsSameYr <- rasAsNUM(rvsProjVersOLD_[1]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%Y"));
-  sbIsSameMn <- rasAsNUM(rvsProjVersOLD_[2]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%m"));
-  sbIsSameDy <- rasAsNUM(rvsProjVersOLD_[3]) == rasAsNUM(rasFORMAT(RCT_SYS_DATE_TIME_NOW_, "%d"));
-
-  if (snVersNEW >= 1000 && sbIsSameYr && sbIsSameMn && sbIsSameDy) {
+  rlsCodeVERS_ <- rasMfmrDevsPatchCodeDevTRCKR(
+    sbIsProdRel = rsbIsProdRel_, sbAudioNote = rsbAudioNote_
+  );
+  rssActProjID_ <- rlsCodeVERS_[["CODE_NAME_TAG"]];
+  ssVersNewFULL <- rlsCodeVERS_[["CODE_VERS_DEVS"]];
+  
+  
+  ####   STEP 07 - Run DOCs and/or CRAN Code Checks   ####
+  # 6. Finally - Run the required R-Libs Project Documentation & CRAN Checks !!!
+  if (rsbCheckCRAN_ || rsbIsProdRel_) {   # -> Runs the COMPLETE Documentation & CRAN Requirements 
+                                          #    Checking Processes !!!
+    rasDevToolsCleanDLL();   # <- ALWAYS run BEFORE 'rasDevToolsLoadALL()' !!!
+    rasDevToolsLoadALL();    # <- ALWAYS run AFTER 'rasDevToolsCleanDLL()' !!!
     
-    # ANSI escape codes for colors ...
-    csANSIbold    <- RCT_ANSI_BOLD_;      # "\033[1m";
-    csANSIreset   <- RCT_ANSI_RESET_;     # "\033[0m";
-    csANSIitalics <- RCT_ANSI_ITALICS_;   # "\033[3m";
-    
-    csANSIred    <- RCT_COLOR_RED_;      # "\033[91m";
-    csANSIblue   <- RCT_COLOR_BLUE_;     # "\033[94m";
-    csANSIgreen  <- RCT_COLOR_GREEN_;    # "\033[92m";
-    csANSIyellow <- RCT_COLOR_TELLOW_;   # "\033[93m";
-    
-    
-    # Unicode characters for hand with the index finger pointing upwards ...
-    csUniCodePointUP           <- RCT_ICON_POINT_UP_;
-    csUniCodeEyes              <- RCT_ICON_OOGLY_EYES_;
-    csUniCodeCryingEmoticon    <- RCT_ICON_SMILEY_SAD_;
-    csUniCodeArrowRight        <- RCT_ICON_ARROW_RIGHT_;
-    csUniCodePonderingEmoticon <- RCT_ICON_SMILEY_PONDER_;
-    
-    # Calculate delta in hours between current time and midnight ...
-    ssHrsSinceMidNight <- rasAsCHAR(
-      rasROUND(
-        digits = 3,
-        x = rasDiffTIME(
-          time1 = RCT_SYS_DATE_TIME_NOW_, units = "hours",
-          time2 = rasTRUNC(RCT_SYS_DATE_TIME_NOW_, "days") + 1
-        )
-      )
+    coCheckResult_ <- rasDevToolsCHECK();
+    snLenNOTEs_    <- rasBaseLENGTH(coCheckResult_$notes);
+    snLenERRORs_   <- rasBaseLENGTH(coCheckResult_$errors);
+    snLenWARNINGs_ <- rasBaseLENGTH(coCheckResult_$warnings);
+    rasMfmrDevsPrintCodeCheckRES(
+      snLenERRORs = snLenERRORs_, snLenWARNs = snLenWARNINGs_,
+      snLenNOTEs = snLenNOTEs_, ssActProjID = rssActProjID_, ssProjVers = ssVersNewFULL
     );
     
-    
-    # Tell the user to take a break for the day ...
-    ssNote1000thChange <- rasPASTE0(
-      rasPASTE0(
-        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIgreen, "WOW !!! ", csUniCodePointUP, " That was the ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIitalics, csANSIred, "1000th ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIgreen, "code check for today alone ... ", csUniCodeEyes, " \n", csANSIreset
-      )
-    );
-    ssNoteTakeBreak <- rasPASTE0(
-      rasPASTE0(
-        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIblue, "You really should take a break now - maybe go for a walk in the park? ", csUniCodePonderingEmoticon, "\n", csANSIreset
-      )
-    );
-    ssNoteCodeReactivatesTomorrow <- rasPASTE0(
-      rasPASTE0(
-        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIyellow, "The full functionality of this helper function will only reset tomorrow ... sorry. ", csUniCodeCryingEmoticon, "\n", csANSIreset
-      )
-    );
-    ssNoteAboveCodeNoJoke <- rasPASTE0(
-      rasPASTE0(
-        csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIblue, "NB: The above note ", csUniCodePointUP, " is not a joke - this ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIred, "function will only reset in ", 24 - rasAsNUM(ssHrsSinceMidNight), " hours ", csANSIreset
-      ),
-      rasPASTE0(
-        csANSIbold, csANSIblue, "!!! \n\n", csANSIreset
-      )
-    );
-    
-    rasCAT(
-      rasPASTE0(
-        ssNote1000thChange, ssNoteTakeBreak,
-        ssNoteCodeReactivatesTomorrow, ssNoteAboveCodeNoJoke
+  }
+  
+  # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
+  if (!rsbCheckCRAN_ && rsbCheckDocs_) {   
+    rasDevToolsDOCUMENT(roclets = c('rd', 'collate', 'namespace'));
+  }
+  
+  
+  
+  ####   STEP 06 - Run Function SELF-ID <EXIT> (if requested)   ####
+  RCT_FUNC_RUN_TIME_STOP_ <- rasBaseSysTimeNOW();
+  rasMfmrInfoPostFuncSelfID(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
+    siFuncMode01 = 0L, ssFuncCallerID = rssFuncCallerID_,
+    sbRunSelfID = rsbRunSelfID_, sbPrintPretty = rsbPrintPretty_, 
+    siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
+    csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_STOP_
+  );
+  
+  
+  
+  # 7. Return the new created Project Version Number as a character object ...
+  rasBaseRETURN(
+    rasBaseINVISIBLE(
+      rasBaseLIST(
+        "ProjID" = rssActProjID_,
+        "CodeVers" = rasBasePASTE0("v", ssVersNewFULL),
+        "CodeTime" = rasBaseFORMAT(RCT_FUNC_RUN_TIME_STOP_, RCT_FORMAT_TIME_DEV_02_)
       )
     )
-  } else {
-    ssVersNEW <- NULL;
-    if (sbIsSameYr && sbIsSameMn && sbIsSameDy) {   # -> If TRUE then it's the SAME DAY ... so simply increment from the last number value (or count) !!!
-      ssVersNEW <- rasSPRINTF(   # -> Increments & pads the value with leading zeros (to create a 3-digit character value) ...
-        fmt = "%03d", rasAsNUM(rvsProjVersOLD_[4]) + 1
-      );
-    } else {    # -> If FALSE then it's a NEW DAY ... which means start count at 1 !!!
-      ssVersNEW <- rasSPRINTF(   # -> Starts count at 1 ... and pads the value with leading zeros (to create a 3-digit character value) ...
-        fmt = "%03d", 0 + 1
-      );
-    }
-    ssVersNewFULL <- rasPASTE0(   # -> Format the NEW Version Date accordingly ...
-      rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_01_), ".", ssVersNEW
-    );
-    
-    # 4. Update the version number (accordingly) in the "DESCRIPTION" file ...
-    rasDescSetVERSION(ssVersNewFULL, file = RCT_FILE_R_PKG_DESC_);
-    
-    # 5. Create a Secondary Version Tracking File (in the "WIP" directory) ...
-    ssVersFileWIP_  <- rasFilePATH(RCT_FILE_DEV_TIME_LOG_);
-    vsDirsToCreate_ <- c(RCT_FOLDER_WIP_HELPERS_, RCT_FOLDER_WIP_PROD_);
-    ssVersNewTimeSTAMP_ <- rasPASTE0(   # -> Creates a Devs TimeStamp ...
-      "> R-Libs Project ID: ", rssActProjID_, "\n",
-      "> Last Code Push (vers)  ==>  ", ssVersNewFULL, "\n",
-      "> Last Code Push (time)  ==>  ", rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
-    );
-    if (rasFileEXISTS(ssVersFileWIP_)) {   # -> File already exists ...
-      rasWriteLINES(   # -> Writes the new version number into file ...
-        con = ssVersFileWIP_, text = ssVersNewTimeSTAMP_
-      );
-    } else {   # -> File DOES NOT already exist ...
-      rasDirCREATE(path = vsDirsToCreate_[1], recursive = T, showWarnings = F);   # -> Creates the "WIP" directory ...
-      rasDirCREATE(path = vsDirsToCreate_[2], recursive = T, showWarnings = F);   # -> Creates the "WIP" directory ...
-      rasFileCREATE(ssVersFileWIP_);   # -> Creates the required file ...
-      rasWriteLINES(   # -> Writes the new version number into file ...
-        con = ssVersFileWIP_, text = ssVersNewTimeSTAMP_
-      );
-    }
-    
-    # 6. Finally - Run the required R-Libs Project Documentation & CRAN Checks !!!
-    if (rsbCheckCRAN_) {   # -> Runs the COMPLETE Documentation & CRAN Requirements Checking Processes !!!
-      rasDevToolsCleanDLL();
-      rasDevToolsLoadALL();
-      coCheckResult_ <- rasDevToolsCHECK();
-      snLenNOTEs_    <- rasLENGTH(coCheckResult_$notes);
-      snLenERRORs_   <- rasLENGTH(coCheckResult_$errors);
-      snLenWARNINGs_ <- rasLENGTH(coCheckResult_$warnings);
-      MFMRutils:::devs.print.code.check.res(
-        snLenERRORs = snLenERRORs_, snLenWARNs = snLenWARNINGs_,
-        snLenNOTEs = snLenNOTEs_, ssActProjID = rssActProjID_, ssProjVers = ssVersNewFULL
-      );
-    }
-    
-    # -> Runs the Documentation process ONLY IF the "sbCheckCRAN" value is FALSE !!!
-    if (!rsbCheckCRAN_ && rsbCheckDocs_) {   
-      rasDevToolsDOCUMENT(roclets = c('rd', 'collate', 'namespace'));
-    }
-    
-    
-    
-    ####   STEP 06 - Run Function SELF-ID <EXIT> (if requested)   ####
-    RCT_FUNC_RUN_TIME_STOP_ <- rasSysTimeNOW();
-    MFMRutils::info.post.func.self.id(
-      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_,
-      siFuncMode01 = 0L, ssFuncCallerID = rssFuncCallerID_,
-      sbRunSelfID = rsbRunSelfID_, sbPrintPretty = rsbPrintPretty_, 
-      siStartCELN = RCT_FUNC_CELN_START_, siStopCELN = RCT_FUNC_CELN_STOP_,
-      csTimeStart = RCT_FUNC_RUN_TIME_START_, csTimeStop = RCT_FUNC_RUN_TIME_STOP_
-    );
-    
-    
-    
-    # 7. Return the new created Project Version Number as a character object ...
-    rasRETURN(
-      rasINVISIBLE(
-        rasBaseLIST(
-          "ProjID" = rssActProjID_,
-          "CodeVers" = rasPASTE0("v", ssVersNewFULL),
-          "CodeTime" = rasFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_02_)
-        )
-      )
-    );
-  }
+  );
   
 }
 

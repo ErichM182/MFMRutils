@@ -8,6 +8,7 @@ devs.check.code.specs(
   sbCheckDocs = TRUE,
   sbCheckCRAN = FALSE,
   ssTimeZone = "Africa/Windhoek",
+  sbIsProdRel = FALSE,
   ...
 )
 }
@@ -21,25 +22,26 @@ Validation Process/Check (inclusive of the pre-check documentation steps).}
 \item{ssTimeZone}{a simple character vector (string) that defines the Time Zone to be used for
 the package documentation.}
 
+\item{sbIsProdRel}{a logical (boolean) value that captures if the code-check and/or code commit
+process (action) is a "Production Release" code development action or not.}
+
 \item{...}{the fall-through function arguments (i.e. DotsArgs) used for nested functions within
 this main function. The "DotsArgs" implementation here pertain to the following nested
-R functions (i.e. R functions use within this main R function): \if{html}{\out{<br>}}
+R functions (i.e. R functions used within this main R function): \if{html}{\out{<br>}}
 1. \code{\link[=info.post.func.self.id]{info.post.func.self.id()}}, and \if{html}{\out{<br>}}
 2. \code{\link[=devs.patch.code.dev.trckr.file]{devs.patch.code.dev.trckr.file()}}.}
 }
 \value{
 \itemize{
-\item This function returns the programmatically amended or updated (real-time or
-active) version number for the active R Library Project as a list of character
-objects.
-\item This function creates a Work-In-Progress (WIP) directory at the root of the
-active R-Libs Project (i.e. "./WIP" <- if not already exists). The "./WIP"
-folder and all of its contents are included in GIT push-&-pull processes. You
-must MANUALLY ADD the following code stub (^WIP$) \if{html}{\out{<sans parentheses>}} to the
-".Rbuildignore" R Project file to ensure the "./WIP" folder + contents are
-excluded from the R Project Build Process. (<- this is IMPORTANT !!!)
-\item This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP"
-folder for secondary development version tracking purposes (as needed).
+\item This function returns the programmatically amended or updated (real-time or active) version
+number for the active R Library Project as a list of character objects.
+\item This function creates a Work-In-Progress (WIP) directory at the root of the active R-Libs
+Project (i.e. "./WIP" <- if not already exists). The "./WIP" folder and all of its contents
+are included in GIT push-&-pull processes. You must MANUALLY ADD the following code stub
+(^WIP$) \if{html}{\out{<sans parentheses>}} to the ".Rbuildignore" R Project file to ensure the "./WIP"
+folder + contents are excluded from the R Project Build Process. (<- this is IMPORTANT !!!)
+\item This function also creates a "DevsVersTimeStamp.txt" file in the "./WIP" folder for secondary
+development version tracking purposes (as needed).
 }
 }
 \description{
@@ -62,7 +64,7 @@ devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete (str
                                             #    Validation Process.
 
 ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
-# The Documentation Process will only be executed once if both are TRUE !!!
+# The complete (CRAN) Documentation Process will only be executed once if both are TRUE !!!
 devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
 
 }
