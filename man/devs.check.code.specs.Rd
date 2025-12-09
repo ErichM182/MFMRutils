@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEVS.Check.Code.Specs.R
 \name{devs.check.code.specs}
 \alias{devs.check.code.specs}
-\title{CRAN Code Validation with File Version Tracking ("SuiteMFMR" DevTools)}
+\title{CRAN Code Validation with Code Version Tracking ("SuiteMFMR" DevTools)}
 \usage{
 devs.check.code.specs(
   sbCheckDocs = TRUE,

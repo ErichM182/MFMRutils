@@ -18,7 +18,6 @@
 #'                    for the active R Library Project.
 #' @param ssProjVers a simple string (character vector) that receives the R Project Version Number
 #'                   for the active R Library Project.
-#'
 #' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
 #'                    process (action) is a "Production Release" action or not.
 #'                    
@@ -43,54 +42,30 @@
   ssActProjID=NULL, ssProjVers=NULL, sbIsProdRel=FALSE
 ) {
   
+  
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
   RCT_TAG_FUNC_ID_SHRT_ <- "Print.Checks";                # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Print.Code.Check.Res";   # <- Function ID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
-  ### SPECIAL: This a CRITICAL "Alias" that needs to be done here ALWAYS !!!
-  `%??%` <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
   
-  
-  ####   STEP 04 - Define "Local Aliases" for Key Functions   ####
+  ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasCAT              <- base::cat;
-  rasLIST             <- base::list;
-  rasTRUNC            <- base::trunc;
-  rasROUND            <- base::round;
-  rasRETURN           <- base::return;
-  rasPASTE0           <- base::paste0;
-  rasIfELSE           <- base::ifelse;
-  rasFORMAT           <- base::format;
-  rasUNLIST           <- base::unlist;
-  rasLENGTH           <- base::length;
-  rasSPRINTF          <- base::sprintf;
-  rasDiffTIME         <- base::difftime;
-  rasStrSPLIT         <- base::strsplit;
-  rasSysTimeNOW       <- base::Sys.time;
-  rasINVISIBLE        <- base::invisible;
-  rasFilePATH         <- base::file.path;
-  rasDirCREATE        <- base::dir.create;
-  rasAsNUM            <- base::as.numeric;
-  rasSysSetENV        <- base::Sys.setenv;
-  rasWriteLINES       <- base::writeLines;
-  rasFileCREATE       <- base::file.create;
-  rasFileEXISTS       <- base::file.exists;
-  rasAsCHAR           <- base::as.character;
-  rasDevToolsCHECK    <- devtools::check;
-  rasDevToolsLoadALL  <- devtools::load_all;
-  rasDevToolsDOCUMENT <- devtools::document;
-  rasDevToolsCleanDLL <- devtools::clean_dll;
-  rasMfmrCONSTS       <- MFMRutils::cMISC;
-  rasMfmrICONS        <- MFMRutils::cICONS;
-  rasMfmrCOLORS       <- MFMRutils::cCOLORS;
-  rasMfmrFORMATS      <- MFMRutils::cFORMATS;
-  rasDescSetVERSION   <- desc::desc_set_version;
-  rasMfmrPullLibrINFO <- MFMRutils::devs.pull.libr.info;
+  rasBaseCAT    <- base::cat;
+  rasBaseRETURN <- base::return;
+  rasBasePASTE0 <- base::paste0;
+  rasBaseIfELSE <- base::ifelse;
+  
+  `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
+  rasMfmrICONS   <- MFMRutils::cICONS;
+  rasMfmrCONSTS  <- cMISC;
+  rasMfmrCOLORS  <- MFMRutils::cCOLORS;
+  rasMfmrFORMATS <- MFMRutils::cFORMATS;
   
   
-  ####   STEP 05 - Define Critical Constants   ####
+  
+  ####   STEP 03 - Define Critical Constants   ####
   RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
   RCT_ANSI_RESET_   <- rasMfmrFORMATS$RESET;
   RCT_ANSI_ITALICS_ <- rasMfmrFORMATS$ITALICS;
@@ -115,7 +90,6 @@
   RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
   
   
-  
   # ANSI escape codes for TEXT FORMATS ...
   csANSIbold    <- RCT_ANSI_BOLD_;      # "\033[1m";
   csANSIreset   <- RCT_ANSI_RESET_;     # "\033[0m";
@@ -132,71 +106,98 @@
   csUniCodeCheckmark  <- RCT_ICON_CHECK_MARK_;
   csUniCodeArrowRight <- RCT_ICON_ARROW_RIGHT_;
   
+  
   # Create the output string
-  output <- rasPASTE0(
+  output <- rasBasePASTE0(
     
     # R Project ID & Version information print out ...
-    rasPASTE0(
+    rasBasePASTE0(
       csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
     ),
-    rasPASTE0(csANSIbold, "R Project: ", csANSIreset),
-    rasPASTE0(
+    rasBasePASTE0(csANSIbold, "R Project: ", csANSIreset),
+    rasBasePASTE0(
       csANSIbold, csANSIblue, "", ssActProjID, csANSIreset
     ),
-    rasPASTE0(
+    rasBasePASTE0(
       csANSIbold, csANSIblue, " v", ssProjVers, csANSIreset
     ),
-    rasPASTE0(
+    rasBasePASTE0(
       csANSIbold, csANSIyellow, " ... \n", csANSIreset
     ),
     
-    # CRAN Code Check results print out ...
-    rasPASTE0(
+    # Code Release Type information print out ...
+    rasBasePASTE0(
       csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
     ),
-    rasPASTE0(csANSIbold, "CRAN Code Check:  ", csANSIreset),
-    rasIfELSE(
+    rasBasePASTE0(csANSIbold, "Code State: ", csANSIreset),
+    rasBasePASTE0(
+      csANSIbold, 
+      rasBaseIfELSE(
+        sbIsProdRel, csANSIgreen, csANSIblue
+      ), 
+      rasBaseIfELSE(
+        sbIsProdRel, 
+        "PRODUCTION (public) Release", 
+        "DEVELOPMENT (act-dev) Release"
+      ), 
+      csANSIreset
+    ),
+    rasBasePASTE0(
+      csANSIbold, 
+      rasBaseIfELSE(
+        sbIsProdRel, csANSIred, csANSIyellow
+      ), 
+      rasBaseIfELSE(sbIsProdRel, " !!! \n", " ... \n"), 
+      csANSIreset
+    ),
+    
+    # CRAN Code Check results print out ...
+    rasBasePASTE0(
+      csANSIyellow, " ", csUniCodeArrowRight, " ", csANSIreset
+    ),
+    rasBasePASTE0(csANSIbold, "CRAN Code Check:  ", csANSIreset),
+    rasBaseIfELSE(
       snLenERRORs > 0,
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIred, snLenERRORs,
-        rasIfELSE(snLenERRORs == 1, " ERROR ", " ERRORs "),
+        rasBaseIfELSE(snLenERRORs == 1, " ERROR ", " ERRORs "),
         csUniCodeCross, csANSIreset
       ),
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIgreen, 
         "0 ERRORs ", csUniCodeCheckmark, csANSIreset
       )
     ),
-    rasPASTE0(csANSIbold, "  |  ", csANSIreset),
-    rasIfELSE(
+    rasBasePASTE0(csANSIbold, "  |  ", csANSIreset),
+    rasBaseIfELSE(
       snLenWARNs > 0,
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIyellow, snLenWARNs,
-        rasIfELSE(snLenWARNs == 1, " WARNING ", " WARNINGs "),
+        rasBaseIfELSE(snLenWARNs == 1, " WARNING ", " WARNINGs "),
         csUniCodeCross, csANSIreset
       ),
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIgreen, 
         "0 WARNINGs ", csUniCodeCheckmark, csANSIreset
       )
     ),
-    rasPASTE0(csANSIbold, "  |  ", csANSIreset),
-    rasIfELSE(
+    rasBasePASTE0(csANSIbold, "  |  ", csANSIreset),
+    rasBaseIfELSE(
       snLenNOTEs > 0,
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIblue, snLenNOTEs,
-        rasIfELSE(snLenNOTEs == 1, " NOTE ", " NOTEs "),
+        rasBaseIfELSE(snLenNOTEs == 1, " NOTE ", " NOTEs "),
         csUniCodeCross, csANSIreset
       ),
-      rasPASTE0(
+      rasBasePASTE0(
         csANSIitalics, csANSIbold, csANSIgreen,  
         "0 NOTEs ", csUniCodeCheckmark, csANSIreset
       )
     )
-  )
+  );
   
   # Output the final result ...
-  rasRETURN(
-    rasCAT(output, "\n\n")
+  rasBaseRETURN(
+    rasBaseCAT(output, "\n\n")
   );
 }

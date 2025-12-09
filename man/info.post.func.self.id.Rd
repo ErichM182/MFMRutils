@@ -2,7 +2,7 @@
 % Please edit documentation in R/INFO.post.func.self.id.R
 \name{info.post.func.self.id}
 \alias{info.post.func.self.id}
-\title{Compile & print custom function Self-ID Information}
+\title{Print Self-ID Information for Custom R Functions}
 \usage{
 info.post.func.self.id(
   ssProjID = NULL,
@@ -106,10 +106,10 @@ classifies five sizes (or classes) of custom R functions: ...
 * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
 }
 \description{
-A \if{html}{\out{<tiny>}} Helper Function that compiles and prints the self-identification
-information (i.e. self-id, type, caller, run-time duration etc.) of a custom
-R function. This custom function was intended to mainly support the MFMR Suite
-of R Functions, but can be utilized as a standalone function in other R packages.
+A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type,
+caller, run-time duration etc.) information of a custom R function. This custom function was
+intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone
+function in other (i.e. 3rd Party) R packages.
 }
 \examples{
 ### Run Self-Identification (Self-ID) on your Custom R Function as follows:

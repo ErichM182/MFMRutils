@@ -3,7 +3,7 @@
 \docType{data}
 \name{cMFMR}
 \alias{cMFMR}
-\title{The MFMR Suite \if{html}{\out{<list>}} of R Libraries ...}
+\title{The MFMR Suite of R Libraries \if{html}{\out{<list>}} ...}
 \format{
 An object of class \code{environment} of length 7.
 }

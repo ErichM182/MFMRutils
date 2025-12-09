@@ -43,6 +43,7 @@
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
   rasBaseLIST       <- base::list;
   rasBaseCLASS      <- base::class;
+  rasBaseLENGTH     <- base::length;
   rasBaseRETURN     <- base::return;
   rasBasePASTE0     <- base::paste0;
   rasBaseFORMAT     <- base::format;
@@ -56,6 +57,7 @@
   rasBaseReadCHAR   <- base::readChar;
   rasBaseReadLINE   <- base::readline;
   rasBaseSysTimeNOW <- base::Sys.time;
+  rasBase_R_VERSION <- base::R.version;
   rasBaseFileINFO   <- base::file.info;
   rasBaseFilePATH   <- base::file.path;
   rasBaseReadLINES  <- base::readLines;
@@ -72,11 +74,11 @@
   
   rasJsonLiteFromJSON <- jsonlite::fromJSON;
   
+  rasMfmrCONSTS           <- cMISC;   # <- An `MFMRutils` library that is NOT EXPORTED !!!
   `%??%`                  <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrCONSTS           <- MFMRutils::cMISC;
+  rasMfmrPatchLibrVersNUM <- devs.patch.libr.vers.number;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
   rasMfmrReturnLockedLIST <- MFMRutils::code.return.env.locked.list;
-  rasMfmrPatchLibrVersNUM <- MFMRutils:::devs.patch.libr.vers.number;
   
   rasStringrStrEXTRACT <- stringr::str_extract;
   
@@ -268,13 +270,23 @@
   
   
   ####   STEP 06 - Extract the (3rd Party) Support Libraries Version Numbers   ####
-  rssVersDESC_ <- rasUtilsPackageVERSION(pkg = "desc");
   rssVersDEVTOOLS_ <- rasUtilsPackageVERSION(pkg = "devtools");
   rssVersROXYGEN2_ <- rasUtilsPackageVERSION(pkg = "roxygen2");
   if (!rasBaseIsNULL(RCT_REGENT_LIBS_VERS_ROXYGEN2_) && 
       rssVersDEVTOOLS_ != RCT_REGENT_LIBS_VERS_ROXYGEN2_) {
     rssVersROXYGEN2_ <- RCT_REGENT_LIBS_VERS_ROXYGEN2_
   }
+  
+  ### Compile information on the list of dependencies ...
+  rvsLibrSplitDEPs_ <- rasBaseStrSPLIT(MFMRutils::devs.pull.libr.info()[["DEPENDENCIES"]], ", ");
+  rssLibrDepsLIST_ <- NULL;   # <- Compile a list of 3rd Party Dependencies for this R-Library !!!
+  for (libr in rvsLibrSplitDEPs_[[1]]) {
+    rssLibrDepsLIST_ <- rasBasePASTE0(
+      rssLibrDepsLIST_,   # <- Take the whatever already exists -> and add (con-cat) to it ...
+      "> ", libr, " v", rasUtilsPackageVERSION(pkg = libr), "\n"
+    )
+  }
+  rsnDepsN_ <- rasBaseLENGTH(rvsLibrSplitDEPs_[[1]]);
   
   
   
@@ -290,9 +302,9 @@
   
   ### Update the Library <code> Development Tracking Data prior to writing to file ... 
   RCT_ACT_DEV_INFO_HEADER_ <- rasBasePASTE0(
-    "=== === === === === === === === === === === === === === === === === === === === ===", "\n",
-    "|        Active Development Tracking Information (regent R Library Project)       |", "\n",
-    "=== === === === === === === === === === === === === === === === === === === === ===", "\n"
+    "=== === === === === === === === === === === === === === === === === === === === === === ===", "\n",
+    "|           Active Development Tracking Information (regent R Library Project)            |", "\n",
+    "=== === === === === === === === === === === === === === === === === === === === === === ===", "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_01_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
     "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...", "\n",
@@ -302,11 +314,25 @@
     "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
-  RCT_ACT_DEV_INFO_BODY_LVL_02_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
-    "-> R-Library (3rd Party) Development Support Packages: ", "\n",
-    "> desc      ==>  v", rssVersDESC_, "\n",
+  RCT_ACT_DEV_INFO_BODY_LVL_02_ <- rasBasePASTE0(
+    "-> R SOFTWARE: Information on `R-core` [as the PROG-LANG for library development] ... ", "\n",
+    "> ", rasBase_R_VERSION[["version.string"]], "\n",
+    '> Nickname  ==>  "', rasBase_R_VERSION[["nickname"]], '" !!!', "\n"
+  );
+  RCT_ACT_DEV_INFO_BODY_LVL_03_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
+    "-> DEVELOPMENT SUPPORT: 3rd Party R Packages used (as DEV-TOOLS) during development [ n: ",
+    "2 ] ...", "\n",
     "> devtools  ==>  v", rssVersDEVTOOLS_, "\n",
     "> roxygen2  ==>  v", rssVersROXYGEN2_, "\n"
+  );
+  RCT_ACT_DEV_INFO_BODY_LVL_04_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
+    "-> DEPENDENCIES: 3rd Party R Packages used (as DEPs) in this R-Library Project [ n: ",
+        rsnDepsN_, " ] ...", "\n",
+    rssLibrDepsLIST_   # <- Adds the R-Library DEPENDECIES <compiled> List !!!
+  );
+  RCT_ACT_DEV_INFO_BODY_END_STUB_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
+    "| === === === === === === === END of 'ACT-DEV' TRCKR File !!! === === === === === === === |",
+    "\n"
   );
   
   
@@ -315,9 +341,12 @@
   rasBaseWriteLINES(   # -> Writes the compiled data to the "Act_Dev_TRCKR.txt" file ...
     con = RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_, 
     text = rasBasePASTE0(
-      RCT_ACT_DEV_INFO_HEADER_, "\n", 
-      RCT_ACT_DEV_INFO_BODY_LVL_01_, "\n",
-      RCT_ACT_DEV_INFO_BODY_LVL_02_
+      RCT_ACT_DEV_INFO_HEADER_,      "\n\n\n", 
+      RCT_ACT_DEV_INFO_BODY_LVL_01_, "\n\n\n",
+      RCT_ACT_DEV_INFO_BODY_LVL_02_, "\n\n\n",
+      RCT_ACT_DEV_INFO_BODY_LVL_03_, "\n\n\n",
+      RCT_ACT_DEV_INFO_BODY_LVL_04_, "\n\n\n",
+      RCT_ACT_DEV_INFO_BODY_END_STUB_
     )
   );
   
