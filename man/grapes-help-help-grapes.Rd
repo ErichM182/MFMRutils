@@ -2,7 +2,7 @@
 % Please edit documentation in R/CODE.Tiny.Helpers.EXPORTED.R
 \name{\%??\%}
 \alias{\%??\%}
-\title{The Null-Coalescing Operator ("SuiteMFMR" helper)}
+\title{Null-Coalescing Operator (the "SuiteMFMR" way)}
 \usage{
 coLHO \%??\% coRHO
 }

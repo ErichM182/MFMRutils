@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEVS.Pull.Libr.Info.R
 \name{devs.pull.libr.info}
 \alias{devs.pull.libr.info}
-\title{Extract R Package \if{html}{\out{<Library DESCRIPTION File>}} Information}
+\title{Extract R Package \if{html}{\out{<DESCRIPTION File>}} Information (the easy way)}
 \usage{
 devs.pull.libr.info(ssPathFileDESC = "./DESCRIPTION", sbIsAbsolutePath = TRUE)
 }

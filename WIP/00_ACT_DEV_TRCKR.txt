@@ -1,16 +1,38 @@
-=== === === === === === === === === === === === === === === === === === === === ===
-|        Active Development Tracking Information (regent R Library Project)       |
-=== === === === === === === === === === === === === === === === === === === === ===
+=== === === === === === === === === === === === === === === === === === === === === === ===
+|           Active Development Tracking Information (regent R Library Project)            |
+=== === === === === === === === === === === === === === === === === === === === === === ===
+
+
 
 -> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...
 > R-Library Project ID: `MFMRutils` 
-> Code Push TYPE  ==>  PRODUCTION (public) Release
-> Code Push TIME  ==>  09 Dec 2025 @ 11:04:24.267 CAT
-> Code Push PRODUCTION VERSION #  ==>  0.0.4      (prod-release)
-> Code Push ACTIVE-DEV VERSION #  ==>  0.0.4.000  (devs-release)
+> Code Push TYPE  ==>  DEVELOPMENT (act-dev) Release
+> Code Push TIME  ==>  09 Dec 2025 @ 17:09:16.580 CAT
+> Code Push PRODUCTION VERSION #  ==>  0.0.0      (prod-release)
+> Code Push ACTIVE-DEV VERSION #  ==>  0.0.0.003  (devs-release)
 
--> R-Library (3rd Party) Development Support Packages: 
-> desc      ==>  v1.4.3
+
+
+-> R SOFTWARE: Information on `R-core` [as the PROG-LANG for library development] ... 
+> R version 4.5.2 (2025-10-31)
+> Nickname  ==>  "[Not] Part in a Rumble" !!!
+
+
+
+-> DEVELOPMENT SUPPORT: 3rd Party R Packages used (as DEV-TOOLS) during development [ n: 2 ] ...
 > devtools  ==>  v2.4.6
 > roxygen2  ==>  v7.3.3
+
+
+
+-> DEPENDENCIES: 3rd Party R Packages used (as DEPs) in this R-Library Project [ n: 5 ] ...
+> beepr v2.0
+> desc v1.4.3
+> devtools v2.4.6
+> jsonlite v2.0.0
+> stringr v1.6.0
+
+
+
+| === === === === === === === END of 'ACT-DEV' TRCKR File !!! === === === === === === === |
 

@@ -104,14 +104,14 @@
   rasDevToolsCleanDLL <- devtools::clean_dll;
   
   `%??%`                       <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
-  rasMfmrCONSTS                <- MFMRutils::cMISC;
   rasMfmrICONS                 <- MFMRutils::cICONS;
+  rasMfmrCONSTS                <- cMISC;
   rasMfmrCOLORS                <- MFMRutils::cCOLORS;
   rasMfmrFORMATS               <- MFMRutils::cFORMATS;
   rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
   rasMfmrInfoPostFuncSelfID    <- MFMRutils::info.post.func.self.id;
-  rasMfmrDevsPrintCodeCheckRES <- MFMRutils:::devs.print.code.check.res;
-  rasMfmrDevsPatchCodeDevTRCKR <- MFMRutils:::devs.patch.code.dev.trckr.file;
+  rasMfmrDevsPrintCodeCheckRES <- devs.print.code.check.res;
+  rasMfmrDevsPatchCodeDevTRCKR <- devs.patch.code.dev.trckr.file;
   
   
   
@@ -189,8 +189,8 @@
     snLenERRORs_   <- rasBaseLENGTH(coCheckResult_$errors);
     snLenWARNINGs_ <- rasBaseLENGTH(coCheckResult_$warnings);
     rasMfmrDevsPrintCodeCheckRES(
-      snLenERRORs = snLenERRORs_, snLenWARNs = snLenWARNINGs_,
-      snLenNOTEs = snLenNOTEs_, ssActProjID = rssActProjID_, ssProjVers = ssVersNewFULL
+      snLenERRORs = snLenERRORs_, snLenWARNs = snLenWARNINGs_, snLenNOTEs = snLenNOTEs_, 
+      sbIsProdRel = rsbIsProdRel_, ssActProjID = rssActProjID_, ssProjVers = ssVersNewFULL
     );
     
   }
