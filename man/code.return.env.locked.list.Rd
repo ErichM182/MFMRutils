@@ -44,7 +44,7 @@ vsListVals_  <- list(
 
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ... 
 rlsEnvLockdLIST <- code.return.env.locked.list(
-  vsListNames = vsListNames_, vsListVals = vsListVals_, 
+  vsListNames = vsListNames_, lsListVals = vsListVals_, 
   sbLockList = TRUE   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
 )
 
@@ -59,7 +59,7 @@ rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Will trigger an er
  
 ### Function-use OPTION 2 (secondary purpose) -> Create Mutable R List Objects ... 
 rlsEnvLockdLIST <- code.return.env.locked.list(
-  vsListNames = vsListNames_, vsListVals = vsListVals_, 
+  vsListNames = vsListNames_, lsListVals = vsListVals_, 
   sbLockList = FALSE   # <- Set to 'FALSE' to create a mutable R List !!!
 )
 
