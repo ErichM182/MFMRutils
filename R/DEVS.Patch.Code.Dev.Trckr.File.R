@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
-#' @title The Active Development Tracker File Updater ("SuiteMFMR" DevTools)
-#' @name devs.update.act.dev.trckr
+#' @title R Code Development Tracker File Updater ("SuiteMFMR" DevTools)
+#' @name devs.patch.code.dev.trckr.file
 #' 
 #' @description
 #' A Helper Function that updates important information inside the "Active Development Information
@@ -11,67 +11,83 @@
 #'
 #' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
 #'                    process (action) is a "Production Release" action or not.
+#' @param sbAudioNote a logical (boolean) value that specifies whether an audio notification should
+#'                    be played at the completion of this function (i.e. upon successful patching or
+#'                    updating of the "Active Development Information Tracker File").
 #'
 #' @returns
-#' * This function returns the programmatically amended or updated (real-time or
-#'   active) version number for the active R Library Project as a list of character
-#'   objects.
+#' * This function programmatically amends <patches or updates> the active (i.e. regent) R Library
+#'   Project's Code Development Tracking Information (i.e. tracker file) for code versioning and
+#'   project (i.e. library code) development tracking purposes.
 #'
 #' @examples
 #' ### Run R Package DevCode easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' devs.update.act.dev.trackr.file()   # -> Executes only the DevTools Documentation 
-#'                                     #    Process.
+#' devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation 
+#'                                    #    Process.
 #'
-#' @keywords internal
-#' @noRd
+#' @export
 #? ### ### ###
-"devs.update.act.dev.trckr" <- function(sbIsProdRel=FALSE) {
+"devs.patch.code.dev.trckr.file" <- function(sbIsProdRel=FALSE, sbAudioNote=FALSE) {
+  
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Update.Dev.Trckr";            # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Update.Act.Dev.Trckr";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Patch.TRCKR";                      # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
   RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
+  
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
-  rasBaseCLASS           <- base::class;
-  rasBaseRETURN          <- base::return;
-  rasBasePASTE0          <- base::paste0;
-  rasBaseFORMAT          <- base::format;
-  rasBaseIfELSE          <- base::ifelse;
-  rasBaseUNLIST          <- base::unlist;
-  rasBaseIsNULL          <- base::is.null;
-  rasBaseOPTIONS         <- base::options;
-  rasBaseSPRINTF         <- base::sprintf;
-  rasBaseTryCATCH        <- base::tryCatch;
-  rasBaseSysTimeNOW      <- base::Sys.time;
-  rasBaseStrSPLIT        <- base::strsplit;
-  rasBaseReadCHAR        <- base::readChar;
-  rasBaseReadLINE        <- base::readline;
-  rasBaseFileINFO        <- base::file.info;
-  rasBaseFilePATH        <- base::file.path;
-  rasBaseReadLINES       <- base::readLines;
-  rasBaseAsNUMERIC       <- base::as.numeric;
-  rasBaseDirCREATE       <- base::dir.create;
-  rasBaseWriteLINES      <- base::writeLines;
-  rasMfmrCONSTS          <- MFMRutils::cMISC;
-  `%?!%`                 <- MFMRutils::`%?!%`;   # <- VERY COOL Alias <NCO> !!!
-  rasBaseFileEXISTS      <- base::file.exists;
-  rasBaseFileCREATE      <- base::file.create;
-  rasBaseAsCHAR          <- base::as.character;
-  rasJsonLiteFromJSON    <- jsonlite::fromJSON;
-  rasStringrStrEXTRACT   <- stringr::str_extract;
+  rasBaseLIST       <- base::list;
+  rasBaseCLASS      <- base::class;
+  rasBaseRETURN     <- base::return;
+  rasBasePASTE0     <- base::paste0;
+  rasBaseFORMAT     <- base::format;
+  rasBaseIfELSE     <- base::ifelse;
+  rasBaseUNLIST     <- base::unlist;
+  rasBaseIsNULL     <- base::is.null;
+  rasBaseOPTIONS    <- base::options;
+  rasBaseSPRINTF    <- base::sprintf;
+  rasBaseTryCATCH   <- base::tryCatch;
+  rasBaseStrSPLIT   <- base::strsplit;
+  rasBaseReadCHAR   <- base::readChar;
+  rasBaseReadLINE   <- base::readline;
+  rasBaseSysTimeNOW <- base::Sys.time;
+  rasBaseFileINFO   <- base::file.info;
+  rasBaseFilePATH   <- base::file.path;
+  rasBaseReadLINES  <- base::readLines;
+  rasBaseAsNUMERIC  <- base::as.numeric;
+  rasBaseDirCREATE  <- base::dir.create;
+  rasBaseWriteLINES <- base::writeLines;
+  rasBaseFileEXISTS <- base::file.exists;
+  rasBaseFileCREATE <- base::file.create;
+  rasBaseAsCHAR     <- base::as.character;
+  
+  rasBeeprBEEP <- beepr::beep;
+  
+  rasDescSetVERSION <- desc::desc_set_version;
+  
+  rasJsonLiteFromJSON <- jsonlite::fromJSON;
+  
+  `%??%`                  <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrCONSTS           <- MFMRutils::cMISC;
+  rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrReturnLockedLIST <- MFMRutils::code.return.env.locked.list;
+  rasMfmrPatchLibrVersNUM <- MFMRutils:::devs.patch.libr.vers.number;
+  
+  rasStringrStrEXTRACT <- stringr::str_extract;
+  
   rasUtilsPackageVERSION <- utils::packageVersion;
-  rasDescSetVERSION      <- desc::desc_set_version;
-  rasMfmrPullLibrINFO    <- MFMRutils::devs.pull.libr.info;
-  rasMfmrPatchLibrVERS   <- MFMRutils:::devs.patch.libr.vers.number;
+  
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
-  sbIsProdRel_ <- sbIsProdRel;
+  rsbIsProdRel_ <- sbIsProdRel;
+  rsbAudioNote_ <- sbAudioNote;
+  
   
   
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
@@ -84,6 +100,7 @@
     rsbIsNewActDevTRCKR_ <- TRUE;   # <- Save confirmation that "ActDev TRCKR" was newly created !!!
     rasBaseFileCREATE(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_);   # -> Creates the required file ...
   }
+  
   
   
   ####   STEP 05 - COMPILE Important CODE VERSIONING INFO   ####
@@ -100,23 +117,21 @@
   RCT_REGENT_LIBS_VERS_ROXYGEN2_ <- RCT_REGENT_R_LIB_DESC_INFO_[["R_OXYGEN_NOTE"]];
   
   RCT_CODE_PUSH_TYPE_ <- rasBaseIfELSE(
-    sbIsProdRel_, "PRODUCTION Release", "ACT-DEV Release"
+    rsbIsProdRel_, "PRODUCTION (public) Release", "DEVELOPMENT (act-dev) Release"
   );
   
   #### Update the Code Version stubs accordingly ... 
   ## NOTE: Full <debug> Code Version Form -> "STABLE.BETA.ALPHA.DEV" == "0.0.1.001" !!!
   ##       Production Version Form -> "STABLE.BETA.ALPHA" == "0.0.1" !!!
   rvsLibrVersPartsCRAN_ <- c(-999, -999, -999, -999);
-  if (sbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check or Code Commit) !!!
+  if (rsbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check or Code Commit) !!!
     
     # STEP 1 - Source CRAN: get current <extant> R Library Version from CRAN ...
     RCT_NULL_ERROR_TEXT_ <- "R-Library NOT in CRAN !!!";
     RCT_LIB_INFO_CRAN_ <- rasBaseTryCATCH(
       {
         rasJsonLiteFromJSON(
-          # txt = rasBasePASTE0("https://crandb.r-pkg.org/", "desc")
-          txt = rasBasePASTE0("https://crandb.r-pkg.org/", "ggplot2")
-          # txt = rasBasePASTE0("https://crandb.r-pkg.org/", "MFMRutils")
+          txt = rasBasePASTE0("https://crandb.r-pkg.org/", RCT_REGENT_R_LIB_ID_)
         )
       }, 
       error = function(e) {    # <- An ERROR occurred (during the online <CRAN> Library Check) ...
@@ -139,15 +154,15 @@
         );
         
         ### STEP 2.1.1b: Patch the various Version Number stubs (accordingly) ...
-        rsnListFULL_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_);
+        rsnListFullCRAN_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsCRAN_);
         
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsCRAN_)[["VERS_STABLE"]];
+        rsnVersStubALPHA_  <- rsnListFullCRAN_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullCRAN_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullCRAN_[["VERS_STABLE"]];
         
         
       } else {   # <- Local vs. Remote Library Name[s] DID NOT MATCH (Name-Check FAILED) !!!
-        cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!");
+       base::cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!\n");
       }
       
     } else {   # <- Online <CRAN> Check was NOT SUCCESSFUL (CRAN call FAILED) !!!
@@ -177,9 +192,10 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
+        rsnListFullTRCKR_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
+        rsnVersStubALPHA_  <- rsnListFullTRCKR_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullTRCKR_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullTRCKR_[["VERS_STABLE"]];
         
       } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
         
@@ -189,9 +205,10 @@
         )[1:3];   # <- Extract only the first 3 numbers (i.e. PRODUCTION Version Stubs) !!!
         
         ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-        rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
-        rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
-        rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
+        rsnListFullDESC_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsDESC_);
+        rsnVersStubALPHA_  <- rsnListFullDESC_[["VERS_ALPHA"]];
+        rsnVersStubBETA_   <- rsnListFullDESC_[["VERS_BETA"]];
+        rsnVersStubSTABLE_ <- rsnListFullDESC_[["VERS_STABLE"]];
         
       }
       
@@ -224,10 +241,11 @@
       );
       
       ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsTRCKR_)[["VERS_STABLE"]];
+      rsnListFullTRCKR_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
+      rsnVersStubDEBUG_  <- rsnListFullTRCKR_[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rsnListFullTRCKR_[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rsnListFullTRCKR_[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rsnListFullTRCKR_[["VERS_STABLE"]];
       
     } else {   # <- This means the TRCKR file IS newly created & thus EMPTY <void> !!!
       
@@ -237,17 +255,19 @@
       );
       
       ### STEP 2.2.2b: Patch the various Version Number stubs (accordingly) ...
-      rsnVersStubDEBUG_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_DEBUG"]];
-      rsnVersStubALPHA_  <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_ALPHA"]];
-      rsnVersStubBETA_   <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_BETA"]];
-      rsnVersStubSTABLE_ <- rasMfmrPatchLibrVERS(rvsLibrVersPartsDESC_)[["VERS_STABLE"]];
+      rsnListFullDESC_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsDESC_);
+      rsnVersStubDEBUG_  <- rsnListFullDESC_[["VERS_DEBUG"]];
+      rsnVersStubALPHA_  <- rsnListFullDESC_[["VERS_ALPHA"]];
+      rsnVersStubBETA_   <- rsnListFullDESC_[["VERS_BETA"]];
+      rsnVersStubSTABLE_ <- rsnListFullDESC_[["VERS_STABLE"]];
       
     }
     
   }
   
   
-  ####   STEP 06 - Extract the (3rd Party) Support Libs Version Numbers   ####
+  
+  ####   STEP 06 - Extract the (3rd Party) Support Libraries Version Numbers   ####
   rssVersDESC_ <- rasUtilsPackageVERSION(pkg = "desc");
   rssVersDEVTOOLS_ <- rasUtilsPackageVERSION(pkg = "devtools");
   rssVersROXYGEN2_ <- rasUtilsPackageVERSION(pkg = "roxygen2");
@@ -255,6 +275,7 @@
       rssVersDEVTOOLS_ != RCT_REGENT_LIBS_VERS_ROXYGEN2_) {
     rssVersROXYGEN2_ <- RCT_REGENT_LIBS_VERS_ROXYGEN2_
   }
+  
   
   
   ####   STEP 07 - Compile FINAL OUTPUT Particulars   ####
@@ -265,6 +286,7 @@
     rsnVersStubSTABLE_, ".", rsnVersStubBETA_, ".", rsnVersStubALPHA_, ".",
     rasBaseSPRINTF(fmt = "%03d", rsnVersStubDEBUG_)
   );
+  rcoCodePushDateTIME_ <- rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_);
   
   ### Update the Library <code> Development Tracking Data prior to writing to file ... 
   RCT_ACT_DEV_INFO_HEADER_ <- rasBasePASTE0(
@@ -276,7 +298,7 @@
     "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...", "\n",
     '> R-Library Project ID: `', RCT_REGENT_R_LIB_ID_, '` \n',
     "> Code Push TYPE  ==>  ", RCT_CODE_PUSH_TYPE_, "\n",
-    "> Code Push TIME  ==>  ", rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_), "\n",
+    "> Code Push TIME  ==>  ", rcoCodePushDateTIME_, "\n",
     "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
@@ -286,6 +308,7 @@
     "> devtools  ==>  v", rssVersDEVTOOLS_, "\n",
     "> roxygen2  ==>  v", rssVersROXYGEN2_, "\n"
   );
+  
   
   
   ####   STEP 08 - Write Updated DATA to ( Act_Dev_TRCKR.txt ) File   ####
@@ -299,12 +322,41 @@
   );
   
   
-  ####   STEP 08 - Patch (update) Version in Project DESCRIPTION File   ####
+  
+  ####   STEP 09 - Patch (update) Version in Project DESCRIPTION File   ####
   rasDescSetVERSION(
     file = RCT_FILE_R_PKG_DESC_,
     version = rasBaseIfELSE(
       sbIsProdRel, rssVersNewPROD_, rssVersNewDEVS_
     )
+  );
+  
+  
+  
+  ####   STEP 10 - COMPLETION AUDIO Feedback (only prod-release)   ####
+  if (rsbAudioNote_) {
+    rasBeeprBEEP(2);   # <- Plays the "Coin" audio clip from the `beepr` R Library !!!
+  }
+  
+  
+  
+  ####   STEP 11 - Output <key> Function Results   ####
+  rasMfmrReturnLockedLIST(
+    vsListNames = c(
+      "CODE_NAME_TAG",    # <- R Library Project Identifier -> TAG !!!
+      "CODE_VERS_PROD",   # <- R Library <Code> PRODUCTION VERSION NUMBER -> TAG !!!
+      "CODE_VERS_DEVS",   # <- R Library <Code> DEVELOPMENT <Debug> VERSION NUMBER -> TAG !!!
+      "CODE_PUSH_TYPE",   # <- R Library <Code> PUSH (i.e. Code Check or Commit) TYPE -> TAG !!!
+      "CODE_PUSH_DATE"    # <- R Library <Code> PUSH (i.e. Code Check or Commit) DateTime -> TAG !!!
+    ),
+    lsListVals = rasBaseLIST(
+      RCT_REGENT_R_LIB_ID_,   # <- R Library Project Identifier -> VALUE !!! 
+      rssVersNewPROD_,        # <- R Library <Code> PRODUCTION VERSION NUMBER -> VALUE !!!
+      rssVersNewDEVS_,        # <- R Library <Code> DEVELOPMENT <Debug> VERSION NUMBER -> VALUE !!!
+      RCT_CODE_PUSH_TYPE_,    # <- R Library <Code> PUSH (i.e. Code Check or Commit) TYPE -> VALUE.
+      rcoCodePushDateTIME_    # <- R Library <Code> PUSH (i.e. Code Check/Commit) DateTime -> VALUE.
+    ),
+    sbLockList = TRUE
   );
   
 }

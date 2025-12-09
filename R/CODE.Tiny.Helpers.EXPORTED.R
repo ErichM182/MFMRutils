@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
-#' @title The Null-Coalescing Operator ("SuiteMFMR" helper)
-#' @name `%?!%`
+#' @title Null-Coalescing Operator (the "SuiteMFMR" way)
+#' @name %??%
 #' 
 #' @description
 #' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
@@ -19,14 +19,14 @@
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 #'
 #' ### Then apply the NCO accordingly ...
-#' NULL %?!% "Default"                    # -> returns "Default" !!!
-#' "ACTual" %?!% "DEFault"                # -> returns "ACTual" !!!
-#' NULL %?!% NULL %?!% "FINal"            # -> returns "FINal" !!!
-#' NULL %?!% "PENULTimate" %?!% "FINal"   # -> returns "PENULTimate" !!!
+#' NULL %??% "Default"                    # -> returns "Default" !!!
+#' "ACTual" %??% "DEFault"                # -> returns "ACTual" !!!
+#' NULL %??% NULL %??% "FINal"            # -> returns "FINal" !!!
+#' NULL %??% "PENULTimate" %??% "FINal"   # -> returns "PENULTimate" !!!
 #'
 #' @export
 #? ### ### ###
-`%?!%` <- function(coLHO=NULL, coRHO=NULL) {
+`%??%` <- function(coLHO=NULL, coRHO=NULL) {
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
   rssTagFuncIDv01_ <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
@@ -34,7 +34,7 @@
   ### rssTagFuncLibID_ <- MFMRutils::devs.get.libr.info()[["NAME"]];
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
-  # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
+  # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
   rasANY_    <- base::any;
   rasIsNA_   <- base::is.na;
   rasLENGTH_ <- base::length;

@@ -4,13 +4,13 @@
 
 -> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...
 > R-Library Project ID: `MFMRutils` 
-> Code Push TYPE  ==>  ACT-DEV Release
-> Code Push TIME  ==>  05 Dec 2025 @ 17:08:29.322 CAT
-> Code Push PRODUCTION VERSION #  ==>  0.0.0      (prod-release)
-> Code Push ACTIVE-DEV VERSION #  ==>  0.0.0.000  (devs-release)
+> Code Push TYPE  ==>  PRODUCTION (public) Release
+> Code Push TIME  ==>  09 Dec 2025 @ 11:04:24.267 CAT
+> Code Push PRODUCTION VERSION #  ==>  0.0.4      (prod-release)
+> Code Push ACTIVE-DEV VERSION #  ==>  0.0.4.000  (devs-release)
 
 -> R-Library (3rd Party) Development Support Packages: 
 > desc      ==>  v1.4.3
-> devtools  ==>  v2.4.5
+> devtools  ==>  v2.4.6
 > roxygen2  ==>  v7.3.3
 

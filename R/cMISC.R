@@ -9,18 +9,19 @@
 #' of R Libraries (aka "SuiteMFMR").
 #'
 #' @examples
-#' ### Load the required R Library ...
-#' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
-#' 
-#' ### ... then easily apply TEXT FORMATS as follows ...
-#' cMISC$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress (WIP) 
-#'                              #    path for the R Library Development
-#'                              #    Staging Folder ("01_NextForPROD") !!!
+#' ### Install the required R Library ...
+#' require(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::cMISC$PATH_FOLDER_WIP_PROD
+#' MFMRutils:::cMISC$PATH_FOLDER_WIP_PROD
+#' 
+#' ### ... then easily apply TEXT FORMATS as follows ...
+#' MFMRutils:::cMISC$PATH_FOLDER_WIP_PROD   ### -> Returns the Work-In-Progress PATH (i.e. "./WIP) 
+#'                                          ###    for the R Library Code Development Staging 
+#'                                          ###    Folder (i.e. "./WIP/01_NextForPROD") !!!
 #'
-#' @export
+#' @keywords internal
+#' @noRd
 #? ### ### ###
 "cMISC" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   

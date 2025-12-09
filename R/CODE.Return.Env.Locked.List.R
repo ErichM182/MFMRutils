@@ -89,7 +89,7 @@
   vsListNames_ <- vsListNames;
   
   
-  # 1. Input Validation ...
+  ####   STEP 04 - Run Input Arguments Validation   ####
   if (rasBaseLENGTH(vsListNames_) != rasBaseLENGTH(lsListVals_)) {
     rasBaseSTOP(
       " -> Function NAMES vs. VALUES LENGTH MISS-MATCH !!!", "\n",
@@ -120,6 +120,8 @@
     );
   }
   
+  
+  ####   STEP 05 - Ensure List Names are CLEAN (not blanks)   ####
   if (rasBaseANY(vsListNames_ == "") || rasBaseANY(vsListNames_ == " ") || 
       rasBaseANY(vsListNames_ == "  ") || rasBaseANY(vsListNames_ == "   ")) {
     rasBaseSTOP(
@@ -127,23 +129,32 @@
     );
   }
   
-  # 2. Combine vectors into a standard R list and convert to an environment
-  # setNames() applies the character vector as names to the list of values.
+  
+  ####   STEP 06 - Combine Vectors into a List   ####
+  # -> Combine vectors into a standard R list and convert to an R Environment Object. Here the
+  #    "setNames()" function applies the character vector as names to the list of values.
   rcoDataList_ <- rasStatsSetNAMES(lsListVals_, vsListNames_);
   rcoLockedENV_ <- rasBaseList2ENV(rcoDataList_);
   
-  # 3. Lock the environment structure
-  # This prevents adding or removing elements (bindings) from the environment.
+  
+  ####   STEP 07 - Combine Vectors into a List   ####
+  # -> Lock the environment structure ... this prevents adding or removing elements (bindings) 
+  #    to or from (respectively) the environment object (i.e. list) post-creation !!!
   rasBaseLockENVIRONMENT(rcoLockedENV_);
   
-  # 4. Optional: Lock individual bindings (values)
-  # This prevents changing the value of existing elements.
+  
+  ####   STEP 08 - Lock List Bindings (Key-Val Pairs)   ####
+  # -> Optional: Lock individual bindings (values) ... this prevents changing the value of 
+  #    existing elements !!!
   if (sbLockList_) {
     for (ssName in vsListNames_) {
       rasBaseLockBINDING(ssName, rcoLockedENV_)
     }
   }
   
+  
+  ####   STEP 09 - Return List to Function Call   ####
+  base::class(rcoLockedENV_) <- "ENV-LOCKED-LIST";   # <- Assign a Class Identifier !!!
   rasBaseRETURN(rcoLockedENV_);
   
 }
