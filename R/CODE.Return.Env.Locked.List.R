@@ -26,7 +26,7 @@
 #' 
 #' ### Compile the R Locked List Information (for active R Library <project>) ...
 #' vsListNames_ <- c("VAR_A", "VAR_B", "VAR_C", "VAR_X", "VAR_Y", "VAR_Z", "VAR_G")
-#' vsListVals_  <- list(
+#' lsListVals_  <- list(
 #'   1982, "Value for VAR_B", "R-Object for VAR_C", FALSE, 
 #'   "Value for VAR_Y", TRUE, "R-List for VAR_G"
 #' )
@@ -35,7 +35,7 @@
 #' 
 #' ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ... 
 #' rlsEnvLockdLIST <- code.return.env.locked.list(
-#'   vsListNames = vsListNames_, lsListVals = vsListVals_, 
+#'   vsListNames = vsListNames_, lsListVals = lsListVals_, 
 #'   sbLockList = TRUE   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
 #' )
 #' 
@@ -50,7 +50,7 @@
 #'  
 #' ### Function-use OPTION 2 (secondary purpose) -> Create Mutable R List Objects ... 
 #' rlsEnvLockdLIST <- code.return.env.locked.list(
-#'   vsListNames = vsListNames_, lsListVals = vsListVals_, 
+#'   vsListNames = vsListNames_, lsListVals = lsListVals_, 
 #'   sbLockList = FALSE   # <- Set to 'FALSE' to create a mutable R List !!!
 #' )
 #' 

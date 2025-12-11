@@ -4,7 +4,7 @@
 \alias{devs.pull.libr.info}
 \title{Extract R Package \if{html}{\out{<DESCRIPTION File>}} Information (the easy way)}
 \usage{
-devs.pull.libr.info(ssPathFileDESC = "./DESCRIPTION", sbIsAbsolutePath = TRUE)
+devs.pull.libr.info(ssPathFileDESC = "DESCRIPTION", sbIsAbsolutePath = FALSE)
 }
 \arguments{
 \item{ssPathFileDESC}{a character (string) value that denotes the \if{html}{\out{<local>}} path
