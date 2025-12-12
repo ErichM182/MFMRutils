@@ -29,29 +29,27 @@
 `%??%` <- function(coLHO=NULL, coRHO=NULL) {
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  rssTagFuncIDv01_ <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
-  ### rssTagFuncLibID_ <- MFMRutils::devs.get.libr.info()[["NAME"]];
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                       # <- R Library Identifier !!!
+  rssTagFuncIDv01_      <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_      <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
+  
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
-  rasANY_    <- base::any;
-  rasIsNA_   <- base::is.na;
-  rasLENGTH_ <- base::length;
-  rasRETURN_ <- base::return;
-  rasIsNULL_ <- base::is.null;
+  rasANY    <- base::any;
+  rasIsNA   <- base::is.na;
+  rasLENGTH <- base::length;
+  rasRETURN <- base::return;
+  rasIsNULL <- base::is.null;
+  
   
   ####   STEP 03 - Execute MAIN <function> CODE LOGIC   ####
-  if (rasIsNULL_(coLHO) || rasLENGTH_(coLHO) == 0 || rasANY_(rasIsNA_(coLHO))) {
-    rasRETURN_(coRHO);
+  if (rasIsNULL(coLHO) || rasLENGTH(coLHO) == 0 || rasANY(rasIsNA(coLHO))) {
+    rasRETURN(coRHO);
   } else {
-    rasRETURN_(coLHO);
+    rasRETURN(coLHO);
   }
   
 }
-
-
-
-
 
 

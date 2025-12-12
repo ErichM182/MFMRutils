@@ -4,7 +4,7 @@
 \alias{devs.pull.libr.info}
 \title{Extract R Package \if{html}{\out{<DESCRIPTION File>}} Information (the easy way)}
 \usage{
-devs.pull.libr.info(ssPathFileDESC = "./DESCRIPTION", sbIsAbsolutePath = TRUE)
+devs.pull.libr.info(ssPathFileDESC = "DESCRIPTION", sbIsAbsolutePath = FALSE)
 }
 \arguments{
 \item{ssPathFileDESC}{a character (string) value that denotes the \if{html}{\out{<local>}} path
@@ -19,6 +19,12 @@ A tiny R function that extracts relevant package information from \if{html}{\out
 R Library Attributes.
 }
 \examples{
+\dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
+            ###    special development directory ("./WIP") that is created during the init-run
+            ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+            ###    R Library development process. For these reasons the code examples below
+            ###    should not be executed during "R_CMD_CHECK" code check procedures.
+            
 ### Activate the "MFMRutils" R Library (if previously installed) ...
 library(MFMRutils)   ### -> Loads the "MFMRutils" library !!!
 
@@ -27,5 +33,7 @@ rlsLibINFO <- devs.pull.libr.info()  ### <- Extracts Library Information ...
 
 rlsLibINFO[["NAME"]]      # -> Returns 'Package Name' value <result> ...
 rlsLibINFO[["VERSION"]]   # -> Returns 'Package Version' value <result> ... 
+
+}
 
 }

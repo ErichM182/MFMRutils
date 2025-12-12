@@ -21,12 +21,20 @@
 #'   project (i.e. library code) development tracking purposes.
 #'
 #' @examples
+#' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
+#'             ###    special development directory ("./WIP") that is created during the init-run
+#'             ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+#'             ###    R Library development process. For these reasons the code examples below
+#'             ###    should not be executed during "R_CMD_CHECK" code check procedures.
+#'             
 #' ### Run R Package DevCode easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
 #' devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation 
 #'                                    #    Process.
+#'                                    
+#'}
 #'
 #' @export
 #? ### ### ###
@@ -34,9 +42,9 @@
   
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                        # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Patch.TRCKR";                      # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
@@ -95,12 +103,20 @@
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
   rsbIsNewActDevTRCKR_ <- FALSE;
   RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_ <- rasMfmrCONSTS$PATH_TO_FILE_ACT_DEV_INFO_TRCKR;
-  if (!rasBaseFileEXISTS(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_)) {   # <- Checks that FILE DOES NOT EXIST !!!
-    rasBaseDirCREATE(   # -> Creates the "./WIP" directory (if not already exists) ...
+  if (!rasBaseFileEXISTS(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_)) {   # <- Checks if FILE DOES NOT EXIST.
+    
+    ### 4.1 - Create the "./WIP" directory (if not already exists) ...
+    rasBaseDirCREATE(
       path = rasMfmrCONSTS$PATH_TO_FOLDER_WIP, recursive = T, showWarnings = F
     );
-    rsbIsNewActDevTRCKR_ <- TRUE;   # <- Save confirmation that "ActDev TRCKR" was newly created !!!
+    
+    ### 4.2 - Create the "00_ACT_DEV_TRCKR.txt" Code Development TRACKER File ...
+    rsbIsNewActDevTRCKR_ <- TRUE;   # <- Save confirmation that TRACKER FILE was newly created !!!
     rasBaseFileCREATE(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_);   # -> Creates the required file ...
+    
+    ### 4.3 - Patch the ".RBuildignore" File to exclude the "./WIP" Directory + Contents ...
+    
+    
   }
   
   
@@ -126,7 +142,8 @@
   ## NOTE: Full <debug> Code Version Form -> "STABLE.BETA.ALPHA.DEV" == "0.0.1.001" !!!
   ##       Production Version Form -> "STABLE.BETA.ALPHA" == "0.0.1" !!!
   rvsLibrVersPartsCRAN_ <- c(-999, -999, -999, -999);
-  if (rsbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check or Code Commit) !!!
+  if (rsbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check 
+                                                 #    or Code Commit) !!!
     
     # STEP 1 - Source CRAN: get current <extant> R Library Version from CRAN ...
     RCT_NULL_ERROR_TEXT_ <- "R-Library NOT in CRAN !!!";
@@ -137,7 +154,7 @@
         )
       }, 
       error = function(e) {    # <- An ERROR occurred (during the online <CRAN> Library Check) ...
-        RCT_NULL_ERROR_TEXT_   # -> ... so return the "NULL" text <CRAN> Library Check FAIL Result !!!
+        RCT_NULL_ERROR_TEXT_   # -> ... so return the "NULL" text <CRAN> Library Check FAIL Result.
       }
     );
     

@@ -29,11 +29,19 @@ Tracker File" will be programmatically initialized (created) by this helper func
 found in the default project directory (i.e. "./WIP/" project folder).
 }
 \examples{
+\dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
+            ###    special development directory ("./WIP") that is created during the init-run
+            ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+            ###    R Library development process. For these reasons the code examples below
+            ###    should not be executed during "R_CMD_CHECK" code check procedures.
+            
 ### Run R Package DevCode easily as follows ...
 library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 
 ### Run 2 different types of code check/validation processes ...
 devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation 
                                    #    Process.
+                                   
+}
 
 }

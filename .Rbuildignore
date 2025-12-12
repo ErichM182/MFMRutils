@@ -1,4 +1,3 @@
 ^WIP$
-^LICENSE\.md$
+^.*\.Rproj$
 ^\.Rproj\.user$
-^MFMRutils\.Rproj$

@@ -54,6 +54,12 @@ Suite of R Libraries" (aka "SuiteMFMR"), but may also be helpful as a support to
 Package Development Cycle of other (3rd Party) R Projects.
 }
 \examples{
+\dontrun{   ### <- This function constitutes a development utility !!! This function creates (and
+            ###    requires) a special development directory ("./WIP") that is created during the
+            ###    init-run (initial R project setup) phase and is intended to facilitate a user-
+            ###    friendly R Library development process. For these reasons the code examples 
+            ###    below should not be executed during "R_CMD_CHECK" code check procedures.
+            
 ### Run R Package DevCode easily as follows ...
 library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 
@@ -66,5 +72,7 @@ devs.check.code.specs(sbCheckCRAN = TRUE)   # -> Executes the more complete (str
 ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
 # The complete (CRAN) Documentation Process will only be executed once if both are TRUE !!!
 devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
+
+}
 
 }

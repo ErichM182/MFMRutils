@@ -36,9 +36,9 @@
 "devs.patch.libr.vers.number" <- function(rvsVersNumVect=c("0", "0", "0", "001")) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                     # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Patch.Libr.Vers";               # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Patch.Libr.Vers.Number";   # <- Function ID - LONG !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####

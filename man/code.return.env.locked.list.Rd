@@ -35,7 +35,7 @@ library(MFMRutils)   ### -> Loads the "MFMRutils" library !!!
 
 ### Compile the R Locked List Information (for active R Library <project>) ...
 vsListNames_ <- c("VAR_A", "VAR_B", "VAR_C", "VAR_X", "VAR_Y", "VAR_Z", "VAR_G")
-vsListVals_  <- list(
+lsListVals_  <- list(
   1982, "Value for VAR_B", "R-Object for VAR_C", FALSE, 
   "Value for VAR_Y", TRUE, "R-List for VAR_G"
 )
@@ -44,7 +44,7 @@ vsListVals_  <- list(
 
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ... 
 rlsEnvLockdLIST <- code.return.env.locked.list(
-  vsListNames = vsListNames_, vsListVals = vsListVals_, 
+  vsListNames = vsListNames_, lsListVals = lsListVals_, 
   sbLockList = TRUE   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
 )
 
@@ -52,14 +52,19 @@ rlsEnvLockdLIST$VAR_X        # -> Returns the value FALSE !!!
 rlsEnvLockdLIST[["VAR_C"]]   # -> Returns the value 'R-Object for VAR_C' !!! 
 rlsEnvLockdLIST$VAR_G        # -> Returns the value 'R-List for VAR_G' !!! 
 
+\dontrun{   ### <- Code below does an "immutability" check (to ensure the custom function works
+            ###    as intended) -> but this code creates a variable write error under the normal
+            ###    "R_CMD_CHECK" scenario and as such should not be run during normal code check.
 ## Immutability test (OPTION 1 test) ...
 rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Will trigger an error !!!
+
+}
 
 
  
 ### Function-use OPTION 2 (secondary purpose) -> Create Mutable R List Objects ... 
 rlsEnvLockdLIST <- code.return.env.locked.list(
-  vsListNames = vsListNames_, vsListVals = vsListVals_, 
+  vsListNames = vsListNames_, lsListVals = lsListVals_, 
   sbLockList = FALSE   # <- Set to 'FALSE' to create a mutable R List !!!
 )
 

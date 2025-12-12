@@ -90,9 +90,9 @@
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Func.SID";                 # <- FSID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
@@ -152,6 +152,7 @@
     rasStrFormTIME   <- base::strftime;
     rasINVISIBLE     <- base::invisible;
     rasAsNUMERIC     <- base::as.numeric;
+    
     `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!  
     rasMfmrDATES     <- MFMRutils::cDATES;
     rasMfmrICONS     <- MFMRutils::cICONS;

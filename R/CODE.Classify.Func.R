@@ -51,9 +51,9 @@
 ) {
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  rssTagFuncIDv01_ <- "Classify.Func";        # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "CODE.Classify.Func";   # <- Function ID - LONG !!!
-  rssTagFuncLibID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";            # <- R Library Identifier !!!
+  rssTagFuncIDv01_      <- "Classify.Func";        # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_      <- "CODE.Classify.Func";   # <- Function ID - LONG !!!
   
   
   

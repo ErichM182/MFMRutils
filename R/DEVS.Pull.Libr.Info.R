@@ -13,6 +13,12 @@
 #'                         (or provided) as an absolute path or not.
 #'
 #' @examples
+#' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
+#'             ###    special development directory ("./WIP") that is created during the init-run
+#'             ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+#'             ###    R Library development process. For these reasons the code examples below
+#'             ###    should not be executed during "R_CMD_CHECK" code check procedures.
+#'             
 #' ### Activate the "MFMRutils" R Library (if previously installed) ...
 #' library(MFMRutils)   ### -> Loads the "MFMRutils" library !!!
 #' 
@@ -21,56 +27,64 @@
 #' 
 #' rlsLibINFO[["NAME"]]      # -> Returns 'Package Name' value <result> ...
 #' rlsLibINFO[["VERSION"]]   # -> Returns 'Package Version' value <result> ... 
+#' 
+#' }
 #'
 #' @export
 #? ### ### ###
 "devs.pull.libr.info" <- function(
-  ssPathFileDESC="./DESCRIPTION", sbIsAbsolutePath=TRUE
+  ssPathFileDESC="DESCRIPTION", sbIsAbsolutePath=FALSE
 ) {
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  rssTagFuncIDv01_ <- "Pull.Libr.Info";        # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "DEVS.Pull.Libr.Info";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";             # <- R Library Identifier !!!
+  rssTagFuncIDv01_      <- "Pull.Libr.Info";        # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_      <- "DEVS.Pull.Libr.Info";   # <- Function ID - LONG !!!
   
   
   
   ####   STEP 02 - Create <internal> "Aliases"   ####
   # NB: Assign "Local Aliases" for frequently used functions !!!
-  rasLIST_     <- base::list;
-  rasRETURN_   <- base::return;
-  rasFilePATH_ <- base::file.path;
-  rasGetFIELD_ <- desc::desc_get_field;
+  rasBaseLIST       <- base::list;
+  rasBaseGetWorkDIR <- base::getwd;
+  rasBaseRETURN     <- base::return;
+  rasBaseFilePATH   <- base::file.path;
+  rasDescGetFIELD   <- desc::desc_get_field;
+  
+  rasMfmrRetEnvLckdLIST <- MFMRutils::code.return.env.locked.list;
   
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rscPathFileDESC_  <- ssPathFileDESC;
-  sbIsAbsolutePath_ <- sbIsAbsolutePath;
+  rssPathFileDESC_   <- ssPathFileDESC;
+  rsbIsAbsolutePath_ <- sbIsAbsolutePath;
   
   
   
   ####   STEP 04 - Check 'DESCRIPTION' File Path   ####
-  if (!sbIsAbsolutePath_) {
-    rscPathFileDESC_ <- rasFilePATH_(ssPathFileDESC);
+  if (rsbIsAbsolutePath_) {
+    rssPathFileDESC_ <- rasBaseFilePATH(ssPathFileDESC);
+  } else {
+    rssPathFileDESC_ <- rasBaseFilePATH(rasBaseGetWorkDIR(), ssPathFileDESC);
   }
   
   
   
   ####   STEP 05 - Compile and return Library Information   ####
-  rasRETURN_(
-    rasLIST_(
-      "NAME"          = rasGetFIELD_(file = rscPathFileDESC_, key = "Package"),
-      "TITLE"         = rasGetFIELD_(file = rscPathFileDESC_, key = "Title"),
-      "DESC"          = rasGetFIELD_(file = rscPathFileDESC_, key = "Description"),
-      "VERSION"       = rasGetFIELD_(file = rscPathFileDESC_, key = "Version"),
-      "BUGS_URL"      = rasGetFIELD_(file = rscPathFileDESC_, key = "BugReports"),
-      "AUTHORS"       = rasGetFIELD_(file = rscPathFileDESC_, key = "Authors@R"),
-      "LICENSE"       = rasGetFIELD_(file = rscPathFileDESC_, key = "License"),
-      "ENCODING"      = rasGetFIELD_(file = rscPathFileDESC_, key = "Encoding"),
-      "LAZY_DATA"     = rasGetFIELD_(file = rscPathFileDESC_, key = "LazyData"),
-      "R_OXYGEN"      = rasGetFIELD_(file = rscPathFileDESC_, key = "Roxygen"),
-      "R_OXYGEN_NOTE" = rasGetFIELD_(file = rscPathFileDESC_, key = "RoxygenNote"),
-      "DEPENDENCIES"  = rasGetFIELD_(file = rscPathFileDESC_, key = "Imports")
+  rasBaseRETURN(
+    rasBaseLIST(
+      "NAME"          = rasDescGetFIELD(file = rssPathFileDESC_, key = "Package"),
+      "TITLE"         = rasDescGetFIELD(file = rssPathFileDESC_, key = "Title"),
+      "DESC"          = rasDescGetFIELD(file = rssPathFileDESC_, key = "Description"),
+      "VERSION"       = rasDescGetFIELD(file = rssPathFileDESC_, key = "Version"),
+      "BUGS_URL"      = rasDescGetFIELD(file = rssPathFileDESC_, key = "BugReports"),
+      "AUTHORS"       = rasDescGetFIELD(file = rssPathFileDESC_, key = "Authors@R"),
+      "LICENSE"       = rasDescGetFIELD(file = rssPathFileDESC_, key = "License"),
+      "ENCODING"      = rasDescGetFIELD(file = rssPathFileDESC_, key = "Encoding"),
+      "LAZY_DATA"     = rasDescGetFIELD(file = rssPathFileDESC_, key = "LazyData"),
+      "R_OXYGEN"      = rasDescGetFIELD(file = rssPathFileDESC_, key = "Roxygen"),
+      "R_OXYGEN_NOTE" = rasDescGetFIELD(file = rssPathFileDESC_, key = "RoxygenNote"),
+      "DEPENDENCIES"  = rasDescGetFIELD(file = rssPathFileDESC_, key = "Imports")
     )
   );
   
