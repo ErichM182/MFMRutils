@@ -13,18 +13,31 @@ code.append.text.to.file(
 )
 }
 \arguments{
-\item{coLHO}{a dynamic (complex) object that captures the "Left-Hand" R Object
-to be evaluated against the "NULL Criteria" (i.e. by way of value,
-length or class \if{html}{\out{<data type>}} NULL Checks).}
+\item{ssFilePath}{a charater vector (string/text) that defines the path where the file that needs
+to be appended to is located on the local directory.}
 
-\item{coRHO}{a dynamic (complex) object that captures the "Right-Hand" R Object
-(to be returned if the "Left-Hand" R Object is NULL).}
+\item{ssFileID}{a charater vector (string/text) that defines the file name (i.e. file identifier),
+inclusive of the file extension) of the file that needs to be appended to.}
+
+\item{ssAppendText}{a charater vector (string) that defines the actual text (i.e. the character
+vector or string) to be appended to the specified file.}
+
+\item{sbMultiAppend}{a logical (boolean) function argument that specifies whether multiple append
+actions are permitted (to the specified file) or not. When set to FALSE the
+function checks whether the "ssAppendText" value already exists within the
+specified file and only appends if the text does not already exist (i.e. was
+not found) in the contents of the specified file. When set to TRUE the
+function appends the "ssAppendText" value to the specified file irrespective
+of whether the text already exists in the specified file or not.}
+
+\item{sbPostPend}{a logical (boolean) function argument that specifies whether the "ssAppendText"
+value should be appended to the start or end of the existing (extant) specified
+file contents. When set to TRUE the "ssAppendText" value will be appended to}
 }
 \description{
-The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
-the DART Programming Language. The operator evaluates whether the "Left-Hand" R
-Object is NULL (in terms of its value or length or class \if{html}{\out{<data type>}}) and returns
-the "Right-Hand" R Object if the "Left-Hand" Object is \if{html}{\out{<indeed>}} NULL.
+Append text character vectors (strings) to specified file. This function was originally intended
+to aide the "SuiteMFMR" R Library Developer Process (as part of the R Project init-phase). This
+is a standalone function and as such can also be used in (and by) other (3rd Party) R Projects.
 }
 \examples{
 ### Use the Null-Coalescing Operator (NCO) as follows: ...
