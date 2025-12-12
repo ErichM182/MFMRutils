@@ -76,7 +76,6 @@
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
   rasBaseANY             <- base::any;
   rasBaseSTOP            <- base::stop;
-  rasBaseCLASS           <- base::class;
   rasBaseLENGTH          <- base::length;
   rasBaseRETURN          <- base::return;
   rasBasePASTE0          <- base::paste0;

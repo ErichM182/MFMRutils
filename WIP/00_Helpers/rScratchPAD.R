@@ -7,3 +7,6 @@ lstTEST_[["VERSION"]]
 lstTEST_$VERS_STABLE
 lstTEST_$VERS_ALPHA
 
+rcoRbuildIgnoreTEST_ <- MFMRutils::code.append.text.to.file(
+  
+)
