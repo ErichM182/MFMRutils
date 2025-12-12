@@ -7,9 +7,9 @@
 -> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...
 > R-Library Project ID: `MFMRutils` 
 > Code Push TYPE  ==>  DEVELOPMENT (act-dev) Release
-> Code Push TIME  ==>  11 Dec 2025 @ 08:42:35.568 CAT
+> Code Push TIME  ==>  12 Dec 2025 @ 10:30:02.541 CAT
 > Code Push PRODUCTION VERSION #  ==>  0.0.0      (prod-release)
-> Code Push ACTIVE-DEV VERSION #  ==>  0.0.0.010  (devs-release)
+> Code Push ACTIVE-DEV VERSION #  ==>  0.0.0.024  (devs-release)
 
 
 

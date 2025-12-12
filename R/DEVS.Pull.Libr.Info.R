@@ -13,6 +13,12 @@
 #'                         (or provided) as an absolute path or not.
 #'
 #' @examples
+#' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
+#'             ###    special development directory ("./WIP") that is created during the init-run
+#'             ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+#'             ###    R Library development process. For these reasons the code examples below
+#'             ###    should not be executed during "R_CMD_CHECK" code check procedures.
+#'             
 #' ### Activate the "MFMRutils" R Library (if previously installed) ...
 #' library(MFMRutils)   ### -> Loads the "MFMRutils" library !!!
 #' 
@@ -21,6 +27,8 @@
 #' 
 #' rlsLibINFO[["NAME"]]      # -> Returns 'Package Name' value <result> ...
 #' rlsLibINFO[["VERSION"]]   # -> Returns 'Package Version' value <result> ... 
+#' 
+#' }
 #'
 #' @export
 #? ### ### ###
@@ -29,8 +37,9 @@
 ) {
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  rssTagFuncIDv01_ <- "Pull.Libr.Info";        # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "DEVS.Pull.Libr.Info";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";             # <- R Library Identifier !!!
+  rssTagFuncIDv01_      <- "Pull.Libr.Info";        # <- Function ID - SHORT !!!
+  rssTagFuncIDv02_      <- "DEVS.Pull.Libr.Info";   # <- Function ID - LONG !!!
   
   
   
@@ -62,49 +71,6 @@
   
   
   ####   STEP 05 - Compile and return Library Information   ####
-  ### rssPackageID_          <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Package");
-  ### rssPackageTITLE_       <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Title");
-  ### rssPackageDESCRIPTION_ <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Description");
-  ### rssPackageVERSION_     <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Version");
-  ### rssPackageBugREPORTS_  <- rasDescGetFIELD(file = rssPathFileDESC_, key = "BugReports");
-  ### rssPackageAUTHORS_     <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Authors@R");
-  ### rssPackageLICENSE_     <- rasDescGetFIELD(file = rssPathFileDESC_, key = "License");
-  ### rssPackageENCODING_    <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Encoding");
-  ### rssPackageLazyDATA_    <- rasDescGetFIELD(file = rssPathFileDESC_, key = "LazyData");
-  ### rssPackageROXYGEN_     <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Roxygen");
-  ### rssPackageRoxygenNOTE_ <- rasDescGetFIELD(file = rssPathFileDESC_, key = "RoxygenNote");
-  ### rssPackageIMPORTS_     <- rasDescGetFIELD(file = rssPathFileDESC_, key = "Imports");
-  ### rasMfmrRetEnvLckdLIST(
-  ###   sbLockList = TRUE,
-  ###   vsListNames = c(
-  ###     "NAME",    
-  ###     "TITLE",   
-  ###     "DESC",    
-  ###     "VERSION",
-  ###     "BUGS_URL",   
-  ###     "AUTHORS",  
-  ###     "LICENSE",    
-  ###     "ENCODING",   
-  ###     "LAZY_DATA", 
-  ###     "R_OXYGEN", 
-  ###     "R_OXYGEN_NOTE",
-  ###     "DEPENDENCIES"  
-  ###   ),
-  ###   lsListVals = rasBaseLIST(
-  ###     rssPackageID_,
-  ###     rssPackageTITLE_,
-  ###     rssPackageDESCRIPTION_,
-  ###     rssPackageVERSION_,
-  ###     rssPackageBugREPORTS_,
-  ###     rssPackageAUTHORS_,
-  ###     rssPackageLICENSE_,
-  ###     rssPackageENCODING_,
-  ###     rssPackageLazyDATA_,
-  ###     rssPackageROXYGEN_,
-  ###     rssPackageRoxygenNOTE_,
-  ###     rssPackageIMPORTS_
-  ###   )
-  ### );
   rasBaseRETURN(
     rasBaseLIST(
       "NAME"          = rasDescGetFIELD(file = rssPathFileDESC_, key = "Package"),

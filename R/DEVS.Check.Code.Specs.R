@@ -39,6 +39,12 @@
 #' @import beepr desc devtools
 #'
 #' @examples
+#' \dontrun{   ### <- This function constitutes a development utility !!! This function creates (and
+#'             ###    requires) a special development directory ("./WIP") that is created during the
+#'             ###    init-run (initial R project setup) phase and is intended to facilitate a user-
+#'             ###    friendly R Library development process. For these reasons the code examples 
+#'             ###    below should not be executed during "R_CMD_CHECK" code check procedures.
+#'             
 #' ### Run R Package DevCode easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
@@ -51,6 +57,8 @@
 #' ### Check (i.e. "rasDevToolsCHECK()") overrides the documentation process ...
 #' # The complete (CRAN) Documentation Process will only be executed once if both are TRUE !!!
 #' devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
+#' 
+#' }
 #'
 #' @export
 #? ### ### ###
@@ -60,13 +68,13 @@
 ) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_ID_SHRT_ <- "Check.Specs";              # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";               # <- R Library Identifier !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Check.Specs";             # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Check.Code.Specs";   # <- Function ID - LONG !!!
   
   base::Sys.setenv(TZ = ssTimeZone);   # <- Set correct Time Zone BEFORE querying System CLOCK !!!
   RCT_FUNC_RUN_TIME_START_ <- base::Sys.time();
   RCT_FUNC_CELN_START_ <- 57L; RCT_FUNC_CELN_STOP_ <- 228L;
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
@@ -103,15 +111,15 @@
   rasDevToolsDOCUMENT <- devtools::document;
   rasDevToolsCleanDLL <- devtools::clean_dll;
   
+  rasMfmrCONSTS                <- cMISC;
   `%??%`                       <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
   rasMfmrICONS                 <- MFMRutils::cICONS;
-  rasMfmrCONSTS                <- cMISC;
   rasMfmrCOLORS                <- MFMRutils::cCOLORS;
   rasMfmrFORMATS               <- MFMRutils::cFORMATS;
-  rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
-  rasMfmrInfoPostFuncSelfID    <- MFMRutils::info.post.func.self.id;
   rasMfmrDevsPrintCodeCheckRES <- devs.print.code.check.res;
+  rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
   rasMfmrDevsPatchCodeDevTRCKR <- devs.patch.code.dev.trckr.file;
+  rasMfmrInfoPostFuncSelfID    <- MFMRutils::info.post.func.self.id;
   
   
   

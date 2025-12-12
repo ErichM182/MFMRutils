@@ -44,9 +44,9 @@
   
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";             # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Print.Checks";                # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Print.Code.Check.Res";   # <- Function ID - LONG !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- MFMRutils::devs.pull.libr.info()[["NAME"]];
   
   
   
@@ -57,9 +57,9 @@
   rasBasePASTE0 <- base::paste0;
   rasBaseIfELSE <- base::ifelse;
   
+  rasMfmrCONSTS  <- cMISC;
   `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
   rasMfmrICONS   <- MFMRutils::cICONS;
-  rasMfmrCONSTS  <- cMISC;
   rasMfmrCOLORS  <- MFMRutils::cCOLORS;
   rasMfmrFORMATS <- MFMRutils::cFORMATS;
   
