@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title Sanitize Character and Vector File Paths (the "SuiteMFMR" standard)
+#' @title Sanitize String and Vector File Paths
 #' @name code.patch.file.path
 #' 
 #' @description
@@ -27,7 +27,7 @@
 #' @export
 #? ### ### ###
 code.patch.file.path <- function(
-  ssPathString=NULL, vsPathParts=NULL
+  ssPathString=NULL, vsPathVector=NULL
 ) {
   
   
@@ -56,7 +56,7 @@ code.patch.file.path <- function(
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rvsPathParts_  <- vsPathParts;
+  rvsPathVector_  <- vsPathVector;
   rssPathString_ <- ssPathString;
   
   
@@ -69,24 +69,24 @@ code.patch.file.path <- function(
   
   
   ####   4.2 - Run Critical NULL Checks (on function arguments)   ####
-  ## Handle scenario where both the `ssPathString` and `vsPathParts` arguments are NULL ...
-  if (rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathParts_)) {
+  ## Handle scenario where both the `ssPathString` and `vsPathVector` arguments are NULL ...
+  if (rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathVector_)) {
     rssPathString_ <- ".";      # <- Assigns <active> R Project Root as the default Path <value> !!!
     rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
   }
   
-  ## Handle scenario where both the `ssPathString` and `vsPathParts` arguments are NOT NULL ...
-  if (!rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathParts_)) {
+  ## Handle scenario where both the `ssPathString` and `vsPathVector` arguments are NOT NULL ...
+  if (!rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathVector_)) {
     rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
   }
   
   ## Handle scenario where only the `ssPathString` function argument is NOT NULL ...
-  if (!rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathParts_)) {
+  if (!rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathVector_)) {
     rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
   }
   
-  ## Handle scenario where only the `vsPathParts` function argument is NOT NULL ...
-  if (rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathParts_)) {
+  ## Handle scenario where only the `vsPathVector` function argument is NOT NULL ...
+  if (rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathVector_)) {
     rsbIsPathVECTOR_ <- TRUE;   # <- Tells function to apply the "Vector" formatting code logic !!!
   }
   
@@ -95,10 +95,10 @@ code.patch.file.path <- function(
   if (rsbIsPathVECTOR_) {
     
     ### 4.3.1a - Validate each vector component against function format criteria <standard> ...
-    for (snINDX in 1:rasBaseLENGTH(rvsPathParts_)) {
+    for (snINDX in 1:rasBaseLENGTH(rvsPathVector_)) {
       
       ## Extract Vector Object located at <active> Vector Index ...
-      rssObj_ <- rvsPathParts_[snINDX];
+      rssObj_ <- rvsPathVector_[snINDX];
       
       ## Extract the FIRST Character of the returned Vector Object ...
       rssCharFirst_ <- rasBaseSubSTR(
@@ -127,8 +127,8 @@ code.patch.file.path <- function(
       }
       
       ## Update <active> Vector Item (object) with updated <clean> string value ...
-      rvsPathParts_[snINDX] <- rssObj_CLEAN_;
-      rlsPathPIECES_ <- rasBaseAsLIST(rvsPathParts_);
+      rvsPathVector_[snINDX] <- rssObj_CLEAN_;
+      rlsPathPIECES_ <- rasBaseAsLIST(rvsPathVector_);
       
     }
     
@@ -141,11 +141,11 @@ code.patch.file.path <- function(
     
     ### 4.3.1b - Extract terminal (last) character of the PATH string ...
     if (rssTermCharPATH_ == "/") {
-      rssFilePath_ <- rasBaseSubSTR(   # <- Cut off the last character ("/") of the PATH string.
-        x = rssFilePath_, 
-        start = rasBaseNCHAR(rssFilePath_),
-        stop = rasBaseNCHAR(rssFilePath_) - 1
-      );
+      # rssFilePath_ <- rasBaseSubSTR(   # <- Cut off the last character ("/") of the PATH string.
+      #   x = rssFilePath_, 
+      #   start = rasBaseNCHAR(rssFilePath_),
+      #   stop = rasBaseNCHAR(rssFilePath_) - 1
+      # );
     }
     
   }
