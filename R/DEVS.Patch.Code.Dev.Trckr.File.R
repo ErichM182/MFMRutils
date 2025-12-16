@@ -325,7 +325,7 @@
   );
   RCT_ACT_DEV_INFO_BODY_LVL_01_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
     "-> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...", "\n",
-    '> R-Library Project ID: `', RCT_REGENT_R_LIB_ID_, '` \n',
+    '> R-Library (Project ID): `', RCT_REGENT_R_LIB_ID_, '` \n',
     "> Code Push TYPE  ==>  ", RCT_CODE_PUSH_TYPE_, "\n",
     "> Code Push TIME  ==>  ", rcoCodePushDateTIME_, "\n",
     "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",

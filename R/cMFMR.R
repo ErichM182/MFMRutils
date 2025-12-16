@@ -1,5 +1,5 @@
 #? ### ### ### ### ### ### ###
-#' @title The MFMR Suite of R Libraries <list> ...
+#' @title Full List of "SuiteMFMR" R Packages
 #' @name cMFMR
 #' 
 #' @description
@@ -12,16 +12,16 @@
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily extract the "SuiteMFMR" R Library IDs as follows ...
-#' cMFMR$UTILS   # -> extracts the 'Utils' MFMR R Library Identifier !!!
-#' cMFMR$PLOTS   # -> extracts the 'Plots' MFMR R Library Identifier !!!
-#' cMFMR$STATS   # -> extracts the 'Stats' MFMR R Library Identifier !!!
+#' cMFMR$UTILS   # -> extracts the "Utils" MFMR R Library Identifier !!!
+#' cMFMR$PLOTS   # -> extracts the "Plots" MFMR R Library Identifier !!!
+#' cMFMR$STATS   # -> extracts the "Stats" MFMR R Library Identifier !!!
 #'
 #' @export
 #? ### ### ###
 "cMFMR" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of MFMR R Suite Library Identifiers (IDs) or TAGs !!!
-  envList <- base::list2env(
+  renvList <- base::list2env(
     base::list(
       SUITE = "SuiteMFMR",   # -> ... !!!
       ADMIN = "MFMRadmin",   # -> ... !!!
@@ -34,8 +34,8 @@
   );
   
   # Setting the R Environment 'Bindings = TRUE' makes the bindings immutable ...
-  base::lockEnvironment(envList, bindings = TRUE);
+  base::lockEnvironment(renvList, bindings = TRUE);
   
   # Return (export) the env-locked list ...
-  envList;   # <- MUST BE LIKE THIS ... DO NOT use `base::return(envList)` !!!
+  renvList;   # <- MUST BE LIKE THIS ... DO NOT use `base::return(envList)` !!!
 }

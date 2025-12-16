@@ -3,7 +3,7 @@
 \docType{data}
 \name{cMFMR}
 \alias{cMFMR}
-\title{The MFMR Suite of R Libraries \if{html}{\out{<list>}} ...}
+\title{Full List of "SuiteMFMR" R Packages}
 \format{
 An object of class \code{environment} of length 7.
 }
@@ -20,9 +20,9 @@ of R Libraries" (aka "SuiteMFMR").
 library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 
 ### ... then easily extract the "SuiteMFMR" R Library IDs as follows ...
-cMFMR$UTILS   # -> extracts the 'Utils' MFMR R Library Identifier !!!
-cMFMR$PLOTS   # -> extracts the 'Plots' MFMR R Library Identifier !!!
-cMFMR$STATS   # -> extracts the 'Stats' MFMR R Library Identifier !!!
+cMFMR$UTILS   # -> extracts the "Utils" MFMR R Library Identifier !!!
+cMFMR$PLOTS   # -> extracts the "Plots" MFMR R Library Identifier !!!
+cMFMR$STATS   # -> extracts the "Stats" MFMR R Library Identifier !!!
 
 }
 \keyword{datasets}

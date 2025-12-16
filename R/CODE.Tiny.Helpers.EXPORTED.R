@@ -36,18 +36,18 @@
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
-  rasANY    <- base::any;
-  rasIsNA   <- base::is.na;
-  rasLENGTH <- base::length;
-  rasRETURN <- base::return;
-  rasIsNULL <- base::is.null;
+  rasBaseANY    <- base::any;
+  rasBaseIsNA   <- base::is.na;
+  rasBaseLENGTH <- base::length;
+  rasBaseRETURN <- base::return;
+  rasBaseIsNULL <- base::is.null;
   
   
   ####   STEP 03 - Execute MAIN <function> CODE LOGIC   ####
-  if (rasIsNULL(coLHO) || rasLENGTH(coLHO) == 0 || rasANY(rasIsNA(coLHO))) {
-    rasRETURN(coRHO);
+  if (rasBaseIsNULL(coLHO) || rasBaseLENGTH(coLHO) == 0 || rasBaseANY(rasBaseIsNA(coLHO))) {
+    rasBaseRETURN(coRHO);
   } else {
-    rasRETURN(coLHO);
+    rasBaseRETURN(coLHO);
   }
   
 }

@@ -13,13 +13,13 @@ code.append.text.to.file(
 )
 }
 \arguments{
-\item{ssFilePath}{a charater vector (string/text) that defines the path where the file that needs
-to be appended to is located on the local directory.}
+\item{ssFilePath}{a character vector (string) that defines the path where the file that needs to
+be appended to is located on the local directory.}
 
-\item{ssFileID}{a charater vector (string/text) that defines the file name (i.e. file identifier),
-inclusive of the file extension) of the file that needs to be appended to.}
+\item{ssFileID}{a character vector (string) that defines the file name (i.e. file ID), inclusive
+of the file extension), of the file that needs to be appended to.}
 
-\item{ssAppendText}{a charater vector (string) that defines the actual text (i.e. the character
+\item{ssAppendText}{a character vector (string) that defines the actual text (i.e. the character
 vector or string) to be appended to the specified file.}
 
 \item{sbMultiAppend}{a logical (boolean) function argument that specifies whether multiple append
@@ -40,13 +40,25 @@ to aide the "SuiteMFMR" R Library Developer Process (as part of the R Project in
 is a standalone function and as such can also be used in (and by) other (3rd Party) R Projects.
 }
 \examples{
-### Use the Null-Coalescing Operator (NCO) as follows: ...
+### Use the File-Text Append Function as follows: ...
 library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 
-### Then apply the NCO accordingly ...
-NULL \%??\% "Default"                    # -> returns "Default" !!!
-"ACTual" \%??\% "DEFault"                # -> returns "ACTual" !!!
-NULL \%??\% NULL \%??\% "FINal"            # -> returns "FINal" !!!
-NULL \%??\% "PENULTimate" \%??\% "FINal"   # -> returns "PENULTimate" !!!
+### Then apply function accordingly ...
+# Prime Function Arguments ...
+sbMultiAppend_ <- TRUE
+sbPostPend_    <- FALSE
+ssFileID_      <- "File_for_Appending.txt"
+ssAppendText_  <- "Text to APPEND to File !!!"
+ssFilePath_    <- "~/path/to/file/for/text/appending"
+
+# Apply Function (provide arguments to function & execute function) ...
+code.append.text.to.file(
+  ssFilePath = ssFilePath_,         # <- Full Path to File (to which text should be appended) ...
+  ssFileID = ssFileID_,             # <- File name (File ID) -> must include file extension !!!
+  ssAppendText = ssAppendText_,     # <- Text to be appended to file ...
+  sbMultiAppend = sbMultiAppend_,   # <- `TRUE` -> append text even if it already exists in file.
+  sbPostPend = sbPostPend_          # <- `FALSE` -> append text to START of file.
+)                    
+
 
 }

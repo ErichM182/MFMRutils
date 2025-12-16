@@ -7,11 +7,11 @@
 #' to aide the "SuiteMFMR" R Library Developer Process (as part of the R Project init-phase). This
 #' is a standalone function and as such can also be used in (and by) other (3rd Party) R Projects.
 #'
-#' @param ssFilePath a charater vector (string/text) that defines the path where the file that needs
-#'                   to be appended to is located on the local directory.
-#' @param ssFileID a charater vector (string/text) that defines the file name (i.e. file identifier), 
-#'                 inclusive of the file extension) of the file that needs to be appended to.
-#' @param ssAppendText a charater vector (string) that defines the actual text (i.e. the character 
+#' @param ssFilePath a character vector (string) that defines the path where the file that needs to
+#'                   be appended to is located on the local directory.
+#' @param ssFileID a character vector (string) that defines the file name (i.e. file ID), inclusive
+#'                 of the file extension), of the file that needs to be appended to.
+#' @param ssAppendText a character vector (string) that defines the actual text (i.e. the character 
 #'                     vector or string) to be appended to the specified file.
 #' @param sbMultiAppend a logical (boolean) function argument that specifies whether multiple append
 #'                      actions are permitted (to the specified file) or not. When set to FALSE the 
@@ -27,14 +27,26 @@
 #                    start of the existing content. 
 #'
 #' @examples
-#' ### Use the Null-Coalescing Operator (NCO) as follows: ...
+#' ### Use the File-Text Append Function as follows: ...
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 #'
-#' ### Then apply the NCO accordingly ...
-#' NULL %??% "Default"                    # -> returns "Default" !!!
-#' "ACTual" %??% "DEFault"                # -> returns "ACTual" !!!
-#' NULL %??% NULL %??% "FINal"            # -> returns "FINal" !!!
-#' NULL %??% "PENULTimate" %??% "FINal"   # -> returns "PENULTimate" !!!
+#' ### Then apply function accordingly ...
+#' # Prime Function Arguments ...
+#' sbMultiAppend_ <- TRUE
+#' sbPostPend_    <- FALSE
+#' ssFileID_      <- "File_for_Appending.txt"
+#' ssAppendText_  <- "Text to APPEND to File !!!"
+#' ssFilePath_    <- "~/path/to/file/for/text/appending"
+#' 
+#' # Apply Function (provide arguments to function & execute function) ...
+#' code.append.text.to.file(
+#'   ssFilePath = ssFilePath_,         # <- Full Path to File (to which text should be appended) ...
+#'   ssFileID = ssFileID_,             # <- File name (File ID) -> must include file extension !!!
+#'   ssAppendText = ssAppendText_,     # <- Text to be appended to file ...
+#'   sbMultiAppend = sbMultiAppend_,   # <- `TRUE` -> append text even if it already exists in file.
+#'   sbPostPend = sbPostPend_          # <- `FALSE` -> append text to START of file.
+#' )                    
+#' 
 #'
 #' @export
 #? ### ### ###
@@ -56,10 +68,12 @@ code.append.text.to.file <- function(
   rasBaseCAT        <- base::cat;
   rasBaseANY        <- base::any;
   rasBaseGREP       <- base::grep;
+  rasBaseNCHAR      <- base::nchar;
   rasBaseLENGTH     <- base::length;
   rasBaseRETURN     <- base::return;
   rasBaseIfELSE     <- base::ifelse;
   rasBasePASTE0     <- base::paste0;
+  rasBaseSubSTR     <- base::substr;
   rasBaseReadLINES  <- base::readLines;
   rasBaseFilePATH   <- base::file.path;
   rasBaseCHARACTER  <- base::character;
@@ -81,6 +95,21 @@ code.append.text.to.file <- function(
   
   ####   STEP 04 - Create DIRECTORY & FILE IF-NOT-EXISTS   ####
   rsbIsNewlyCreatedFile_ <- FALSE;
+  rssTermCharPATH_ <- rasBaseSubSTR(   # <- Extract terminal (last) character of the PATH string.
+    x = rssFilePath_, 
+    start = rasBaseNCHAR(rssFilePath_),
+    stop = rasBaseNCHAR(rssFilePath_)
+  );
+  
+  ### Ensure the PATH string is correctly formatted (i.e. DOES NOT END with a "/" character) !!!
+  if (rssTermCharPATH_ == "/") {
+    rssFilePath_ <- rasBaseSubSTR(   # <- Cut off the last character ("/") of the PATH string.
+      x = rssFilePath_, 
+      start = rasBaseNCHAR(rssFilePath_),
+      stop = rasBaseNCHAR(rssFilePath_) - 1
+    );
+  }
+  
   rssFullPathFile_ <- rasBaseFilePATH(rssFilePath_, rssFileID_);
   if (!rasBaseFileEXISTS(rssFullPathFile_)) {   # <- If TRUE -> then file DOES NOT EXIST !!!
     
