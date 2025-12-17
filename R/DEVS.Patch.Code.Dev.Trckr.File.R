@@ -86,7 +86,7 @@
   `%??%`                  <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrPatchLibrVersNUM <- devs.patch.libr.vers.number;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
-  rasMfmrReturnLockedLIST <- MFMRutils::code.return.env.locked.list;
+  rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   rasStringrStrEXTRACT <- stringr::str_extract;
   

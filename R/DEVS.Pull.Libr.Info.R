@@ -51,7 +51,7 @@
   rasBaseFilePATH   <- base::file.path;
   rasDescGetFIELD   <- desc::desc_get_field;
   
-  rasMfmrRetEnvLckdLIST <- MFMRutils::code.return.env.locked.list;
+  rasMfmrRetEnvLckdLIST <- MFMRutils::code.return.renv.locked.list;
   
   
   

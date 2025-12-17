@@ -47,7 +47,7 @@
   rasBaseLENGTH           <- base::length;
   rasBaseRETURN           <- base::return;
   rasBaseAsNUMERIC        <- base::as.numeric;
-  rasMfmrReturnLockedLIST <- MFMRutils::code.return.env.locked.list;
+  rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   
   ####   STEP 03 - Internalize Function Arguments   ####

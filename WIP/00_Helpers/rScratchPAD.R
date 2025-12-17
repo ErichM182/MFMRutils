@@ -1,7 +1,15 @@
 
 
-rvsPathVectV01_ <- c(".", "rProjFiles", "rData", "RAW", "InputDATA.txt");             # CLEAN Vector
-rvsPathVectV02_ <- c("./", "\\rProjFiles/", "/rData/", "/RAW", "\\TestDATA.txt\\");   # MESSY Vector
+rvsPathVectCLEAN_ <- c(".", "rProjFiles", "rData", "InputDATA.txt");             # CLEAN Vector
+rvsPathVectMESSY_ <- c("./", "\\rProjFiles/", "/rData/", "\\TestDATA.txt\\");   # MESSY Vector
+
+rssDelimSTR_ <- paste0(
+  rvsPathVectCLEAN_, collapse = "‡≡‡"
+); rssDelimSTR_
+
+strsplit(
+  x = rssDelimSTR_, split = "‡≡‡"
+)
 
 
 rssPathCleanV00_ <- MFMRutils::code.clean.file.path(
@@ -15,6 +23,31 @@ rssPathCleanV01_ <- MFMRutils::code.clean.file.path(
 rssPathCleanV02_ <- MFMRutils::code.clean.file.path(
   vsPathVector = rvsPathVectV02_
 ); rssPathCleanV02_
+
+
+RCT_REGEX_CHARS_[["\\"]]
+"\\" %in% names(RCT_REGEX_CHARS_)
+
+
+ssStrToSplit_ = "A-CRAZY//TEST\\String?for the?!'MFMRutils::split.string.via.vector()'_function!"
+vsSplitVector_ = c("//", "_", "-", "?", " ", "!")
+
+base::strsplit(
+  x = ssStrToSplit_, split = "\\"
+)
+
+base::strsplit(
+  x = ssStrToSplit_, split = "\\?"
+)
+
+base::strsplit(
+  x = ssStrToSplit_, split = "/"
+)
+
+
+base::strsplit(
+  x = ssStrToSplit_, split = vsSplitVector_
+)
 
 
 nchar(rvsIterVECT_[1])

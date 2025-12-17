@@ -19,10 +19,12 @@
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 #'
 #' ### Then apply the NCO accordingly ...
-#' NULL %??% "DeFAULT"                    # -> returns "Default" !!!
-#' "ACTual" %??% "DEFault"                # -> returns "ACTual" !!!
-#' NULL %??% NULL %??% "FINal"            # -> returns "FINal" !!!
-#' NULL %??% "PENULTimate" %??% "FINal"   # -> returns "PENULTimate" !!!
+#' # Use Strings as File Paths (i.e. as R Project Directory Inputs) ...
+#' 
+#' 
+#' # Use Vectors as File Paths (i.e. as R Project Directory Inputs) ...
+#' vsPathCLEAN_ <- c(".", "rProjFiles", "rData", "InputDATA.txt");            # <- CLEAN Vector
+#' vsPathMESSY_ <- c("./", "\\rProjFiles/", "/rData/", "\\TestDATA.txt\\");   # <- MESSY Vector
 #'
 #' @export
 #? ### ### ###
@@ -135,7 +137,7 @@ code.clean.file.path <- function(
     
   } else {
     
-    ### 4.3.1a - Extract terminal (last) character of the PATH string ...
+    ### 4.3.2a - Split PATH String into its constituent parts ...
     rssTermCharPATH_ <- rasBaseSubSTR(
       x = rssPathString_, start = rasBaseNCHAR(rssPathString_), stop = rasBaseNCHAR(rssPathString_)
     );
