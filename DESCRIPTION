@@ -1,9 +1,9 @@
 Package: MFMRutils
-Title: Utility Package for MFMR Suite of R Libraries
+Title: Utility Package for the MFMR Suite of R Libraries
 Description: Package comprising multiple standalone R functions; enumerated R data objects (enums);
              environment-locked R lists, R constants, etc. that support the larger MFMR Suite of R
              Libraries (hosted under the R meta tag "SuiteMFMR").
-Version: 0.0.0.029
+Version: 0.0.0.034
 BugReports: https://github.com/swat-grn-mfmr/MFMRutils/issues
 Authors@R:
   person(

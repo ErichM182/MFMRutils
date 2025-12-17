@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Sanitize String and Vector File Paths
-#' @name code.patch.file.path
+#' @name code.clean.file.path
 #' 
 #' @description
 #' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
@@ -8,10 +8,10 @@
 #' Object is NULL (in terms of its value or length or class <data type>) and returns
 #' the "Right-Hand" R Object if the "Left-Hand" Object is <indeed> NULL.
 #'
-#' @param coLHO a dynamic (complex) object that captures the "Left-Hand" R Object
+#' @param ssPathString a dynamic (complex) object that captures the "Left-Hand" R Object
 #'              to be evaluated against the "NULL Criteria" (i.e. by way of value, 
 #'              length or class <data type> NULL Checks).
-#' @param coRHO a dynamic (complex) object that captures the "Right-Hand" R Object
+#' @param vsPathVector a dynamic (complex) object that captures the "Right-Hand" R Object
 #'              (to be returned if the "Left-Hand" R Object is NULL).
 #'
 #' @examples
@@ -26,7 +26,7 @@
 #'
 #' @export
 #? ### ### ###
-code.patch.file.path <- function(
+code.clean.file.path <- function(
   ssPathString=NULL, vsPathVector=NULL
 ) {
   
@@ -35,7 +35,7 @@ code.patch.file.path <- function(
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();         # <- Captures <real-time> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";              # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHORT_  <- "Patch.File.Path";        # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_LONG_   <- "CODE.Patch.File.Path";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_LONG_   <- "code.clean.file.path";   # <- Function ID - LONG !!!
   
   
   
@@ -121,16 +121,17 @@ code.patch.file.path <- function(
       ## Clean END of returned Vector Object appropriately ...
       if (rssCharLast_ == "/" || rssCharLast_ == "\\") {
         rssObj_CLEAN_ <- rasBaseSubSTR(
-          x = rssObj_CLEAN_, start = rasBaseNCHAR(rssObj_CLEAN_), 
-          stop = rasBaseNCHAR(rssObj_CLEAN_) - 1
+          x = rssObj_CLEAN_, start = 1, stop = rasBaseNCHAR(rssObj_CLEAN_) - 1
         );
       }
       
       ## Update <active> Vector Item (object) with updated <clean> string value ...
       rvsPathVector_[snINDX] <- rssObj_CLEAN_;
-      rlsPathPIECES_ <- rasBaseAsLIST(rvsPathVector_);
       
     }
+    
+    ### 4.3.1b - Return result in the form of an R List Object ...
+    rlsPathPIECES_ <- rasBaseAsLIST(rvsPathVector_);
     
   } else {
     

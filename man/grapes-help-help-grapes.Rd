@@ -25,9 +25,10 @@ the "Right-Hand" R Object if the "Left-Hand" Object is \if{html}{\out{<indeed>}}
 library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 
 ### Then apply the NCO accordingly ...
-NULL \%??\% "Default"                    # -> returns "Default" !!!
-"ACTual" \%??\% "DEFault"                # -> returns "ACTual" !!!
-NULL \%??\% NULL \%??\% "FINal"            # -> returns "FINal" !!!
-NULL \%??\% "PENULTimate" \%??\% "FINal"   # -> returns "PENULTimate" !!!
+NULL \%??\% "DeFAULT"            # -> returns "DeFAULT" !!!
+"ACTual" \%??\% "DEFault"        # -> returns "ACTual" !!!
+NULL \%??\% NULL \%??\% 1982       # -> returns 1982 !!!
+NULL \%??\% FALSE \%??\% "FINal"   # -> returns FALSE !!!
+"TEST" \%??\% NULL \%??\% TRUE     # -> returns "TEST" !!!
 
 }
