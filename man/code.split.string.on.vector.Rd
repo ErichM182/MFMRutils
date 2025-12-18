@@ -2,7 +2,7 @@
 % Please edit documentation in R/CODE.Split.String.On.Vector.R
 \name{code.split.string.on.vector}
 \alias{code.split.string.on.vector}
-\title{Split String on Basis of Vector Objects}
+\title{Split String on Basis of Vector Elements}
 \usage{
 code.split.string.on.vector(
   ssSplitString = NULL,
@@ -11,7 +11,7 @@ code.split.string.on.vector(
 )
 }
 \arguments{
-\item{ssSplitString}{(\link{character}) The function argument that supplies the string or text (to be
+\item{ssSplitString}{(\link{character}) A function argument that supplies the string or text (to be
 cut up into its constituent parts) to the internal code of this function.}
 
 \item{vsSplitVector}{(\link{vector} of \link{character}s) A vector of characters (strings) that defines the

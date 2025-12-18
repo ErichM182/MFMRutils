@@ -2,33 +2,90 @@
 #' @title Sanitize String and Vector File Paths
 #' @name code.clean.file.path
 #' 
+#' 
+#' 
 #' @description
-#' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
-#' the DART Programming Language. The operator evaluates whether the "Left-Hand" R
-#' Object is NULL (in terms of its value or length or class <data type>) and returns
-#' the "Right-Hand" R Object if the "Left-Hand" Object is <indeed> NULL.
+#' Easily standardize R Project File Paths (directories) with the use of this "SuiteMFMR" function.
+#' This function employs the base R file path function (i.e. `base::file.path()`) under the hood and 
+#' can handle R Project File Paths defined in the String and Vector formats/constructs.
 #'
-#' @param ssPathString a dynamic (complex) object that captures the "Left-Hand" R Object
-#'              to be evaluated against the "NULL Criteria" (i.e. by way of value, 
-#'              length or class <data type> NULL Checks).
-#' @param vsPathVector a dynamic (complex) object that captures the "Right-Hand" R Object
-#'              (to be returned if the "Left-Hand" R Object is NULL).
+#'
+#'
+#' @param ssPathString ([character]) A string value containing the File Path (i.e. local directory
+#'                     text value) that needs to be sanitized (standardized) by this function.
+#' @param vsPathVector ([vector] of [character]s) A character vector containing the File Path (i.e. 
+#'                     local directory text value) that needs to be sanitized (standardized) by 
+#'                     this function.
+#'
+#'
 #'
 #' @examples
-#' ### Use the Null-Coalescing Operator (NCO) as follows: ...
+#' ### Use the "Path-Cleaning" Function as follows: ...
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
-#'
-#' ### Then apply the NCO accordingly ...
-#' # Use Strings as File Paths (i.e. as R Project Directory Inputs) ...
 #' 
 #' 
-#' # Use Vectors as File Paths (i.e. as R Project Directory Inputs) ...
-#' vsPathCLEAN_ <- c(".", "rProjFiles", "rData", "InputDATA.txt");            # <- CLEAN Vector
-#' vsPathMESSY_ <- c("./", "\\rProjFiles/", "/rData/", "\\TestDATA.txt\\");   # <- MESSY Vector
+#' 
+#' ### OPTION 1 - Run a NULL-ARGs execution of the "Path-Cleaning" Function ...
+#' # NB: If no external values are passed to the function a default file path will be returned !!!
+#' ssPathArgsNULL <- code.clean.file.path()   # <- No external args <values> passed to function ... 
+#' ssPathArgsNULL                             # -> returns a default R Project Path (".") !!!
+#' 
+#' 
+#' 
+#' ### OPTION 2 - Use a STRING to define the File Path (R Project Directory, etc.) ...
+#' # Prime the Function Inputs <arguments> (as needed) ...
+#' ssCleanSTR_ <- "./rProjFiles/rData/TestDATA.csv"          # <- Clean PATH String !!!
+#' ssMessySTR_ <- "./\\rProjFiles//rData/\\TestDATA.csv\\"   # <- Messy PATH String !!!
+#' 
+#' # Run the VECTOR-LOGIC execution of the "Path-Cleaning" Function ...
+#' ssPathCleanSTRING <- MFMRutils::code.clean.file.path(   # <- Executes "STRING" Code Logic ...
+#'   ssPathString = ssCleanSTR_                            # <- CLEAN "PATH String" supplied !!!
+#' ); ssPathCleanSTRING                                    # -> returns clean Path STRING result !!!
+#' 
+#' ssPathMessySTRING <- MFMRutils::code.clean.file.path(   # <- Executes the "STRING" Code Logic ...
+#'   ssPathString = ssMessySTR_                            # <- MESSY "PATH String" supplied !!!
+#' ); ssPathMessySTRING                                    # -> returns clean Path STRING result !!!
+#' 
+#' 
+#' 
+#' ### OPTION 3 - Use a VECTOR to define the File Path (R Project Directory, etc.) ...
+#' # Prime the Function Inputs <arguments> (as needed) ...
+#' vsCleanVEC_ <- c(".", "rProjFiles", "rData", "TestDATA.csv")             # <- Clean PATH Vector.
+#' vsMessyVEC_ <- c("./", "\\rProjFiles/", "/rData/", "\\TestDATA.csv\\")   # <- Messy PATH Vector.
+#' 
+#' # Run the VECTOR-LOGIC execution of the "Path-Cleaning" Function ...
+#' ssPathCleanVECTOR <- MFMRutils::code.clean.file.path(   # <- Executes the "VECTOR" Code Logic ...
+#'   vsPathVector = vsCleanVEC_                            # <- CLEAN "PATH Vector" supplied !!!
+#' ); ssPathCleanVECTOR                                    # -> returns clean Path STRING result !!!
+#' 
+#' ssPathMessyVECTOR <- MFMRutils::code.clean.file.path(   # <- Executes the "VECTOR" Code Logic ...
+#'   vsPathVector = vsMessyVEC_                            # <- MESSY "PATH Vector" supplied !!!
+#' ); ssPathMessyVECTOR                                    # -> returns clean Path STRING result !!!
+#' 
+#' 
+#' 
+#' ### OPTION 4 - Provide BOTH the STRING and VECTOR Function Arguments ...
+#' # NB: When both the String and Vector Function Arguments are supplied as function inputs, the
+#' #     function will use the String argument instead of the Vector argument (i.e. defaults on the  
+#' #     String function argument). 
+#' 
+#' # MESSY Example: run the "Path-Cleaning" Function with both the String & Vector MESSY values ...
+#' ssPathBothArgsMESSY <- MFMRutils::code.clean.file.path(   # <- Executes "BOTH-ARGs" Code Logic...
+#'   vsPathVector = vsMessyVEC_,                             # <- MESSY "PATH Vector" supplied !!!
+#'   ssPathString = ssMessySTR_                              # <- MESSY "PATH String" supplied !!!
+#' ); ssPathBothArgsMESSY                                    # -> returns clean Path STRING result.
+#' 
+#' # CLEAN Example: run the "Path-Cleaning" Function with both the String & Vector CLEAN values ...
+#' ssPathBothArgsCLEAN <- MFMRutils::code.clean.file.path(   # <- Executes "BOTH-ARGs" Code Logic...
+#'   vsPathVector = vsCleanVEC_,                             # <- CLEAN "PATH Vector" supplied !!!
+#'   ssPathString = ssCleanSTR_                              # <- CLEAN "PATH String" supplied !!!
+#' ); ssPathBothArgsCLEAN                                    # -> returns clean Path STRING result.
+#' 
+#' 
 #'
 #' @export
 #? ### ### ###
-code.clean.file.path <- function(
+"code.clean.file.path" <- function(
   ssPathString=NULL, vsPathVector=NULL
 ) {
   
@@ -36,7 +93,7 @@ code.clean.file.path <- function(
   ####   STEP 01 - Define "Function Self-ID" R Objects   ####
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();         # <- Captures <real-time> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";              # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHORT_  <- "Patch.File.Path";        # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_SHORT_  <- "Clean.File.Path";        # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_LONG_   <- "code.clean.file.path";   # <- Function ID - LONG !!!
   
   
@@ -53,12 +110,12 @@ code.clean.file.path <- function(
   rasBaseStrSPLIT <- base::strsplit;
   rasBaseFilePATH <- base::file.path;
   
-  `%??%` <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrSplitOnVECTOR <- MFMRutils::code.split.string.on.vector;
   
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rvsPathVector_  <- vsPathVector;
+  rvsPathVector_ <- vsPathVector;
   rssPathString_ <- ssPathString;
   
   
@@ -66,30 +123,30 @@ code.clean.file.path <- function(
   ####   STEP 04 - Execute MAIN <function> CODE LOGIC   ####
   ####   4.1 - Prime Local <function> Variables & Constants   ####
   rssPathFINAL_    <- NULL;   # <- Character object for capturing the FINAL <output> Path value ...
-  rlsPathPIECES_   <- NULL    # <- Vector used for capturing the Path split string values.
+  rlsPathPIECES_   <- NULL;   # <- Vector used for capturing the Path split string values.
   rsbIsPathVECTOR_ <- TRUE;   # <- Boolean variable to track the state of the function code logic.
   
   
   ####   4.2 - Run Critical NULL Checks (on function arguments)   ####
-  ## Handle scenario where both the `ssPathString` and `vsPathVector` arguments are NULL ...
+  ## Handle scenario where BOTH the `ssPathString` and `vsPathVector` ARGUMENTS are NULL ...
   if (rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathVector_)) {
-    rssPathString_ <- ".";      # <- Assigns <active> R Project Root as the default Path <value> !!!
-    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
+    rssPathString_ <- ".";       # <- Assigns a default Path value !!!
+    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" patching code logic !!!
   }
   
-  ## Handle scenario where both the `ssPathString` and `vsPathVector` arguments are NOT NULL ...
+  ## Handle scenario where BOTH the `ssPathString` and `vsPathVector` ARGUMENTS are NOT NULL ...
   if (!rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathVector_)) {
-    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
+    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" patching code logic !!!
   }
   
   ## Handle scenario where only the `ssPathString` function argument is NOT NULL ...
   if (!rasBaseIsNULL(rssPathString_) && rasBaseIsNULL(rvsPathVector_)) {
-    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" formatting code logic !!!
+    rsbIsPathVECTOR_ <- FALSE;   # <- Tells function to apply the "String" patching code logic !!!
   }
   
   ## Handle scenario where only the `vsPathVector` function argument is NOT NULL ...
   if (rasBaseIsNULL(rssPathString_) && !rasBaseIsNULL(rvsPathVector_)) {
-    rsbIsPathVECTOR_ <- TRUE;   # <- Tells function to apply the "Vector" formatting code logic !!!
+    rsbIsPathVECTOR_ <- TRUE;   # <- Tells function to apply the "Vector" patching code logic !!!
   }
   
   
@@ -138,18 +195,14 @@ code.clean.file.path <- function(
   } else {
     
     ### 4.3.2a - Split PATH String into its constituent parts ...
-    rssTermCharPATH_ <- rasBaseSubSTR(
-      x = rssPathString_, start = rasBaseNCHAR(rssPathString_), stop = rasBaseNCHAR(rssPathString_)
-    );
+    rvsPathUnits_ <- rasMfmrSplitOnVECTOR(
+      ssSplitString = rssPathString_,   # <- Provide the STRING Directory Path <value> ...    
+      vsSplitVector = c("/", "\\"),     # <- Split PATH value on common OS Directory Delimiters ...
+      sbExactSplits = FALSE             # <- Apply RegEx code parsing (if encountered in PATH) !!!
+    )[["SPLITS"]];                      # <- VERY NB -> extracts only the String SPLITs values !!! 
     
-    ### 4.3.1b - Extract terminal (last) character of the PATH string ...
-    if (rssTermCharPATH_ == "/") {
-      # rssFilePath_ <- rasBaseSubSTR(   # <- Cut off the last character ("/") of the PATH string.
-      #   x = rssFilePath_, 
-      #   start = rasBaseNCHAR(rssFilePath_),
-      #   stop = rasBaseNCHAR(rssFilePath_) - 1
-      # );
-    }
+    ### 4.3.2b - Return result in the form of an R List Object ...
+    rlsPathPIECES_ <- rasBaseAsLIST(rvsPathUnits_);
     
   }
   

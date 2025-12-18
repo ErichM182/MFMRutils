@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
-#' @title Split String on Basis of Vector Objects 
+#' @title Split String on Basis of Vector Elements 
 #' @name code.split.string.on.vector
+#' 
 #' 
 #' @description
 #' Effortlessly cut up (split) an R String (i.e. an R character vector) into the required pieces 
@@ -8,7 +9,7 @@
 #' or character values) where the main character vector (String) should be cut up at.
 #'
 #'
-#' @param ssSplitString ([character]) The function argument that supplies the string or text (to be
+#' @param ssSplitString ([character]) A function argument that supplies the string or text (to be
 #'                      cut up into its constituent parts) to the internal code of this function.
 #' @param vsSplitVector ([vector] of [character]s) A vector of characters (strings) that defines the
 #'                      characters (symbols) at which the `ssSplitString` value should be cut up at.
@@ -57,7 +58,7 @@
   ####   STEP 01 - Define "Function Self-ID" R Objects   ####
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();                # <- Captures <active> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";                     # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHORT_  <- "Split.Via.Vector";              # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_SHORT_  <- "Split.On.Vector";               # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_LONG_   <- "code.split.string.on.vector";   # <- Function ID - LONG !!!
   
   
