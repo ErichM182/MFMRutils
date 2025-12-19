@@ -2,11 +2,13 @@
 #' @title Print Self-ID Information for Custom R Functions
 #' @name info.post.func.self.id
 #' 
+#' 
 #' @description
 #' A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type, 
 #' caller, run-time duration etc.) information of a custom R function. This custom function was 
 #' intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone 
 #' function in other (i.e. 3rd Party) R packages.
+#'
 #'
 #' @param ssProjID a character (string) identifier of the R Project <script>
 #'                 file that called the custom R function execution.
@@ -61,9 +63,11 @@
 #' @param sbRunSelfID a logical (boolean) value that defines whether the SELF-ID
 #'                    procedure should be executed (TRUE) or not (FALSE). 
 #'
+#'
 #' @returns This function returns a single <abbreviated> character value that
 #'          classifies five sizes (or classes) of custom R functions: ...
 #'          * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
+#'
 #'
 #' @examples
 #' ### Run Self-Identification (Self-ID) on your Custom R Function as follows:
@@ -77,14 +81,15 @@
 #'  siFuncMode01 = 1L
 #' )
 #'
+#'
 #' @export
 #? ### ### ###
 "info.post.func.self.id" <- function(
-  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, 
-  csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
-  csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
-  csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, siStopCELN=NULL,
-  siStartCELN=NULL, csColorMainText=NULL, sbPrintPretty=NULL, sbRunSelfID=FALSE
+  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, csIconCarat=NULL, 
+  csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL, csTimeStart=NULL, csTimeStop=NULL, 
+  csFormatDT=NULL, csColorTimeStamp=NULL, csColorProjID=NULL, csColorFuncType=NULL, 
+  csColorCallerID=NULL, siStopCELN=NULL, siStartCELN=NULL, csColorMainText=NULL, 
+  sbPrintPretty=NULL, sbRunSelfID=FALSE
 ) {
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####

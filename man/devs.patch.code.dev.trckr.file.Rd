@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEVS.Patch.Code.Dev.Trckr.File.R
 \name{devs.patch.code.dev.trckr.file}
 \alias{devs.patch.code.dev.trckr.file}
-\title{R Code Development Tracker File Updater ("SuiteMFMR" DevTools)}
+\title{Update the R Code Development Tracker File ("SuiteMFMR" DevTools)}
 \usage{
 devs.patch.code.dev.trckr.file(sbIsProdRel = FALSE, sbAudioNote = FALSE)
 }
@@ -43,5 +43,6 @@ devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation
                                    #    Process.
                                    
 }
+
 
 }

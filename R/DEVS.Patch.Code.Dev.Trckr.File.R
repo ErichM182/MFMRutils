@@ -11,11 +11,11 @@
 #' found in the default project directory (i.e. "./WIP/" project folder).
 #'
 #'
-#' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
+#' @param sbIsProdRel ([logical]) A boolean value that defines if the code-check and/or code commit
 #'                    process (action) is a "Production Release" action or not.
-#' @param sbAudioNote a logical (boolean) value that specifies whether an audio notification should
-#'                    be played at the completion of this function (i.e. upon successful patching or
-#'                    updating of the "Active Development Information Tracker File").
+#' @param sbAudioNote ([logical]) A boolean value that specifies whether an audio notification 
+#'                    should be played at the completion of this function (i.e. upon successful 
+#'                    patching or updating of the "Active Development Information Tracker File").
 #'
 #'
 #' @returns
