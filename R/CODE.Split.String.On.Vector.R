@@ -4,9 +4,9 @@
 #' 
 #' 
 #' @description
-#' Effortlessly cut up (split) an R String (i.e. an R character vector) into the required pieces 
-#' (snippets) with the help of a second character vector that specifies the locations (i.e. symbols 
-#' or character values) where the main character vector (String) should be cut up at.
+#' Effortlessly split (cut up or snip) an R String (i.e. an R character vector) into the required 
+#' pieces (snippets) with the help of a second character vector that specifies the locations (i.e. 
+#' symbols or character values) where the main character vector (String) should be cut up at.
 #'
 #'
 #' @param ssSplitString ([character]) A function argument that supplies the string or text (to be
@@ -73,14 +73,15 @@
   rasBaseRETURN   <- base::return;
   rasBaseStrSPLIT <- base::strsplit;
   
+  `%??%`             <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrRetRenvLIST <- MFMRutils::code.return.renv.locked.list;
   
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rssSplitString_ <- ssSplitString;
-  rvsSplitVector_ <- vsSplitVector;
   rsbExactSplits_ <- sbExactSplits;
+  rvsSplitVector_ <- vsSplitVector %??% c(" ");
+  rssSplitString_ <- ssSplitString %??% "NULL-ERROR -> You DID NOT Provide a SPLIT STRING Value !!!"
   
   
   
@@ -172,11 +173,10 @@
   
   
   ####   STEP 05 - Return RESULT to Function CALL   ####
-  rasMfmrRetRenvLIST(
-    vsListNames = c("SPLITS", "STRING"),
-    lsListVals = rasBaseLIST(
-      rvsVectOUT_,                    # <- The String Splits (parts of the split string) ...
-      rasBasePASTE0(
+  rasBaseRETURN(
+    rasBaseLIST(
+      "SPLITS" = rvsVectOUT_,         # <- The String Splits (parts of the split string) ...
+      "STRING" = rasBasePASTE0(
         rvsVectOUT_, collapse = " "   # <- Compiles a clean String from the split parts ...
       )
     )

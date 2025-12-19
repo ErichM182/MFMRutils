@@ -23,9 +23,9 @@ exactly (i.e. as is -> on their base or literal character symbolization), or
 else the function applies the \code{vsSplitVector} values as regular expressions.}
 }
 \description{
-Effortlessly cut up (split) an R String (i.e. an R character vector) into the required pieces
-(snippets) with the help of a second character vector that specifies the locations (i.e. symbols
-or character values) where the main character vector (String) should be cut up at.
+Effortlessly split (cut up or snip) an R String (i.e. an R character vector) into the required
+pieces (snippets) with the help of a second character vector that specifies the locations (i.e.
+symbols or character values) where the main character vector (String) should be cut up at.
 }
 \examples{
 ### Use the "Vector-Splitting" Function as follows: ...

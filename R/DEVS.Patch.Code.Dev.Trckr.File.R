@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
-#' @title R Code Development Tracker File Updater ("SuiteMFMR" DevTools)
+#' @title Update the R Code Development Tracker File ("SuiteMFMR" DevTools)
 #' @name devs.patch.code.dev.trckr.file
+#' 
 #' 
 #' @description
 #' A Helper Function that updates important information inside the "Active Development Information
@@ -9,16 +10,19 @@
 #' Tracker File" will be programmatically initialized (created) by this helper function if not 
 #' found in the default project directory (i.e. "./WIP/" project folder).
 #'
+#'
 #' @param sbIsProdRel a logical (boolean) value that captures if the code-check and/or code commit
 #'                    process (action) is a "Production Release" action or not.
 #' @param sbAudioNote a logical (boolean) value that specifies whether an audio notification should
 #'                    be played at the completion of this function (i.e. upon successful patching or
 #'                    updating of the "Active Development Information Tracker File").
 #'
+#'
 #' @returns
 #' * This function programmatically amends <patches or updates> the active (i.e. regent) R Library
 #'   Project's Code Development Tracking Information (i.e. tracker file) for code versioning and
 #'   project (i.e. library code) development tracking purposes.
+#'
 #'
 #' @examples
 #' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
@@ -35,6 +39,7 @@
 #'                                    #    Process.
 #'                                    
 #'}
+#'
 #'
 #' @export
 #? ### ### ###
@@ -86,6 +91,7 @@
   `%??%`                  <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrPatchLibrVersNUM <- devs.patch.libr.vers.number;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrAppendToFILE     <- MFMRutils::code.append.text.to.file;
   rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   rasStringrStrEXTRACT <- stringr::str_extract;
@@ -102,20 +108,41 @@
   
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
   rsbIsNewActDevTRCKR_ <- FALSE;
+  RCT_PATH_FILE_R_BUILD_IGNORE_     <- rasMfmrCONSTS$PATH_TO_FILE_R_BUILD_IGNORE;
   RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_ <- rasMfmrCONSTS$PATH_TO_FILE_ACT_DEV_INFO_TRCKR;
   if (!rasBaseFileEXISTS(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_)) {   # <- Checks if FILE DOES NOT EXIST.
     
     ### 4.1 - Create the "./WIP" directory (if not already exists) ...
     rasBaseDirCREATE(
-      path = rasMfmrCONSTS$PATH_TO_FOLDER_WIP, recursive = T, showWarnings = F
+      recursive = T, showWarnings = F,
+      path = rasMfmrCONSTS$PATH_TO_FOLDER_WIP
     );
     
     ### 4.2 - Create the "00_ACT_DEV_TRCKR.txt" Code Development TRACKER File ...
     rsbIsNewActDevTRCKR_ <- TRUE;   # <- Save confirmation that TRACKER FILE was newly created !!!
     rasBaseFileCREATE(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_);   # -> Creates the required file ...
     
-    ### 4.3 - Patch the ".RBuildignore" File to exclude the "./WIP" Directory + Contents ...
-    
+    ### 4.3 - Patch the ".Rbuildignore" File to exclude the "./WIP" Directory + Contents ...
+    rssPathProjROOT_ <- "."; rssFileID_BUILD_IGNORE_ <- ".Rbuildignore";
+    if (!rasBaseFileEXISTS(RCT_PATH_FILE_R_BUILD_IGNORE_)) {
+      
+      ### 4.3.1 - Create the "./.Rbuildignore" File (since it does NOT ALREADY EXIST) ...
+      rasBaseFileCREATE(RCT_PATH_FILE_R_BUILD_IGNORE_);   # -> Creates the required file ...
+      
+      ### ### 4.3.2 - Add the DEFAULT Text Stubs to the "./.Rbuildignore" File ...
+      ### rasMfmrAppendToFILE(
+      ###   ssFilePath = rssPathProjROOT_,
+      ###   ssFileID = rssFileID_BUILD_IGNORE_, 
+      ###   sbMultiAppend = FALSE, sbPostPend = TRUE,
+      ###   ssAppendText = "^.*\.Rproj$ \n ^\.Rproj\.user$"   # <- Add 2 STANDARD Text Stubs !!!
+      ### );
+    }
+    rasMfmrAppendToFILE(
+      ssAppendText = "^WIP$",                    # <- Add the "^WIP$" Text Stub !!!
+      ssFilePath = rssPathProjROOT_,
+      ssFileID = rssFileID_BUILD_IGNORE_, 
+      sbMultiAppend = FALSE, sbPostPend = TRUE
+    );
     
   }
   
@@ -129,6 +156,7 @@
   RCT_SYS_DATE_TIME_NOW_         <- rasBaseSysTimeNOW();
   RCT_FORMAT_TIME_DEV_03_        <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V03;
   RCT_FILE_R_PKG_DESC_           <- rasMfmrCONSTS$PATH_TO_FILE_R_PACKAGE_DESC;
+  
   RCT_REGENT_R_LIB_DESC_INFO_    <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);
   RCT_REGENT_R_LIB_ID_           <- RCT_REGENT_R_LIB_DESC_INFO_[["NAME"]];
   RCT_REGENT_R_LIB_VERS_         <- RCT_REGENT_R_LIB_DESC_INFO_[["VERSION"]];
@@ -139,7 +167,7 @@
   );
   
   #### Update the Code Version stubs accordingly ... 
-  ## NOTE: Full <debug> Code Version Form -> "STABLE.BETA.ALPHA.DEV" == "0.0.1.001" !!!
+  ## NOTE: Full <debug> Code Version Form -> "STABLE.BETA.ALPHA.DEV" == "0.0.1.01" !!!
   ##       Production Version Form -> "STABLE.BETA.ALPHA" == "0.0.1" !!!
   rvsLibrVersPartsCRAN_ <- c(-999, -999, -999, -999);
   if (rsbIsProdRel_ || rsbIsNewActDevTRCKR_) {   # <- Action == PRODUCTION CODE ACTION (Code Check 
@@ -295,7 +323,7 @@
   }
   
   ### Compile information on the list of dependencies ...
-  rvsLibrSplitDEPs_ <- rasBaseStrSPLIT(MFMRutils::devs.pull.libr.info()[["DEPENDENCIES"]], ", ");
+  rvsLibrSplitDEPs_ <- rasBaseStrSPLIT(rasMfmrPullLibrINFO()[["DEPENDENCIES"]], ", ");
   rssLibrDepsLIST_ <- NULL;   # <- Compile a list of 3rd Party Dependencies for this R-Library !!!
   for (libr in rvsLibrSplitDEPs_[[1]]) {
     rssLibrDepsLIST_ <- rasBasePASTE0(
