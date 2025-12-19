@@ -124,7 +124,7 @@
   ####   STEP 05 - COMPILE Important CODE VERSIONING INFO   ####
   rsnVersStubDEBUG_ <- 0; rsnVersStubBETA_   <- 0;
   rsnVersStubALPHA_ <- 0; rsnVersStubSTABLE_ <- 0;
-  rssVersNewDEVS_ <- "0.0.0.001"; rssVersNewPROD_ <- "0.0.1"; 
+  rssVersNewDEVS_ <- "0.0.0.01"; rssVersNewPROD_ <- "0.0.1"; 
   
   RCT_SYS_DATE_TIME_NOW_         <- rasBaseSysTimeNOW();
   RCT_FORMAT_TIME_DEV_03_        <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V03;
@@ -313,7 +313,7 @@
   );
   rssVersNewDEVS_ <- rasBasePASTE0(
     rsnVersStubSTABLE_, ".", rsnVersStubBETA_, ".", rsnVersStubALPHA_, ".",
-    rasBaseSPRINTF(fmt = "%03d", rsnVersStubDEBUG_)
+    rasBaseSPRINTF(fmt = "%02d", rsnVersStubDEBUG_)   # <- Ensure text is formatted as 2 digits !!!
   );
   rcoCodePushDateTIME_ <- rasBaseFORMAT(RCT_SYS_DATE_TIME_NOW_, RCT_FORMAT_TIME_DEV_03_);
   
@@ -328,7 +328,7 @@
     '> R-Library (Project ID): `', RCT_REGENT_R_LIB_ID_, '` \n',
     "> Code Push TYPE  ==>  ", RCT_CODE_PUSH_TYPE_, "\n",
     "> Code Push TIME  ==>  ", rcoCodePushDateTIME_, "\n",
-    "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "      (prod-release)", "\n",
+    "> Code Push PRODUCTION VERSION #  ==>  ", rssVersNewPROD_, "     (prod-release)", "\n",
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_02_ <- rasBasePASTE0(

@@ -20,7 +20,7 @@
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
 #'
 #' ### Run 2 different types of code check/validation processes ...
-#' rvsVersNumVect_ <- c("1", "2", "8", "999")
+#' rvsVersNumVect_ <- c("1", "2", "8", "99")
 #' rlsLibrVers <- devs.patch.libr.vers.number(rvsVersNumVect_)   # -> Patches (updates) the library
 #'                                                               #    <code commit> version number
 #'                                                               #    accordingly ...
@@ -33,7 +33,7 @@
 #' @keywords internal
 #' @noRd
 #? ### ### ###
-"devs.patch.libr.vers.number" <- function(rvsVersNumVect=c("0", "0", "0", "001")) {
+"devs.patch.libr.vers.number" <- function(rvsVersNumVect=c("0", "0", "0", "01")) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                     # <- R Library Identifier !!!
@@ -47,6 +47,7 @@
   rasBaseLENGTH           <- base::length;
   rasBaseRETURN           <- base::return;
   rasBaseAsNUMERIC        <- base::as.numeric;
+  
   rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   
@@ -108,7 +109,7 @@
     
     ####   STEP 6.2 - Update the "DEBUG" Version Stub (always)   ####
     rsnVersDevsDEBUG_ <- rsnVersDevsDEBUG_ + 1;
-    if (rsnVersDevsDEBUG_ >= 1000) {   # <- The MAX Level for "DEBUG" stubs is 999 !!!
+    if (rsnVersDevsDEBUG_ >= 100) {   # <- The MAX Level for "DEBUG" stubs is 999 !!!
       
       ####   STEP 6.2.1a - Reset the "DEBUG" Version Stub to ZERO   ####
       rsnVersDevsDEBUG_ <- 0;
