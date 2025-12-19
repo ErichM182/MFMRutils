@@ -1,19 +1,21 @@
 Package: MFMRutils
-Title: Utility Package for the MFMR Suite of R Libraries ("SuiteMFMR")
-Description: A package comprising multiple standalone helper functions that 
-             support the larger MFMR Suite of R Libraries.
-Version: 0.0.0.028
+Title: Utility Package for the MFMR Suite of R Libraries
+Description: Package comprising multiple standalone R functions; enumerated R data objects (enums);
+             environment-locked R lists, R constants, etc. that support the larger MFMR Suite of R
+             Libraries (hosted under the R meta tag "SuiteMFMR").
+Version: 0.0.0.72
 BugReports: https://github.com/swat-grn-mfmr/MFMRutils/issues
 Authors@R:
   person(
-    given = "Erich", family = "MALETZKY", 
-    role = c("aut", "cre"), email = "esmaletzky@gmail.com"
+    role  = c("aut", "cre"),
+    email = "esmaletzky@gmail.com",
+    given = "Erich", family = "MALETZKY"
   )
-License: MIT + file LICENSE
-Encoding: UTF-8
 LazyData: true
-Roxygen: list(markdown = TRUE)
+Encoding: UTF-8
 RoxygenNote: 7.3.3
+License: MIT + file LICENSE
+Roxygen: list(markdown = TRUE)
 Imports:
     beepr,
     desc,

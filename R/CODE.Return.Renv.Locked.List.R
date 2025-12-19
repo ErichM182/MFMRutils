@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile Environment Locked R Lists
-#' @name code.return.env.locked.list
+#' @name code.return.renv.locked.list
 #' 
 #' @description
 #' A relatively small R function that compiles and returns R Environment Locked lists.
@@ -34,7 +34,7 @@
 #' 
 #' 
 #' ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ... 
-#' rlsEnvLockdLIST <- code.return.env.locked.list(
+#' rlsEnvLockdLIST <- code.return.renv.locked.list(
 #'   vsListNames = vsListNames_, lsListVals = lsListVals_, 
 #'   sbLockList = TRUE   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
 #' )
@@ -45,7 +45,8 @@
 #' 
 #' \dontrun{   ### <- Code below does an "immutability" check (to ensure the custom function works
 #'             ###    as intended) -> but this code creates a variable write error under the normal
-#'             ###    "R_CMD_CHECK" scenario and as such should not be run during normal code check.
+#'             ###    "R_CMD_CHECK" scenario and as such should not be run during normal R library
+#'             ###    development code check procedures.
 #' ## Immutability test (OPTION 1 test) ...
 #' rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Will trigger an error !!!
 #' 
@@ -54,7 +55,7 @@
 #' 
 #'  
 #' ### Function-use OPTION 2 (secondary purpose) -> Create Mutable R List Objects ... 
-#' rlsEnvLockdLIST <- code.return.env.locked.list(
+#' rlsEnvLockdLIST <- code.return.renv.locked.list(
 #'   vsListNames = vsListNames_, lsListVals = lsListVals_, 
 #'   sbLockList = FALSE   # <- Set to 'FALSE' to create a mutable R List !!!
 #' )
@@ -65,12 +66,12 @@
 #'
 #' @export
 #? ### ### ###
-"code.return.env.locked.list" <- function(vsListNames, lsListVals, sbLockList=FALSE) {
+"code.return.renv.locked.list" <- function(vsListNames, lsListVals, sbLockList=FALSE) {
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                     # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHRT_ <- "Return.Lock.List";              # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "CODE.Return.Env.Locked.List";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                        # <- R Library Identifier !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Return.Lock.List";                 # <- Function ID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "code.return.renv.locked.list";   # <- Function ID - LONG !!!
   
   
   ####   STEP 02 - Prime NB "Aliases" used locally (inside function)   ####
