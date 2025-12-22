@@ -11,11 +11,12 @@
 #' found in the default project directory (i.e. "./WIP/" project folder).
 #'
 #'
-#' @param sbIsProdRel ([logical]) A boolean value that defines if the code-check and/or code commit
-#'                    process (action) is a "Production Release" action or not.
+#' @param sbIsProdRel ([logical]) A boolean value that defines whether the code-check and/or code
+#'                    commit process (action) is a "Production Release" action or not.
 #' @param sbAudioNote ([logical]) A boolean value that specifies whether an audio notification 
-#'                    should be played at the completion of this function (i.e. upon successful 
-#'                    patching or updating of the "Active Development Information Tracker File").
+#'                    should be played at the completion of this function's code execution (upon 
+#'                    successful patching <updating> of the "Active Development Information Tracker
+#'                    File").
 #'
 #'
 #' @returns
@@ -26,10 +27,10 @@
 #'
 #' @examples
 #' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
-#'             ###    special development directory ("./WIP") that is created during the init-run
-#'             ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+#'             ###    special code development directory ("./WIP") created during the init-run (i.e.
+#'             ###    initial R project setup) phase and is intended to facilitate a user-friendly
 #'             ###    R Library development process. For these reasons the code examples below
-#'             ###    should not be executed during "R_CMD_CHECK" code check procedures.
+#'             ###    should not be executed during normal "R_CMD_CHECK" code check procedures.
 #'             
 #' ### Run R Package DevCode easily as follows ...
 #' library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!
@@ -49,7 +50,7 @@
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                        # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Patch.TRCKR";                      # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "devs.patch.code.dev.trckr.file";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Patch.Code.Dev.Trckr.File";   # <- Function ID - LONG !!!
   
   
   
@@ -129,13 +130,6 @@
       ### 4.3.1 - Create the "./.Rbuildignore" File (since it does NOT ALREADY EXIST) ...
       rasBaseFileCREATE(RCT_PATH_FILE_R_BUILD_IGNORE_);   # -> Creates the required file ...
       
-      ### ### 4.3.2 - Add the DEFAULT Text Stubs to the "./.Rbuildignore" File ...
-      ### rasMfmrAppendToFILE(
-      ###   ssFilePath = rssPathProjROOT_,
-      ###   ssFileID = rssFileID_BUILD_IGNORE_, 
-      ###   sbMultiAppend = FALSE, sbPostPend = TRUE,
-      ###   ssAppendText = "^.*\.Rproj$ \n ^\.Rproj\.user$"   # <- Add 2 STANDARD Text Stubs !!!
-      ### );
     }
     rasMfmrAppendToFILE(
       ssAppendText = "^WIP$",                    # <- Add the "^WIP$" Text Stub !!!
@@ -209,7 +203,9 @@
         
         
       } else {   # <- Local vs. Remote Library Name[s] DID NOT MATCH (Name-Check FAILED) !!!
-       base::cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!\n");
+        
+        base::cat("ERROR -> Local vs. Remote (CRAN) Library Names DID NOT MATCH !!!\n");
+        
       }
       
     } else {   # <- Online <CRAN> Check was NOT SUCCESSFUL (CRAN call FAILED) !!!
@@ -288,7 +284,7 @@
       );
       
       ### STEP 2.2.1b: Patch the various Version Number stubs (accordingly) ...
-      rsnListFullTRCKR_ <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
+      rsnListFullTRCKR_  <- rasMfmrPatchLibrVersNUM(rvsLibrVersPartsTRCKR_);
       rsnVersStubDEBUG_  <- rsnListFullTRCKR_[["VERS_DEBUG"]];
       rsnVersStubALPHA_  <- rsnListFullTRCKR_[["VERS_ALPHA"]];
       rsnVersStubBETA_   <- rsnListFullTRCKR_[["VERS_BETA"]];
@@ -360,12 +356,12 @@
     "> Code Push ACTIVE-DEV VERSION #  ==>  ", rssVersNewDEVS_, "  (devs-release)", "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_02_ <- rasBasePASTE0(
-    "-> R SOFTWARE: Information on `R-core` [as the PROG-LANG for library development] ... ", "\n",
+    "-> R SOFTWARE: Specifics on `R-core` [as PROG-LANG for R Library Development] ... ", "\n",
     "> ", rasBase_R_VERSION[["version.string"]], "\n",
     '> Nickname  ==>  "', rasBase_R_VERSION[["nickname"]], '" !!!', "\n"
   );
   RCT_ACT_DEV_INFO_BODY_LVL_03_ <- rasBasePASTE0(   # -> Creates a Devs TimeStamp ...
-    "-> DEVELOPMENT SUPPORT: 3rd Party R Packages used (as DEV-TOOLS) during development [ n: ",
+    "-> CODE SUPPORT: 3rd Party R Packages used (as DEV-TOOLS) during development [ n: ",
     "2 ] ...", "\n",
     "> devtools  ==>  v", rssVersDEVTOOLS_, "\n",
     "> roxygen2  ==>  v", rssVersROXYGEN2_, "\n"

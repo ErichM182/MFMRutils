@@ -7,12 +7,13 @@
 devs.patch.code.dev.trckr.file(sbIsProdRel = FALSE, sbAudioNote = FALSE)
 }
 \arguments{
-\item{sbIsProdRel}{a logical (boolean) value that captures if the code-check and/or code commit
-process (action) is a "Production Release" action or not.}
+\item{sbIsProdRel}{(\link{logical}) A boolean value that defines whether the code-check and/or code
+commit process (action) is a "Production Release" action or not.}
 
-\item{sbAudioNote}{a logical (boolean) value that specifies whether an audio notification should
-be played at the completion of this function (i.e. upon successful patching or
-updating of the "Active Development Information Tracker File").}
+\item{sbAudioNote}{(\link{logical}) A boolean value that specifies whether an audio notification
+should be played at the completion of this function's code execution (upon
+successful patching \if{html}{\out{<updating>}} of the "Active Development Information Tracker
+File").}
 }
 \value{
 \itemize{
@@ -30,10 +31,10 @@ found in the default project directory (i.e. "./WIP/" project folder).
 }
 \examples{
 \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
-            ###    special development directory ("./WIP") that is created during the init-run
-            ###    (initial R project setup) phase and is intended to facilitate a user-friendly
+            ###    special code development directory ("./WIP") created during the init-run (i.e.
+            ###    initial R project setup) phase and is intended to facilitate a user-friendly
             ###    R Library development process. For these reasons the code examples below
-            ###    should not be executed during "R_CMD_CHECK" code check procedures.
+            ###    should not be executed during normal "R_CMD_CHECK" code check procedures.
             
 ### Run R Package DevCode easily as follows ...
 library(MFMRutils)   # <- Loads "MFMRutils" library (if already installed) !!!

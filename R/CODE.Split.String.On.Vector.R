@@ -59,7 +59,7 @@
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();                # <- Captures <active> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";                     # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHORT_  <- "Split.On.Vector";               # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_LONG_   <- "code.split.string.on.vector";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_LONG_   <- "CODE.Split.String.On.Vector";   # <- Function ID - LONG !!!
   
   
   
