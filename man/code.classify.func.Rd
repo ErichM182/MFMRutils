@@ -17,13 +17,15 @@ last line of code that defines a custom function - usually
 identified by a closing curly brace.}
 }
 \value{
-This function returns a single \if{html}{\out{<abbreviated>}} character value that
-classifies five categories (or classes) of custom R functions:
-* "TNY" -> a "Tiny" R Function (less than 28 lines of code);
-* "SML" -> a "Small" R Function (between 28 & 280 lines of code);
-* "MED" -> a "Medium" R Function (between 280 & 2800 lines of code);
-* "LRG" -> a "Large" R Function (between 2800 & 28000 lines of code);
-* "MSV" -> a "Massive" R Function (greater than 28000 lines of code);
+This function returns a single \if{html}{\out{<abbreviated>}} character value that categorizes functions into five
+size classes based on their code base size (number of lines of code contained in function body):
+\itemize{
+\item "TNY" -> a "Tiny" R Function (less than 28 lines of code);
+\item "SML" -> a "Small" R Function (between 28 & 280 lines of code);
+\item "MED" -> a "Medium" R Function (between 280 & 2800 lines of code);
+\item "LRG" -> a "Large" R Function (between 2800 & 28000 lines of code);
+\item "MSV" -> a "Massive" R Function (greater than 28000 lines of code);
+}
 }
 \description{
 A \if{html}{\out{<tiny>}} Helper Function that classifies a custom R function on the basis
@@ -50,5 +52,6 @@ require(MFMRutils)   ### -> Ensures the "MFMRutils" library is installed & loade
    )
 
 }   ### <- Set this Code Editor Line Number "CELN" as the "siStopCELN" arg value !!!
+
 
 }

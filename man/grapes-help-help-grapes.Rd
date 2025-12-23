@@ -31,4 +31,5 @@ NULL \%??\% NULL \%??\% 1982       # -> returns 1982 !!!
 NULL \%??\% FALSE \%??\% "FINal"   # -> returns FALSE !!!
 "TEST" \%??\% NULL \%??\% TRUE     # -> returns "TEST" !!!
 
+
 }

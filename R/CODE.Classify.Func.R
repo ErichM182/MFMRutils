@@ -2,12 +2,14 @@
 #' @title Classify R functions on the basis of Code-Base-Weights (CBWs)
 #' @name code.classify.func
 #' 
+#' 
 #' @description
 #' A <tiny> Helper Function that classifies a custom R function on the basis
 #' of the size of code that defines that functions (i.e. on the basis of the
 #' number of lines of code that constitutes the function itself). This custom
 #' function was intended to mainly support the MFMR Suite of R Functions, but
 #' can be utilized as a standalone function in other R packages.
+#'
 #'
 #' @param siStartCELN an integer that denotes the START of the function's block
 #'                    of code. The Code Editor Line Number ("CELN") of the first
@@ -17,13 +19,16 @@
 #'                   last line of code that defines a custom function - usually
 #'                   identified by a closing curly brace.
 #'
-#' @returns This function returns a single <abbreviated> character value that
-#'          classifies five categories (or classes) of custom R functions:
-#'          * "TNY" -> a "Tiny" R Function (less than 28 lines of code);
-#'          * "SML" -> a "Small" R Function (between 28 & 280 lines of code);
-#'          * "MED" -> a "Medium" R Function (between 280 & 2800 lines of code);
-#'          * "LRG" -> a "Large" R Function (between 2800 & 28000 lines of code);
-#'          * "MSV" -> a "Massive" R Function (greater than 28000 lines of code);
+#'
+#' @returns 
+#' This function returns a single <abbreviated> character value that categorizes functions into five
+#' size classes based on their code base size (number of lines of code contained in function body):
+#'    * "TNY" -> a "Tiny" R Function (less than 28 lines of code);
+#'    * "SML" -> a "Small" R Function (between 28 & 280 lines of code);
+#'    * "MED" -> a "Medium" R Function (between 280 & 2800 lines of code);
+#'    * "LRG" -> a "Large" R Function (between 2800 & 28000 lines of code);
+#'    * "MSV" -> a "Massive" R Function (greater than 28000 lines of code);
+#'
 #'
 #' @examples
 #' ### Classify your Custom R Function as follows:
@@ -44,6 +49,7 @@
 #'
 #' }   ### <- Set this Code Editor Line Number "CELN" as the "siStopCELN" arg value !!!
 #'
+#'
 #' @export
 #? ### ### ###
 "code.classify.func" <- function(
@@ -61,17 +67,6 @@
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasRETURN <- base::return;
   rasIsNULL <- base::is.null;
-  
-  base::print(
-    base::paste0(
-      "Classify SELF-ID Code Line Number -> ", 
-      MFMRutils::code.find.text.instances(
-        "code\\.find\\.text\\.instances", coRENV = base::parent.frame
-        )$LINE_NUMBER,
-      " !!!"
-    )
-  );
-  
   
   
   

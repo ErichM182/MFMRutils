@@ -96,8 +96,8 @@
   rasBaseSysTimeNOW <- base::Sys.time;
   rasBaseINVISIBLE  <- base::invisible;
   rasBaseFilePATH   <- base::file.path;
-  rasBaseDirCREATE  <- base::dir.create;
   rasBaseAsNUM      <- base::as.numeric;
+  rasBaseDirCREATE  <- base::dir.create;
   rasBaseSysSetENV  <- base::Sys.setenv;
   rasBaseWriteLINES <- base::writeLines;
   rasBaseFileCREATE <- base::file.create;
@@ -111,11 +111,11 @@
   rasDevToolsDOCUMENT <- devtools::document;
   rasDevToolsCleanDLL <- devtools::clean_dll;
   
-  rasMfmrCONSTS                <- cMISC;
   `%??%`                       <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
-  rasMfmrICONS                 <- MFMRutils::cICONS;
-  rasMfmrCOLORS                <- MFMRutils::cCOLORS;
-  rasMfmrFORMATS               <- MFMRutils::cFORMATS;
+  rasMfmrMISC                  <- MFMRutils::RENV_MISC;
+  rasMfmrICONS                 <- MFMRutils::RENV_ICONS;
+  rasMfmrCOLORS                <- MFMRutils::RENV_COLOURS;
+  rasMfmrFORMATS               <- MFMRutils::RENV_FORMATS;
   rasMfmrDevsPrintCodeCheckRES <- devs.print.code.check.res;
   rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
   rasMfmrDevsPatchCodeDevTRCKR <- devs.patch.code.dev.trckr.file;
@@ -167,12 +167,12 @@
   RCT_COLOR_BLUE_         <- rasMfmrCOLORS$BlueFORE;
   RCT_COLOR_GREEN_        <- rasMfmrCOLORS$GreenFORE;
   RCT_COLOR_TELLOW_       <- rasMfmrCOLORS$YellowFORE;
-  RCT_FOLDER_WIP_PROD_    <- rasMfmrCONSTS$PATH_FOLDER_WIP_PROD;
-  RCT_FORMAT_TIME_DEV_01_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V01;
-  RCT_FORMAT_TIME_DEV_02_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V02;
-  RCT_FOLDER_WIP_HELPERS_ <- rasMfmrCONSTS$PATH_FOLDER_WIP_HELPERS;
-  RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
-  RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_TO_FILE_R_PACKAGE_DESC;
+  RCT_FOLDER_WIP_PROD_    <- rasMfmrMISC$PATH_FOLDER_WIP_PROD;
+  RCT_FORMAT_TIME_DEV_01_ <- rasMfmrMISC$FORMAT_TIME_DEV_LOG_V01;
+  RCT_FORMAT_TIME_DEV_02_ <- rasMfmrMISC$FORMAT_TIME_DEV_LOG_V02;
+  RCT_FOLDER_WIP_HELPERS_ <- rasMfmrMISC$PATH_FOLDER_WIP_HELPERS;
+  RCT_FILE_DEV_TIME_LOG_  <- rasMfmrMISC$PATH_FILE_WIP_TIME_STAMP;
+  RCT_FILE_R_PKG_DESC_    <- rasMfmrMISC$PATH_TO_FILE_R_PACKAGE_DESC;
     
   
   

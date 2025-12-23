@@ -1,26 +1,37 @@
 #? ### ### ### ### ### ### ###
-#' @title Icons for use in R (the "SuiteMFMR" selection)
-#' @name cICONS
+#' @title Icons For Use in R (the "SuiteMFMR" selection)
+#' @name RENV_ICONS
+#' 
 #' 
 #' @description
-#' A collection of frequently used icons (in unicode form) <originally> meant to
-#' support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
+#' A collection of text icons (in unicode format) meant to support the "MFMR Suite of R Functions"
+#' (a.k.a. "SuiteMFMR").
+#' 
+#' 
+#' @section CONSTANTS
+#'
+#'
+#' @returns 
+#' This R Object returns an R Environment-Locked List of Text Icons, in unicode form, used widely
+#' throughout the "MFMR Suite of R Packages" (a.k.a. "SuiteMFMR").
+#'
 #'
 #' @examples
 #' ### Load the required R Library ...
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... then easily assign ICONS as follows ...
-#' cICONS$OoglyEyes      ### -> prints "👀" to the R console !!!
-#' cICONS$CheckMark      ### -> prints "✔" to the R console !!!
-#' cICONS$SmileyPonder   ### -> prints "🤔" to the R console !!!
+#' RENV_ICONS$OoglyEyes      # -> prints "👀" to the R console !!!
+#' RENV_ICONS$CheckMark      # -> prints "✔" to the R console !!!
+#' RENV_ICONS$SmileyPonder   # -> prints "🤔" to the R console !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::cICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
+#' MFMRutils::RENV_ICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
+#'
 #'
 #' @export
 #? ### ### ###
-"cICONS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"RENV_ICONS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of Unicode Character Icons !!!
   envList <- base::list2env(

@@ -57,18 +57,18 @@
   rasBasePASTE0 <- base::paste0;
   rasBaseIfELSE <- base::ifelse;
   
-  rasMfmrCONSTS  <- cMISC;
   `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!! 
-  rasMfmrICONS   <- MFMRutils::cICONS;
-  rasMfmrCOLORS  <- MFMRutils::cCOLORS;
-  rasMfmrFORMATS <- MFMRutils::cFORMATS;
+  rasMfmrMISC    <- MFMRutils::RENV_MISC;
+  rasMfmrICONS   <- MFMRutils::RENV_ICONS;
+  rasMfmrCOLORS  <- MFMRutils::RENV_COLOURS;
+  rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   
   
   
   ####   STEP 03 - Define Critical Constants   ####
-  RCT_ANSI_BOLD_    <- rasMfmrFORMATS$BOLD;
-  RCT_ANSI_RESET_   <- rasMfmrFORMATS$RESET;
-  RCT_ANSI_ITALICS_ <- rasMfmrFORMATS$ITALICS;
+  RCT_ANSI_BOLD_    <- rasMfmrFORMATS$ANSI_BOLD;
+  RCT_ANSI_RESET_   <- rasMfmrFORMATS$ANSI_RESET;
+  RCT_ANSI_ITALICS_ <- rasMfmrFORMATS$ANSI_ITALICS;
   
   RCT_ICON_POINT_UP_      <- rasMfmrICONS$PointUP;
   RCT_ICON_WHITE_X_       <- rasMfmrICONS$X_White;
@@ -82,12 +82,12 @@
   RCT_COLOR_BLUE_         <- rasMfmrCOLORS$BlueFORE;
   RCT_COLOR_GREEN_        <- rasMfmrCOLORS$GreenFORE;
   RCT_COLOR_TELLOW_       <- rasMfmrCOLORS$YellowFORE;
-  RCT_FILE_R_PKG_DESC_    <- rasMfmrCONSTS$PATH_FILE_R_PKG_DESC;
-  RCT_FOLDER_WIP_PROD_    <- rasMfmrCONSTS$PATH_FOLDER_WIP_PROD;
-  RCT_FORMAT_TIME_DEV_01_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V01;
-  RCT_FORMAT_TIME_DEV_02_ <- rasMfmrCONSTS$FORMAT_TIME_DEV_LOG_V02;
-  RCT_FOLDER_WIP_HELPERS_ <- rasMfmrCONSTS$PATH_FOLDER_WIP_HELPERS;
-  RCT_FILE_DEV_TIME_LOG_  <- rasMfmrCONSTS$PATH_FILE_WIP_TIME_STAMP;
+  RCT_FILE_R_PKG_DESC_    <- rasMfmrMISC$PATH_FILE_R_PKG_DESC;
+  RCT_FOLDER_WIP_PROD_    <- rasMfmrMISC$PATH_FOLDER_WIP_PROD;
+  RCT_FORMAT_TIME_DEV_01_ <- rasMfmrMISC$FORMAT_TIME_DEV_LOG_V01;
+  RCT_FORMAT_TIME_DEV_02_ <- rasMfmrMISC$FORMAT_TIME_DEV_LOG_V02;
+  RCT_FOLDER_WIP_HELPERS_ <- rasMfmrMISC$PATH_FOLDER_WIP_HELPERS;
+  RCT_FILE_DEV_TIME_LOG_  <- rasMfmrMISC$PATH_FILE_WIP_TIME_STAMP;
   
   
   # ANSI escape codes for TEXT FORMATS ...

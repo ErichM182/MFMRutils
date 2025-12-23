@@ -1,29 +1,37 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Colours for use in R (the "SuiteMFMR" selection)
-#' @name cCOLORS
+#' @name RENV_COLOURS
+#' 
 #' 
 #' @description
-#' A collection of frequently used ANSI (American National Standards Institute)
-#' Colours to support the "MFMR Suite of R Functions" (aka "SuiteMFMR").
+#' A collection of frequently used ANSI (American National Standards Institute) Colours to support 
+#' the "MFMR Suite of R Functions" (a.k.a. "SuiteMFMR").
 #' 
-#' @section CONSTANTS:
-#' Functions for checking data integrity ...
+#' 
+#' @section CONSTANTS
+#'
+#'
+#' @returns 
+#' This R Object returns an R Environment-Locked List of ANSI Colour Codes that may be applied to
+#' both foreground and background R Console <visual> Layers and Texts.
+#'
 #'
 #' @examples
 #' ### Load the required R Library ...
 #' library(MFMRutils)   # <- Loads library (if already installed locally) !!!
 #' 
 #' ### ... the easily assign COLORS as follows ...
-#' cCOLORS$BlackFORE     ### -> outputs the text in black font colour !!!
-#' cCOLORS$CyanFORE      ### -> outputs the text in cyan font colour !!!
-#' cCOLORS$MagentaBACK   ### -> outputs the text background in black font colour !!!
+#' RENV_COLOURS$BlackFORE     ### -> outputs the text in black font colour !!!
+#' RENV_COLOURS$CyanFORE      ### -> outputs the text in cyan font colour !!!
+#' RENV_COLOURS$MagentaBACK   ### -> outputs the text background in black font colour !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' MFMRutils::cCOLORS$CyanFORE   ### -> outputs the text in cyan font colour !!!
+#' MFMRutils::RENV_COLOURS$CyanFORE   ### -> outputs the text in cyan font colour !!!
+#'
 #'
 #' @export
 #? ### ### ###
-"cCOLORS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"RENV_COLOURS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text & Object Colours !!!
   envList <- base::list2env(
@@ -68,5 +76,5 @@
   base::lockEnvironment(envList, bindings = TRUE);
   
   # Return (export) the env-locked list ...
-  envList;   # <- MUST BE LIKE THIS ... DO NOT use `base::return(envList)` !!!
+  envList;   # <- MUST BE LIKE THIS -> DO NOT use `base::return(envList)` !!!
 }

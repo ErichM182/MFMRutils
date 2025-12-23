@@ -89,19 +89,18 @@
   ssHeader=NULL, ssNote="NOTE to POST !!!",
   csIconCarat="=>", csIconSplit="|", sbShowTail=TRUE, sbPrePendNL=FALSE, 
   sbPrintPretty=TRUE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
-  csIconTail=MFMRutils::EnvICONS$FireFlame,
+  csIconTail=rasMfmrICONS$FireFlame,
   csColorNote=MFMRutils::EnvCOLORS$CyanFORE,
   csColorHeader=MFMRutils::EnvCOLORS$GreenFORE, 
   csColorCarat=MFMRutils::EnvCOLORS$YellowFORE, 
   csColorSplit=MFMRutils::EnvCOLORS$YellowFORE, ...
 ) {
   
-  ### STEP 01 - Define the "Function Self-ID" tag ... ####
-  csTimeSTART_ <- base::Sys.time();
-  rssTagFuncIDv01_ <- "Post.Note";        # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_ <- "INFO.Post.Note";   # <- Function ID - LONG !!!
-  rssTagFuncLibID_ <- MFMRutils::pkgs.get.lib.info()[["NAME"]];
-  siStartCELN_ <- 88; siStopCELN_ <- 286;   # <- FIRST and LAST CELNs of func !!!
+  ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
+  RCT_SYS_TIME_NOW_     <- base::Sys.time();   # <- Extract the active System Date-Time !!!
+  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Post.Note";        # <- FSID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Note";   # <- FSID - LONG !!!
   
   
   
@@ -125,9 +124,12 @@
   
   ### Assign "Local Aliases" for frequently used functions !!!
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  elseIF <- base::ifelse;
-  isNULL <- base::is.null;
-  conCatSTR <- base::paste0;
+  rasBaseElseIF <- base::ifelse;
+  rasBaseIsNULL <- base::is.null;
+  rasBasePASTE0 <- base::paste0;
+  
+  rasMfmrICONS   <- MFMRutils::RENV_ICONS;
+  rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   
   
   
@@ -144,8 +146,8 @@
   
   
   ### STEP 04 - Prime the "Header" text ... ####
-  if (isNULL(ssHeader_)) {
-    if (!isNULL(ssDotArgProjID_)) {
+  if (rasBaseIsNULL(ssHeader_)) {
+    if (!rasBaseIsNULL(ssDotArgProjID_)) {
       ssHeader_ <- ssDotArgProjID_;
     } else {
       ssHeader_ <- base::get0(
@@ -159,7 +161,7 @@
   
   
   ### STEP 05 - Deploy the "Header" or "START" Self-ID note ... ####
-  if (!isNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
+  if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
     MFMRutils::info.post.func.self.id(
       ssProjID = ssDotArgProjID_, siFuncMode01 = 1L,
       sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
@@ -178,8 +180,8 @@
   ### . --- --- --- > Custom Function CODE LOGIC - START < --- --- --- . ####
   ### STEP 06 - Execute this Custom Function's Code logic here ... ####
   ## 6.1 - Prime Standard Text Formatters here ... ####
-  csFormatBOLD_ <- MFMRutils::EnvFORMATS$BOLD;
-  csFormatRESET_ <- MFMRutils::EnvFORMATS$RESET;
+  csFormatBOLD_ <- rasMfmrFORMATS$BOLD;
+  csFormatRESET_ <- rasMfmrFORMATS$RESET;
   
   
   ## 6.2 - Prime the CARAT icon accordingly ... ####
@@ -188,7 +190,7 @@
         csIconCarat_ == "->" || csIconCarat_ == " -> ") {
       csIconCarat_ <- conCatSTR(
         csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
-        MFMRutils::EnvICONS$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
+        rasMfmrICONS$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
         csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
       );
     } else {
@@ -267,7 +269,7 @@
   
   
   ### STEP 07 - Deploy the "Terminal", "STOP" or "EXIT" Self-ID note ... ####
-  if (!isNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
+  if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
     csTimeSTOP_ <- base::Sys.time();
     MFMRutils::info.post.func.self.id(
       sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,

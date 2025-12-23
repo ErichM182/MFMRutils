@@ -2,17 +2,20 @@
 #' @title Null-Coalescing Operator (the "SuiteMFMR" way)
 #' @name %??%
 #' 
+#' 
 #' @description
 #' The "SuiteMFMR" Null-Coalescing Operator (NCO) is similar to the "??" NCO of
 #' the DART Programming Language. The operator evaluates whether the "Left-Hand" R
 #' Object is NULL (in terms of its value, length & class <data type>) and returns
 #' the "Right-Hand" R Object if the "Left-Hand" Object is <indeed> NULL.
 #'
+#'
 #' @param coLHO a dynamic (complex) object that captures the "Left-Hand" R Object
 #'              to be evaluated against the "NULL Criteria" (i.e. by way of value, 
 #'              length or class <data type> NULL Checks).
 #' @param coRHO a dynamic (complex) object that captures the "Right-Hand" R Object
 #'              (to be returned if the "Left-Hand" R Object is NULL).
+#'
 #'
 #' @examples
 #' ### Use the Null-Coalescing Operator (NCO) as follows: ...
@@ -24,6 +27,7 @@
 #' NULL %??% NULL %??% 1982       # -> returns 1982 !!!
 #' NULL %??% FALSE %??% "FINal"   # -> returns FALSE !!!
 #' "TEST" %??% NULL %??% TRUE     # -> returns "TEST" !!!
+#'
 #'
 #' @export
 #? ### ### ###
