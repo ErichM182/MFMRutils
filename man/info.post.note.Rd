@@ -9,16 +9,16 @@ info.post.note(
   ssNote = "NOTE to POST !!!",
   csIconCarat = "=>",
   csIconSplit = "|",
-  sbShowTail = TRUE,
+  csIconTail = MFMRutils::RENV_ICONS$FireFlame,
+  csColorNote = MFMRutils::RENV_COLOURS$CyanFORE,
+  csColorHeader = MFMRutils::RENV_COLOURS$GreenFORE,
+  csColorCarat = MFMRutils::RENV_COLOURS$YellowFORE,
+  csColorSplit = MFMRutils::RENV_COLOURS$YellowFORE,
   sbPrePendNL = FALSE,
-  sbPrintPretty = TRUE,
+  sbShowTail = TRUE,
   sbPostPendNL = TRUE,
   sbPostPend2ndNL = FALSE,
-  csIconTail = rasMfmrICONS$FireFlame,
-  csColorNote = MFMRutils::EnvCOLORS$CyanFORE,
-  csColorHeader = MFMRutils::EnvCOLORS$GreenFORE,
-  csColorCarat = MFMRutils::EnvCOLORS$YellowFORE,
-  csColorSplit = MFMRutils::EnvCOLORS$YellowFORE,
+  sbPrintPretty = TRUE,
   ...
 )
 }
@@ -39,27 +39,6 @@ the leading symbol (icon) of the printed notification.}
 the middle of the output message (i.e. separator between
 the "ssHeader" and the "ssNote" parts of the note).}
 
-\item{sbShowTail}{a logical (boolean) value that specifies whether to show or
-print the trailing (terminal or "tail") icon object or not.}
-
-\item{sbPrePendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the START of
-a posted note.}
-
-\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
-ANSI text font formatting (i.e. colour & weight) should
-be applied to the printed notification or not.}
-
-\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the END of
-a posted note.}
-
-\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a
-second line (blank space or row) should be added to
-the END of a posted note. This function argument can
-be useful for clearly delineating sections within a
-custom R Function or R Project output (printed) code.}
-
 \item{csIconTail}{a compound character vector (text string or object) value
 that defines the image (icon) to be used for the trailing
 (terminal or "tail") icon object of the posted note.}
@@ -76,6 +55,27 @@ the posted (output) notification (note).}
 
 \item{csColorSplit}{a character (text string) value that defines the text color
 for the middle separator (icon) object of the posted note.}
+
+\item{sbPrePendNL}{a logical (boolean) value that specifies whether a new
+line (blank space or row) should be added to the START of
+a posted note.}
+
+\item{sbShowTail}{a logical (boolean) value that specifies whether to show or
+print the trailing (terminal or "tail") icon object or not.}
+
+\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new
+line (blank space or row) should be added to the END of
+a posted note.}
+
+\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a
+second line (blank space or row) should be added to
+the END of a posted note. This function argument can
+be useful for clearly delineating sections within a
+custom R Function or R Project output (printed) code.}
+
+\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
+ANSI text font formatting (i.e. colour & weight) should
+be applied to the printed notification or not.}
 
 \item{...}{all "fall-through" function arguments to be used as inputs to any
 nested functions. In this specific case these "fall-through" args
