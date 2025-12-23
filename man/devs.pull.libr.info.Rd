@@ -7,12 +7,12 @@
 devs.pull.libr.info(ssPathFileDESC = "DESCRIPTION", sbIsAbsolutePath = FALSE)
 }
 \arguments{
-\item{ssPathFileDESC}{a character (string) value that denotes the \if{html}{\out{<local>}} path
-\if{html}{\out{<directory>}} to the R Library "DESCRIPTION" file.}
+\item{ssPathFileDESC}{(\link{character}) A String (i.e. character vector) value that denotes the local
+path \if{html}{\out{<directory>}} to the R Library "DESCRIPTION" file.}
 
-\item{sbIsAbsolutePath}{a logical (boolean) value that specifies whether the
-DESCRIPTION File Path argument "ssPathFileDESC" is set
-(or provided) as an absolute path or not.}
+\item{sbIsAbsolutePath}{(\link{logical}) A boolean value that specifies whether the DESCRIPTION File
+Path argument \code{ssPathFileDESC} is set (or provided) as an absolute path
+or not.}
 }
 \description{
 A tiny R function that extracts relevant package information from \if{html}{\out{<internal>}}

@@ -2,11 +2,13 @@
 #' @title Print Self-ID Information for Custom R Functions
 #' @name info.post.func.self.id
 #' 
+#' 
 #' @description
 #' A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type, 
 #' caller, run-time duration etc.) information of a custom R function. This custom function was 
 #' intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone 
 #' function in other (i.e. 3rd Party) R packages.
+#'
 #'
 #' @param ssProjID a character (string) identifier of the R Project <script>
 #'                 file that called the custom R function execution.
@@ -61,9 +63,12 @@
 #' @param sbRunSelfID a logical (boolean) value that defines whether the SELF-ID
 #'                    procedure should be executed (TRUE) or not (FALSE). 
 #'
-#' @returns This function returns a single <abbreviated> character value that
-#'          classifies five sizes (or classes) of custom R functions: ...
-#'          * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
+#'
+#' @returns 
+#' This function returns a single <abbreviated> character value that classifies five function size
+#' (code base size) classes for custom R functions: ...
+#'    * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
+#'
 #'
 #' @examples
 #' ### Run Self-Identification (Self-ID) on your Custom R Function as follows:
@@ -77,21 +82,23 @@
 #'  siFuncMode01 = 1L
 #' )
 #'
+#'
 #' @export
 #? ### ### ###
 "info.post.func.self.id" <- function(
-  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, 
-  csIconCarat=NULL, csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL,
-  csTimeStart=NULL, csTimeStop=NULL, csFormatDT=NULL, csColorTimeStamp=NULL,
-  csColorProjID=NULL, csColorFuncType=NULL, csColorCallerID=NULL, siStopCELN=NULL,
-  siStartCELN=NULL, csColorMainText=NULL, sbPrintPretty=NULL, sbRunSelfID=FALSE
+  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, csIconCarat=NULL, 
+  csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL, csTimeStart=NULL, csTimeStop=NULL, 
+  csFormatDT=NULL, csColorTimeStamp=NULL, csColorProjID=NULL, csColorFuncType=NULL, 
+  csColorCallerID=NULL, siStopCELN=NULL, siStartCELN=NULL, csColorMainText=NULL, 
+  sbPrintPretty=NULL, sbRunSelfID=FALSE
 ) {
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
   #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
+  RCT_SYS_TIME_NOW_     <- base::Sys.time();           # <- Extract the active System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHRT_ <- "Func.SID";                 # <- FSID - SHORT !!!
+  RCT_TAG_FUNC_ID_SHRT_ <- "Func-SID";                 # <- FSID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
   
   
@@ -121,11 +128,11 @@
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
-  rsbRunModeDEBUG_ <- base::get0( # -> Searches the Global Environment of the Active
-    "rsbRunModeDEBUG_",           #    R Session for the <somewhat> uniquely named
-    envir = .GlobalEnv,           #    variable "rsbRunModeDEBUG_" & extracts its value.
-    ifnotfound = FALSE            # <- Returns a value of "FALSE" if the variable
-  );                              #    was NOT FOUND in the Active R Session !!!
+  rsbRunModeDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
+    "rsbRunModeDEBUG_",             #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    envir = .GlobalEnv,             #    and extracts its value.
+    ifnotfound = FALSE              # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                                #    the Active R Session !!!
   
   
   ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
@@ -153,25 +160,24 @@
     rasINVISIBLE     <- base::invisible;
     rasAsNUMERIC     <- base::as.numeric;
     
-    `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!  
-    rasMfmrDATES     <- MFMRutils::cDATES;
-    rasMfmrICONS     <- MFMRutils::cICONS;
-    rasMfmrCOLORS    <- MFMRutils::cCOLORS;
+    `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+    rasMfmrICONS     <- MFMRutils::RENV_ICONS;
+    rasMfmrCOLORS    <- MFMRutils::RENV_COLOURS;
+    rasMfmrFORMATS   <- MFMRutils::RENV_FORMATS;
     rasMfmrClassFUNC <- MFMRutils::code.classify.func;
     
     
     
     ####   STEP 04 - Define Critical Constants   ####
     ### Prime selected variables (akin to constants) ...
-    rcsSysTimeNOW_    <- base::Sys.time();
     rcsIconSPARK_     <- rasMfmrICONS$SparkRed;
     rcsIconSKULL_     <- rasMfmrICONS$SkullOnly;
     rcsColorsCYAN_    <- rasMfmrCOLORS$CyanFORE;
     rcsColorsGREEN_   <- rasMfmrCOLORS$GreenFORE;
     rcsColorsYELLOW_  <- rasMfmrCOLORS$YellowFORE;
+    rcsAnsiBOLD_      <- rasMfmrFORMATS$ANSI_BOLD;
+    rcsAnsiRESET_     <- rasMfmrFORMATS$ANSI_RESET;
     rcsColorsMAGENTA_ <- rasMfmrCOLORS$MagentaFORE;
-    rcsAnsiBOLD_      <- MFMRutils::cFORMATS$BOLD;
-    rcsAnsiRESET_     <- MFMRutils::cFORMATS$RESET;
     
     
     ####### ### Compile Useful <internal> Custom Functions here !!!
@@ -240,9 +246,9 @@
     rcsColorCarat_     <- rcsColorCarat_     %??% rcsColorsYELLOW_;
     rcsIconSplit_      <- rcsIconSplit_      %??% " | ";
     rcsColorSplit_     <- rcsColorSplit_     %??% rcsColorsYELLOW_;
-    rcsTimeStart_      <- rcsTimeStart_      %??% rcsSysTimeNOW_;
-    rcsTimeStop_       <- rcsTimeStop_       %??% rcsSysTimeNOW_;
-    rcsFormatDT_       <- rcsFormatDT_       %??% rasMfmrDATES$LONG_V03;
+    rcsTimeStart_      <- rcsTimeStart_      %??% RCT_SYS_TIME_NOW_;
+    rcsTimeStop_       <- rcsTimeStop_       %??% RCT_SYS_TIME_NOW_;
+    rcsFormatDT_       <- rcsFormatDT_       %??% rasMfmrFORMATS$DATE_LONG_V03;
     rcsColorTimeStamp_ <- rcsColorTimeStamp_ %??% rcsColorsYELLOW_;
     rcsColorProjID_    <- rcsColorProjID_    %??% rcsColorsGREEN_;
     rcsColorFuncType_  <- rcsColorFuncType_  %??% rcsColorsYELLOW_;

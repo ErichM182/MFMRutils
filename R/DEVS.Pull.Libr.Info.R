@@ -6,11 +6,11 @@
 #' A tiny R function that extracts relevant package information from <internal> 
 #' R Library Attributes.
 #'
-#' @param ssPathFileDESC a character (string) value that denotes the <local> path
-#'                       <directory> to the R Library "DESCRIPTION" file.
-#' @param sbIsAbsolutePath a logical (boolean) value that specifies whether the 
-#'                         DESCRIPTION File Path argument "ssPathFileDESC" is set
-#'                         (or provided) as an absolute path or not.
+#' @param ssPathFileDESC ([character]) A String (i.e. character vector) value that denotes the local 
+#'                       path <directory> to the R Library "DESCRIPTION" file.
+#' @param sbIsAbsolutePath ([logical]) A boolean value that specifies whether the DESCRIPTION File 
+#'                         Path argument `ssPathFileDESC` is set (or provided) as an absolute path 
+#'                         or not.
 #'
 #' @examples
 #' \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
