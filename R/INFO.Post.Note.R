@@ -111,6 +111,7 @@
   rasBaseIsNULL      <- base::is.null;
   rasBaseIsINVISIBLE <- base::invisible;
   
+  `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrICONS   <- MFMRutils::RENV_ICONS;
   rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   

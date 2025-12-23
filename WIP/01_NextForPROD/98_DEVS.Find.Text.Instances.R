@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title Locate Text or Regex Strings in R Functions
-#' @name code.find.text.instances
+#' @name devs.find.text.instances
 #' 
 #' 
 #' @description
@@ -68,7 +68,7 @@
 #'
 #' @export
 #? ### ### ###
-"code.find.text.instances" <- function(
+"devs.find.text.instances" <- function(
     csFindText="unc_this", ssSearchFunc=NULL, coRENV=.GlobalEnv, sbRetFullMatch=TRUE
 ) {
   
@@ -77,7 +77,7 @@
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();             # <- Captures <active> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";                  # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHORT_  <- "Find.Text.INSTs";            # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_LONG_   <- "CODE.Find.Text.Instances";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_LONG_   <- "devs.find.text.instances";   # <- Function ID - LONG !!!
   
   
   
