@@ -21,7 +21,7 @@
 #'
 #' @returns
 #' * This function programmatically amends <patches or updates> the active (i.e. regent) R Library
-#'   Project's Code Development Tracking Information (i.e. tracker file) for code versioning and
+#'   Project's Code Development Tracking Information (i.e. TRCKR) file for code versioning and
 #'   project (i.e. library code) development tracking purposes.
 #'
 #'
