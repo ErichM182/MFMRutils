@@ -105,7 +105,7 @@ grep("code", ls(getNamespace("MFMRutils"), all.names = TRUE),
 #' @export
 search_r_functions <- function(
   pattern, packages = NULL, envs = list(globalenv()), search_internals = FALSE, regex = TRUE, 
-  ignore_case = TRUE, snippet_length = 100, include_global = TRUE, verbose = TRUE
+  ignore_case = TRUE, snippet_length = 82, include_global = TRUE, verbose = TRUE
 ) {
   
   # Validate inputs
@@ -182,13 +182,13 @@ search_r_functions <- function(
     
     # Prepare results
     func_results <- data.frame(
-      LIBRARY_ID = rep(lib_id, length(matches)),
-      FUNCTION_NAME = rep(func_name, length(matches)),
-      LINE_NUMBER = matches,
-      CODE_SNIPPET = character(length(matches)),
-      FILE_NAME = rep(src_file, length(matches)),
-      IS_EXPORTED = rep(is_exported, length(matches)),
-      SEARCH_PATTERN = rep(pattern, length(matches)),
+      "LIBRARY_ID" = rep(lib_id, length(matches)),
+      "FUNC_NAME" = rep(func_name, length(matches)),
+      "LINE_NUMBER" = matches,
+      "CODE_SNIP" = character(length(matches)),
+      "FILE_NAME" = rep(src_file, length(matches)),
+      "IS_EXPORTED" = rep(is_exported, length(matches)),
+      "SEARCH_TERM" = rep(pattern, length(matches)),
       stringsAsFactors = FALSE
     )
     

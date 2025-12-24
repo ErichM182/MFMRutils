@@ -9,23 +9,142 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 
 
 
-### OPTION 1 - Run a NULL-ARGs execution of the "Path-Cleaning" Function ...
-# NB: If no external values are passed to the function a default file path will be returned !!!
-ssPathArgsNULL <- code.clean.file.path()   # <- No external args <values> passed to function ... 
-ssPathArgsNULL                             # -> returns a default R Project Path (".") !!!
-
-
-
-### OPTION 2 - Use a STRING to define the File Path (R Project Directory, etc.) ...
-# Prime the Function Inputs <arguments> (as needed) ...
-ssCleanSTR_ <- "./rProjFiles/rData/TestDATA.txt"          # <- Clean PATH String !!!
-ssMessySTR_ <- "./\\rProjFiles//rData/\\TestDATA.txt\\"   # <- Messy PATH String !!!
-
-# Run the VECTOR-LOGIC execution of the "Path-Cleaning" Function ...
-ssPathCleanSTRING <- MFMRutils::code.clean.file.path(   # <- Executes the "STRING" Code Logic ...
-  ssPathString = ssCleanSTR_                            # <- CLEAN "PATH String" supplied !!!
-); ssPathCleanSTRING                                    # -> returns a Clean Path STRING result !!!
-
-ssPathMessySTRING <- MFMRutils::code.clean.file.path(   # <- Executes the "STRING" Code Logic ...
-  ssPathString = ssMessySTR_                            # <- MESSY "PATH String" supplied !!!
-); ssPathMessySTRING                                    # -> returns a Clean Path STRING result !!!
+#' @examples
+#' ### Use the "Path-Cleaning" Function as follows: ...
+#' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
+#' 
+#' 
+#' ### Example 1: Basic search inside specified R packages ...
+#' library(ggplot2)   # <- Simply to ensure library is installed locally ... 
+#' results <- devs.find.code.instances(
+#'   ssFindText = "plot",
+#'   vsTargetLibs = c("ggplot2", "maps"),
+#'   sbSearchInternals = FALSE
+#' )
+#' 
+#' # View code search results ...
+#' print(results, n = 20)
+#' summary(results)
+#' 
+#' 
+#' 
+#' ### Example 2: Search with the use of Regular Expressions (RegEx) ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "^#.*TODO|FIXME|DEPRECATED",
+#'   vsTargetLibs = c("dplyr", "tidyr"),
+#'   sbUseRegex = TRUE, sbIgnoreCase = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 3: Search internal R functions ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "lapply",
+#'   vsTargetLibs = "base",
+#'   sbSearchInternals = TRUE,
+#'   snRetSnipSize = 80
+#' )
+#' 
+#' 
+#' 
+#' ### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix Problem !!!)
+#' my_env <- new.env()
+#' my_env$custom_func <- function(x) {
+#'   # TODO: optimize this !!!
+#'   result <- x * 2
+#'   print(result)
+#'   return(result)
+#' }
+#' #' 
+#' results <- devs.find.code.instances(
+#'   ssFindText = "TODO:",
+#'   coRENVs = list(my_env),
+#'   sbIncludeGlobal = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 5: Complex Regular Expression (Regex) searches ...
+#' # Find all function definitions that take ax 'x' parameter ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "function\\(.*x.*\\)",
+#'   vsTargetLibs = "ggplot2",
+#'   sbUseRegex = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 6: Search for error handling patterns ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "^#.*stop|warning|message|tryCatch",
+#'   vsTargetLibs = c("base", "rlang"),
+#'   sbUseRegex = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 7: Case-sensitive search for S3 methods ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "print\\.",
+#'   vsTargetLibs = "base",
+#'   sbIgnoreCase = FALSE,
+#'   sbUseRegex = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 8: Search for specific variable assignments ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "<-\\s*function\\(",
+#'   vsTargetLibs = "ggplot2",
+#'   sbUseRegex = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 9: Create a custom environment and search it ...
+#' env1 <- new.env()
+#' env1$func1 <- function(x) paste("Result:", x)
+#' env1$func2 <- function(y) cat("Output:", y, "\n")
+#' 
+#' results <- devs.find.code.instances(
+#'   ssFindText = "cat|print",
+#'   coRENVs = list(env1),
+#'   sbIncludeGlobal = FALSE
+#' )
+#' 
+#' 
+#' 
+#' ### Example 10: Batch search across multiple R Libraries ...
+#' vsTargetLibs_to_search <- c("stats", "utils", "graphics", "grDevices")
+#' results <- devs.find.code.instances(
+#'   ssFindText = "par\\(",
+#'   vsTargetLibs = vsTargetLibs_to_search,
+#'   sbVerboseSearch = TRUE
+#' )
+#' 
+#' 
+#' 
+#' ### Get statistics ...
+#' cat("\nSearch Statistics:\n")
+#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$total_matches))
+#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$unique_functions))
+#' 
+#' 
+#' 
+### Example 11: Search for plotting functions ...
+results <- devs.find.code.instances(
+  ssFindText = "plot\\(",
+  vsTargetLibs = c("graphics", "ggplot2"),
+  sbSearchInternals = TRUE
+)
+#' 
+#' # Visualize results
+#' if (nrow(results) > 0) {
+#'   library(ggplot2)
+#'   plot_data <- as.data.frame(table(results$LIBRARY_ID))
+#'   ggplot(plot_data, aes(x = Var1, y = Freq)) +
+#'     geom_bar(stat = "identity") +
+#'     labs(x = "Library", y = "Matches", title = "Search Results by Library") +
+#'     theme_minimal()
+#' }
