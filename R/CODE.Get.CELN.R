@@ -144,7 +144,7 @@
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rssFuncName_  <- "My.Cust.R.FUNC"; ##ssFuncName;
+  rssFuncName_  <- "my.cust.r.func"; # ssFuncName;
   rsiStartCELN_ <- siStartCELN;
   rsiCallIndex_ <- siCallIndex;
   

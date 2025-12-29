@@ -513,11 +513,11 @@
     "TOTAL_MATCHES"  = rasBaseNROW(results),
     "UNIQUE_FUNCS"   = rasBaseLENGTH(unique(results$FUNC_NAME)),
     "UNIQUE_LIBS"    = rasBaseLENGTH(unique(results$LIBRARY_ID))
-  )
+  );
   
-  class(results) <- c("Search_Results", "data.frame")
+  class(results) <- c("Search_Results", "data.frame");
   
-  rasBaseRETURN(results)
+  rasBaseRETURN(results);
   
 }
 
