@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
-#' @title Locate Text or Regex Strings in R Code
+#' @title Locate Text or Regex Strings in R Code ("SuiteMFMR" DevTools)
 #' @name devs.find.code.instances
+#' @family SuiteMFMR DevTools
 #' 
 #' 
 #' @description
@@ -90,7 +91,7 @@
 #' 
 #' 
 #' 
-#' ### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix Problem !!!)
+#' ### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix later !!!)
 #' my_env <- new.env()
 #' my_env$custom_func <- function(x) {
 #'   # TODO: optimize this !!!
@@ -98,7 +99,7 @@
 #'   print(result)
 #'   return(result)
 #' }
-#' #' 
+#' 
 #' results <- devs.find.code.instances(
 #'   ssFindText = "TODO:",
 #'   coRENVs = list(my_env),
@@ -242,7 +243,6 @@
   rasBaseSEQLEN              <- base::seq_len;
   rasBaseWARNING             <- base::warning;
   rasBaseAsFACTOR            <- base::as.factor;
-  ### rasBaseRowNAMES            <- base::rownames;   # <- R seems to have an issue with this !!!
   rasBaseSysTIME             <- base::Sys.time;
   rasBaseTryCATCH            <- base::tryCatch;
   rasBaseCHARACTER           <- base::character;
@@ -368,11 +368,13 @@
   # Search vsTargetLibs
   if (!rasBaseIsNULL(vsTargetLibs)) {
     for (pkg in vsTargetLibs) {
-      if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF("Searching package: %s", pkg))
+      if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF(" -> Searching package: %s", pkg))
       
       # Check if package is loaded/available
       if (!requireNamespace(pkg, quietly = TRUE)) {
-        rasBaseWARNING(rasBaseSPRINTF("Package '%s' not available. Skipping.", pkg))
+        rasBaseWARNING(
+          rasBaseSPRINTF(" -> Package '%s' not available (not installed locally). Skipping.", pkg)
+        )
         next
       }
       
@@ -411,7 +413,7 @@
       
       if (sbVerboseSearch) {
         rasBaseMESSAGE(
-          rasBaseSPRINTF("  Found %d matches in %d functions", 
+          rasBaseSPRINTF("  -> Found %d matches in %d functions", 
             rasBaseSUM(results$LIBRARY_ID == pkg), 
             rasBaseLENGTH(
               unique(results$FUNC_NAME[results$LIBRARY_ID == pkg])
@@ -435,7 +437,7 @@
       }
     }, error = function(e) rasBasePASTE0("Environment_", env_idx))
     
-    if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF("Searching environment: %s", env_name))
+    if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF(" -> Searching environment: %s", env_name))
     
     # Get all objects in environment
     obj_names <- rasBaseTryCATCH(
@@ -457,13 +459,13 @@
     
     if (sbVerboseSearch) {
       matches_in_env <- rasBaseSUM(results$LIBRARY_ID == env_name)
-      rasBaseMESSAGE(rasBaseSPRINTF("  Found %d matches", matches_in_env))
+      rasBaseMESSAGE(rasBaseSPRINTF("  -> Found %d matches", matches_in_env))
     }
   }
   
   # Search global environment if requested ...
   if (sbIncludeGlobal) {
-    if (sbVerboseSearch) rasBaseMESSAGE("Searching global environment")
+    if (sbVerboseSearch) rasBaseMESSAGE(" -> Searching global environment")
     
     global_objs <- rasBaseLS(rasBaseGlobalENV(), all.names = TRUE)
     
@@ -481,7 +483,7 @@
     
     if (sbVerboseSearch) {
       matches_in_global <- rasBaseSUM(results$LIBRARY_ID == ".GlobalEnv")
-      rasBaseMESSAGE(rasBaseSPRINTF("  Found %d matches", matches_in_global))
+      rasBaseMESSAGE(rasBaseSPRINTF("  -> Found %d matches", matches_in_global))
     }
   }
   

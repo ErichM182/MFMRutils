@@ -58,7 +58,17 @@ code.append.text.to.file(
   ssAppendText = ssAppendText_,     # <- Text to be appended to file ...
   sbMultiAppend = sbMultiAppend_,   # <- `TRUE` -> append text even if it already exists in file.
   sbPostPend = sbPostPend_          # <- `FALSE` -> append text to START of file.
-)                    
+)
 
 
 }
+\seealso{
+Other SuiteMFMR Code Functions: 
+\code{\link{\%??\%}()},
+\code{\link{code.classify.func}()},
+\code{\link{code.clean.file.path}()},
+\code{\link{code.get.celn}()},
+\code{\link{code.return.renv.locked.list}()},
+\code{\link{code.split.string.on.vector}()}
+}
+\concept{SuiteMFMR Code Functions}

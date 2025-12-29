@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEVS.Find.Code.Instances.R
 \name{devs.find.code.instances}
 \alias{devs.find.code.instances}
-\title{Locate Text or Regex Strings in R Code}
+\title{Locate Text or Regex Strings in R Code ("SuiteMFMR" DevTools)}
 \usage{
 devs.find.code.instances(
   ssFindText,
@@ -17,38 +17,61 @@ devs.find.code.instances(
 )
 }
 \arguments{
-\item{ssFindText}{Character string or sbUseRegex ssFindText to search for}
+\item{ssFindText}{(\link{character}) A String or Regular Expression stub to search for in the target R
+code bases.}
 
-\item{vsTargetLibs}{Character vector of package names to search (NULL = all loaded)}
+\item{vsTargetLibs}{(\link{vector} of \link{character}s) A Vector of Strings (or character vector) denoting
+the R Libraries to be searched (i.e. Target R Libraries). NOTE: R Libraries
+must be installed locally (i.e. on local machine) prior to search.}
 
-\item{coRENVs}{List of environments to search (default: global environment)}
+\item{coRENVs}{(\link{list} of \link{environment}s) A List of R Environments to search for the \code{ssFindText}
+and \code{vsTargetLibs} combination (default: Global R Environment \link{.GlobalEnv})}
 
-\item{sbSearchInternals}{Logical, whether to search internal/non-exported functions}
+\item{sbSearchInternals}{(\link{logical}) A Boolean (logical) function argument that specifies whether
+to search internal (i.e. non-exported) R functions as well.}
 
-\item{sbUseRegex}{Logical, whether ssFindText is a regular expression}
+\item{sbUseRegex}{(\link{logical}) A Boolean (logical) function argument that specifies whether the
+\code{ssFindText} value should be treated as a Regular Expression (Regex) or not.}
 
-\item{sbIgnoreCase}{Logical, whether to ignore case}
+\item{sbIgnoreCase}{(\link{logical}) A Boolean (logical) function argument that specifies whether to
+ignore case-sensitivity during search or not.}
 
-\item{sbIncludeGlobal}{Logical, whether to include global environment in search}
+\item{sbIncludeGlobal}{(\link{logical}) A Boolean (logical) function argument that specifies whether
+to include the Global R Environment in the search or not.}
 
-\item{sbVerboseSearch}{Logical, whether to show progress messages}
+\item{sbVerboseSearch}{(\link{logical}) A Boolean (logical) function argument that specifies whether
+to show search results message or not.}
 
-\item{snRetSnipSize}{Number of characters to include in code snippet}
+\item{snRetSnipSize}{(\link{numeric}) A Numeric function argument that indicates how many characters
+to include in code snippets (i.e. returned search results code-snippets).}
 }
 \value{
 This function returns a Data Frame that contains the following variables \if{html}{\out{<columns>}}:
 \itemize{
-\item FUNC_NAME   -> a \link{character} identifier of the R Function where the matching sbUseRegex was found.
-\item LINE_NUMBER -> an \link{integer} variable denoting the R Function code line number where the
-matching text or sbUseRegex value was found.
+\item LIBRARY_ID  -> a \link{factor} variable of the R Library Identifier (name) where the Code Search
+encountered positive hits for the \code{ssFindText} value.
+\item FUNC_NAME   -> a \link{factor} variable of the R Function Identifier (name) where the Code Search
+encountered positive hits for the \code{ssFindText} value.
+\item IS_EXPORTED -> a \link{logical} variable of the R Function Export Status where the Code Search
+encountered positive hits for the \code{ssFindText} value.
+\item LINE_NUMBER -> an \link{integer} variable denoting the R Function code line number where the Code
+Search encountered positive hits for the \code{ssFindText} value.
 \item CODE_SNIP   -> a \link{character} variable that captures a code snippet from the matching line where
-the text or sbUseRegex value was found.
+where the Code Search encountered positive hits for the \code{ssFindText} value.
 \item FILE_NAME   -> a \link{character} variable that captures the \if{html}{\out{<parent>}} file identifier (i.e. name) of
-the R Function where the matching text or sbUseRegex value was found.
+the R Function where the Code Search encountered positive hits for the
+\code{ssFindText} value.
+\item SEARCH_TERM -> a \link{character} variable that captures the actual \code{ssFindText} value.
+\item MATCH_ID    -> a \link{integer} variable that captures the match identifier (i.e. a unique sequence
+identifier) for all matches returned from the Code Search result.
 }
 }
 \description{
-Easily search and find text or regular expression (sbUseRegex) snippets in any R Function.
+Easily search for text or Regular Expressions (Regex) code snippets in any R Function installed
+in your own or other (3rd Party) R Libraries installed on your local machine. This function was
+intended to served as a Development Utility (i.e. as part of the "SuiteMFMR" DevTools) and
+enables R Library Developers to search the entire R Code Base as for specific strings/texts and
+Regular Expressions as contained or instantiated on their Local R Development Environments.
 }
 \examples{
 ### Use the "R-Code-Searching" Function as follows: ...
@@ -58,11 +81,11 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 ### Example 1: Basic search inside specified R packages ...
 results <- devs.find.code.instances(
   ssFindText = "plot",
-  vsTargetLibs = c("base", "utils"),
+  vsTargetLibs = c("base", "utils", "graphics"),
   sbSearchInternals = FALSE
 )
 
-# View code search results ...
+### View code search results ...
 str(results)
 head(results, 7)
 summary(results)
@@ -88,7 +111,7 @@ results <- devs.find.code.instances(
 
 
 
-### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix Problem !!!)
+### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix later !!!)
 my_env <- new.env()
 my_env$custom_func <- function(x) {
   # TODO: optimize this !!!
@@ -96,7 +119,7 @@ my_env$custom_func <- function(x) {
   print(result)
   return(result)
 }
-#' 
+
 results <- devs.find.code.instances(
   ssFindText = "TODO:",
   coRENVs = list(my_env),
@@ -164,35 +187,40 @@ results <- devs.find.code.instances(
   sbVerboseSearch = TRUE
 )
 
-
-
 ### Get statistics ...
 cat("\nSearch Statistics:\n")
-cat(sprintf("Total matches: \%d\n", attr(results, "search_info")$total_matches))
-cat(sprintf("Unique functions: \%d\n", attr(results, "search_info")$unique_functions))
+cat(sprintf("Total matches: \%d\n", attr(results, "search_info")$TOTAL_MATCHES))
+cat(sprintf("Unique functions: \%d\n", attr(results, "search_info")$UNIQUE_FUNCS))
 
 
 
 ### Example 11: Search for plotting functions ...
 results <- devs.find.code.instances(
   ssFindText = "plot\\\\(",
-  vsTargetLibs = c("graphics", "ggplot2"),
+  vsTargetLibs = c("stats", "utils", "graphics", "grDevices", "base"),
   sbSearchInternals = TRUE
 )
 
 \dontrun{   ### <- Code example below should not be executed during normal "R_CMD_CHECK" code
             ###    check procedures - since it causes problems with R Temporary Folders !!!
-  # Visualize results ...
+  ## Visualize results ...
   library(ggplot2)   # <- Ensures "ggplot2" is installed on the local machine !!!
   if (nrow(results) > 0) {
     library(ggplot2)
     plot_data <- as.data.frame(table(results$LIBRARY_ID))
     ggplot(plot_data, aes(x = Var1, y = Freq)) +
       geom_bar(stat = "identity") +
-      labs(x = "Library", y = "Matches", title = "Search Results by Library") +
+      labs(x = "R-Library", y = "Search Term Matches", title = "Search Results by Library ...") +
       theme_minimal()
   }
 }
 
 
 }
+\seealso{
+Other SuiteMFMR DevTools: 
+\code{\link{devs.check.code.specs}()},
+\code{\link{devs.patch.code.dev.trckr.file}()},
+\code{\link{devs.pull.libr.info}()}
+}
+\concept{SuiteMFMR DevTools}

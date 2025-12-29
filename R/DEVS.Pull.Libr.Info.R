@@ -1,10 +1,11 @@
 #? ### ### ### ### ### ### ###
-#' @title Extract R Package <DESCRIPTION File> Information (the easy way)
+#' @title Extract R Package Meta-Information ("SuiteMFMR" DevTools)
 #' @name devs.pull.libr.info
+#' @family SuiteMFMR DevTools
 #' 
 #' @description
-#' A tiny R function that extracts relevant package information from <internal> 
-#' R Library Attributes.
+#' A tiny R function that extracts relevant package information from the R Library Manifest or 
+#' R-Project Attributes File (i.e. the R Library DESCRIPTION File).
 #'
 #' @param ssPathFileDESC ([character]) A String (i.e. character vector) value that denotes the local 
 #'                       path <directory> to the R Library "DESCRIPTION" file.

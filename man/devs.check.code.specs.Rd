@@ -76,3 +76,10 @@ devs.check.code.specs(sbCheckDocs = TRUE, sbCheckCRAN = TRUE)
 }
 
 }
+\seealso{
+Other SuiteMFMR DevTools: 
+\code{\link{devs.find.code.instances}()},
+\code{\link{devs.patch.code.dev.trckr.file}()},
+\code{\link{devs.pull.libr.info}()}
+}
+\concept{SuiteMFMR DevTools}

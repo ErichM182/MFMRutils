@@ -1,6 +1,8 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile Environment Locked R Lists
 #' @name code.return.renv.locked.list
+#' @family SuiteMFMR Code Functions
+#' 
 #' 
 #' @description
 #' A relatively small R function that compiles and returns R Environment Locked lists.
@@ -17,8 +19,10 @@
 #'                   should be R environment locked <Default == FALSE>. If TRUE, individual list
 #'                   bindings (values) are locked, preventing modification of existing list elements.
 #'                   
+#'                   
 #' @return 
 #' * This function returns a locked environment R Object.
+#'
 #'
 #' @examples
 #' ### Activate the "MFMRutils" R Library (if previously installed) ...
@@ -63,6 +67,7 @@
 #' ## Mutability test (OPTION 2 test) ...
 #' rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new value to the "VAR_G"
 #'                                                          #    element (name) of the R list.
+#'
 #'
 #' @export
 #? ### ### ###

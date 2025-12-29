@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Full List of "SuiteMFMR" R Project Packages
 #' @name RENV_SuiteMFMR
+#' @family SuiteMFMR Constants
 #' 
 #' 
 #' @description

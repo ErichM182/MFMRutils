@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title R Library Version Number Updater ("SuiteMFMR" DevTools)
 #' @name devs.patch.libr.vers.number
+#' @family SuiteMFMR DevTools
 #' 
 #' @description
 #' A Helper Function that updates (patches) the R Library Version Numbers accordingly (i.e. in 

@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Icons For Use in R (the "SuiteMFMR" selection)
 #' @name RENV_ICONS
+#' @family SuiteMFMR Constants
 #' 
 #' 
 #' @description

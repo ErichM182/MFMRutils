@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Colours for use in R (the "SuiteMFMR" selection)
 #' @name RENV_COLOURS
+#' @family SuiteMFMR Constants
 #' 
 #' 
 #' @description

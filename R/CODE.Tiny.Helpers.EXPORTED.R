@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Null-Coalescing Operator (the "SuiteMFMR" way)
 #' @name %??%
+#' @family SuiteMFMR Code Functions
 #' 
 #' 
 #' @description

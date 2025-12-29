@@ -10,143 +10,79 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 
 
 #' @examples
-#' ### Use the "R-Code-Searching" Function as follows: ...
-#' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
+#' ### Easily debug custom R function code with this <cool> helper function ...
+#' library(MFMRutils)   # <- Loads the `MFMRutils` library (if previously installed).
+#'
+#'
+#'
+### Use with any custom R function as follows ...
+"my.cust.r.func" <- function(x=7, y=3, z=28) {   # <- Use the Editor Gutter Line Number (CELN)
+                                              #    at which this opening curly brace is
+                                              #    located as the "siStartCELN" value.
+  rsiStartCELN_ <- 19L;   # <- assumes this 👆 opening curly brace above (denoting the start
+                          #    of the <custom> function body block of code) is located at
+                          #    line 3 of the code editor (i.e. the curly brace is located
+                          #    at the 3rd CELN).
+
+  ssTagFuncID <- "My.Cust.R.FUNC"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+
+  valueSUM <- sum(x, y, z);
+  cat(
+    paste0(
+      " \u279C ", ssTagFuncID, " " , 
+      MFMRutils::code.get.celn(ssFuncName = ssTagFuncID, rsiStartCELN_, 1L ),
+      " | Summed all 3 function arguments < result: ", valueSUM," > !!! \n"
+    )
+  );
+
+  valueMEAN <- sum(x, y, z) / 3;
+  cat(
+    paste0(
+      " \u279C ", ssTagFuncID, " " , 
+      MFMRutils::code.get.celn(ssTagFuncID, rsiStartCELN_, 2L),
+      " | Took the average of the 3 function arguments < result: ",
+      round(valueMEAN, 3)," > !!! \n\n"
+    )
+  )
+
+  return(
+    list("SUM" = valueSUM, "MEAN" = valueMEAN)
+  )
+}
+
+## Execute the custom R Function ...
+my.cust.r.func()
+
+## Outputs from "myCustFuncR()" ...
+# ➜ myCustFuncR 11 | Summed all 3 function arguments < result: 45 > !!!
+# ➜ myCustFuncR 16 | Took the average of the 3 function arguments < result: 15 > !!!
+
+# $SUM
+# [1] 45
+
+# $MEAN
+# [1] 15
+
+
+
+### Return the source frame of the special hack  "rsiStartCELN_" variable as follows ...
+## Set the special hack variable accordingly ...
+rsiStartCELN_ <- 7L   # <- Ensure the "rsiStartCELN" variable name ends with
+                      #    an underscore "_" character !!!
+
+## Enable the 'return source' function argument ...
+vsRes <- MFMRutils::code.get.celn(sbRetSRC = TRUE)   # <- Assign the outputs of the
+                                                     #    `code.get.celn()` function to a
+                                                     #    variable and set the `sbRetSRC`
+                                                     #    function argument to a value of TRUE.
+
+## Extract the Editor Gutter Line Number (CELN) and CELN Source (scope) ...
+cat(paste0(" \u279C Code Editor Line ", vsRes["CELN"],   # <= returns the CELN ...
+      " | ", vsRes["EnvSRC"], "\n"))   # <- outputs a sentence specifying where
+                                       #    the "rsiStartCELN_" value used in
+                                       #    the `code.get.celn()` function was
+                                       #    obtained (i.e. sourced) from.
+
 #' 
 #' 
-#' ### Example 1: Basic search inside specified R packages ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "plot",
-#'   vsTargetLibs = c("base", "utils", "graphics"),
-#'   sbSearchInternals = FALSE
-#' )
-#' 
-#' ### View code search results ...
-#' str(results)
-#' head(results, 7)
-#' summary(results)
-#' 
-#' 
-#' 
-#' ### Example 2: Search with the use of Regular Expressions (RegEx) ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "^#.*TODO|FIXME|DEPRECATED",
-#'   vsTargetLibs = c("dplyr", "tidyr"),
-#'   sbUseRegex = TRUE, sbIgnoreCase = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 3: Search internal R functions ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "lapply",
-#'   vsTargetLibs = "base",
-#'   sbSearchInternals = TRUE,
-#'   snRetSnipSize = 80
-#' )
-#' 
-#' 
-#' 
-#' ### Example 4: Search specific environments ... (# <- TODO: This DOES NOT WORK - Fix Problem !!!)
-#' my_env <- new.env()
-#' my_env$custom_func <- function(x) {
-#'   # TODO: optimize this !!!
-#'   result <- x * 2
-#'   print(result)
-#'   return(result)
-#' }
-#' #' 
-#' results <- devs.find.code.instances(
-#'   ssFindText = "TODO:",
-#'   coRENVs = list(my_env),
-#'   sbIncludeGlobal = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 5: Complex Regular Expression (Regex) searches ...
-#' # Find all function definitions that take ax 'x' parameter ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "function\\(.*x.*\\)",
-#'   vsTargetLibs = "ggplot2",
-#'   sbUseRegex = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 6: Search for error handling patterns ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "^#.*stop|warning|message|tryCatch",
-#'   vsTargetLibs = c("base", "rlang"),
-#'   sbUseRegex = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 7: Case-sensitive search for S3 methods ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "print\\.",
-#'   vsTargetLibs = "base",
-#'   sbIgnoreCase = FALSE,
-#'   sbUseRegex = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 8: Search for specific variable assignments ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "<-\\s*function\\(",
-#'   vsTargetLibs = "ggplot2",
-#'   sbUseRegex = TRUE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 9: Create a custom environment and search it ...
-#' env1 <- new.env()
-#' env1$func1 <- function(x) paste("Result:", x)
-#' env1$func2 <- function(y) cat("Output:", y, "\n")
-#' 
-#' results <- devs.find.code.instances(
-#'   ssFindText = "cat|print",
-#'   coRENVs = list(env1),
-#'   sbIncludeGlobal = FALSE
-#' )
-#' 
-#' 
-#' 
-#' ### Example 10: Batch search across multiple R Libraries ...
-#' vsTargetLibs_to_search <- c("stats", "utils", "graphics", "grDevices")
-#' results <- devs.find.code.instances(
-#'   ssFindText = "par\\(",
-#'   vsTargetLibs = vsTargetLibs_to_search,
-#'   sbVerboseSearch = TRUE
-#' )
-#' 
-#' ### Get statistics ...
-#' cat("\nSearch Statistics:\n")
-#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$TOTAL_MATCHES))
-#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$UNIQUE_FUNCS))
-#' 
-#' 
-#' 
-#' ### Example 11: Search for plotting functions ...
-#' results <- devs.find.code.instances(
-#'   ssFindText = "plot\\(",
-#'   vsTargetLibs = c("stats", "utils", "graphics", "grDevices", "base"),
-#'   sbSearchInternals = TRUE
-#' )
-#' 
-#' \dontrun{   ### <- Code example below should not be executed during normal "R_CMD_CHECK" code
-#'             ###    check procedures - since it causes problems with R Temporary Folders !!!
-#'   # Visualize results ...
-#'   library(ggplot2)   # <- Ensures "ggplot2" is installed on the local machine !!!
-#'   if (nrow(results) > 0) {
-#'     library(ggplot2)
-#'     plot_data <- as.data.frame(table(results$LIBRARY_ID))
-#'     ggplot(plot_data, aes(x = Var1, y = Freq)) +
-#'       geom_bar(stat = "identity") +
-#'       labs(x = "R-Library", y = "Search Term Matches", title = "Search Results by Library ...") +
-#'       theme_minimal()
-#'   }
-#' }
+#'
