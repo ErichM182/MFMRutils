@@ -10,21 +10,21 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 
 
 #' @examples
-#' ### Use the "Path-Cleaning" Function as follows: ...
+#' ### Use the "R-Code-Searching" Function as follows: ...
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 #' 
 #' 
-#' ### Example 1: Basic search inside specified R packages ...
-#' library(ggplot2)   # <- Simply to ensure library is installed locally ... 
-#' results <- devs.find.code.instances(
-#'   ssFindText = "plot",
-#'   vsTargetLibs = c("ggplot2", "maps"),
-#'   sbSearchInternals = FALSE
-#' )
-#' 
-#' # View code search results ...
-#' print(results, n = 20)
-#' summary(results)
+### Example 1: Basic search inside specified R packages ...
+results <- devs.find.code.instances(
+  ssFindText = "plot",
+  vsTargetLibs = c("base", "utils", "graphics"),
+  sbSearchInternals = FALSE
+)
+
+### View code search results ...
+str(results)
+head(results, 7)
+summary(results)
 #' 
 #' 
 #' 
@@ -132,19 +132,23 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 #' 
 #' 
 #' 
-### Example 11: Search for plotting functions ...
-results <- devs.find.code.instances(
-  ssFindText = "plot\\(",
-  vsTargetLibs = c("graphics", "ggplot2"),
-  sbSearchInternals = TRUE
-)
+#' ### Example 11: Search for plotting functions ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "plot\\(",
+#'   vsTargetLibs = c("graphics", "ggplot2"),
+#'   sbSearchInternals = TRUE
+#' )
 #' 
-#' # Visualize results
-#' if (nrow(results) > 0) {
-#'   library(ggplot2)
-#'   plot_data <- as.data.frame(table(results$LIBRARY_ID))
-#'   ggplot(plot_data, aes(x = Var1, y = Freq)) +
-#'     geom_bar(stat = "identity") +
-#'     labs(x = "Library", y = "Matches", title = "Search Results by Library") +
-#'     theme_minimal()
+#' \dontrun{   ### <- Code example below should not be executed during normal "R_CMD_CHECK" code
+#'             ###    check procedures - since it causes problems with R Temporary Folders !!!
+#'   # Visualize results ...
+#'   library(ggplot2)   # <- Ensures "ggplot2" is installed on the local machine !!!
+#'   if (nrow(results) > 0) {
+#'     library(ggplot2)
+#'     plot_data <- as.data.frame(table(results$LIBRARY_ID))
+#'     ggplot(plot_data, aes(x = Var1, y = Freq)) +
+#'       geom_bar(stat = "identity") +
+#'       labs(x = "Library", y = "Matches", title = "Search Results by Library") +
+#'       theme_minimal()
+#'   }
 #' }
