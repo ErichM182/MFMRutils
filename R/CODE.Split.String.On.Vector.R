@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Split String on Basis of Vector Elements 
 #' @name code.split.string.on.vector
+#' @family SuiteMFMR Code Functions
 #' 
 #' 
 #' @description

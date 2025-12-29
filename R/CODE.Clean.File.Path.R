@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Sanitize String and Vector File Paths
 #' @name code.clean.file.path
+#' @family SuiteMFMR Code Functions
 #' 
 #' 
 #' 

@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title ANSI Formatted Code Validation Printouts ("SuiteMFMR" DevTools)
 #' @name devs.print.code.check.res
+#' @family SuiteMFMR DevTools
 #' 
 #' @description
 #' A Helper Function that formats and prints (to console) the CRAN Code Validation

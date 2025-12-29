@@ -37,4 +37,13 @@ RENV_MISC$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress Project PATH 
 
 
 }
+\seealso{
+Other SuiteMFMR Constants: 
+\code{\link{RENV_COLOURS}},
+\code{\link{RENV_FORMATS}},
+\code{\link{RENV_FSID}},
+\code{\link{RENV_ICONS}},
+\code{\link{RENV_SuiteMFMR}}
+}
+\concept{SuiteMFMR Constants}
 \keyword{datasets}

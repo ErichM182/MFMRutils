@@ -9,23 +9,80 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 
 
 
-### OPTION 1 - Run a NULL-ARGs execution of the "Path-Cleaning" Function ...
-# NB: If no external values are passed to the function a default file path will be returned !!!
-ssPathArgsNULL <- code.clean.file.path()   # <- No external args <values> passed to function ... 
-ssPathArgsNULL                             # -> returns a default R Project Path (".") !!!
+#' @examples
+#' ### Easily debug custom R function code with this <cool> helper function ...
+#' library(MFMRutils)   # <- Loads the `MFMRutils` library (if previously installed).
+#'
+#'
+#'
+### Use with any custom R function as follows ...
+"my.cust.r.func" <- function(x=7, y=3, z=28) {   # <- Use the Editor Gutter Line Number (CELN)
+                                              #    at which this opening curly brace is
+                                              #    located as the "siStartCELN" value.
+  rsiStartCELN_ <- 19L;   # <- assumes this 👆 opening curly brace above (denoting the start
+                          #    of the <custom> function body block of code) is located at
+                          #    line 3 of the code editor (i.e. the curly brace is located
+                          #    at the 3rd CELN).
+
+  ssTagFuncID <- "My.Cust.R.FUNC"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+
+  valueSUM <- sum(x, y, z);
+  cat(
+    paste0(
+      " \u279C ", ssTagFuncID, " " , 
+      MFMRutils::code.get.celn(ssFuncName = ssTagFuncID, rsiStartCELN_, 1L ),
+      " | Summed all 3 function arguments < result: ", valueSUM," > !!! \n"
+    )
+  );
+
+  valueMEAN <- sum(x, y, z) / 3;
+  cat(
+    paste0(
+      " \u279C ", ssTagFuncID, " " , 
+      MFMRutils::code.get.celn(ssTagFuncID, rsiStartCELN_, 2L),
+      " | Took the average of the 3 function arguments < result: ",
+      round(valueMEAN, 3)," > !!! \n\n"
+    )
+  )
+
+  return(
+    list("SUM" = valueSUM, "MEAN" = valueMEAN)
+  )
+}
+
+## Execute the custom R Function ...
+my.cust.r.func()
+
+## Outputs from "myCustFuncR()" ...
+# ➜ myCustFuncR 11 | Summed all 3 function arguments < result: 45 > !!!
+# ➜ myCustFuncR 16 | Took the average of the 3 function arguments < result: 15 > !!!
+
+# $SUM
+# [1] 45
+
+# $MEAN
+# [1] 15
 
 
 
-### OPTION 2 - Use a STRING to define the File Path (R Project Directory, etc.) ...
-# Prime the Function Inputs <arguments> (as needed) ...
-ssCleanSTR_ <- "./rProjFiles/rData/TestDATA.txt"          # <- Clean PATH String !!!
-ssMessySTR_ <- "./\\rProjFiles//rData/\\TestDATA.txt\\"   # <- Messy PATH String !!!
+### Return the source frame of the special hack  "rsiStartCELN_" variable as follows ...
+## Set the special hack variable accordingly ...
+rsiStartCELN_ <- 7L   # <- Ensure the "rsiStartCELN" variable name ends with
+                      #    an underscore "_" character !!!
 
-# Run the VECTOR-LOGIC execution of the "Path-Cleaning" Function ...
-ssPathCleanSTRING <- MFMRutils::code.clean.file.path(   # <- Executes the "STRING" Code Logic ...
-  ssPathString = ssCleanSTR_                            # <- CLEAN "PATH String" supplied !!!
-); ssPathCleanSTRING                                    # -> returns a Clean Path STRING result !!!
+## Enable the 'return source' function argument ...
+vsRes <- MFMRutils::code.get.celn(sbRetSRC = TRUE)   # <- Assign the outputs of the
+                                                     #    `code.get.celn()` function to a
+                                                     #    variable and set the `sbRetSRC`
+                                                     #    function argument to a value of TRUE.
 
-ssPathMessySTRING <- MFMRutils::code.clean.file.path(   # <- Executes the "STRING" Code Logic ...
-  ssPathString = ssMessySTR_                            # <- MESSY "PATH String" supplied !!!
-); ssPathMessySTRING                                    # -> returns a Clean Path STRING result !!!
+## Extract the Editor Gutter Line Number (CELN) and CELN Source (scope) ...
+cat(paste0(" \u279C Code Editor Line ", vsRes["CELN"],   # <= returns the CELN ...
+      " | ", vsRes["EnvSRC"], "\n"))   # <- outputs a sentence specifying where
+                                       #    the "rsiStartCELN_" value used in
+                                       #    the `code.get.celn()` function was
+                                       #    obtained (i.e. sourced) from.
+
+#' 
+#' 
+#'

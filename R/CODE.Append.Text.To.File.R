@@ -1,11 +1,14 @@
 #? ### ### ### ### ### ### ###
 #' @title Append Text to File (the "SuiteMFMR" way)
 #' @name code.append.text.to.file
+#' @family SuiteMFMR Code Functions
+#' 
 #' 
 #' @description
 #' Append text character vectors (strings) to specified file. This function was originally intended 
 #' to aide the "SuiteMFMR" R Library Developer Process (as part of the R Project init-phase). This
 #' is a standalone function and as such can also be used in (and by) other (3rd Party) R Projects.
+#'
 #'
 #' @param ssFilePath a character vector (string) that defines the path where the file that needs to
 #'                   be appended to is located on the local directory.
@@ -26,6 +29,7 @@
 #                    the end; and when set FALSE the "ssAppendText" value will be append to the 
 #                    start of the existing content. 
 #'
+#'
 #' @examples
 #' ### Use the File-Text Append Function as follows: ...
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
@@ -45,8 +49,8 @@
 #'   ssAppendText = ssAppendText_,     # <- Text to be appended to file ...
 #'   sbMultiAppend = sbMultiAppend_,   # <- `TRUE` -> append text even if it already exists in file.
 #'   sbPostPend = sbPostPend_          # <- `FALSE` -> append text to START of file.
-#' )                    
-#' 
+#' )
+#'
 #'
 #' @export
 #? ### ### ###

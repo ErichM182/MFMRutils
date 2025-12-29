@@ -2,7 +2,7 @@
 % Please edit documentation in R/DEVS.Pull.Libr.Info.R
 \name{devs.pull.libr.info}
 \alias{devs.pull.libr.info}
-\title{Extract R Package \if{html}{\out{<DESCRIPTION File>}} Information (the easy way)}
+\title{Extract R Package Meta-Information ("SuiteMFMR" DevTools)}
 \usage{
 devs.pull.libr.info(ssPathFileDESC = "DESCRIPTION", sbIsAbsolutePath = FALSE)
 }
@@ -15,8 +15,8 @@ Path argument \code{ssPathFileDESC} is set (or provided) as an absolute path
 or not.}
 }
 \description{
-A tiny R function that extracts relevant package information from \if{html}{\out{<internal>}}
-R Library Attributes.
+A tiny R function that extracts relevant package information from the R Library Manifest or
+R-Project Attributes File (i.e. the R Library DESCRIPTION File).
 }
 \examples{
 \dontrun{   ### <- This function constitutes a development utility !!! This function requires a 
@@ -37,3 +37,10 @@ rlsLibINFO[["VERSION"]]   # -> Returns 'Package Version' value <result> ...
 }
 
 }
+\seealso{
+Other SuiteMFMR DevTools: 
+\code{\link{devs.check.code.specs}()},
+\code{\link{devs.find.code.instances}()},
+\code{\link{devs.patch.code.dev.trckr.file}()}
+}
+\concept{SuiteMFMR DevTools}

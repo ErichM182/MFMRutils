@@ -73,4 +73,15 @@ rlsEnvLockdLIST <- code.return.renv.locked.list(
 rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new value to the "VAR_G"
                                                          #    element (name) of the R list.
 
+
 }
+\seealso{
+Other SuiteMFMR Code Functions: 
+\code{\link{\%??\%}()},
+\code{\link{code.append.text.to.file}()},
+\code{\link{code.classify.func}()},
+\code{\link{code.clean.file.path}()},
+\code{\link{code.get.celn}()},
+\code{\link{code.split.string.on.vector}()}
+}
+\concept{SuiteMFMR Code Functions}

@@ -86,15 +86,13 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  ssHeader=NULL, ssNote="NOTE to POST !!!",
-  csIconCarat="=>", csIconSplit="|", sbShowTail=TRUE, sbPrePendNL=FALSE, 
-  sbPrintPretty=TRUE, sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE,
-  csIconTail=rasMfmrICONS$FireFlame,
-  csColorNote=MFMRutils::EnvCOLORS$CyanFORE,
-  csColorHeader=MFMRutils::EnvCOLORS$GreenFORE, 
-  csColorCarat=MFMRutils::EnvCOLORS$YellowFORE, 
-  csColorSplit=MFMRutils::EnvCOLORS$YellowFORE, ...
+  ssHeader=NULL, ssNote="NOTE to POST !!!", csIconCarat="=>", csIconSplit="|", 
+  csIconTail=MFMRutils::RENV_ICONS$FireFlame, csColorNote=MFMRutils::RENV_COLOURS$CyanFORE,
+  csColorHeader=MFMRutils::RENV_COLOURS$GreenFORE, csColorCarat=MFMRutils::RENV_COLOURS$YellowFORE, 
+  csColorSplit=MFMRutils::RENV_COLOURS$YellowFORE, sbPrePendNL=FALSE, sbShowTail=TRUE, 
+  sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, sbPrintPretty=TRUE, ...
 ) {
+  
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   RCT_SYS_TIME_NOW_     <- base::Sys.time();   # <- Extract the active System Date-Time !!!
@@ -104,7 +102,22 @@
   
   
   
-  ### STEP 02 - Capture NB "DotsArgs" Inputs here ... ####
+  ####   STEP 02 - Alias ALL <utilized> Functions   ####
+  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  rasBaseCAT         <- base::cat;
+  rasBaseGET0        <- base::get0;
+  rasBaseElseIF      <- base::ifelse;
+  rasBasePASTE0      <- base::paste0;
+  rasBaseIsNULL      <- base::is.null;
+  rasBaseIsINVISIBLE <- base::invisible;
+  
+  `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrICONS   <- MFMRutils::RENV_ICONS;
+  rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
+  
+  
+  
+  ### STEP 03 - Capture NB "DotsArgs" Inputs here ... ####
   # NOTES: the "dots-args" are handed over in subsequent steps (as required) ...
   vsDotsArgs_             <- base::list(...);
   ssDotArgProjID_         <- vsDotsArgs_[["ssProjID"]];
@@ -120,16 +133,6 @@
   csDotArgColorCallerID_  <- vsDotsArgs_[["csColorCallerID"]];
   csDotArgColorFuncType_  <- vsDotsArgs_[["csColorFuncType"]];
   csDotArgColorTimeStamp_ <- vsDotsArgs_[["csColorTimeStamp"]];
-  
-  
-  ### Assign "Local Aliases" for frequently used functions !!!
-  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasBaseElseIF <- base::ifelse;
-  rasBaseIsNULL <- base::is.null;
-  rasBasePASTE0 <- base::paste0;
-  
-  rasMfmrICONS   <- MFMRutils::RENV_ICONS;
-  rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   
   
   
@@ -150,7 +153,7 @@
     if (!rasBaseIsNULL(ssDotArgProjID_)) {
       ssHeader_ <- ssDotArgProjID_;
     } else {
-      ssHeader_ <- base::get0(
+      ssHeader_ <- rasBaseGET0(
         "rssTagProjID_",
         envir = .GlobalEnv,
         ifnotfound = "UNK. Proj. ID"
@@ -164,13 +167,13 @@
   if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
     MFMRutils::info.post.func.self.id(
       ssProjID = ssDotArgProjID_, siFuncMode01 = 1L,
-      sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
-      ssFuncSelfID = rssTagFuncID_, ssFuncCallerID = ssDotArgFuncCallrID_,
+      sbPrintPretty = sbPrintPretty_, csTimeStart = RCT_SYS_TIME_NOW_,
       csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
       csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
       ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
       csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
       csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,
+      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, ssFuncCallerID = ssDotArgFuncCallrID_,
       csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
     );
   }
@@ -188,13 +191,13 @@
   if (sbPrintPretty) {
     if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
         csIconCarat_ == "->" || csIconCarat_ == " -> ") {
-      csIconCarat_ <- conCatSTR(
+      csIconCarat_ <- rasBasePASTE0(
         csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
         rasMfmrICONS$ArrowRIGHT,     # -> Adds a default <standardized> "Right-Arrow" icon ...
         csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
       );
     } else {
-      csIconCarat_ <- conCatSTR(
+      csIconCarat_ <- rasBasePASTE0(
         csFormatBOLD_, csColorCarat_, " ",   # -> Adds the BOLD & Colour text formats + a <pre-pended> spacer ...
         csIconCarat_,                        # -> Adds the user-defined carat icon (symbol or text object) ...
         csFormatRESET_, " "                  # -> Closes text formatting and adds a <post-pended> spacer ...
@@ -205,7 +208,7 @@
   
   ## 6.3 - Prime the HEADER text accordingly ... ####
   if (sbPrintPretty) {
-    ssHeader_ <- conCatSTR(
+    ssHeader_ <- rasBasePASTE0(
       csFormatBOLD_, csColorHeader_,   # -> Adds the BOLD & Colour text formats ...
       ssHeader_,                       # -> Adds the HEADER text value ...
       csFormatRESET_                   # -> Closes text formatting ...
@@ -216,13 +219,13 @@
   ## 6.4 - Prime the SPLIT icon accordingly ... ####
   if (sbPrintPretty) {
     if (csIconSplit_ == "|" || csIconSplit_ == " | "  || csIconSplit_ == "  |  ") {
-      csIconSplit_ <- conCatSTR(
+      csIconSplit_ <- rasBasePASTE0(
         csFormatBOLD_, csColorSplit_,   # -> Adds the BOLD & Colour text formats ...
         " | ",                          # -> Adds a default <standardized> SPLIT icon ...
         csFormatRESET_                  # -> Closes text formatting ...
       );
     } else {
-      csIconSplit_ <- conCatSTR(
+      csIconSplit_ <- rasBasePASTE0(
         csFormatBOLD_, csColorSplit_, " ",   # -> Adds the BOLD & Colour text formats ...
         csIconSplit_,                        # -> Adds the user-defined SPLIT icon ...
         csFormatRESET_, " "                  # -> Closes text formatting ...
@@ -233,7 +236,7 @@
   
   ## 6.5 - Prime the NOTE text accordingly ... ####
   if (sbPrintPretty) {
-    ssNote_ <- conCatSTR(
+    ssNote_ <- rasBasePASTE0(
       csFormatBOLD_, csColorNote_,   # -> Adds the BOLD & Colour text formats ...
       ssNote_,                       # -> Adds the NOTE text value ...
       csFormatRESET_                 # -> Closes text formatting ...
@@ -244,7 +247,7 @@
   ## 6.6 - Prime the TAIL icon accordingly ... ####
   if (sbShowTail_) {
     if (sbPrintPretty) {
-      csIconTail_ <- conCatSTR(
+      csIconTail_ <- rasBasePASTE0(
         " ",          # -> Adds a pre-pended spacer ...
         csIconTail_   # -> Adds the defined TAIL icon (or symbol) ...
       );
@@ -255,15 +258,15 @@
   
   
   ## 6.7 - FINALLY -> Compile & Post FULL MESSAGE text !!! ####
-  csFullNote_ <- conCatSTR(
-    elseIF(sbPrePendNL, "\n", ""),       # -> Adds pre-pended NEW LINE (if so requested) !!!
+  csFullNote_ <- rasBasePASTE0(
+    rasBaseElseIF(sbPrePendNL, "\n", ""),       # -> Adds pre-pended NEW LINE (if so requested) !!!
     csIconCarat_, ssHeader_, csIconSplit_,     # -> Adds CARAT icon, HEADER text & SPLIT icon in sequence ...
     ssNote_, csIconTail_,                      # -> Adds NOTE (main body) text and TAIL icon (if requested) in sequence ...
-    elseIF(sbPostPendNL_, "\n", ""),     # -> Adds 1st post-pended NEW LINE (if so requested) !!!
-    elseIF(sbPostPend2ndNL_, "\n", "")   # -> Adds 2nd post-pended NEW LINE (if so requested) !!!
+    rasBaseElseIF(sbPostPendNL_, "\n", ""),     # -> Adds 1st post-pended NEW LINE (if so requested) !!!
+    rasBaseElseIF(sbPostPend2ndNL_, "\n", "")   # -> Adds 2nd post-pended NEW LINE (if so requested) !!!
   );
     
-  base::cat(csFullNote_);   # -> Prints (outputs) full notification <message> to active R-Session Console window !!!
+  rasBaseCAT(csFullNote_);   # -> Prints (outputs) full notification <message> to active R-Session Console window !!!
   ### . --- --- --- > Custom Function CODE LOGIC - STOP < --- --- --- . ####
   
   
@@ -272,20 +275,20 @@
   if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
     csTimeSTOP_ <- base::Sys.time();
     MFMRutils::info.post.func.self.id(
-      sbPrintPretty = sbPrintPretty_, csTimeStart = csTimeSTART_,
-      ssFuncSelfID = rssTagFuncID_, ssFuncCallerID = ssDotArgFuncCallrID_,
+      sbPrintPretty = sbPrintPretty_, csTimeStart = RCT_SYS_TIME_NOW_,
       csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
       csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
       ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
       csTimeStop = csTimeSTOP_, ssProjID = ssDotArgProjID_, siFuncMode01 = 0L,
       csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
       csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,
+      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, ssFuncCallerID = ssDotArgFuncCallrID_,
       csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
     );
   }
 
   ### Output the full notification text <message> as the function's return value ###
-  base::invisible(csFullNote_);
+  rasBaseIsINVISIBLE(csFullNote_);
 }
 
 

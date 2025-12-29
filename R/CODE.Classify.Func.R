@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Classify R functions on the basis of Code-Base-Weights (CBWs)
 #' @name code.classify.func
+#' @family SuiteMFMR Code Functions
 #' 
 #' 
 #' @description

@@ -1,10 +1,11 @@
 Package: MFMRutils
 Title: Utility Package for the MFMR Suite of R Libraries
+Version: 0.0.2.17
 Description: A collection of Code Development and Regular R Functions encapsulating R Objects such 
              as enumerated R data types (enums); environment-locked R lists, R constants, etc. that 
              support the larger MFMR Suite of R Libraries (also known as the "SuiteMFMR" Collection
              of R Libraries - or "SuiteMFMR" in short).
-Version: 0.0.1.95
+License: MIT + file LICENSE
 BugReports: https://github.com/swat-grn-mfmr/MFMRutils/issues
 Authors@R:
   person(
@@ -15,7 +16,6 @@ Authors@R:
 LazyData: true
 Encoding: UTF-8
 RoxygenNote: 7.3.3
-License: MIT + file LICENSE
 Roxygen: list(markdown = TRUE)
 Imports:
     beepr,

@@ -34,4 +34,13 @@ RENV_SuiteMFMR$STATS   # -> extracts the "Stats" MFMR R Library Name and URL inf
 
 
 }
+\seealso{
+Other SuiteMFMR Constants: 
+\code{\link{RENV_COLOURS}},
+\code{\link{RENV_FORMATS}},
+\code{\link{RENV_FSID}},
+\code{\link{RENV_ICONS}},
+\code{\link{RENV_MISC}}
+}
+\concept{SuiteMFMR Constants}
 \keyword{datasets}

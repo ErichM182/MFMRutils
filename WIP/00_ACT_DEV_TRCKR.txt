@@ -7,14 +7,14 @@
 -> LAST CODE PUSH (Code-Check and/or Code-Commit) INFORMATION (NB Stats) ...
 > R-Library (Project ID): `MFMRutils` 
 > Code Push TYPE  ==>  DEVELOPMENT (act-dev) Release
-> Code Push TIME  ==>  23 Dec 2025 @ 14:28:55.345 CAT
-> Code Push PRODUCTION VERSION #  ==>  0.0.1     (prod-release)
-> Code Push ACTIVE-DEV VERSION #  ==>  0.0.1.95  (devs-release)
+> Code Push TIME  ==>  29 Dec 2025 @ 18:00:17.147 CAT
+> Code Push PRODUCTION VERSION #  ==>  0.0.2     (prod-release)
+> Code Push ACTIVE-DEV VERSION #  ==>  0.0.2.17  (devs-release)
 
 
 
 -> R SOFTWARE: Specifics on `R-core` [as PROG-LANG for R Library Development] ... 
-> R version 4.5.2 (2025-10-31)
+> R version 4.5.2 (2025-10-31 ucrt)
 > Nickname  ==>  "[Not] Part in a Rumble" !!!
 
 

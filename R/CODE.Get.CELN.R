@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Extract the Code Editor Gutter Line Number (CELN)
 #' @name code.get.celn
+#' @family SuiteMFMR Code Functions
 #' 
 #' 
 #' @description
@@ -13,13 +14,15 @@
 #' and/or specified as a library dependency).
 #'
 #'
-#' @param siStartCELN ([integer]) An integer value that specifies the Code Editor Gutter Line Number
+#' @param ssFuncName ([character]) A String value that specifies the Function Identifier (i.e. name)
+#'                   where the R Code Search should be conducted (directed at).
+#' @param siStartCELN ([integer]) An Integer value that specifies the Code Editor Gutter Line Number
 #'                    (abbreviated as `CELN`) where the function's opening (i.e. starting) curly 
 #'                    brace is located (i.e. the code editor line number at which the function 
 #'                    body's block of code starts !!!).
-#' @param sbRetSRC ([logical]) A boolean value that specifies whether the R Environment Frame (i.e. 
-#'                 scope: `LOCAL`, `PARENT` or `GLOBAL`) where the special `siStartCELN_` variable 
-#'                 was sourced from should be returned as a function output [TRUE] or not [FALSE].
+#' @param siCallIndex ([integer]) An Integer value that defines the "Call Index" in the localized (
+#'                    function <internal>) call stack in reference to when (i.e. in which order) the
+#'                    `code.get.celn()` function was called (i.e. from inside a function).
 #'
 #'
 #' @examples
@@ -114,7 +117,7 @@
 #'
 #' @export
 #? ### ### ###
-"code.get.celn" <- function(siStartCELN=NULL, sbRetSRC=FALSE) {
+"code.get.celn" <- function(ssFuncName="code.get.celn", siStartCELN=1L, siCallIndex=1L) {
   
   
   ####   STEP 01 - Define "Function Self-ID" R Objects   ####
@@ -127,108 +130,53 @@
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
-  rasBaseGET       <- base::get;
-  rasBaseATTR      <- base::attr;
-  rasBaseLIST      <- base::list;
-  rasBaseGREPL     <- base::grepl;
-  rasBaseEXISTS    <- base::exists;
-  rasBaseRETURN    <- base::return;
-  rasBaseIsNULL    <- base::is.null;
-  rasBaseDEPARSE   <- base::deparse;
-  rasBaseSysCALLS  <- base::sys.calls;
-  rasBaseSeqALONG  <- base::seq_along;
-  rasBaseAsINTEGER <- base::as.integer;
+  rasBaseNROW       <- base::nrow;
+  rasBaseORDER      <- base::order;
+  rasBaseRETURN     <- base::return;
+  rasBaseSubSET     <- base::subset;
+  rasBaseToLOWER    <- base::tolower;
+  rasBaseSeqALONG   <- base::seq_along;
+  rasBaseAsNUMERIC  <- base::as.numeric;
+  rasBaseDUPLICATED <- base::duplicated;
   
-  rasBaseFrameGLOBAL <- .GlobalEnv;
-  rasBaseFrameLOCAL  <- base::environment;
-  rasBaseFramePARENT <- base::parent.frame;
+  rasMfmrDevsFindCODE <- MFMRutils::devs.find.code.instances;
   
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  rsbRetSRC_    <- sbRetSRC;
+  rssFuncName_  <- "My.Cust.R.FUNC"; ##ssFuncName;
   rsiStartCELN_ <- siStartCELN;
+  rsiCallIndex_ <- siCallIndex;
   
   
   
-  ####   STEP 04 - Set Func-Call FRAME   ####
-  # STEP 1 - A special hack to check if the "siStartCELN_" variable has already
-  #          been defined in the global or calling function environments !!!
-  rssActSRC_ <- "The 'siStartCELN_' value was set directly via the FUNC-ARGS !!!";
-  if (rasBaseIsNULL(rsiStartCELN_)) {
-
-    # Create a list of all Active R Session Environment Scopes ...
-    rvsActENVs_ <- rasBaseLIST(
-      # GLOBAL Frame (the top-most R Session Environment or Scope) => akin to
-      # the main room of a house ...
-      "GLOBAL" = rasBaseFrameGLOBAL,
-      # PARENT or Caller Frame (env. or scope where function was called from)
-      # => akin to a room within the house ...
-      "PARENT" = rasBaseFramePARENT(),
-      # LOCAL, Current or Executer Frame (env. or scope where function was
-      # executed from) => akin to a temporary workspace within the room ...
-      "LOCAL" = rasBaseFrameLOCAL()
-    );
-
-    # Locate & extract the "rsiStartCELN_" variable accordingly ...
-    if (   # <= Current or LOCAL (i.e. active R Session) Environment !!!
-      rasBaseEXISTS("rsiStartCELN_", envir = rvsActENVs_$LOCAL, inherits = FALSE)
-    ) {
-      rsiStartCELN_ <- rasBaseGET("rsiStartCELN_", envir = rvsActENVs_$LOCAL);
-      rssActSRC_ <- "The 'rsiStartCELN_' value was sourced from the LOCAL Frame !!!";
-    } else if (    # <= PARENT (i.e. active R Session) Environment !!!
-      rasBaseEXISTS("rsiStartCELN_", envir = rvsActENVs_$PARENT, inherits = FALSE)
-    ) {
-      rsiStartCELN_ <- rasBaseGET("rsiStartCELN_", envir = rvsActENVs_$PARENT);
-      rssActSRC_ <- "The 'rsiStartCELN_' value was sourced from the PARENT Frame !!!";
-    } else if (   # <= GLOBAL (i.e. active R Session) Environment !!!
-      rasBaseEXISTS("rsiStartCELN_", envir = rvsActENVs_$GLOBAL, inherits = FALSE)
-    ) {
-      rsiStartCELN_ <- rasBaseGET("rsiStartCELN_", envir = rvsActENVs_$GLOBAL);
-      rssActSRC_ <- "The 'rsiStartCELN_' value was sourced from the GLOBAL Frame !!!";
-    } else {   # <- The "rsiStartCELN_" variable was not found anywhere !!!
-      rsiStartCELN_ <- 1L;
-      rssActSRC_ <- "The 'rsiStartCELN_' value was set to 1L by the `Get.CELN` FUNCTION itself !!!";
-    }
-  }
+  ####   STEP 04 - Trace Function Call Stack Location   ####
+  # 4.1 - Run an R Function Code Search to locate all instances of this `code.get.celn()` function 
+  #       in the specified <active> R Function <internal function code> ...
+  rdfFuncCalls_ <- rasMfmrDevsFindCODE(
+    ssFindText = "code\\.get\\.celn\\(", 
+    vsTargetLibs = c(RCT_TAG_FUNC_LIBR_ID_), 
+    sbVerboseSearch = FALSE
+  );
+  
+  # 4.2 - Extract only results that match specified Function ID ...
+  rdfFuncCalls_v02_ <- rasBaseSubSET(
+    rdfFuncCalls_, rdfFuncCalls_[["FUNC_NAME"]] == rasBaseToLOWER(rssFuncName_)
+  );
+  rdfFuncCalls_UNIQUE_LNs_ <- rdfFuncCalls_v02_[
+    !rasBaseDUPLICATED(rdfFuncCalls_v02_[["LINE_NUMBER"]]), 
+  ];
+  
+  # 4.3 - Create a new INDEX Variable for the subset results Data Frame ...
+  rdfFuncCalls_v03_ <- rdfFuncCalls_UNIQUE_LNs_[
+    rasBaseORDER(rasBaseAsNUMERIC(rdfFuncCalls_UNIQUE_LNs_[["MATCH_ID"]]), decreasing = FALSE), 
+  ];
+  rdfFuncCalls_v03_$INDEX <- rasBaseSeqALONG(1:rasBaseNROW(rdfFuncCalls_v03_));
+  
+  # 4.5 - Extract the Code Editor Line Number (CELN) accordingly ...
+  rdfAtCELN_ <- rasBaseSubSET(rdfFuncCalls_v03_, rdfFuncCalls_v03_[["INDEX"]] == rsiCallIndex_);
   
   
-  
-  ####   STEP 05 - Trace Function Call Stack Location   ####
-  # STEP 2 - Run a call stack analysis to locate where this `code.get.celn()`
-  #          function was called in the Active Stack Trace !!!
-  rcoActSysCalls_ <- rasBaseSysCALLS();
-  if (rasBaseIsNULL(rcoActSysCalls_)) {
-    rasBaseRETURN(base::cat(base::paste0(" -> FUNCTION CALL STACK is EMPTY !!!\n")));
-  } else {
-    for (sysCall in rasBaseSeqALONG(rcoActSysCalls_)) {
-      rcoRefSRC_ <- rasBaseATTR(rcoActSysCalls_[[sysCall]], "srcref");
-      if (!rasBaseIsNULL(rcoRefSRC_)) {
-        rsbCodeMatchFound_ <- rasBaseGREPL(
-          "code\\.get\\.celn\\(", rasBaseDEPARSE(rcoActSysCalls_[[sysCall]])
-          ### "code\\.get\\.celn\\s*\\(", rasBaseDEPARSE(rcoActSysCalls_[[sysCall]])
-        )[1];   # <= Returns a result object of length 3 - so select only first entry !!!
-        if (rsbCodeMatchFound_) {
-          if (!rsbRetSRC_) {
-            rasBaseRETURN(
-              (rsiStartCELN_ - 1L) + rasBaseAsINTEGER(rcoRefSRC_[[1]][1])
-            );
-          } else {
-            rasBaseRETURN(
-              rasBaseLIST(
-                "EnvSRC" = rssActSRC_,
-                "CELN" = (rsiStartCELN_ - 1L) + rasBaseAsINTEGER(rcoRefSRC_[[1]][1])
-              )
-            )
-          }
-        }
-      }
-    }
-  }
-  
-  
-  
-  ### ####   STEP 06 - Return Function Outputs   ####
-  ### ## STEP 3 - If the call stack trace fails ... return "NA" to function call !!!
-  ### rasBaseRETURN(NA_integer_);
+  ####   STEP 05 - Return Function Outputs   ####
+  rasBaseRETURN(rasBaseAsNUMERIC(rdfAtCELN_[["LINE_NUMBER"]]) + rsiStartCELN_);
 }

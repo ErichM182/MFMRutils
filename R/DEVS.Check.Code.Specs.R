@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title CRAN Code Validation with Code Version Tracking ("SuiteMFMR" DevTools)
 #' @name devs.check.code.specs
+#' @family SuiteMFMR DevTools
 #' 
 #' @description
 #' A Helper Function that executes the CRAN pre-requisite Code Checking Procedure during active R

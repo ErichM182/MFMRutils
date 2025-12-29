@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Update the R Code Development Tracker File ("SuiteMFMR" DevTools)
 #' @name devs.patch.code.dev.trckr.file
+#' @family SuiteMFMR DevTools
 #' 
 #' 
 #' @description
