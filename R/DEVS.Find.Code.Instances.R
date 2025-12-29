@@ -4,20 +4,32 @@
 #' 
 #' 
 #' @description
-#' Easily search and find text or Regular Expressions (Regex) code snippets in any R Function (i.e.
-#' throughout local R Code Base).
+#' Easily search for text or Regular Expressions (Regex) code snippets in any R Function installed 
+#' in your own or other (3rd Party) R Libraries installed on your local machine. This function was 
+#' intended to served as a Development Utility (i.e. as part of the "SuiteMFMR" DevTools) and 
+#' enables R Library Developers to search the entire R Code Base as for specific strings/texts and
+#' Regular Expressions as contained or instantiated on their Local R Development Environments.
 #'
 #'
 #' @param ssFindText ([character]) A String or Regular Expression stub to search for in the target R 
 #'                   code bases.
-#' @param vsTargetLibs Character vector of package names to search (NULL = all loaded)
-#' @param coRENVs List of environments to search (default: global environment)
-#' @param sbSearchInternals Logical, whether to search internal/non-exported functions
-#' @param sbUseRegex Logical, whether ssFindText is a regular expression
-#' @param sbIgnoreCase Logical, whether to ignore case
-#' @param snRetSnipSize Number of characters to include in code snippet
-#' @param sbIncludeGlobal Logical, whether to include global environment in search
-#' @param sbVerboseSearch Logical, whether to show progress messages
+#' @param vsTargetLibs ([vector] of [character]s) A Vector of Strings (or character vector) denoting 
+#'                     the R Libraries to be searched (i.e. Target R Libraries). NOTE: R Libraries 
+#'                     must be installed locally (i.e. on local machine) prior to search.
+#' @param coRENVs ([list] of [environment]s) A List of R Environments to search for the `ssFindText` 
+#'                and `vsTargetLibs` combination (default: Global R Environment [.GlobalEnv])
+#' @param sbSearchInternals ([logical]) A Boolean (logical) function argument that specifies whether 
+#'                          to search internal (i.e. non-exported) R functions as well.
+#' @param sbUseRegex ([logical]) A Boolean (logical) function argument that specifies whether the 
+#'                   `ssFindText` value should be treated as a Regular Expression (Regex) or not.
+#' @param sbIgnoreCase ([logical]) A Boolean (logical) function argument that specifies whether to 
+#'                     ignore case-sensitivity during search or not.
+#' @param snRetSnipSize ([numeric]) A Numeric function argument that indicates how many characters 
+#'                      to include in code snippets (i.e. returned search results code-snippets).
+#' @param sbIncludeGlobal ([logical]) A Boolean (logical) function argument that specifies whether 
+#'                        to include the Global R Environment in the search or not.
+#' @param sbVerboseSearch ([logical]) A Boolean (logical) function argument that specifies whether 
+#'                        to show search results message or not.
 #' 
 #' 
 #' @return

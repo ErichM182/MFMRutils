@@ -6,6 +6,8 @@ MFMRutils::devs.check.code.specs(sbCheckCRAN = T)
 
 
 
+class(coRENVs)
+
 grep("code", ls(getNamespace("MFMRutils"), all.names = TRUE), 
      value = TRUE, ignore.case = TRUE)  
 
