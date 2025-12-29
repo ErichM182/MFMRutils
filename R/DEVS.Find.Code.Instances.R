@@ -34,13 +34,22 @@
 #' 
 #' @return
 #' This function returns a Data Frame that contains the following variables <columns>:
-#' * FUNC_NAME   -> a [character] identifier of the R Function where the matching sbUseRegex was found.   
-#' * LINE_NUMBER -> an [integer] variable denoting the R Function code line number where the 
-#'                  matching text or sbUseRegex value was found.   
+#' * LIBRARY_ID  -> a [factor] variable of the R Library Identifier (name) where the Code Search 
+#'                  encountered positive hits for the `ssFindText` value.
+#' * FUNC_NAME   -> a [factor] variable of the R Function Identifier (name) where the Code Search 
+#'                  encountered positive hits for the `ssFindText` value. 
+#' * IS_EXPORTED -> a [logical] variable of the R Function Export Status where the Code Search 
+#'                  encountered positive hits for the `ssFindText` value.   
+#' * LINE_NUMBER -> an [integer] variable denoting the R Function code line number where the Code 
+#'                  Search encountered positive hits for the `ssFindText` value.   
 #' * CODE_SNIP   -> a [character] variable that captures a code snippet from the matching line where 
-#'                  the text or sbUseRegex value was found.
+#'                  where the Code Search encountered positive hits for the `ssFindText` value.
 #' * FILE_NAME   -> a [character] variable that captures the <parent> file identifier (i.e. name) of 
-#'                  the R Function where the matching text or sbUseRegex value was found.
+#'                  the R Function where the Code Search encountered positive hits for the 
+#'                  `ssFindText` value.
+#' * SEARCH_TERM -> a [character] variable that captures the actual `ssFindText` value.
+#' * MATCH_ID    -> a [integer] variable that captures the match identifier (i.e. a unique sequence
+#'                  identifier) for all matches returned from the Code Search result.
 #'
 #'
 #' @examples
@@ -51,11 +60,12 @@
 #' ### Example 1: Basic search inside specified R packages ...
 #' results <- devs.find.code.instances(
 #'   ssFindText = "plot",
-#'   vsTargetLibs = c("base", "utils"),
+#'   vsTargetLibs = c("base", "utils", "graphics"),
 #'   sbSearchInternals = FALSE
 #' )
 #' 
-#' # View code search results ...
+#' ### View code search results ...
+#' str(results)
 #' head(results, 7)
 #' summary(results)
 #' 
@@ -156,32 +166,30 @@
 #'   sbVerboseSearch = TRUE
 #' )
 #' 
-#' 
-#' 
 #' ### Get statistics ...
 #' cat("\nSearch Statistics:\n")
-#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$total_matches))
-#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$unique_functions))
+#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$TOTAL_MATCHES))
+#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$UNIQUE_FUNCS))
 #' 
 #' 
 #' 
 #' ### Example 11: Search for plotting functions ...
 #' results <- devs.find.code.instances(
 #'   ssFindText = "plot\\(",
-#'   vsTargetLibs = c("graphics", "ggplot2"),
+#'   vsTargetLibs = c("stats", "utils", "graphics", "grDevices", "base"),
 #'   sbSearchInternals = TRUE
 #' )
 #' 
 #' \dontrun{   ### <- Code example below should not be executed during normal "R_CMD_CHECK" code
 #'             ###    check procedures - since it causes problems with R Temporary Folders !!!
-#'   # Visualize results ...
+#'   ## Visualize results ...
 #'   library(ggplot2)   # <- Ensures "ggplot2" is installed on the local machine !!!
 #'   if (nrow(results) > 0) {
 #'     library(ggplot2)
 #'     plot_data <- as.data.frame(table(results$LIBRARY_ID))
 #'     ggplot(plot_data, aes(x = Var1, y = Freq)) +
 #'       geom_bar(stat = "identity") +
-#'       labs(x = "Library", y = "Matches", title = "Search Results by Library") +
+#'       labs(x = "R-Library", y = "Search Term Matches", title = "Search Results by Library ...") +
 #'       theme_minimal()
 #'   }
 #' }

@@ -14,17 +14,17 @@ library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) .
 #' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
 #' 
 #' 
-### Example 1: Basic search inside specified R packages ...
-results <- devs.find.code.instances(
-  ssFindText = "plot",
-  vsTargetLibs = c("base", "utils", "graphics"),
-  sbSearchInternals = FALSE
-)
-
-### View code search results ...
-str(results)
-head(results, 7)
-summary(results)
+#' ### Example 1: Basic search inside specified R packages ...
+#' results <- devs.find.code.instances(
+#'   ssFindText = "plot",
+#'   vsTargetLibs = c("base", "utils", "graphics"),
+#'   sbSearchInternals = FALSE
+#' )
+#' 
+#' ### View code search results ...
+#' str(results)
+#' head(results, 7)
+#' summary(results)
 #' 
 #' 
 #' 
@@ -123,19 +123,17 @@ summary(results)
 #'   sbVerboseSearch = TRUE
 #' )
 #' 
-#' 
-#' 
 #' ### Get statistics ...
 #' cat("\nSearch Statistics:\n")
-#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$total_matches))
-#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$unique_functions))
+#' cat(sprintf("Total matches: %d\n", attr(results, "search_info")$TOTAL_MATCHES))
+#' cat(sprintf("Unique functions: %d\n", attr(results, "search_info")$UNIQUE_FUNCS))
 #' 
 #' 
 #' 
 #' ### Example 11: Search for plotting functions ...
 #' results <- devs.find.code.instances(
 #'   ssFindText = "plot\\(",
-#'   vsTargetLibs = c("graphics", "ggplot2"),
+#'   vsTargetLibs = c("stats", "utils", "graphics", "grDevices", "base"),
 #'   sbSearchInternals = TRUE
 #' )
 #' 
@@ -148,7 +146,7 @@ summary(results)
 #'     plot_data <- as.data.frame(table(results$LIBRARY_ID))
 #'     ggplot(plot_data, aes(x = Var1, y = Freq)) +
 #'       geom_bar(stat = "identity") +
-#'       labs(x = "Library", y = "Matches", title = "Search Results by Library") +
+#'       labs(x = "R-Library", y = "Search Term Matches", title = "Search Results by Library ...") +
 #'       theme_minimal()
 #'   }
 #' }
