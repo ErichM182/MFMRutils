@@ -44,7 +44,7 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
                       #    at line 19 of the code editor (i.e. the opening brace is
                       #    located at the 19th CELN).
 
-  RCT_TAG_FUNC_ID <- "My.Cust.R.FUNC";  # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+  RCT_TAG_FUNC_ID <- "My.Cust.R.FUNC";  # <- ALWAYS TAG (ID) Custom R Functions accordingly !!!
 
   valSUM <- sum(x, y, z);
   cat(
