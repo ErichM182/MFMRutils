@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Extract the Code Editor Gutter Line Number (CELN)
 #' @name code.get.celn
-#' @family SuiteMFMR Code Functions
+#' @family SuiteMFMR CODE Functions
 #' 
 #' 
 #' @description
@@ -96,16 +96,16 @@
 #' ## Execute the custom R Function ...
 #' my.cust.r.func()
 #' 
-#' ## Outputs from "my.cust.r.func()" ...
+#' ## Outputs from "my.cust.r.func()" should be as follows ...
 #' # ➜ My.Cust.R.FUNC 34 | Summed all 3 input values < result: 38 > !!!
 #' # ➜ My.Cust.R.FUNC 49 | Averaged the 3 input values < result: 12.7 > !!!
 #' # ➜ My.Cust.R.FUNC 64 | CUSTOM R-FUNC `my.cust.r.func()` SUCESSFULLY EXECUTED !!!
 #' 
 #' # $SUM
-#' # [1] 45
+#' # [1] 38
 #' 
 #' # $MEAN
-#' # [1] 15
+#' # [1] 12.66667
 #' 
 #'
 #' @export

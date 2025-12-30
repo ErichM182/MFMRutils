@@ -85,7 +85,7 @@ ssPathBothArgsCLEAN <- MFMRutils::code.clean.file.path(   # <- Executes "BOTH-AR
 
 }
 \seealso{
-Other SuiteMFMR Code Functions: 
+Other SuiteMFMR CODE Functions: 
 \code{\link{\%??\%}()},
 \code{\link{code.append.text.to.file}()},
 \code{\link{code.classify.func}()},
@@ -93,4 +93,4 @@ Other SuiteMFMR Code Functions:
 \code{\link{code.return.renv.locked.list}()},
 \code{\link{code.split.string.on.vector}()}
 }
-\concept{SuiteMFMR Code Functions}
+\concept{SuiteMFMR CODE Functions}

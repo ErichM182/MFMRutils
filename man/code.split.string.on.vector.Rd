@@ -58,7 +58,7 @@ rlsResSplit$STRING   # -> Returns a clean string version of the String Splits (s
 
 }
 \seealso{
-Other SuiteMFMR Code Functions: 
+Other SuiteMFMR CODE Functions: 
 \code{\link{\%??\%}()},
 \code{\link{code.append.text.to.file}()},
 \code{\link{code.classify.func}()},
@@ -66,4 +66,4 @@ Other SuiteMFMR Code Functions:
 \code{\link{code.get.celn}()},
 \code{\link{code.return.renv.locked.list}()}
 }
-\concept{SuiteMFMR Code Functions}
+\concept{SuiteMFMR CODE Functions}

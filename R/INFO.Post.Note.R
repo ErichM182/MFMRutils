@@ -1,11 +1,15 @@
 #? ### ### ### ### ### ### ###
 #' @title Post Standardized R-Project Notifications
+#' @name info.post.note
+#' @family SuiteMFMR INFO Functions
+#' 
 #' 
 #' @description
 #' A Helper Function that standardizes the User / Project Information Posting
 #' (i.e. notification) Processes. This custom function was intended to mainly
 #' support the MFMR Suite of R Functions, but can be utilized as a standalone
 #' function in other (3rd Party) R packages.
+#'
 #'
 #' @param ssNote the character vector (i.e. text string or note) to be printed
 #'               to the R console. This text note is also returned as a function
@@ -55,14 +59,15 @@
 #'            "csColorProjID", "ssFuncCallerID", "csColorCallerID", 
 #'            "csColorFuncType", "csColorTimeStamp") <- list is NOT exhaustive !!! 
 #'
+#'
 #' @returns
 #' * This function prints the supplied text (notification) directly to the active
 #'   R Session Console <even if function outputs are assigned to a variable> !!!
 #' * This function also outputs the full (complete) notification message as an
 #'   invisible function return value (i.e. result).
 #'
+#'
 #' @examples
-#' 
 #' ### Print a dummy notification ...
 #' library(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
 #' ## info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
@@ -82,6 +87,7 @@
 #'   sbRunSelfID = TRUE, 
 #'   ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
 #' )                                    #    info to a value of `MFMR-R-Suite` ...
+#'
 #'
 #' @export
 #? ### ### ###

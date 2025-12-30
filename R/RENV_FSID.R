@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title List of Function Self-ID Argument Tags ("SuiteMFMR" DevTools)
 #' @name RENV_FSID
-#' @family SuiteMFMR Constants
+#' @family SuiteMFMR CONSTANTS
 #' 
 #' 
 #' @description

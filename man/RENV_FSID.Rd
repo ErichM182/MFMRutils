@@ -37,12 +37,12 @@ MFMRutils::RENV_FSID$TIME_STOP   ### -> removes actively applied ANSI Text Forma
 
 }
 \seealso{
-Other SuiteMFMR Constants: 
+Other SuiteMFMR CONSTANTS: 
 \code{\link{RENV_COLOURS}},
 \code{\link{RENV_FORMATS}},
 \code{\link{RENV_ICONS}},
 \code{\link{RENV_MISC}},
 \code{\link{RENV_SuiteMFMR}}
 }
-\concept{SuiteMFMR Constants}
+\concept{SuiteMFMR CONSTANTS}
 \keyword{datasets}

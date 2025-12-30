@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Compile Environment Locked R Lists
 #' @name code.return.renv.locked.list
-#' @family SuiteMFMR Code Functions
+#' @family SuiteMFMR CODE Functions
 #' 
 #' 
 #' @description

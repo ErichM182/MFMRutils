@@ -127,3 +127,8 @@ info.post.func.self.id(
 
 
 }
+\seealso{
+Other SuiteMFMR INFO Functions: 
+\code{\link{info.post.note}()}
+}
+\concept{SuiteMFMR INFO Functions}

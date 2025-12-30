@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title The "SuiteMFMR" List of Useful Constants
 #' @name RENV_MISC
-#' @family SuiteMFMR Constants
+#' @family SuiteMFMR CONSTANTS
 #' 
 #' 
 #' @description

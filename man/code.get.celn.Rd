@@ -99,21 +99,21 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
 ## Execute the custom R Function ...
 my.cust.r.func()
 
-## Outputs from "my.cust.r.func()" ...
+## Outputs from "my.cust.r.func()" should be as follows ...
 # ➜ My.Cust.R.FUNC 34 | Summed all 3 input values < result: 38 > !!!
 # ➜ My.Cust.R.FUNC 49 | Averaged the 3 input values < result: 12.7 > !!!
 # ➜ My.Cust.R.FUNC 64 | CUSTOM R-FUNC `my.cust.r.func()` SUCESSFULLY EXECUTED !!!
 
 # $SUM
-# [1] 45
+# [1] 38
 
 # $MEAN
-# [1] 15
+# [1] 12.66667
 
 
 }
 \seealso{
-Other SuiteMFMR Code Functions: 
+Other SuiteMFMR CODE Functions: 
 \code{\link{\%??\%}()},
 \code{\link{code.append.text.to.file}()},
 \code{\link{code.classify.func}()},
@@ -121,4 +121,4 @@ Other SuiteMFMR Code Functions:
 \code{\link{code.return.renv.locked.list}()},
 \code{\link{code.split.string.on.vector}()}
 }
-\concept{SuiteMFMR Code Functions}
+\concept{SuiteMFMR CODE Functions}

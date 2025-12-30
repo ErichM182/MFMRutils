@@ -100,7 +100,6 @@ support the MFMR Suite of R Functions, but can be utilized as a standalone
 function in other (3rd Party) R packages.
 }
 \examples{
-
 ### Print a dummy notification ...
 library(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
 ## info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
@@ -121,4 +120,10 @@ info.post.note(
   ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
 )                                    #    info to a value of `MFMR-R-Suite` ...
 
+
 }
+\seealso{
+Other SuiteMFMR INFO Functions: 
+\code{\link{info.post.func.self.id}()}
+}
+\concept{SuiteMFMR INFO Functions}
