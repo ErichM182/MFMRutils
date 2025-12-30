@@ -3,12 +3,6 @@
 ####### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~#######
 
 
-
-### Use the "Path-Cleaning" Function as follows: ...
-library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
-
-
-
 #' @examples
 #' ### Easily debug custom R function code with this <cool> helper function ...
 #' library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed locally.

@@ -5,7 +5,7 @@
 \alias{RENV_ICONS}
 \title{Icons For Use in R (the "SuiteMFMR" selection)}
 \format{
-An object of class \code{environment} of length 33.
+An object of class \code{environment} of length 35.
 }
 \usage{
 RENV_ICONS
