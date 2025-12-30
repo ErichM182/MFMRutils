@@ -199,9 +199,9 @@
 #' @export
 #? ### ### ###
 "devs.find.code.instances" <- function(
-  ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = FALSE, 
-  sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
-  snRetSnipSize = 82
+    ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = FALSE, 
+    sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
+    snRetSnipSize = 82
 ) {
   
   
@@ -209,7 +209,7 @@
   RCT_SYS_TIME_NOW_     <- base::Sys.time();             # <- Extract active System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                  # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Find.Code";                  # <- FSID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "DEVS.Find.Code.Instances";   # <- FSID - LONG !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "devs.find.code.instances";   # <- FSID - LONG !!!
   
   
   
@@ -277,10 +277,10 @@
     stringsAsFactors = FALSE
   )
   
-  # Helper function to get source file info
+  # Helper function to get source file info ...
   rcf_get.source.file <- function(func) {
     
-    # Try multiple methods to get source file
+    # Try multiple methods to get source file ...
     src_file <- NA_character_;
     
     # Method 1: Check the `srcref` attribute ...
@@ -314,13 +314,24 @@
   rcf_search.single.func <- function(func, func_name, lib_id, is_exported = TRUE) {
     if (!rasBaseIsFUNCTION(func)) rasBaseRETURN(NULL)
     
-    # Get function source code
-    func_code <- rasBaseTryCATCH({
-      # Use deparse with control to preserve source ...
-      rasBaseDEPARSE(func, control = c("keepInteger", "keepNA"))
-    }, error = function(e) rasBaseCHARACTER(0))
+    # Get function source code ...
+    srcref <- rasBaseATTR(func, "srcref", exact = TRUE)
+    start_line_offset <- 0;
     
-    if (rasBaseLENGTH(func_code) == 0) rasBaseRETURN(NULL)
+    if (!rasBaseIsNULL(srcref)) {
+      # Use the literal source code preserved in the srcref ...
+      func_code <- as.character(srcref);
+      # Extract the absolute starting line number from the file ..
+      start_line_offset <- as.vector(srcref)[1] - 2;
+    } else {
+      # Fallback to deparse ONLY if source is not available
+      # 'useSource = TRUE' attempts to find the original formatting
+      func_code <- rasBaseTryCATCH({
+        rasBaseDEPARSE(func, control = c("keepInteger", "keepNA", "useSource"))
+      }, error = function(e) rasBaseCHARACTER(0))
+    }
+    
+    if (rasBaseLENGTH(func_code) == 0) rasBaseRETURN(NULL);
     
     # Search for "ssFindText" values ...
     matches <- rasBaseGREP(
@@ -330,31 +341,33 @@
       value = FALSE
     );
     
-    if (rasBaseLENGTH(matches) == 0) rasBaseRETURN(NULL)
+    if (rasBaseLENGTH(matches) == 0) rasBaseRETURN(NULL);
     
-    # Get source file
+    # Get source file ..
     src_file <- rcf_get.source.file(func)
     
-    # Prepare results
+    # Prepare results ...
     func_results <- rasBaseDataFRAME(
       "LIBRARY_ID"  = rasBaseREP(lib_id, rasBaseLENGTH(matches)),
       "FUNC_NAME"   = rasBaseREP(func_name, rasBaseLENGTH(matches)),
       "IS_EXPORTED" = rasBaseREP(is_exported, rasBaseLENGTH(matches)),
-      "LINE_NUMBER" = matches,
+      "LINE_NUMBER" = matches + start_line_offset,   # Return absolute line number in source file!!!
       "CODE_SNIP"   = rasBaseCHARACTER(rasBaseLENGTH(matches)),
       "FILE_NAME"   = rasBaseREP(src_file, rasBaseLENGTH(matches)),
       "SEARCH_TERM" = rasBaseREP(ssFindText, rasBaseLENGTH(matches)),
       stringsAsFactors = FALSE
-    )
+    );
     
-    # Extract code snippets
+    # Extract code snippets ...
     for (i in rasBaseSeqALONG(matches)) {
       line_num <- matches[i]
       line_text <- func_code[line_num]
       
-      # Truncate if too long
+      # Truncate if too long ...
       if (rasBaseNCHAR(line_text) > snRetSnipSize) {
-        snippet <- rasBasePASTE0(rasBaseSubSTR(line_text, 1, snRetSnipSize - 3), "...")
+        snippet <- rasBasePASTE0(
+          rasBaseSubSTR(line_text, 1, snRetSnipSize - 3), "..."
+        );
       } else {
         snippet <- line_text
       }
@@ -365,12 +378,12 @@
     rasBaseRETURN(func_results)
   }
   
-  # Search vsTargetLibs
+  # Search vsTargetLibs ...
   if (!rasBaseIsNULL(vsTargetLibs)) {
     for (pkg in vsTargetLibs) {
       if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF(" -> Searching package: %s", pkg))
       
-      # Check if package is loaded/available
+      # Check if package is loaded/available ...
       if (!requireNamespace(pkg, quietly = TRUE)) {
         rasBaseWARNING(
           rasBaseSPRINTF(" -> Package '%s' not available (not installed locally). Skipping.", pkg)
@@ -378,16 +391,16 @@
         next
       }
       
-      # Get package namespace
+      # Get package namespace ...
       ns <- rasBaseTryCATCH(rasBaseAsNAMESPACE(pkg), error = function(e) NULL)
       if (rasBaseIsNULL(ns)) next
       
-      # Get functions to search
+      # Get functions to search ...
       if (sbSearchInternals) {
-        # Get all objects in namespace
+        # Get all objects in namespace ...
         func_names <- rasBaseLS(ns, all.names = TRUE)
       } else {
-        # Get only exported functions
+        # Get only exported functions ...
         func_names <- rasBaseGetNameSpaceEXPORTS(pkg)
       }
       
@@ -414,19 +427,19 @@
       if (sbVerboseSearch) {
         rasBaseMESSAGE(
           rasBaseSPRINTF("  -> Found %d matches in %d functions", 
-            rasBaseSUM(results$LIBRARY_ID == pkg), 
-            rasBaseLENGTH(
-              unique(results$FUNC_NAME[results$LIBRARY_ID == pkg])
-            )
+                         rasBaseSUM(results$LIBRARY_ID == pkg), 
+                         rasBaseLENGTH(
+                           unique(results$FUNC_NAME[results$LIBRARY_ID == pkg])
+                         )
           )
         )
       }
     }
   }
   
-  # Search environments
+  # Search environments ...
   for (env_idx in rasBaseSeqALONG(coRENVs)) {
-    env <- coRENVs[[env_idx]]
+    env <- coRENVs[[env_idx]];
     env_name <- rasBaseTryCATCH({
       if (identical(env, rasBaseGlobalENV())) {
         ".GlobalEnv"
@@ -439,12 +452,12 @@
     
     if (sbVerboseSearch) rasBaseMESSAGE(rasBaseSPRINTF(" -> Searching environment: %s", env_name))
     
-    # Get all objects in environment
+    # Get all objects in environment ...
     obj_names <- rasBaseTryCATCH(
       rasBaseLS(env, all.names = TRUE), error = function(e) rasBaseCHARACTER(0)
     );
     
-    # Search each object that is a function
+    # Search each object that is a function ...
     for (obj_name in obj_names) {
       obj <- rasBaseTryCATCH(rasBaseGET(obj_name, envir = env), error = function(e) NULL)
       
@@ -459,7 +472,7 @@
     
     if (sbVerboseSearch) {
       matches_in_env <- rasBaseSUM(results$LIBRARY_ID == env_name)
-      rasBaseMESSAGE(rasBaseSPRINTF("  -> Found %d matches", matches_in_env))
+      rasBaseMESSAGE(rasBaseSPRINTF("  |-> Found %d matches", matches_in_env))
     }
   }
   
@@ -483,7 +496,7 @@
     
     if (sbVerboseSearch) {
       matches_in_global <- rasBaseSUM(results$LIBRARY_ID == ".GlobalEnv")
-      rasBaseMESSAGE(rasBaseSPRINTF("  -> Found %d matches", matches_in_global))
+      rasBaseMESSAGE(rasBaseSPRINTF("  |-> Found %d matches", matches_in_global))
     }
   }
   
@@ -513,11 +526,11 @@
     "TOTAL_MATCHES"  = rasBaseNROW(results),
     "UNIQUE_FUNCS"   = rasBaseLENGTH(unique(results$FUNC_NAME)),
     "UNIQUE_LIBS"    = rasBaseLENGTH(unique(results$LIBRARY_ID))
-  )
+  );
   
-  class(results) <- c("Search_Results", "data.frame")
+  class(results) <- c("Search_Results", "data.frame");
   
-  rasBaseRETURN(results)
+  rasBaseRETURN(results);
   
 }
 
