@@ -27,93 +27,86 @@
 #'
 #' @examples
 #' ### Easily debug custom R function code with this <cool> helper function ...
-#' library(MFMRutils)   # <- Loads the `MFMRutils` library (if previously installed).
-#'
-#'
-#'
-#' ### Pass a starting value to the function via the "siStartCELN" argument ...
-#' code.get.celn(28L)   # <- Pass a starting value as the first positional argument to the function
-#'                      #    and it will return the correct (active/real-time) CELN as extracted
-#'                      #    from the R function you want to tersely document.
-#'
-#'
-#'
-#' ### Use the function with the direct-access R operator `::` from anywhere ...
-#' MFMRutils::code.get.celn(28L)   # <- Pass the starting Editor Gutter Line Number (CELN) as the
-#'                                 #    first positional argument to the function and it will return
-#'                                 #    the correct (active /real-time) CELN as extracted from the
-#'                                 #    the R function you want to interactively & tersely document.
-#'
-#'
-#'
-#' ### SPECIAL HACK - extract the CELN without a direct argument reference ...
-#' rsiStartCELN_ <- 7L    # <- ALWAYS ensure this special "rsiStartCELN" variable name ends
-#'                        #    with an underscore `_` character !!!
-#' code.get.celn()        # <- ... then simply execute the `code.get.celn()` function without
-#'                        #    passing any arguments to the function itself.
+#' library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed locally.
 #'
 #'
 #'
 #' ### Use with any custom R function as follows ...
-#' "myCustFuncR" <- function(x=7, y=3, z=28) {   # <- Use the Editor Gutter Line Number (CELN)
-#'                                               #    at which this opening curly brace is
-#'                                               #    located as the "siStartCELN" value.
-#'   rsiStartCELN_ <- 3L   # <- assumes this 👆 opening curly brace above (denoting the start
-#'                         #    of the <custom> function body block of code) is located at
-#'                         #    line 3 of the code editor (i.e. the curly brace is located
-#'                         #    at the 3rd CELN).
-#'
-#'   ssTagFuncID <- "myCustFuncR"   # <- ALWAYS TAG Large Custom R Functions accordingly !!!
-#'
-#'   valueSUM <- sum(x, y, z)
-#'   cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.celn(),
-#'     " | Summed all 3 function arguments < result: ", valueSUM," > !!! \n")
-#'   )
-#'
-#'   valueMEAN <- sum(x, y, z) / 3
-#'   cat(paste0(" \u279C ", ssTagFuncID, " " , MFMRutils::code.get.celn(),
-#'     " | Took the average of the 3 function arguments < result: ",
-#'     round(valueMEAN, 3)," > !!! \n\n")
-#'   )
-#'
+#' "my.cust.r.func" <- function(x=7, y=3, z=28) {   # <- Use the Code Editor Line Number (CELN)
+#'                                                  #    at which the `function()` call's opening 
+#'                                                  #    brace or bracket <i.e. `(`> is located at 
+#'                                                  #    as the `siStartCELN` input argument value.
+#'   siStartCELN <- 19L; # <- 👆 assumes this opening brace above (denoting the start of
+#'                       #    the <custom> function's arguments code block) is located
+#'                       #    at line 19 of the code editor (i.e. the opening brace is
+#'                       #    located at the 19th CELN).
+#' 
+#'   RCT_TAG_FUNC_ID <- "My.Cust.R.FUNC";  # <- ALWAYS TAG Large Custom R Functions accordingly !!!
+#' 
+#'   valSUM <- sum(x, y, z);
+#'   cat(
+#'     paste0(
+#'       " \u279C ", RCT_TAG_FUNC_ID, " " , 
+#'       MFMRutils::code.get.celn(
+#'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         siStartCELN,       # <- Specify at which line the opening function brace is located !!! 
+#'         1L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
+#'       ),                   #    function calls inside the custom function code. This is the 1st 
+#'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
+#'                            #    function so the `siCallIndex` value here should == `1L`.
+#'       " | Summed all 3 input values < result: ", valSUM," > !!! \n"
+#'     )
+#'   );
+#' 
+#'   valMEAN <- sum(x, y, z) / 3;
+#'   cat(
+#'     paste0(
+#'       " \u279C ", RCT_TAG_FUNC_ID, " " ,
+#'       MFMRutils::code.get.celn(
+#'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         siStartCELN,       # <- Specify at which line the opening function brace is located !!! 
+#'         2L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
+#'       ),                   #    function calls inside the custom function code. This is the 2nd 
+#'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
+#'                            #    function so the `siCallIndex` value here should == `2L`.
+#'       " | Averaged the 3 input values < result: ", round(valMEAN, 1)," > !!! \n"
+#'     )
+#'   );
+#'   
+#'   # Notify function's SUCCESSFUL COMPLETION ( <- is only needed for code illustration) ...
+#'   cat(
+#'     paste0(
+#'       " \u279C ", RCT_TAG_FUNC_ID, " " ,
+#'       MFMRutils::code.get.celn(
+#'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         siStartCELN,       # <- Specify at which line the opening function brace is located !!! 
+#'         3L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
+#'       ),                   #    function calls inside the custom function code. This is the 3rd 
+#'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
+#'                            #    function so the `siCallIndex` value here should == `3L`.
+#'       " | CUSTOM R-FUNC `", tolower(RCT_TAG_FUNC_ID), "()` SUCESSFULLY EXECUTED !!! \n\n"
+#'     )
+#'   );
+#' 
 #'   return(
-#'     list("SUM" = valueSUM, "MEAN" = valueMEAN)
-#'   )
+#'     list("SUM" = valSUM, "MEAN" = valMEAN)
+#'   );
 #' }
-#'
+#' 
 #' ## Execute the custom R Function ...
-#' myCustFuncR()
-#'
-#' ## Outputs from "myCustFuncR()" ...
-#' # ➜ myCustFuncR 11 | Summed all 3 function arguments < result: 45 > !!!
-#' # ➜ myCustFuncR 16 | Took the average of the 3 function arguments < result: 15 > !!!
-#'
+#' my.cust.r.func()
+#' 
+#' ## Outputs from "my.cust.r.func()" ...
+#' # ➜ My.Cust.R.FUNC 34 | Summed all 3 input values < result: 38 > !!!
+#' # ➜ My.Cust.R.FUNC 49 | Averaged the 3 input values < result: 12.7 > !!!
+#' # ➜ My.Cust.R.FUNC 64 | CUSTOM R-FUNC `my.cust.r.func()` SUCESSFULLY EXECUTED !!!
+#' 
 #' # $SUM
 #' # [1] 45
-#'
+#' 
 #' # $MEAN
 #' # [1] 15
-#'
-#'
-#'
-#' ### Return the source frame of the special hack  "rsiStartCELN_" variable as follows ...
-#' ## Set the special hack variable accordingly ...
-#' rsiStartCELN_ <- 7L   # <- Ensure the "rsiStartCELN" variable name ends with
-#'                       #    an underscore "_" character !!!
-#'
-#' ## Enable the 'return source' function argument ...
-#' vsRes <- MFMRutils::code.get.celn(sbRetSRC = TRUE)   # <- Assign the outputs of the
-#'                                                      #    `code.get.celn()` function to a
-#'                                                      #    variable and set the `sbRetSRC`
-#'                                                      #    function argument to a value of TRUE.
-#'
-#' ## Extract the Editor Gutter Line Number (CELN) and CELN Source (scope) ...
-#' cat(paste0(" \u279C Code Editor Line ", vsRes["CELN"],   # <= returns the CELN ...
-#'       " | ", vsRes["EnvSRC"], "\n"))   # <- outputs a sentence specifying where
-#'                                        #    the "rsiStartCELN_" value used in
-#'                                        #    the `code.get.celn()` function was
-#'                                        #    obtained (i.e. sourced) from.
-#'
+#' 
 #'
 #' @export
 #? ### ### ###
@@ -156,7 +149,7 @@
   rdfFuncCalls_ <- rasMfmrDevsFindCODE(
     ssFindText = "code\\.get\\.celn\\(", 
     vsTargetLibs = c(RCT_TAG_FUNC_LIBR_ID_), 
-    sbVerboseSearch = FALSE
+    sbVerboseSearch = FALSE, sbIgnoreCase = FALSE
   );
   
   # 4.2 - Extract only results that match specified Function ID ...
