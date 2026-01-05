@@ -38,10 +38,10 @@
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
     base::list(
-      PATH_TO_FOLDER_WIP              = "./WIP",
       PATH_TO_FILE_GIT_IGNORE         = "./.gitignore",
       PATH_TO_FILE_R_PACKAGE_DESC     = "./DESCRIPTION",
       PATH_TO_FILE_R_BUILD_IGNORE     = "./.Rbuildignore",
+      PATH_TO_FOLDER_WIP              = "./WIP",
       PATH_TO_FOLDER_WIP_HELPERS      = "./WIP/00_Helpers",
       PATH_TO_FOLDER_WIP_PROD         = "./WIP/01_NextForPROD",
       PATH_TO_FILE_ACT_DEV_INFO_TRCKR = "./WIP/00_ACT_DEV_TRCKR.txt",
