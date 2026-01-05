@@ -5,24 +5,23 @@
 #' 
 #' 
 #' @description
-#' A Helper Function that standardizes the User / Project Information Posting
-#' (i.e. notification) Processes. This custom function was intended to mainly
-#' support the MFMR Suite of R Functions, but can be utilized as a standalone
-#' function in other (3rd Party) R packages.
+#' A Helper Function that standardizes the R Project Information Posting (i.e. User Notification) 
+#' Processes. This function was intended to mainly support the MFMR Suite of R Functions, but may 
+#' be utilized as a standalone function in other (i.e. 3rd Party) R packages.
 #'
 #'
-#' @param ssNote the character vector (i.e. text string or note) to be printed
-#'               to the R console. This text note is also returned as a function
-#'               output under the "value" option of this function's results list.
-#' @param ssHeader a character vector (string or text) that defines the starting
+#' @param ssNoteHead a character vector (string or text) that defines the starting
 #'                 text of the output message (notification). This function 
 #'                 argument is useful in standardizing the notification format 
 #'                 for an entire R Project.
+#' @param ssNoteBody the character vector (i.e. text string or note) to be printed
+#'               to the R console. This text note is also returned as a function
+#'               output under the "value" option of this function's results list.
 #' @param csIconCarat a character vector (text string or object) that defines 
 #'                    the leading symbol (icon) of the printed notification.
 #' @param csIconSplit a character vector (text string or object) that defines 
 #'                    the middle of the output message (i.e. separator between 
-#'                    the "ssHeader" and the "ssNote" parts of the note).
+#'                    the `ssNoteHead` and the `ssNoteBody` parts of the note).
 #' @param csIconTail a compound character vector (text string or object) value 
 #'                   that defines the image (icon) to be used for the trailing 
 #'                   (terminal or "tail") icon object of the posted note.
@@ -51,13 +50,6 @@
 #' @param sbPrintPretty a logical (boolean) argument that specifies whether the
 #'                      ANSI text font formatting (i.e. colour & weight) should
 #'                      be applied to the printed notification or not.
-#' @param ... all "fall-through" function arguments to be used as inputs to any
-#'            nested functions. In this specific case these "fall-through" args 
-#'            are related to the "MFMRutils::info.post.func.self.id()" function
-#'            (e.g. "ssProjID", "csFormatDT", "csIconSplit", "csIconCarat", 
-#'            "sbRunSelfID", "csColorMain", "csColorSplit", "csColorCarat", 
-#'            "csColorProjID", "ssFuncCallerID", "csColorCallerID", 
-#'            "csColorFuncType", "csColorTimeStamp") <- list is NOT exhaustive !!! 
 #'
 #'
 #' @returns
@@ -92,23 +84,25 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  ssHeader=NULL, ssNote="NOTE to POST !!!", csIconCarat="=>", csIconSplit="|", 
+  ssNoteHead=NULL, ssNoteBody="NOTE to POST !!!", csIconCarat="=>", csIconSplit="|", 
   csIconTail=MFMRutils::RENV_ICONS$FireFlame, csColorNote=MFMRutils::RENV_COLOURS$CyanFORE,
   csColorHeader=MFMRutils::RENV_COLOURS$GreenFORE, csColorCarat=MFMRutils::RENV_COLOURS$YellowFORE, 
   csColorSplit=MFMRutils::RENV_COLOURS$YellowFORE, sbPrePendNL=FALSE, sbShowTail=TRUE, 
-  sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, sbPrintPretty=TRUE, ...
+  sbPostPendNL=TRUE, sbPostPend2ndNL=FALSE, sbPrintPretty=TRUE, sbPostAlways=FALSE
 ) {
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  RCT_SYS_TIME_NOW_     <- base::Sys.time();   # <- Extract the active System Date-Time !!!
+  RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Post.Note";        # <- FSID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Note";   # <- FSID - LONG !!!
+  RCT_INT_CELN_START_   <- 86L;                # <- The Code Editor Line Number (CELN) at which the
+                                               #    function opening brace "(" is located !!!
   
   
   
-  ####   STEP 02 - Alias ALL <utilized> Functions   ####
+  ####   STEP 02 - Alias ALL <required> Functions   ####
   # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasBaseCAT         <- base::cat;
   rasBaseGET0        <- base::get0;
@@ -123,26 +117,7 @@
   
   
   
-  ### STEP 03 - Capture NB "DotsArgs" Inputs here ... ####
-  # NOTES: the "dots-args" are handed over in subsequent steps (as required) ...
-  vsDotsArgs_             <- base::list(...);
-  ssDotArgProjID_         <- vsDotsArgs_[["ssProjID"]];
-  csDotArgFormatDT_       <- vsDotsArgs_[["csFormatDT"]];
-  csDotArgIconSplit_      <- vsDotsArgs_[["csIconSplit"]];
-  csDotArgIconCarat_      <- vsDotsArgs_[["csIconCarat"]];
-  sbDotArgRunSelfID_      <- vsDotsArgs_[["sbRunSelfID"]];
-  csDotArgColorMain_      <- vsDotsArgs_[["csColorMain"]];
-  csDotArgColorSplit_     <- vsDotsArgs_[["csColorSplit"]];
-  csDotArgColorCarat_     <- vsDotsArgs_[["csColorCarat"]];
-  csDotArgColorProjID_    <- vsDotsArgs_[["csColorProjID"]];
-  ssDotArgFuncCallrID_    <- vsDotsArgs_[["ssFuncCallerID"]];
-  csDotArgColorCallerID_  <- vsDotsArgs_[["csColorCallerID"]];
-  csDotArgColorFuncType_  <- vsDotsArgs_[["csColorFuncType"]];
-  csDotArgColorTimeStamp_ <- vsDotsArgs_[["csColorTimeStamp"]];
-  
-  
-  
-  ### STEP 03 - Internalize ALL Function Arguments here ... ####
+  ### STEP 03 - Internalize ALL Function Arguments ... ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
   coListFuncRes_ <- NULL;   # -> The <final> function outputs <results> object.
   csIconSplit_ <- csIconSplit; csIconTail_ <- csIconTail;
@@ -150,38 +125,21 @@
   csColorCarat_ <- csColorCarat; csColorSplit_ <- csColorSplit;
   csColorHeader_ <- csColorHeader; csColorNote_ <- csColorNote;
   sbPostPendNL_ <- sbPostPendNL; sbPostPend2ndNL_ <- sbPostPend2ndNL;
-  csIconCarat_ <- csIconCarat; ssHeader_ <- ssHeader; ssNote_ <- ssNote;
+  csIconCarat_ <- csIconCarat; ssNoteHead_ <- ssNoteHead; ssNoteBody_ <- ssNoteBody;
   
   
   
   ### STEP 04 - Prime the "Header" text ... ####
-  if (rasBaseIsNULL(ssHeader_)) {
+  if (rasBaseIsNULL(ssNoteHead_)) {
     if (!rasBaseIsNULL(ssDotArgProjID_)) {
-      ssHeader_ <- ssDotArgProjID_;
+      ssNoteHead_ <- ssDotArgProjID_;
     } else {
-      ssHeader_ <- rasBaseGET0(
+      ssNoteHead_ <- rasBaseGET0(
         "rssTagProjID_",
-        envir = .GlobalEnv,
+        ### envir = .GlobalEnv,
         ifnotfound = "UNK. Proj. ID"
       );
     }
-  }
-  
-  
-  
-  ### STEP 05 - Deploy the "Header" or "START" Self-ID note ... ####
-  if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
-    MFMRutils::info.post.func.self.id(
-      ssProjID = ssDotArgProjID_, siFuncMode01 = 1L,
-      sbPrintPretty = sbPrintPretty_, csTimeStart = RCT_SYS_TIME_NOW_,
-      csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
-      csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
-      ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
-      csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
-      csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,
-      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, ssFuncCallerID = ssDotArgFuncCallrID_,
-      csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
-    );
   }
   
   
@@ -214,9 +172,9 @@
   
   ## 6.3 - Prime the HEADER text accordingly ... ####
   if (sbPrintPretty) {
-    ssHeader_ <- rasBasePASTE0(
+    ssNoteHead_ <- rasBasePASTE0(
       csFormatBOLD_, csColorHeader_,   # -> Adds the BOLD & Colour text formats ...
-      ssHeader_,                       # -> Adds the HEADER text value ...
+      ssNoteHead_,                       # -> Adds the HEADER text value ...
       csFormatRESET_                   # -> Closes text formatting ...
     );
   }
@@ -242,9 +200,9 @@
   
   ## 6.5 - Prime the NOTE text accordingly ... ####
   if (sbPrintPretty) {
-    ssNote_ <- rasBasePASTE0(
+    ssNoteBody_ <- rasBasePASTE0(
       csFormatBOLD_, csColorNote_,   # -> Adds the BOLD & Colour text formats ...
-      ssNote_,                       # -> Adds the NOTE text value ...
+      ssNoteBody_,                       # -> Adds the NOTE text value ...
       csFormatRESET_                 # -> Closes text formatting ...
     );
   }
@@ -266,8 +224,8 @@
   ## 6.7 - FINALLY -> Compile & Post FULL MESSAGE text !!! ####
   csFullNote_ <- rasBasePASTE0(
     rasBaseElseIF(sbPrePendNL, "\n", ""),       # -> Adds pre-pended NEW LINE (if so requested) !!!
-    csIconCarat_, ssHeader_, csIconSplit_,     # -> Adds CARAT icon, HEADER text & SPLIT icon in sequence ...
-    ssNote_, csIconTail_,                      # -> Adds NOTE (main body) text and TAIL icon (if requested) in sequence ...
+    csIconCarat_, ssNoteHead_, csIconSplit_,     # -> Adds CARAT icon, HEADER text & SPLIT icon in sequence ...
+    ssNoteBody_, csIconTail_,                      # -> Adds NOTE (main body) text and TAIL icon (if requested) in sequence ...
     rasBaseElseIF(sbPostPendNL_, "\n", ""),     # -> Adds 1st post-pended NEW LINE (if so requested) !!!
     rasBaseElseIF(sbPostPend2ndNL_, "\n", "")   # -> Adds 2nd post-pended NEW LINE (if so requested) !!!
   );
@@ -276,22 +234,6 @@
   ### . --- --- --- > Custom Function CODE LOGIC - STOP < --- --- --- . ####
   
   
-  
-  ### STEP 07 - Deploy the "Terminal", "STOP" or "EXIT" Self-ID note ... ####
-  if (!rasBaseIsNULL(sbDotArgRunSelfID_) && sbDotArgRunSelfID_) {
-    csTimeSTOP_ <- base::Sys.time();
-    MFMRutils::info.post.func.self.id(
-      sbPrintPretty = sbPrintPretty_, csTimeStart = RCT_SYS_TIME_NOW_,
-      csIconCarat = csDotArgIconCarat_, csColorCarat = csDotArgColorCarat_,
-      csIconSplit = csDotArgIconSplit_, csColorSplit = csDotArgColorSplit_,
-      ### ssFuncType = MFMRutils::code.classify.func(siStartCELN_, siStopCELN_),
-      csTimeStop = csTimeSTOP_, ssProjID = ssDotArgProjID_, siFuncMode01 = 0L,
-      csFormatDT = csDotArgFormatDT_, csColorTimeStamp = csDotArgColorTimeStamp_,
-      csColorCallerID = csDotArgColorCallerID_, csColorMain = csDotArgColorMain_,
-      ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, ssFuncCallerID = ssDotArgFuncCallrID_,
-      csColorProjID = csDotArgColorProjID_, csColorFuncType = csDotArgColorFuncType_
-    );
-  }
 
   ### Output the full notification text <message> as the function's return value ###
   rasBaseIsINVISIBLE(csFullNote_);
