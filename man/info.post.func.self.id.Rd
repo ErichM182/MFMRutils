@@ -2,7 +2,7 @@
 % Please edit documentation in R/INFO.Post.Func.Self.ID.R
 \name{info.post.func.self.id}
 \alias{info.post.func.self.id}
-\title{Print Self-ID Information for Custom R Functions}
+\title{Print R Functions Self-ID Info}
 \usage{
 info.post.func.self.id(
   ssProjID = NULL,
@@ -127,3 +127,8 @@ info.post.func.self.id(
 
 
 }
+\seealso{
+Other SuiteMFMR INFO Functions: 
+\code{\link{info.post.note}()}
+}
+\concept{SuiteMFMR INFO Functions}

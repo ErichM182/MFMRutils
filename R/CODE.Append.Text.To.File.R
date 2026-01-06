@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Append Text to File (the "SuiteMFMR" way)
 #' @name code.append.text.to.file
-#' @family SuiteMFMR Code Functions
+#' @family SuiteMFMR CODE Functions
 #' 
 #' 
 #' @description

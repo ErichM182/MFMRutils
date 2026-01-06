@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Text & Date Formats for use in R (the "SuiteMFMR" selection)
 #' @name RENV_FORMATS
-#' @family SuiteMFMR Constants
+#' @family SuiteMFMR CONSTANTS
 #' 
 #' 
 #' @description

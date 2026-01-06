@@ -56,7 +56,7 @@ require(MFMRutils)   ### -> Ensures the "MFMRutils" library is installed & loade
 
 }
 \seealso{
-Other SuiteMFMR Code Functions: 
+Other SuiteMFMR CODE Functions: 
 \code{\link{\%??\%}()},
 \code{\link{code.append.text.to.file}()},
 \code{\link{code.clean.file.path}()},
@@ -64,4 +64,4 @@ Other SuiteMFMR Code Functions:
 \code{\link{code.return.renv.locked.list}()},
 \code{\link{code.split.string.on.vector}()}
 }
-\concept{SuiteMFMR Code Functions}
+\concept{SuiteMFMR CODE Functions}

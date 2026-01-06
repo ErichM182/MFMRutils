@@ -1,6 +1,7 @@
 #? ### ### ### ### ### ### ###
-#' @title Print Self-ID Information for Custom R Functions
+#' @title Print R Functions Self-ID Info
 #' @name info.post.func.self.id
+#' @family SuiteMFMR INFO Functions
 #' 
 #' 
 #' @description

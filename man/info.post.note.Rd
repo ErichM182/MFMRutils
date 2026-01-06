@@ -5,120 +5,169 @@
 \title{Post Standardized R-Project Notifications}
 \usage{
 info.post.note(
-  ssHeader = NULL,
-  ssNote = "NOTE to POST !!!",
-  csIconCarat = "=>",
-  csIconSplit = "|",
-  csIconTail = MFMRutils::RENV_ICONS$FireFlame,
-  csColorNote = MFMRutils::RENV_COLOURS$CyanFORE,
-  csColorHeader = MFMRutils::RENV_COLOURS$GreenFORE,
+  csCarat = "=>",
+  ssHead = NULL,
+  csSplit = "|",
+  ssBody = "NOTE to POST !!!",
+  csTail = MFMRutils::RENV_ICONS$FireFlame,
+  sbShowTail = TRUE,
+  sbPrintPretty = TRUE,
+  csColorHead = MFMRutils::RENV_COLOURS$GreenFORE,
+  csColorBody = MFMRutils::RENV_COLOURS$CyanFORE,
   csColorCarat = MFMRutils::RENV_COLOURS$YellowFORE,
   csColorSplit = MFMRutils::RENV_COLOURS$YellowFORE,
   sbPrePendNL = FALSE,
-  sbShowTail = TRUE,
-  sbPostPendNL = TRUE,
-  sbPostPend2ndNL = FALSE,
-  sbPrintPretty = TRUE,
-  ...
+  sbPostPend1NL = TRUE,
+  sbPostPend2NLs = FALSE,
+  sbPostAlways = TRUE,
+  siCallCELN = 1982L
 )
 }
 \arguments{
-\item{ssHeader}{a character vector (string or text) that defines the starting
-text of the output message (notification). This function
-argument is useful in standardizing the notification format
-for an entire R Project.}
+\item{csCarat}{(\link{character}) A complex String or Text (i.e. \link{character} \link{vector}) object that
+defines what the first or starting symbol (i.e. carat) of the note, to be posted,
+should be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx
+or escaped character) object - but must be an acceptable R \link{character} object.}
 
-\item{ssNote}{the character vector (i.e. text string or note) to be printed
-to the R console. This text note is also returned as a function
-output under the "value" option of this function's results list.}
+\item{ssHead}{(\link{character}) A simple String or Text (i.e. \link{character} \link{vector}) argument that
+defines the starting (i.e. header) text of the note (to be posted). This function
+argument is useful in standardizing the notification format at an R Project level.}
 
-\item{csIconCarat}{a character vector (text string or object) that defines
-the leading symbol (icon) of the printed notification.}
+\item{csSplit}{(\link{character}) A complex String or Text (i.e. \link{character} \link{vector}) object that
+defines what the middle symbol (i.e. separator between the \code{ssHead} and \code{ssBody}
+components) of the note, to be posted, should be or look like. This can be a
+simple text or a complex (i.e. ANSI, RegEx or escaped character) object - but must
+be an acceptable R \link{character} object.}
 
-\item{csIconSplit}{a character vector (text string or object) that defines
-the middle of the output message (i.e. separator between
-the "ssHeader" and the "ssNote" parts of the note).}
+\item{ssBody}{(\link{character}) A simple String or Text (i.e. \link{character} \link{vector}) argument that
+defines the main (i.e. body) text of the note (to be posted).}
 
-\item{csIconTail}{a compound character vector (text string or object) value
-that defines the image (icon) to be used for the trailing
-(terminal or "tail") icon object of the posted note.}
+\item{csTail}{(\link{character}) A complex String or Text (i.e. \link{character} \link{vector}) object that
+defines what the ending symbol (i.e. tail or terminal icon) of the note, to be
+posted, should be or look like. This can be a simple text or a complex (i.e. ANSI,
+RegEx or escaped character) object, but must be an acceptable R \link{character} object.}
 
-\item{csColorNote}{a character (text string) value that defines the text color
-for the note (main text) object of the posted note.}
+\item{sbShowTail}{(\link{logical}) A Boolean value that specifies whether to include the tail (i.e.
+trailing or terminal symbol or icon) object in the note to be posted or not
+(default == \code{TRUE}).}
 
-\item{csColorHeader}{a character (text string) value that defines the text
-color for the header object of the posted note.}
+\item{sbPrintPretty}{(\link{logical}) A Boolean value that specifies whether the built-in (i.e. the
+function's internal) text formatting (i.e. ANSI \if{html}{\out{<font weight and colour>}}
+formats) should be applied to the printed notification or not (default ==
+\code{TRUE}).}
 
-\item{csColorCarat}{a character (text string) value that defines the object
-color for the leading (starting) symbol (icon) object of
-the posted (output) notification (note).}
+\item{csColorHead}{(\link{character}) A String or Text (i.e. \link{character} \link{vector}) value that defines
+the text colour for the header (\code{ssHead}) object of the note to be posted.}
 
-\item{csColorSplit}{a character (text string) value that defines the text color
-for the middle separator (icon) object of the posted note.}
+\item{csColorBody}{(\link{character}) A String or Text (i.e. \link{character} \link{vector}) value that defines
+the text colour for the main text (\code{ssBody}) object of the note to be posted.}
 
-\item{sbPrePendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the START of
-a posted note.}
+\item{csColorCarat}{(\link{character}) A String or Text (i.e. \link{character} \link{vector}) value that defines
+the colour for the leading (starting) symbol or icon (\code{csCarat}) object of
+the note to be posted.}
 
-\item{sbShowTail}{a logical (boolean) value that specifies whether to show or
-print the trailing (terminal or "tail") icon object or not.}
+\item{csColorSplit}{(\link{character}) A String or Text (i.e. \link{character} \link{vector}) value that defines
+the colour for the middle spacer (\code{csSplit}) object of the note to be posted.}
 
-\item{sbPostPendNL}{a logical (boolean) value that specifies whether a new
-line (blank space or row) should be added to the END of
-a posted note.}
+\item{sbPrePendNL}{(\link{logical}) A Boolean value that specifies whether a new line (blank space or
+row) should be added to the START of the note to be posted or not (default ==
+\code{FALSE}).}
 
-\item{sbPostPend2ndNL}{a logical (boolean) value that specifies whether a
-second line (blank space or row) should be added to
-the END of a posted note. This function argument can
-be useful for clearly delineating sections within a
-custom R Function or R Project output (printed) code.}
+\item{sbPostPend1NL}{(\link{logical}) A Boolean value that specifies whether a SINGLE new line (blank
+space or row) should be added to the END of the note to be posted or not
+(default == \code{TRUE}).}
 
-\item{sbPrintPretty}{a logical (boolean) argument that specifies whether the
-ANSI text font formatting (i.e. colour & weight) should
-be applied to the printed notification or not.}
+\item{sbPostPend2NLs}{(\link{logical}) A Boolean value that specifies whether a DOUBLE new line (blank
+spaces or rows) should be added to the END of the note to be posted or not.
+This function argument can be useful for clearly delineating sections within
+a custom R Function or R Project output (printed) code (default == \code{FALSE}).}
 
-\item{...}{all "fall-through" function arguments to be used as inputs to any
-nested functions. In this specific case these "fall-through" args
-are related to the "MFMRutils::info.post.func.self.id()" function
-(e.g. "ssProjID", "csFormatDT", "csIconSplit", "csIconCarat",
-"sbRunSelfID", "csColorMain", "csColorSplit", "csColorCarat",
-"csColorProjID", "ssFuncCallerID", "csColorCallerID",
-"csColorFuncType", "csColorTimeStamp") <- list is NOT exhaustive !!!}
+\item{sbPostAlways}{(\link{logical}) A Boolean value that specifies whether the note should ALWAYS be
+posted (printed to the active R Console) or not (default == \code{TRUE}).}
+
+\item{siCallCELN}{(\link{integer}) A Numeric value that specifies the Code Editor Line Number (CELN)
+at which this function was called from by its parent function or R Script.}
 }
 \value{
 \itemize{
-\item This function prints the supplied text (notification) directly to the active
-R Session Console \if{html}{\out{<even if function outputs are assigned to a variable>}} !!!
-\item This function also outputs the full (complete) notification message as an
-invisible function return value (i.e. result).
+\item This function prints the supplied text (message) directly to the active R Session Console when
+the function argument \code{sbPostAlways} (or either of the R Project DEBUG and VERBOSE trackers:
+i.e. \code{RCT_IS_DEBUG_MODE_} and \code{RCT_IS_VERBOSE_MODE_}, respectively) are set to \code{TRUE}.
+\item This function also outputs the full (complete) notification message as an invisible function
+return value (function result).
 }
 }
 \description{
-A Helper Function that standardizes the User / Project Information Posting
-(i.e. notification) Processes. This custom function was intended to mainly
-support the MFMR Suite of R Functions, but can be utilized as a standalone
-function in other (3rd Party) R packages.
+A Helper Function that standardizes the R Project Information Posting (i.e. User Notification)
+Processes. This function was intended to mainly support the MFMR Suite of R Functions, but may
+be utilized as a standalone function in other (i.e. 3rd Party) R packages.
 }
 \examples{
-
-### Print a dummy notification ...
-library(MFMRutils)            # -> Loads "MFMRutils" library <if previously installed> ...
-## info.post.note()              # -> use this when "MFMRutils" is <already> loaded !!!
-MFMRutils::info.post.note()   # -> use this when "MFMRutils" is installed, 
-                              #    but NOT <already> loaded !!!
+### Easily post notifications to the active R Console as follows ...
+library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed locally.
 
 
-### Use "fall-through" function arguments to activate additional outputs ...
-info.post.note(sbRunSelfID = TRUE)   # -> Prints the custom R function's START (ENTRY) and 
-                                     #    STOP (EXIT) "Self-Identifier" information ...
-info.post.note(                                  
-  sbRunSelfID = TRUE, 
-  ssFuncCallerID = "rTestFunc"       # -> Sets the Calling Function Identifier (tag) in the
-)                                    #    "Self-ID" info to a value of `rTestFunc` ...
+### Example 1: Post a dummy note (default notification) ...
+info.post.note()   # <- Run function without <user-specified> inputs to generate a dummy post !!!
 
-info.post.note(                                  
-  sbRunSelfID = TRUE, 
-  ssProjID = "MFMR-R-Suite"          # -> Sets the R Project Identifier (tag) in the "Self-ID"
-)                                    #    info to a value of `MFMR-R-Suite` ...
+
+### Example 2: Post a user-specified notification ...
+info.post.note(
+  csCarat = "~>",                               # <- Sets the leading <start> icon to a "~>".
+  ssHead = "My-CUST-FUNC",                      # <- Sets the HEADER text of the notification ...
+  ssBody = "This is my COOL NOTE -> YaY !!!",   # <- Sets the MAIN <body> text of notification.
+  sbShowTail = FALSE                            # <- Hides the trailing <tail> icon object !!!
+)
+
+
+### Example 3: Deactivate the built-in formatting (spaces, font weights and font colours ) ...
+info.post.note(
+  csCarat = "~>",                               
+  ssHead = "My-CUST-FUNC",                      
+  ssBody = "This is my COOL NOTE -> YaY !!!",   
+  sbShowTail = FALSE,                           
+  sbPrintPretty = FALSE   # <- Prints the input text as provided (i.e. without spaces or any 
+)                         #    text formatting). You must format your text (as required) prior to
+                          #    handing it to the function (when `sbPrintPretty` is set to FALSE).
+
+
+### Example 4: Post notifications on basis of the DEBUG and VERBOSE R Project trackers ...
+RCT_IS_VERBOSE_MODE_ <- TRUE   # <- Set `RCT_IS_VERBOSE_MODE_` to TRUE anywhere in R Project ...
+info.post.note(
+  csCarat = "~>",                               
+  ssHead = "My-CUST-FUNC",                      
+  ssBody = "This is my COOL NOTE -> YaY !!!",   
+  sbPostAlways = FALSE         # <- The R Project VERBOSE tracker (i.e. `RCT_IS_VERBOSE_MODE_`)
+)                              #    overrides the `sbPostAlways` function argument -> this means
+                               #    the function WILL PRINT its message to the R Console, even if
+                               #    the `sbPostAlways` function argument is set to FALSE, when 
+                               #    the VERBOSE tracker is set to a value of TRUE !!!
+                               
+# Remove VERBOSE Tracker from Global R Environments list ...
+rm(list = c("RCT_IS_VERBOSE_MODE_"))   # <- Remove VERBOSE Tracker from R Environment !!!
+
+
+RCT_IS_DEBUG_MODE_ <- TRUE   # <- Set `RCT_IS_DEBUG_MODE_` to TRUE anywhere in an R Project ...
+info.post.note(
+  csCarat = "~>",
+  ssHead = "My-CUST-FUNC",
+  ssBody = "This is my COOL NOTE -> YaY !!!",
+  sbPostAlways = FALSE       # <- The R Project DEBUG tracker (i.e. `RCT_IS_DEBUG_MODE_`)
+)                            #    overrides the `sbPostAlways` function argument -> this means
+                             #    the function WILL PRINT its message to the R Console, even if
+                             #    the `sbPostAlways` function argument is set to FALSE, when
+                             #    the DEBUG tracker is set to a value of TRUE !!!
+
+### NB: DEBUG Tracker also activates the Code Editor Line Number (CELN) section of the 
+###    `info.post.note()` function output (CELN is positioned after the HEADER text) !!!
+                               
+# Remove DEBUG Tracker from Global R Environments list ...
+rm(list = c("RCT_IS_DEBUG_MODE_"))   # <- Remove DEBUG Tracker from R Environment !!!
+
 
 }
+\seealso{
+Other SuiteMFMR INFO Functions: 
+\code{\link{info.post.func.self.id}()}
+}
+\concept{SuiteMFMR INFO Functions}

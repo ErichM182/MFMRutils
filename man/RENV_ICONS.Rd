@@ -5,7 +5,7 @@
 \alias{RENV_ICONS}
 \title{Icons For Use in R (the "SuiteMFMR" selection)}
 \format{
-An object of class \code{environment} of length 33.
+An object of class \code{environment} of length 35.
 }
 \usage{
 RENV_ICONS
@@ -37,12 +37,12 @@ MFMRutils::RENV_ICONS$OoglyEyes   ### -> prints "👀" to the R console !!!
 
 }
 \seealso{
-Other SuiteMFMR Constants: 
+Other SuiteMFMR CONSTANTS: 
 \code{\link{RENV_COLOURS}},
 \code{\link{RENV_FORMATS}},
 \code{\link{RENV_FSID}},
 \code{\link{RENV_MISC}},
 \code{\link{RENV_SuiteMFMR}}
 }
-\concept{SuiteMFMR Constants}
+\concept{SuiteMFMR CONSTANTS}
 \keyword{datasets}
