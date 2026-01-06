@@ -6,12 +6,3 @@
 
 MFMRutils::devs.check.code.specs(sbCheckCRAN = T)
 
-
-
-# results <- MFMRutils::devs.find.code.instances(
-#   ssFindText = "plot",
-#   vsTargetLibs = c("base", "utils", "graphics"),
-#   sbSearchInternals = FALSE
-# )
-
-

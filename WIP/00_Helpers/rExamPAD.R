@@ -4,10 +4,12 @@
 
 
 #' @examples
-#' ### Easily debug custom R function code with this <cool> helper function ...
+#' ### Easily post notifications to the active R Console as follows ...
 #' library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed locally.
-#'
-#'
+#' 
+#' 
+#' ### Example 1: Post a dummy note (default notification) ...
+#' info.post.note()   # <- Run function without <user-specified> inputs to generate a dummy post !!!
 #'
 #' 
 #' 
