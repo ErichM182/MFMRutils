@@ -1,14 +1,14 @@
 #? ### ### ### ### ### ### ###
-#' @title Print R Functions Self-ID Info
+#' @title Print R Function Self-ID Information
 #' @name info.post.func.self.id
 #' @family SuiteMFMR INFO Functions
 #' 
 #' 
 #' @description
 #' A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type, 
-#' caller, run-time duration etc.) information of a custom R function. This custom function was 
-#' intended to mainly support the MFMR Suite of R Functions, but can be utilized as a standalone 
-#' function in other (i.e. 3rd Party) R packages.
+#' caller, run-time duration etc.) information of a custom R function. This function was intended to
+#' mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in 
+#' other (i.e. 3rd Party) R packages.
 #'
 #'
 #' @param ssProjID a character (string) identifier of the R Project <script>
@@ -94,17 +94,48 @@
   sbPrintPretty=NULL, sbRunSelfID=FALSE
 ) {
   
+  
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  # NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
-  #     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
-  RCT_SYS_TIME_NOW_     <- base::Sys.time();           # <- Extract the active System Date-Time !!!
+  RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();           # <- Extract the <active> System Date-Time.
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHRT_ <- "Func-SID";                 # <- FSID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
+  RCT_TAG_FUNC_ID_FULL_ <- "INFO-Post-Func-Self-ID";   # <- FSID - LONG !!!
+  RCT_INT_CELN_START_   <- 136L;                       # <- The Code Editor Line Number (CELN) at 
+                                                       #    which the function opening brace "(" 
+                                                       #    is located !!!
   
   
   
-  ####   STEP 02 - Internalize ALL Function Arguments   ####
+  ####   STEP 02 - Alias ALL <required> Functions   ####
+  ## NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  rasABS           <- base::abs;
+  rasANY           <- base::any;
+  rasCAT           <- base::cat;
+  rasSUB           <- base::sub;
+  rasGET0          <- base::get0;
+  rasLIST          <- base::list;
+  rasIsNA          <- base::is.na;
+  rasTRUNC         <- base::trunc;
+  rasROUND         <- base::round;
+  rasLENGTH        <- base::length;
+  rasRETURN        <- base::return;
+  rasIfELSE        <- base::ifelse;
+  rasPASTE0        <- base::paste0;
+  rasFORMAT        <- base::format;
+  rasIsNULL        <- base::is.null;
+  rasStrFormTIME   <- base::strftime;
+  rasINVISIBLE     <- base::invisible;
+  rasAsNUMERIC     <- base::as.numeric;
+  
+  `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrICONS     <- MFMRutils::RENV_ICONS;
+  rasMfmrCOLORS    <- MFMRutils::RENV_COLOURS;
+  rasMfmrFORMATS   <- MFMRutils::RENV_FORMATS;
+  rasMfmrClassFUNC <- MFMRutils::code.classify.func;
+  
+  
+  
+  ####   STEP 03 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
   rssProjID_         <- ssProjID;
   rssFuncCallerID_   <- ssFuncCallerID;
@@ -138,36 +169,6 @@
   
   ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
   if (rsbRunSelfID_ || rsbRunModeDEBUG_) {
-    
-    ####   STEP 03 - Alias ALL Required Functions   ####
-    ## Assign "Local Aliases" for frequently used functions !!!
-    ## NB: This is a <NEW> approach to improve R Session Memory Efficiency ...
-    rasABS           <- base::abs;
-    rasANY           <- base::any;
-    rasCAT           <- base::cat;
-    rasSUB           <- base::sub;
-    rasGET0          <- base::get0;
-    rasLIST          <- base::list;
-    rasIsNA          <- base::is.na;
-    rasTRUNC         <- base::trunc;
-    rasROUND         <- base::round;
-    rasLENGTH        <- base::length;
-    rasRETURN        <- base::return;
-    rasIfELSE        <- base::ifelse;
-    rasPASTE0        <- base::paste0;
-    rasFORMAT        <- base::format;
-    rasIsNULL        <- base::is.null;
-    rasStrFormTIME   <- base::strftime;
-    rasINVISIBLE     <- base::invisible;
-    rasAsNUMERIC     <- base::as.numeric;
-    
-    `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-    rasMfmrICONS     <- MFMRutils::RENV_ICONS;
-    rasMfmrCOLORS    <- MFMRutils::RENV_COLOURS;
-    rasMfmrFORMATS   <- MFMRutils::RENV_FORMATS;
-    rasMfmrClassFUNC <- MFMRutils::code.classify.func;
-    
-    
     
     ####   STEP 04 - Define Critical Constants   ####
     ### Prime selected variables (akin to constants) ...
@@ -247,8 +248,8 @@
     rcsColorCarat_     <- rcsColorCarat_     %??% rcsColorsYELLOW_;
     rcsIconSplit_      <- rcsIconSplit_      %??% " | ";
     rcsColorSplit_     <- rcsColorSplit_     %??% rcsColorsYELLOW_;
-    rcsTimeStart_      <- rcsTimeStart_      %??% RCT_SYS_TIME_NOW_;
-    rcsTimeStop_       <- rcsTimeStop_       %??% RCT_SYS_TIME_NOW_;
+    rcsTimeStart_      <- rcsTimeStart_      %??% RCT_DBL_SYS_TIME_NOW_;
+    rcsTimeStop_       <- rcsTimeStop_       %??% RCT_DBL_SYS_TIME_NOW_;
     rcsFormatDT_       <- rcsFormatDT_       %??% rasMfmrFORMATS$DATE_LONG_V03;
     rcsColorTimeStamp_ <- rcsColorTimeStamp_ %??% rcsColorsYELLOW_;
     rcsColorProjID_    <- rcsColorProjID_    %??% rcsColorsGREEN_;

@@ -109,7 +109,7 @@
 #'                                #    the `sbPostAlways` function argument is set to FALSE, when 
 #'                                #    the VERBOSE tracker is set to a value of TRUE !!!
 #'                                
-#' # Remove VERBOSE Tracker from Global R Environments list ...
+#' ## Remove VERBOSE Tracker from Global R Environment ...
 #' rm(list = c("RCT_IS_VERBOSE_MODE_"))   # <- Remove VERBOSE Tracker from R Environment !!!
 #'
 #'
@@ -127,7 +127,7 @@
 #' ### NB: DEBUG Tracker also activates the Code Editor Line Number (CELN) section of the 
 #' ###    `info.post.note()` function output (CELN is positioned after the HEADER text) !!!
 #'                                
-#' # Remove DEBUG Tracker from Global R Environments list ...
+#' ## Remove DEBUG Tracker from Global R Environment ...
 #' rm(list = c("RCT_IS_DEBUG_MODE_"))   # <- Remove DEBUG Tracker from R Environment !!!
 #'
 #'
@@ -143,6 +143,8 @@
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
+  ## NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
+  ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This is the only FUNC that DOES NOT SELF-ID !!! 
@@ -153,7 +155,7 @@
   
   
   ####   STEP 02 - Alias ALL <required> Functions   ####
-  # NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
+  ## NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasBaseCAT         <- base::cat;
   rasBaseGET0        <- base::get0;
   rasBaseElseIF      <- base::ifelse;
@@ -182,8 +184,8 @@
   csColorCarat_    <- csColorCarat;
   csColorSplit_    <- csColorSplit;
   sbPrePendNL_     <- sbPrePendNL;
-  sbPostPend1NL_    <- sbPostPend1NL;
-  sbPostPend2NLs_ <- sbPostPend2NLs;
+  sbPostPend1NL_   <- sbPostPend1NL;
+  sbPostPend2NLs_  <- sbPostPend2NLs;
   sbPostAlways_    <- sbPostAlways;
   siCallCELN_      <- siCallCELN;
   
@@ -325,7 +327,7 @@
     
     
     ###   STEP 06 - Return Results to Function Call   ####
-    # Returns the full notification text <message> as the function's return value ...
+    # Outputs the full notification text <message> as the function's return value ...
     rasBaseIsINVISIBLE(csFullNote_);
     
   }
