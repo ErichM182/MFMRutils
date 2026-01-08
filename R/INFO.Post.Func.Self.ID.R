@@ -87,45 +87,45 @@
 #' @export
 #? ### ### ###
 "info.post.func.self.id" <- function(
-  ssProjID=NULL, ssFuncSelfID=NULL, siFuncMode01=NULL, ssFuncCallerID=NULL, csIconCarat=NULL, 
-  csColorCarat=NULL, csIconSplit=NULL, csColorSplit=NULL, csTimeStart=NULL, csTimeStop=NULL, 
-  csFormatDT=NULL, csColorTimeStamp=NULL, csColorProjID=NULL, csColorFuncType=NULL, 
-  csColorCallerID=NULL, siStopCELN=NULL, siStartCELN=NULL, csColorMainText=NULL, 
-  sbPrintPretty=NULL, sbRunSelfID=FALSE
+  ssProjID=NULL, ssFuncSelfID=NULL, ssFuncCallerID=NULL, siFuncMode01L=NULL, csTimeStart=NULL, 
+  csTimeStop=NULL, siStartCELN=NULL, siStopCELN=NULL, sbRunSelfID=FALSE, ...
 ) {
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
+  ## NB: This 👆 is THE 2nd OF ONLY 2 FUNCTIONS [in the MFMR Suite of R Functions] THAT DO
+  ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();           # <- Extract the <active> System Date-Time.
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHRT_ <- "Func-SID";                 # <- FSID - SHORT !!!
+  RCT_TAG_FUNC_ID_NSID_ <- "Func-SID";                 # <- This Func DOES NOT SELF-ID (NSID) !!!
   RCT_TAG_FUNC_ID_FULL_ <- "INFO-Post-Func-Self-ID";   # <- FSID - LONG !!!
-  RCT_INT_CELN_START_   <- 136L;                       # <- The Code Editor Line Number (CELN) at 
-                                                       #    which the function opening brace "(" 
-                                                       #    is located !!!
   
+  RCT_INT_CELN_START_ <- 89L;    # <- The Code Editor Line Number (CELN) at which the function 
+                                 #    OPENING <normal> brace/bracket "(" is located !!!
+  RCT_INT_CELN_STOP_  <- 522L;   # <- The Code Editor Line Number (CELN) at which the function 
+                                 #    CLOSING <curly> brace/bracket "}" is located !!!
   
   
   ####   STEP 02 - Alias ALL <required> Functions   ####
   ## NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
-  rasABS           <- base::abs;
-  rasANY           <- base::any;
-  rasCAT           <- base::cat;
-  rasSUB           <- base::sub;
-  rasGET0          <- base::get0;
-  rasLIST          <- base::list;
-  rasIsNA          <- base::is.na;
-  rasTRUNC         <- base::trunc;
-  rasROUND         <- base::round;
-  rasLENGTH        <- base::length;
-  rasRETURN        <- base::return;
-  rasIfELSE        <- base::ifelse;
-  rasPASTE0        <- base::paste0;
-  rasFORMAT        <- base::format;
-  rasIsNULL        <- base::is.null;
-  rasStrFormTIME   <- base::strftime;
-  rasINVISIBLE     <- base::invisible;
-  rasAsNUMERIC     <- base::as.numeric;
+  rasABS         <- base::abs;
+  rasANY         <- base::any;
+  rasCAT         <- base::cat;
+  rasSUB         <- base::sub;
+  rasGET0        <- base::get0;
+  rasLIST        <- base::list;
+  rasIsNA        <- base::is.na;
+  rasTRUNC       <- base::trunc;
+  rasROUND       <- base::round;
+  rasLENGTH      <- base::length;
+  rasRETURN      <- base::return;
+  rasIfELSE      <- base::ifelse;
+  rasPASTE0      <- base::paste0;
+  rasFORMAT      <- base::format;
+  rasIsNULL      <- base::is.null;
+  rasStrFormTIME <- base::strftime;
+  rasINVISIBLE   <- base::invisible;
+  rasAsNUMERIC   <- base::as.numeric;
   
   `%??%`           <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrICONS     <- MFMRutils::RENV_ICONS;
@@ -137,38 +137,33 @@
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
-  rssProjID_         <- ssProjID;
-  rssFuncCallerID_   <- ssFuncCallerID;
-  rssFuncSelfID_     <- ssFuncSelfID;
-  rsiFuncMode01_     <- siFuncMode01;
-  rcsColorCarat_     <- csColorCarat;
-  rcsIconSplit_      <- csIconSplit;
-  rcsColorSplit_     <- csColorSplit;
-  rcsTimeStart_      <- csTimeStart;
-  rcsTimeStop_       <- csTimeStop;
-  rcsFormatDT_       <- csFormatDT;
-  rcsColorTimeStamp_ <- csColorTimeStamp;
-  rcsColorProjID_    <- csColorProjID;
-  rcsColorFuncType_  <- csColorFuncType;
-  rcsColorCallerID_  <- csColorCallerID;
-  rcsColorMainText_  <- csColorMainText;
-  rsbPrintPretty_    <- sbPrintPretty;
-  rsiStartCELN_      <- siStartCELN;
-  rsiStopCELN_       <- siStopCELN;
-  rcsIconCarat_      <- csIconCarat;
-  rsbRunSelfID_      <- sbRunSelfID;
+  ssProjID_       <- ssProjID;
+  ssFuncSelfID_   <- ssFuncSelfID;
+  ssFuncCallerID_ <- ssFuncCallerID;
+  siFuncMode01L_  <- siFuncMode01L;
+  csTimeStart_    <- csTimeStart;
+  csTimeStop_     <- csTimeStop;
+  siStartCELN_    <- siStartCELN;
+  siStopCELN_     <- siStopCELN;
+  sbRunSelfID_    <- sbRunSelfID;
+  coDotsArgs_     <- rasLIST(...);
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
-  rsbRunModeDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    "rsbRunModeDEBUG_",             #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
-    envir = .GlobalEnv,             #    and extracts its value.
-    ifnotfound = FALSE              # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                                #    the Active R Session !!!
+  sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
+    "RCT_IS_DEBUG_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    envir = .GlobalEnv,       #    and extracts its value.
+    ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                          #    the Active R Session !!!
+  sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
+    "RCT_IS_VERBOSE_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    envir = .GlobalEnv,         #    and extracts its value.
+    ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                            #    the Active R Session !!!
   
   
   ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
-  if (rsbRunSelfID_ || rsbRunModeDEBUG_) {
+  if (sbRunSelfID_ || sbIsDEBUG_ || sbIsVERBOSE_) {
     
     ####   STEP 04 - Define Critical Constants   ####
     ### Prime selected variables (akin to constants) ...
@@ -241,15 +236,15 @@
     # NOTES: hand-over all func-args to func-local <internal> variables ...
     rcsTimeStamp_      <- NULL;
     rcoListFuncRes_    <- NULL;   # -> The <final> function output <results> object.
-    rssProjID_         <- rssProjID_         %??% NULL;
-    rssFuncSelfID_     <- rssFuncSelfID_     %??% RCT_TAG_FUNC_ID_FULL_;
-    rssFuncCallerID_   <- rssFuncCallerID_   %??% "UNDEFINED";
-    rsiFuncMode01_     <- rsiFuncMode01_     %??% 0L;
+    ssProjID_         <- ssProjID_         %??% NULL;
+    ssFuncSelfID_     <- ssFuncSelfID_     %??% RCT_TAG_FUNC_ID_FULL_;
+    ssFuncCallerID_   <- ssFuncCallerID_   %??% "UNDEFINED";
+    siFuncMode01L_     <- siFuncMode01L_     %??% 0L;
     rcsColorCarat_     <- rcsColorCarat_     %??% rcsColorsYELLOW_;
     rcsIconSplit_      <- rcsIconSplit_      %??% " | ";
     rcsColorSplit_     <- rcsColorSplit_     %??% rcsColorsYELLOW_;
-    rcsTimeStart_      <- rcsTimeStart_      %??% RCT_DBL_SYS_TIME_NOW_;
-    rcsTimeStop_       <- rcsTimeStop_       %??% RCT_DBL_SYS_TIME_NOW_;
+    csTimeStart_      <- csTimeStart_      %??% RCT_DBL_SYS_TIME_NOW_;
+    csTimeStop_       <- csTimeStop_       %??% RCT_DBL_SYS_TIME_NOW_;
     rcsFormatDT_       <- rcsFormatDT_       %??% rasMfmrFORMATS$DATE_LONG_V03;
     rcsColorTimeStamp_ <- rcsColorTimeStamp_ %??% rcsColorsYELLOW_;
     rcsColorProjID_    <- rcsColorProjID_    %??% rcsColorsGREEN_;
@@ -257,19 +252,19 @@
     rcsColorCallerID_  <- rcsColorCallerID_  %??% rcsColorsMAGENTA_;
     rcsColorMainText_  <- rcsColorMainText_  %??% rcsColorsCYAN_;
     rsbPrintPretty_    <- rsbPrintPretty_    %??% TRUE;
-    rsiStartCELN_      <- rsiStartCELN_      %??% 1L;
-    rsiStopCELN_       <- rsiStopCELN_       %??% 28L;
-    rcsIconCarat_      <- rcsIconCarat_      %??% rasIfELSE(rsiFuncMode01_ == 1L,
+    siStartCELN_      <- siStartCELN_      %??% 1L;
+    siStopCELN_       <- siStopCELN_       %??% 28L;
+    rcsIconCarat_      <- rcsIconCarat_      %??% rasIfELSE(siFuncMode01L_ == 1L,
                                                             rcsIconSPARK_, rcsIconSKULL_);
     
     
     
     ### STEP 04 - Prime the DateTime Values ... ####
     rcsTimeStartFORMATTED_ <- rasStrFormTIME(
-      x = rcsTimeStart_, format = rcsFormatDT_
+      x = csTimeStart_, format = rcsFormatDT_
     );
     rcsTimeStopFORMATTED_ <- rasStrFormTIME(
-      x = rcsTimeStop_, format = rcsFormatDT_
+      x = csTimeStop_, format = rcsFormatDT_
     );
     
     
@@ -313,18 +308,18 @@
     
     
     ### STEP 09 - Apply the "Project-ID" Text Formatting ... ####
-    if (rasIsNULL(rssProjID_)) {
-      rssProjID_ <- base::get0(        # -> Searches the Global Environment of the
+    if (rasIsNULL(ssProjID_)) {
+      ssProjID_ <- base::get0(        # -> Searches the Global Environment of the
         "RCT_TAG_PROJ_ID_",            #    Active R Session for the <somewhat>
         envir = .GlobalEnv,            #    unique variable name "rssTagProjID_"
         ifnotfound = "UNK. Proj. R"    #    and extracts the value contained in
       );                               #    that variable (if it exists) ... or
     }                                  #    else returns the "NOT-FOUND" value.
     if (rsbPrintPretty_) {
-      rssProjID_ <- rasPASTE0(
+      ssProjID_ <- rasPASTE0(
         rcsAnsiBOLD_,      # -> Apply a BOLD text formatting ... 
         rcsColorProjID_,   # -> Apply the specified text colour ... 
-        rssProjID_,        # -> Add the "Caller-ID" string value !!!
+        ssProjID_,        # -> Add the "Caller-ID" string value !!!
         rcsAnsiRESET_      # -> Deactivate text formatting !!!
       );
     }
@@ -358,7 +353,7 @@
     
     ###   STEP 11 - Apply the "Func-Type" Text Formatting   ####
     rssFuncType_ <- rasMfmrClassFUNC(
-      siStartCELN = rsiStartCELN_, siStopCELN = rsiStopCELN_
+      siStartCELN = siStartCELN_, siStopCELN = siStopCELN_
     );
     if (!rasIsNULL(rssFuncType_)) {
       if (rsbPrintPretty_) {
@@ -385,32 +380,32 @@
     
     
     ### STEP 12 - Apply the "Caller-ID" Text Formatting ... ####
-    if (!rasIsNULL(rssFuncCallerID_)) {
+    if (!rasIsNULL(ssFuncCallerID_)) {
       if (rsbPrintPretty_) {
-        rssFuncCallerID_ <- rasPASTE0(
+        ssFuncCallerID_ <- rasPASTE0(
           rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
           rcsColorCallerID_,   # -> Apply the specified text colour ... 
-          rssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
+          ssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
           rcsAnsiRESET_        # -> Deactivate text formatting !!!
         );
       }
     } else {
       if (rsbPrintPretty_) {
-        rssFuncCallerID_ <- rasPASTE0(
+        ssFuncCallerID_ <- rasPASTE0(
           rcsAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
           rcsColorCallerID_,   # -> Apply the specified text colour ... 
           "UNK.",              # -> Add the <default> "Caller-ID" string value !!!
           rcsAnsiRESET_        # -> Deactivate text formatting !!!
         );
       } else {
-        rssFuncCallerID_ <- "UNK.";   # -> Add a <basic> "Caller-ID" string value !!!
+        ssFuncCallerID_ <- "UNK.";   # -> Add a <basic> "Caller-ID" string value !!!
       }
     }
     
     
     
     ### STEP 13 - Apply the "Time-Stamp" Text Formatting ... ####
-    if (rsiFuncMode01_ == 1L) {   # -> Apply the ENTER function Info !!!
+    if (siFuncMode01L_ == 1L) {   # -> Apply the ENTER function Info !!!
       if (rsbPrintPretty_) {
         rcsTimeStamp_ <- rasPASTE0(
           rcsAnsiBOLD_,             # -> Apply a BOLD text formatting ... 
@@ -421,7 +416,7 @@
       } else {
         rcsTimeStamp_ <- rcsTimeStartFORMATTED_;
       }
-    } else if (rsiFuncMode01_ == 0L) {   # -> Apply the EXIT function Info !!!
+    } else if (siFuncMode01L_ == 0L) {   # -> Apply the EXIT function Info !!!
       if (rsbPrintPretty_) {
         rcsTimeStamp_ <- rasPASTE0(
           rcsAnsiBOLD_,            # -> Apply a BOLD text formatting ... 
@@ -437,16 +432,16 @@
     
     
     # 4.3.1.2 - Post the `ENTER` notification (Func-Self-ID) text ...
-    if (rsiFuncMode01_ == 1L) {   # -> Apply the ENTER function Info Post !!!
+    if (siFuncMode01L_ == 1L) {   # -> Apply the ENTER function Info Post !!!
       if (rsbPrintPretty_) {
         rasCAT(
           rasPASTE0(
-            rcsIconCarat_, rssProjID_, rcsIconSplit_,
+            rcsIconCarat_, ssProjID_, rcsIconSplit_,
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "F-START { <F-SID: '", rcsAnsiRESET_
             ),
             rasPASTE0(
-              rcsAnsiBOLD_, rcsColorCallerID_, rssFuncSelfID_, rcsAnsiRESET_
+              rcsAnsiBOLD_, rcsColorCallerID_, ssFuncSelfID_, rcsAnsiRESET_
             ),
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "'  F-Type: '", rcsAnsiRESET_
@@ -455,7 +450,7 @@
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "'>  F-Caller: '", rcsAnsiRESET_
             ), 
-            rssFuncCallerID_,
+            ssFuncCallerID_,
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "'  <Time: ", rcsAnsiRESET_
             ), 
@@ -468,30 +463,30 @@
       } else {
         rasCAT(
           rasPASTE0(
-            rcsIconCarat_, rssProjID_, rcsIconSplit_,
-            "F-START {  <F-SID: '", rssFuncSelfID_, 
+            rcsIconCarat_, ssProjID_, rcsIconSplit_,
+            "F-START {  <F-SID: '", ssFuncSelfID_, 
             "'  F-Type: '", rssFuncType_, "'> ",
-            " F-Caller: '", rssFuncCallerID_,
+            " F-Caller: '", ssFuncCallerID_,
             "'  <Time: ", rcsTimeStamp_, ">  }\n"
           )
         );
       }
-    } else if (rsiFuncMode01_ == 0L) {   # -> Apply the EXIT function Info Post !!!
-      rcsDeltaTIME_ <- rcf_calc.time.delta(rcsTimeStart_, rcsTimeStop_);
+    } else if (siFuncMode01L_ == 0L) {   # -> Apply the EXIT function Info Post !!!
+      rcsDeltaTIME_ <- rcf_calc.time.delta(csTimeStart_, csTimeStop_);
       if (rsbPrintPretty_) {
         rasCAT(
           rasPASTE0(
-            rcsIconCarat_, rssProjID_, rcsIconSplit_,
+            rcsIconCarat_, ssProjID_, rcsIconSplit_,
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "F-STOP { <F-SID: '", rcsAnsiRESET_
             ),
             rasPASTE0(
-              rcsAnsiBOLD_, rcsColorCallerID_, rssFuncSelfID_, rcsAnsiRESET_
+              rcsAnsiBOLD_, rcsColorCallerID_, ssFuncSelfID_, rcsAnsiRESET_
             ),
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "'  F-Caller: '", rcsAnsiRESET_
             ), 
-            rssFuncCallerID_,
+            ssFuncCallerID_,
             rasPASTE0(
               rcsAnsiBOLD_, rcsColorMainText_, "'>  Time: ", rcsAnsiRESET_
             ), 
@@ -510,9 +505,9 @@
       } else {
         rasCAT(
           rasPASTE0(
-            rcsIconCarat_, rssProjID_, rcsIconSplit_,
-            "F-STOP { <F-SID: '", rssFuncSelfID_, 
-            "'  F-Caller: '", rssFuncCallerID_, "'> ",
+            rcsIconCarat_, ssProjID_, rcsIconSplit_,
+            "F-STOP { <F-SID: '", ssFuncSelfID_, 
+            "'  F-Caller: '", ssFuncCallerID_, "'> ",
             " Time: ", rcsTimeStamp_, "",
             " ( F-RunTime: ", rcsDeltaTIME_, " ) }\n"
           )
@@ -522,9 +517,9 @@
     
     # 4.3.1.3 - Output the `ENTER` "Func-Self-ID' properties ...
     rcoListFuncRes_ <- rasLIST(
-      "FuncID" = rssFuncSelfID_, "FuncType" = rssFuncType_, 
-      "ProjID" = rssProjID_, "CallerID" = rssFuncCallerID_,
-      "FuncSTART" = rcsTimeStart_, "FuncSTOP" = rcsTimeStop_
+      "FuncID" = ssFuncSelfID_, "FuncType" = rssFuncType_, 
+      "ProjID" = ssProjID_, "CallerID" = ssFuncCallerID_,
+      "FuncSTART" = csTimeStart_, "FuncSTOP" = csTimeStop_
     );
     rasINVISIBLE(rasLIST("SelfID" = rcoListFuncRes_));
   }

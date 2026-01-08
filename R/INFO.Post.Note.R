@@ -143,11 +143,11 @@
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  ## NB: This 👆 is THE ONLY FUNCTION [in the MFMR Suite of R Functions] THAT DOES
+  ## NB: This 👆 is THE 1st OF ONLY 2 FUNCTIONS [in the MFMR Suite of R Functions] THAT DO
   ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This is the only FUNC that DOES NOT SELF-ID !!! 
+  RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
   RCT_TAG_FUNC_ID_FULL_ <- "INFO-Post-Note";   # <- FSID - LONG !!!
   RCT_INT_CELN_START_   <- 136L;               # <- The Code Editor Line Number (CELN) at which
                                                #    the function opening brace "(" is located !!!
@@ -199,19 +199,19 @@
       ifnotfound = "UNK-Func-ID"       # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> !!! 
     );
   }
-  rsbIsDEBUG_ <- rasBaseGET0(
-    "RCT_IS_DEBUG_MODE_",   # <- Find the "DEBUG" Mode R-Project Value (if defined) !!!
-    envir = .GlobalEnv,     # <- The GLOBAL R environment (i.e. active R Project Scope) ...
-    ifnotfound = FALSE      # <- Set a DEFAULT boolean value (if variable does not exist) !!! 
-  );
-  rsbIsVERBOSE_ <- rasBaseGET0(
-    "RCT_IS_VERBOSE_MODE_",   # <- Find the "VERBOSE" Mode R-Project Value (if defined) !!!
-    envir = .GlobalEnv,       # <- The GLOBAL R environment (i.e. active R Project Scope) ...
-    ifnotfound = FALSE        # <- Set a DEFAULT boolean value (if variable does not exist) !!!
-  );
+  sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
+    "RCT_IS_DEBUG_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    envir = .GlobalEnv,       #    and extracts its value.
+    ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                          #    the Active R Session !!!
+  sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
+    "RCT_IS_VERBOSE_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    envir = .GlobalEnv,         #    and extracts its value.
+    ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                            #    the Active R Session !!!
   
   
-  if (sbPostAlways_ || rsbIsVERBOSE_ || rsbIsDEBUG_) {   # <- Run code if any of these are TRUE !!!
+  if (sbPostAlways_ || sbIsVERBOSE_ || sbIsDEBUG_) {   # <- Run code if any of these are TRUE !!!
     
     ###   STEP 05 - Execute Custom Function's Code logic   ####
     ## 5.1 - Prime Standard Text Formatters ... ####
@@ -220,7 +220,7 @@
     
     
     ## 5.2 - Prime the CARAT icon accordingly ... ####
-    if (sbPrintPretty) {
+    if (sbPrintPretty_) {
       if (csCarat_ == "=>" || csCarat_ == " => " || csCarat_ == "  =>  " || csCarat_ == "   =>   " ||
           csCarat_ == "->" || csCarat_ == " -> " || csCarat_ == "  ->  " || csCarat_ == "   ->   ") {
         csCarat_ <- rasBasePASTE0(
@@ -241,25 +241,25 @@
     
     
     ## 5.3 - Prime the HEADER text accordingly ... ####
-    if (sbPrintPretty) {
+    if (sbPrintPretty_) {
       ssHead_ <- rasBasePASTE0(
         csFormatBOLD_, csColorHead_,                   # <- Adds the BOLD & Colour text formats ...
         ssHead_,                                       # <- Adds the Note HEADER text value ...
-        rasBaseElseIF(rsbIsDEBUG_, " ", ""),           # <- Adds a spacer if in DEBUG Mode !!!
-        rasBaseElseIF(rsbIsDEBUG_, siCallCELN_, ""),   # <- Adds a Caller CELN if in DEBUG Mode !!!
+        rasBaseElseIF(sbIsDEBUG_, " ", ""),           # <- Adds a spacer if in DEBUG Mode !!!
+        rasBaseElseIF(sbIsDEBUG_, siCallCELN_, ""),   # <- Adds a Caller CELN if in DEBUG Mode !!!
         csFormatRESET_                                 # <- Closes text formatting ...
       );
     } else {
       ssHead_ <- rasBasePASTE0(
         ssHead_,                                      # <- Adds the Note HEADER text value ...
-        rasBaseElseIF(rsbIsDEBUG_, " ", ""),          # <- Adds a spacer if in DEBUG Mode !!!
-        rasBaseElseIF(rsbIsDEBUG_, siCallCELN_, "")   # <- Adds a Caller CELN if in DEBUG Mode !!!
+        rasBaseElseIF(sbIsDEBUG_, " ", ""),          # <- Adds a spacer if in DEBUG Mode !!!
+        rasBaseElseIF(sbIsDEBUG_, siCallCELN_, "")   # <- Adds a Caller CELN if in DEBUG Mode !!!
       );
     }
     
     
     ## 5.4 - Prime the SPLIT icon accordingly ... ####
-    if (sbPrintPretty) {
+    if (sbPrintPretty_) {
       if (csSplit_ == "|" || csSplit_ == " | "  || csSplit_ == "  |  "  || csSplit_ == "   |   ") {
         csSplit_ <- rasBasePASTE0(
           csFormatBOLD_, csColorSplit_,   # <- Adds the BOLD & Colour text formats ...
@@ -278,7 +278,7 @@
     
     
     ## 5.5 - Prime the NOTE text accordingly ... ####
-    if (sbPrintPretty) {
+    if (sbPrintPretty_) {
       ssBody_ <- rasBasePASTE0(
         csFormatBOLD_, csColorBody_,   # -> Adds the BOLD & Colour text formats ...
         ssBody_,                       # -> Adds the NOTE text value ...
@@ -289,7 +289,7 @@
     
     ## 5.6 - Prime the TAIL icon accordingly ... ####
     if (sbShowTail_) {
-      if (sbPrintPretty) {
+      if (sbPrintPretty_) {
         csTail_ <- rasBasePASTE0(
           " ",      # <= Adds a pre-pended spacer ...
           csTail_   # <= Adds the defined TAIL icon (or symbol) ...
