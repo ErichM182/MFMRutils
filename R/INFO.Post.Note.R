@@ -164,9 +164,15 @@
   rasBaseIsINVISIBLE <- base::invisible;
   
   `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrMISC    <- MFMRutils::RENV_MISC;
   rasMfmrICONS   <- MFMRutils::RENV_ICONS;
   rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   rasMfmrGetCELN <- MFMRutils::code.get.celn;
+  
+  # SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
+  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrMISC$TAGS_VARS_FUNC_ID_SHORT
+  RAS_IS_DEBUG_MODE_     <- rasMfmrMISC$TAGS_VARS_BOOL_IS_DEBUG
+  RAS_IS_VERBOSE_MODE_   <- rasMfmrMISC$TAGS_VARS_BOOL_IS_VERBOSE
   
   
   
@@ -194,18 +200,18 @@
   ###   STEP 04 - Run NULL Checks accordingly   ####
   if (rasBaseIsNULL(ssHead_)) {
     ssHead_ <- rasBaseGET0(
-      "RCT_TAG_FUNC_ID_SHRT_",         # <- Find the parent <caller> Function ID (if defined) !!!
+      RAS_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined) !!!
       envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
       ifnotfound = "UNK-Func-ID"       # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> !!! 
     );
   }
   sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    "RCT_IS_DEBUG_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    RAS_IS_DEBUG_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
     envir = .GlobalEnv,       #    and extracts its value.
     ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                          #    the Active R Session !!!
   sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    "RCT_IS_VERBOSE_MODE_",     #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    RAS_IS_VERBOSE_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
     envir = .GlobalEnv,         #    and extracts its value.
     ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                            #    the Active R Session !!!
