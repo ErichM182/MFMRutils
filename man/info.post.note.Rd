@@ -143,7 +143,7 @@ info.post.note(
                                #    the `sbPostAlways` function argument is set to FALSE, when 
                                #    the VERBOSE tracker is set to a value of TRUE !!!
                                
-# Remove VERBOSE Tracker from Global R Environments list ...
+## Remove VERBOSE Tracker from Global R Environment ...
 rm(list = c("RCT_IS_VERBOSE_MODE_"))   # <- Remove VERBOSE Tracker from R Environment !!!
 
 
@@ -161,7 +161,7 @@ info.post.note(
 ### NB: DEBUG Tracker also activates the Code Editor Line Number (CELN) section of the 
 ###    `info.post.note()` function output (CELN is positioned after the HEADER text) !!!
                                
-# Remove DEBUG Tracker from Global R Environments list ...
+## Remove DEBUG Tracker from Global R Environment ...
 rm(list = c("RCT_IS_DEBUG_MODE_"))   # <- Remove DEBUG Tracker from R Environment !!!
 
 

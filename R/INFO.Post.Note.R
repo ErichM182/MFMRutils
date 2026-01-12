@@ -10,54 +10,62 @@
 #' be utilized as a standalone function in other (i.e. 3rd Party) R packages.
 #'
 #'
-#' @param csCarat ([character]) A complex String or Text (i.e. [character] [vector]) object that 
-#'                defines what the first or starting symbol (i.e. carat) of the note, to be posted, 
-#'                should be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx 
-#'                or escaped character) object - but must be an acceptable R [character] object.
+#' @param csCarat ([character]) A String or Text (i.e. [character] [vector]) object that defines
+#'                what the first or starting symbol (i.e. carat) of the note, to be posted, should
+#'                be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx or
+#'                escaped character) object - but must be an acceptable R [character] object (
+#'                default: `=>`).
 #' @param ssHead ([character]) A simple String or Text (i.e. [character] [vector]) argument that 
 #'               defines the starting (i.e. header) text of the note (to be posted). This function 
-#'               argument is useful in standardizing the notification format at an R Project level.
+#'               argument is useful in standardizing the notification format at an R Project level
+#'               (default: `NULL`).
 #' @param csSplit ([character]) A complex String or Text (i.e. [character] [vector]) object that 
 #'                defines what the middle symbol (i.e. separator between the `ssHead` and `ssBody` 
 #'                components) of the note, to be posted, should be or look like. This can be a 
 #'                simple text or a complex (i.e. ANSI, RegEx or escaped character) object - but must 
-#'                be an acceptable R [character] object.
+#'                be an acceptable R [character] object (default: `|`).
 #' @param ssBody ([character]) A simple String or Text (i.e. [character] [vector]) argument that 
-#'               defines the main (i.e. body) text of the note (to be posted).
-#' @param csTail ([character]) A complex String or Text (i.e. [character] [vector]) object that 
-#'               defines what the ending symbol (i.e. tail or terminal icon) of the note, to be 
-#'               posted, should be or look like. This can be a simple text or a complex (i.e. ANSI, 
-#'               RegEx or escaped character) object, but must be an acceptable R [character] object.
+#'               defines the main (i.e. body) text of the note to be posted (default: "Add NOTE to 
+#'               be POSTED here !!!").
+#' @param csTail ([character]) A String or Text (i.e. [character] [vector]) object that defines
+#'               what the ending symbol (i.e. tail or terminal icon) of the note, to be posted,
+#'               should be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx
+#'               or escaped character) object, but must be an acceptable R [character] object (
+#'               default: `MFMRutils::RENV_ICONS$FireFlame`).
 #' @param sbShowTail ([logical]) A Boolean value that specifies whether to include the tail (i.e.
 #'                   trailing or terminal symbol or icon) object in the note to be posted or not 
-#'                   (default == `TRUE`).
+#'                   (default: `TRUE`).
 #' @param sbPrintPretty ([logical]) A Boolean value that specifies whether the built-in (i.e. the
 #'                      function's internal) text formatting (i.e. ANSI <font weight and colour>
-#'                      formats) should be applied to the printed notification or not (default == 
+#'                      formats) should be applied to the printed notification or not (default 
 #'                      `TRUE`).
 #' @param csColorHead ([character]) A String or Text (i.e. [character] [vector]) value that defines 
-#'                    the text colour for the header (`ssHead`) object of the note to be posted.
+#'                    the text colour for the header (`ssHead`) object of the note to be posted
+#'                    (default: `MFMRutils::RENV_COLOURS$GreenFORE`).
 #' @param csColorBody ([character]) A String or Text (i.e. [character] [vector]) value that defines 
-#'                    the text colour for the main text (`ssBody`) object of the note to be posted.
+#'                    the text colour for the main text (`ssBody`) object of the note to be posted
+#'                    (default: `MFMRutils::RENV_COLOURS$CyanFORE`).
 #' @param csColorCarat ([character]) A String or Text (i.e. [character] [vector]) value that defines 
 #'                     the colour for the leading (starting) symbol or icon (`csCarat`) object of 
-#'                     the note to be posted.
+#'                     the note to be posted (default: `MFMRutils::RENV_COLOURS$YellowFORE`).
 #' @param csColorSplit ([character]) A String or Text (i.e. [character] [vector]) value that defines 
-#'                     the colour for the middle spacer (`csSplit`) object of the note to be posted.
+#'                     the colour for the middle spacer (`csSplit`) object of the note to be posted
+#'                     (default: `MFMRutils::RENV_COLOURS$YellowFORE`).
 #' @param sbPrePendNL ([logical]) A Boolean value that specifies whether a new line (blank space or 
-#'                    row) should be added to the START of the note to be posted or not (default == 
+#'                    row) should be added to the START of the note to be posted or not (default: 
 #'                    `FALSE`).
 #' @param sbPostPend1NL ([logical]) A Boolean value that specifies whether a SINGLE new line (blank 
 #'                      space or row) should be added to the END of the note to be posted or not 
-#'                      (default == `TRUE`).
+#'                      (default: `TRUE`).
 #' @param sbPostPend2NLs ([logical]) A Boolean value that specifies whether a DOUBLE new line (blank 
 #'                      spaces or rows) should be added to the END of the note to be posted or not. 
 #'                      This function argument can be useful for clearly delineating sections within 
-#'                      a custom R Function or R Project output (printed) code (default == `FALSE`).
+#'                      a custom R Function or R Project output (printed) code (default: `FALSE`).
 #' @param sbPostAlways ([logical]) A Boolean value that specifies whether the note should ALWAYS be
-#'                     posted (printed to the active R Console) or not (default == `TRUE`).
+#'                     posted (printed to the active R Console) or not (default: `TRUE`).
 #' @param siCallCELN ([integer]) A Numeric value that specifies the Code Editor Line Number (CELN) 
-#'                   at which this function was called from by its parent function or R Script.
+#'                   at which this function was called from by its parent function or R Script (
+#'                   default: `1982L`).
 #'
 #'
 #' @returns
@@ -134,11 +142,9 @@
 #' @export
 #? ### ### ###
 "info.post.note" <- function(
-  csCarat="=>", ssHead=NULL, csSplit="|", ssBody="NOTE to POST !!!",
-  csTail=MFMRutils::RENV_ICONS$FireFlame, sbShowTail=TRUE, sbPrintPretty=TRUE,
-  csColorHead=MFMRutils::RENV_COLOURS$GreenFORE, csColorBody=MFMRutils::RENV_COLOURS$CyanFORE,
-  csColorCarat=MFMRutils::RENV_COLOURS$YellowFORE, csColorSplit=MFMRutils::RENV_COLOURS$YellowFORE,
-  sbPrePendNL=FALSE, sbPostPend1NL=TRUE, sbPostPend2NLs=FALSE, sbPostAlways=TRUE, siCallCELN=1982L
+  csCarat=NULL, ssHead=NULL, csSplit=NULL, ssBody=NULL, csTail=NULL, sbShowTail=NULL, 
+  sbPrintPretty=NULL, csColorHead=NULL, csColorBody=NULL, csColorCarat=NULL, csColorSplit=NULL, 
+  sbPrePendNL=NULL, sbPostPend1NL=NULL, sbPostPend2NLs=NULL, sbPostAlways=NULL, siCallCELN=NULL
 ) {
   
   
@@ -147,10 +153,13 @@
   ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
+  RCT_TAG_FUNC_ID_LONG_ <- "INFO-Post-Note";   # <- FSID - LONG !!!
   RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
-  RCT_TAG_FUNC_ID_FULL_ <- "INFO-Post-Note";   # <- FSID - LONG !!!
-  RCT_INT_CELN_START_   <- 136L;               # <- The Code Editor Line Number (CELN) at which
-                                               #    the function opening brace "(" is located !!!
+  
+  RCT_INT_CELN_START_ <- 136L;   # <- The Code Editor Line Number (CELN) at which the function 
+                                 #    OPENING <normal> brace/bracket "(" is located !!!
+  RCT_INT_CELN_STOP_  <- 350L;   # <- The Code Editor Line Number (CELN) at which the function 
+                                 #    CLOSING <curly> brace/bracket "}" is located !!!
   
   
   
@@ -164,36 +173,36 @@
   rasBaseIsINVISIBLE <- base::invisible;
   
   `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrMISC    <- MFMRutils::RENV_MISC;
+  rasMfmrFSID    <- MFMRutils::RENV_FSID;
   rasMfmrICONS   <- MFMRutils::RENV_ICONS;
   rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
   rasMfmrGetCELN <- MFMRutils::code.get.celn;
   
   # SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
-  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrMISC$TAGS_VARS_FUNC_ID_SHORT
-  RAS_IS_DEBUG_MODE_     <- rasMfmrMISC$TAGS_VARS_BOOL_IS_DEBUG
-  RAS_IS_VERBOSE_MODE_   <- rasMfmrMISC$TAGS_VARS_BOOL_IS_VERBOSE
+  RAS_IS_DEBUG_MODE_     <- rasMfmrFSID$CONSTS_IS_DEBUG
+  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT
+  RAS_IS_VERBOSE_MODE_   <- rasMfmrFSID$CONSTS_IS_VERBOSE
   
   
   
   ###   STEP 03 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
-  csCarat_         <- csCarat;
+  csCarat_         <- csCarat        %??% "=>";
   ssHead_          <- ssHead;
-  csSplit_         <- csSplit;
-  ssBody_          <- ssBody;
-  csTail_          <- csTail;
-  sbShowTail_      <- sbShowTail;
-  sbPrintPretty_   <- sbPrintPretty;
-  csColorBody_     <- csColorBody;
-  csColorHead_     <- csColorHead;
-  csColorCarat_    <- csColorCarat;
-  csColorSplit_    <- csColorSplit;
-  sbPrePendNL_     <- sbPrePendNL;
-  sbPostPend1NL_   <- sbPostPend1NL;
-  sbPostPend2NLs_  <- sbPostPend2NLs;
-  sbPostAlways_    <- sbPostAlways;
-  siCallCELN_      <- siCallCELN;
+  csSplit_         <- csSplit        %??% "|";
+  ssBody_          <- ssBody         %??% "Add NOTE to be POSTED here !!!";
+  csTail_          <- csTail         %??% MFMRutils::RENV_ICONS$FireFlame;
+  sbShowTail_      <- sbShowTail     %??% TRUE;
+  sbPrintPretty_   <- sbPrintPretty  %??% TRUE;
+  csColorHead_     <- csColorHead    %??% MFMRutils::RENV_COLOURS$GreenFORE;
+  csColorBody_     <- csColorBody    %??% MFMRutils::RENV_COLOURS$CyanFORE;
+  csColorCarat_    <- csColorCarat   %??% MFMRutils::RENV_COLOURS$YellowFORE;
+  csColorSplit_    <- csColorSplit   %??% MFMRutils::RENV_COLOURS$YellowFORE;
+  sbPrePendNL_     <- sbPrePendNL    %??% FALSE;
+  sbPostPend1NL_   <- sbPostPend1NL  %??% TRUE;
+  sbPostPend2NLs_  <- sbPostPend2NLs %??% FALSE;
+  sbPostAlways_    <- sbPostAlways   %??% TRUE;
+  siCallCELN_      <- siCallCELN     %??% 1982L;
   
   
   

@@ -38,10 +38,10 @@ MFMRutils::RENV_COLOURS$CyanFORE   ### -> outputs the text in cyan font colour !
 }
 \seealso{
 Other SuiteMFMR CONSTANTS: 
+\code{\link{RENV_DEVS}},
 \code{\link{RENV_FORMATS}},
 \code{\link{RENV_FSID}},
 \code{\link{RENV_ICONS}},
-\code{\link{RENV_MISC}},
 \code{\link{RENV_SuiteMFMR}}
 }
 \concept{SuiteMFMR CONSTANTS}

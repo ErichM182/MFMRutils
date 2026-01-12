@@ -2,10 +2,10 @@
 
 export("%??%")
 export(RENV_COLOURS)
+export(RENV_DEVS)
 export(RENV_FORMATS)
 export(RENV_FSID)
 export(RENV_ICONS)
-export(RENV_MISC)
 export(RENV_SuiteMFMR)
 export(code.append.text.to.file)
 export(code.classify.func)

@@ -5,7 +5,7 @@
 \alias{RENV_FSID}
 \title{List of Function Self-ID Argument Tags ("SuiteMFMR" DevTools)}
 \format{
-An object of class \code{environment} of length 21.
+An object of class \code{environment} of length 26.
 }
 \usage{
 RENV_FSID
@@ -39,9 +39,9 @@ MFMRutils::RENV_FSID$TIME_STOP   ### -> removes actively applied ANSI Text Forma
 \seealso{
 Other SuiteMFMR CONSTANTS: 
 \code{\link{RENV_COLOURS}},
+\code{\link{RENV_DEVS}},
 \code{\link{RENV_FORMATS}},
 \code{\link{RENV_ICONS}},
-\code{\link{RENV_MISC}},
 \code{\link{RENV_SuiteMFMR}}
 }
 \concept{SuiteMFMR CONSTANTS}

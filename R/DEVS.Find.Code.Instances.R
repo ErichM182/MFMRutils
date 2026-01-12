@@ -205,9 +205,9 @@
 #' @export
 #? ### ### ###
 "devs.find.code.instances" <- function(
-    ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = FALSE, 
-    sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
-    snRetSnipSize = 82
+  ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = TRUE, 
+  sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
+  snRetSnipSize = 82
 ) {
   
   
@@ -499,7 +499,10 @@
   
   # Search global environment if requested ...
   if (sbIncludeGlobal) {
-    if (sbVerboseSearch) rasBaseMESSAGE(' \u279C Code Search in "R Global Environment" ...')
+    
+    if (sbVerboseSearch) {
+      rasBaseMESSAGE(' \u279C Code Search in "R Global Environment" (default-env) ...')
+    }
     
     global_objs <- rasBaseLS(rasBaseGlobalENV(), all.names = TRUE)
     

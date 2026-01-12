@@ -1,6 +1,6 @@
 #? ### ### ### ### ### ### ###
 #' @title The "SuiteMFMR" List of Useful Constants
-#' @name RENV_MISC
+#' @name RENV_DEVS
 #' @family SuiteMFMR CONSTANTS
 #' 
 #' 
@@ -23,34 +23,31 @@
 #' require(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally !!!
 #'
 #' ### Use with the direct-access R operator "::" from anywhere ...
-#' RENV_MISC$PATH_FOLDER_WIP_PROD
+#' RENV_DEVS$PATH_FOLDER_WIP_PROD
 #' 
 #' ### ... then easily apply TEXT FORMATS as follows ...
-#' RENV_MISC$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress Project PATH (i.e. "./WIP) 
-#'                                    #    for the R Library Code Development Staging Folder (i.e. 
-#'                                    #    "./WIP/01_NextForPROD") !!!
+#' RENV_DEVS$PATH_FOLDER_WIP_PROD   # -> Returns the Work-In-Progress Project PATH (i.e. "./WIP) 
+#'                                  #    for the R Library Code Development Staging Folder (i.e. 
+#'                                  #    "./WIP/01_NextForPROD") !!!
 #'
 #'
 #' @export
 #? ### ### ###
-"RENV_MISC" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
+"RENV_DEVS" <- {   # <- MUST BE LIKE THIS ... DO NOT use `function(){}` !!!
   
   # -> Define a static list of "ANSI" Text Formats !!!
   envList <- base::list2env(
     base::list(
+      ### Paths to DEVELOPMENT FOLDER (in regent R-Library Project) ...
       PATH_TO_FOLDER_WIP         = "./WIP",
       PATH_TO_FOLDER_WIP_HELPERS = "./WIP/00_Helpers",
       PATH_TO_FOLDER_WIP_PROD    = "./WIP/01_NextForPROD",
       
+      ### Paths to DEVELOPMENT FILES (in regent R-Library Project) ...
       PATH_TO_FILE_GIT_IGNORE         = "./.gitignore",
       PATH_TO_FILE_R_PACKAGE_DESC     = "./DESCRIPTION",
       PATH_TO_FILE_R_BUILD_IGNORE     = "./.Rbuildignore",
       PATH_TO_FILE_ACT_DEV_INFO_TRCKR = "./WIP/00_ACT_DEV_TRCKR.txt",
-      
-      TAGS_VARS_FUNC_ID_SHORT   = "RCT_TAG_FUNC_ID_SHRT_",
-      TAGS_VARS_FUNC_ID_LONG    = "RCT_TAG_FUNC_ID_FULL_",
-      TAGS_VARS_BOOL_IS_DEBUG   = "RCT_IS_DEBUG_RUN_TIME_MODE_",
-      TAGS_VARS_BOOL_IS_VERBOSE = "RCT_IS_VERBOSE_RUN_TIME_MODE_",
       
       FORMAT_TIME_DEV_LOG_V01 = "%Y.%m.%d",
       FORMAT_TIME_DEV_LOG_V02 = "%H:%M:%OS3 %Z",
@@ -63,4 +60,5 @@
   
   # Return (export) the env-locked list ...
   envList;   # <- MUST BE LIKE THIS -> DO NOT use `base::return(envList)` !!!
+  
 }
