@@ -13,95 +13,73 @@ info.post.func.self.id(
   csTimeStop = NULL,
   siStartCELN = NULL,
   siStopCELN = NULL,
-  sbRunSelfID = FALSE,
+  sbRunSelfID = NULL,
   ...
 )
 }
 \arguments{
-\item{ssProjID}{a character (string) identifier of the R Project \if{html}{\out{<script>}}
-file that called the custom R function execution.}
+\item{ssProjID}{(\link{character}) a String or Text (i.e. \link{character} \link{vector}) value that identifies
+the R Project \if{html}{\out{<script>}} file that called \if{html}{\out{<invoked>}} the custom R function (default:
+"UNK-Proj-R").}
 
-\item{ssFuncSelfID}{a character (text string) identifier for the active R
-Function being called (or being executed). If set to NULL
-the hard-coded "info.post.func.self.id()" function ID
-(i.e. "MFMR-Self.ID") will be used in the printed result.}
+\item{ssFuncSelfID}{(\link{character}) a String or Text (\link{character} \link{vector}) value that identifies
+the active R Function being called (or being executed). This is a SELF-ID tag
+that is meant as recursive reference to the function called \if{html}{\out{<invoked>}}. If set
+to a value of \code{NULL} the hard-coded "info.post.func.self.id()" function ID
+(i.e. "MFMR-Self.ID") will be used in the function outputs (function result).}
 
-\item{ssFuncCallerID}{a character (string) value that identifies the parent
-function that invoked that execution of the active or
-current function.}
+\item{ssFuncCallerID}{(\link{character}) a String or Text (\link{character} \link{vector}) value that identifies
+the parent function that invoked the execution of the active function (
+default: "UNDEFINED").}
 
-\item{csTimeStart}{a character (string) value that defines the "START-Time"
-of the active function.}
+\item{siFuncMode01L}{(\link{integer}) a Numeric (i.e. long) value that identifies the two run-time
+states of this "Self-ID" custom function. A value of \code{1L} sets the function
+mode to the \code{ENTER} (start/open) state; while a value of \code{0L} sets the
+function mode to the \code{EXIT} (stop/close) run-time state (default: \code{1L}).}
 
-\item{csTimeStop}{a character (string) value that defines the "STOP-Time"
-of the active function.}
+\item{csTimeStart}{(\link{double}) the R DateTime (POSIXt) value that defines the "START-Time" (i.e.
+realtime invocation start time) of when the \if{html}{\out{<active>}} function was invoked.}
 
-\item{siStartCELN}{an integer that denotes the START of the function's block of
-code. The Code Editor Line Number ("CELN") of the first line
-of code that defines a custom function.}
+\item{csTimeStop}{(\link{double}) the R DateTime (POSIXt) value that defines the "STOP-Time" (i.e.
+realtime invocation exit time) of when the \if{html}{\out{<active>}} function was exited or
+stopped.}
 
-\item{siStopCELN}{an integer that denotes the STOP (end) of the function's
-block of code. The Code Editor Line Number ("CELN") of the
-last line of code that defines a custom function - usually
-identified by a closing curly brace.}
+\item{siStartCELN}{(\link{integer}) a Numeric (i.e. long) value that denotes the START of the custom
+function block of code. The Code Editor Line Number (\code{CELN}) of the first
+line of code that defines a custom function - usually identified by an opening
+curly brace immediately following a Base-R \verb{function()} code call or code
+segment.}
 
-\item{sbRunSelfID}{a logical (boolean) value that defines whether the SELF-ID
-procedure should be executed (TRUE) or not (FALSE).}
+\item{siStopCELN}{(\link{integer}) a Numeric (i.e. long) value that denotes the START of the custom
+function block of code. The Code Editor Line Number (\code{CELN}) of the first
+line of code that defines a custom function - usually identified by a closing
+curly brace signifying the closure of a Base-R \verb{function()} code call or code
+segment.}
 
-\item{siFuncMode01}{an integer (long) value that identifies the two run-time
-states of this "Self-ID" custom function. A value of "1L"
-sets the function mode to the "ENTER" (start) state; while
-a value of "0L" sets the function mode to the "EXIT" (stop)
-run-time state.}
+\item{sbRunSelfID}{(\link{logical}) a Boolean value that defines whether the SELF-ID procedure should
+be executed (TRUE) or not (FALSE). This function argument overrides both of
+the R Project Devlopment DEBUG and VERBOSE trackers (default: \code{TRUE}).}
 
-\item{csColorProjID}{a character (string) value that sets the "ProjID" text
-colour in the formatted text output.}
-
-\item{csColorFuncType}{a character (string) value that sets the "FuncType" text
-colour in the formatted text output.}
-
-\item{csColorCallerID}{a character (string) value that sets the "CallerID" text
-colour in the formatted text output.}
-
-\item{sbPrintPretty}{a logical (boolean) value that defines whether the output
-text (Self-ID Function Info) should be formatted when
-printed to the R Console.}
-
-\item{csFormatDT}{a character (string) value that specifies how "DateTime" info
-should be formatted when printed out to the R Console.}
-
-\item{csIconCarat}{a character (string) value that defines the leading icon
-(carat) object to be used when printing the "Self-ID"
-information to the R Console.}
-
-\item{csColorCarat}{a character (string) value that sets the "Carat Icon" object
-colour in the formatted text output.}
-
-\item{csIconSplit}{a character (string) value that defines the middle \if{html}{\out{<split>}}
-icon (object) that should be used for printing the "Self-ID"
-information to the R Console.}
-
-\item{csColorMainText}{a character (string) value that sets the "Main" information
-text colour in the formatted text output.}
-
-\item{csColorSplit}{a character (string) value that sets the "Split" information
-text colour in the formatted text output.}
-
-\item{csColorTimeStamp}{a character (string) value that sets the "TimeStamp"
-information text colour in the formatted text output.}
+\item{...}{(\link{list}) a KV-List (i.e. Key-Value Pair R List) of dynamic R Objects that specify
+values for specific "Fall-Through" function arguments (aka "DotsArgs"). The DotsArgs
+applicable here are defined in the \code{MFMRutils::RENV_FSID} immutable (i.e. R
+Environment-Locked) List.}
 }
 \value{
-This function returns a single \if{html}{\out{<abbreviated>}} character value that classifies five function size
-(code base size) classes for custom R functions: ...
 \itemize{
-\item "TNY" -> a "Tiny" R Function (less than 50 lines of code);
+\item This function prints a preconfigured text (Function Self-ID message) directly to the active R
+Session Console when the function argument \code{sbRunSelfID} or either of the R Project DEBUG and
+VERBOSE R \if{html}{\out{<active>}} Runtime Trackers (i.e. \code{RCT_IS_DEBUG_RT_MODE_} & \code{RCT_IS_VERBOSE_RT_MODE_},
+respectively) are set to the boolean value of \code{TRUE}.
+\item This function also outputs key components of the Function Self-ID information in a list as an
+invisible function return value (function result or output).
 }
 }
 \description{
-A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type,
-caller, run-time duration etc.) information of a custom R function. This function was intended to
-mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in
-other (i.e. 3rd Party) R packages.
+A simple Helper Function that compiles and prints the self-identification (i.e. self-ID, type,
+caller-ID, run-time duration etc.) information of a custom R function. This function was intended
+to mainly support the MFMR Suite of R Functions (aka SuiteMFMR), but can be utilized as a
+standalone function in other (i.e. 3rd Party) R packages.
 }
 \examples{
 ### Run Self-Identification (Self-ID) on your Custom R Function as follows:
@@ -118,7 +96,7 @@ info.post.func.self.id(
 
 }
 \seealso{
-Other SuiteMFMR INFO Functions: 
+Other INFO Functions (SuiteMFMR): 
 \code{\link{info.post.note}()}
 }
-\concept{SuiteMFMR INFO Functions}
+\concept{INFO Functions (SuiteMFMR)}

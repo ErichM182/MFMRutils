@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Post Standardized R-Project Notifications
 #' @name info.post.note
-#' @family SuiteMFMR INFO Functions
+#' @family INFO Functions (SuiteMFMR)
 #' 
 #' 
 #' @description
@@ -10,70 +10,71 @@
 #' be utilized as a standalone function in other (i.e. 3rd Party) R packages.
 #'
 #'
-#' @param csCarat ([character]) A String or Text (i.e. [character] [vector]) object that defines
+#' @param csCarat ([character]) a String or Text (i.e. [character] [vector]) object that defines
 #'                what the first or starting symbol (i.e. carat) of the note, to be posted, should
 #'                be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx or
 #'                escaped character) object - but must be an acceptable R [character] object (
 #'                default: `=>`).
-#' @param ssHead ([character]) A simple String or Text (i.e. [character] [vector]) argument that 
+#' @param ssHead ([character]) a simple String or Text (i.e. [character] [vector]) argument that 
 #'               defines the starting (i.e. header) text of the note (to be posted). This function 
 #'               argument is useful in standardizing the notification format at an R Project level
 #'               (default: `NULL`).
-#' @param csSplit ([character]) A complex String or Text (i.e. [character] [vector]) object that 
+#' @param csSplit ([character]) a complex String or Text (i.e. [character] [vector]) object that 
 #'                defines what the middle symbol (i.e. separator between the `ssHead` and `ssBody` 
 #'                components) of the note, to be posted, should be or look like. This can be a 
 #'                simple text or a complex (i.e. ANSI, RegEx or escaped character) object - but must 
 #'                be an acceptable R [character] object (default: `|`).
-#' @param ssBody ([character]) A simple String or Text (i.e. [character] [vector]) argument that 
+#' @param ssBody ([character]) a simple String or Text (i.e. [character] [vector]) argument that 
 #'               defines the main (i.e. body) text of the note to be posted (default: "Add NOTE to 
 #'               be POSTED here !!!").
-#' @param csTail ([character]) A String or Text (i.e. [character] [vector]) object that defines
+#' @param csTail ([character]) a String or Text (i.e. [character] [vector]) object that defines
 #'               what the ending symbol (i.e. tail or terminal icon) of the note, to be posted,
 #'               should be or look like. This can be a simple text or a complex (i.e. ANSI, RegEx
 #'               or escaped character) object, but must be an acceptable R [character] object (
 #'               default: `MFMRutils::RENV_ICONS$FireFlame`).
-#' @param sbShowTail ([logical]) A Boolean value that specifies whether to include the tail (i.e.
+#' @param sbShowTail ([logical]) a Boolean value that specifies whether to include the tail (i.e.
 #'                   trailing or terminal symbol or icon) object in the note to be posted or not 
 #'                   (default: `TRUE`).
-#' @param sbPrintPretty ([logical]) A Boolean value that specifies whether the built-in (i.e. the
+#' @param sbPrintPretty ([logical]) a Boolean value that specifies whether the built-in (i.e. the
 #'                      function's internal) text formatting (i.e. ANSI <font weight and colour>
 #'                      formats) should be applied to the printed notification or not (default 
 #'                      `TRUE`).
-#' @param csColorHead ([character]) A String or Text (i.e. [character] [vector]) value that defines 
+#' @param csColorHead ([character]) a String or Text (i.e. [character] [vector]) value that defines 
 #'                    the text colour for the header (`ssHead`) object of the note to be posted
 #'                    (default: `MFMRutils::RENV_COLOURS$GreenFORE`).
-#' @param csColorBody ([character]) A String or Text (i.e. [character] [vector]) value that defines 
+#' @param csColorBody ([character]) a String or Text (i.e. [character] [vector]) value that defines 
 #'                    the text colour for the main text (`ssBody`) object of the note to be posted
 #'                    (default: `MFMRutils::RENV_COLOURS$CyanFORE`).
-#' @param csColorCarat ([character]) A String or Text (i.e. [character] [vector]) value that defines 
+#' @param csColorCarat ([character]) a String or Text (i.e. [character] [vector]) value that defines 
 #'                     the colour for the leading (starting) symbol or icon (`csCarat`) object of 
 #'                     the note to be posted (default: `MFMRutils::RENV_COLOURS$YellowFORE`).
-#' @param csColorSplit ([character]) A String or Text (i.e. [character] [vector]) value that defines 
+#' @param csColorSplit ([character]) a String or Text (i.e. [character] [vector]) value that defines 
 #'                     the colour for the middle spacer (`csSplit`) object of the note to be posted
 #'                     (default: `MFMRutils::RENV_COLOURS$YellowFORE`).
-#' @param sbPrePendNL ([logical]) A Boolean value that specifies whether a new line (blank space or 
+#' @param sbPrePendNL ([logical]) a Boolean value that specifies whether a new line (blank space or 
 #'                    row) should be added to the START of the note to be posted or not (default: 
 #'                    `FALSE`).
-#' @param sbPostPend1NL ([logical]) A Boolean value that specifies whether a SINGLE new line (blank 
+#' @param sbPostPend1NL ([logical]) a Boolean value that specifies whether a SINGLE new line (blank 
 #'                      space or row) should be added to the END of the note to be posted or not 
 #'                      (default: `TRUE`).
-#' @param sbPostPend2NLs ([logical]) A Boolean value that specifies whether a DOUBLE new line (blank 
+#' @param sbPostPend2NLs ([logical]) a Boolean value that specifies whether a DOUBLE new line (blank 
 #'                      spaces or rows) should be added to the END of the note to be posted or not. 
 #'                      This function argument can be useful for clearly delineating sections within 
 #'                      a custom R Function or R Project output (printed) code (default: `FALSE`).
-#' @param sbPostAlways ([logical]) A Boolean value that specifies whether the note should ALWAYS be
+#' @param sbPostAlways ([logical]) a Boolean value that specifies whether the note should ALWAYS be
 #'                     posted (printed to the active R Console) or not (default: `TRUE`).
-#' @param siCallCELN ([integer]) A Numeric value that specifies the Code Editor Line Number (CELN) 
+#' @param siCallCELN ([integer]) a Numeric value that specifies the Code Editor Line Number (CELN) 
 #'                   at which this function was called from by its parent function or R Script (
 #'                   default: `1982L`).
 #'
 #'
 #' @returns
 #' * This function prints the supplied text (message) directly to the active R Session Console when 
-#'   the function argument `sbPostAlways` (or either of the R Project DEBUG and VERBOSE trackers:
-#'   i.e. `RCT_IS_DEBUG_MODE_` and `RCT_IS_VERBOSE_MODE_`, respectively) are set to `TRUE`.
+#'   the function argument `sbPostAlways` (or either of the R Project DEBUG and VERBOSE <active> 
+#'   Runtime Trackers: i.e. `RCT_IS_DEBUG_RT_MODE_` and `RCT_IS_VERBOSE_RT_MODE_`, respectively) are 
+#'   set to the boolean value of `TRUE`.
 #' * This function also outputs the full (complete) notification message as an invisible function 
-#'   return value (function result).
+#'   return value (function result or output).
 #'
 #'
 #' @examples
@@ -106,37 +107,37 @@
 #' 
 #' 
 #' ### Example 4: Post notifications on basis of the DEBUG and VERBOSE R Project trackers ...
-#' RCT_IS_VERBOSE_MODE_ <- TRUE   # <- Set `RCT_IS_VERBOSE_MODE_` to TRUE anywhere in R Project ...
+#' RCT_IS_VERBOSE_RT_MODE_ <- TRUE   # <- Set the R VERBOSE Tracker to TRUE anywhere in R Project...
 #' info.post.note(
 #'   csCarat = "~>",                               
 #'   ssHead = "My-CUST-FUNC",                      
 #'   ssBody = "This is my COOL NOTE -> YaY !!!",   
-#'   sbPostAlways = FALSE         # <- The R Project VERBOSE tracker (i.e. `RCT_IS_VERBOSE_MODE_`)
-#' )                              #    overrides the `sbPostAlways` function argument -> this means
-#'                                #    the function WILL PRINT its message to the R Console, even if
-#'                                #    the `sbPostAlways` function argument is set to FALSE, when 
-#'                                #    the VERBOSE tracker is set to a value of TRUE !!!
+#'   sbPostAlways = FALSE   # <- The R Project VERBOSE tracker (`RCT_IS_VERBOSE_RT_MODE_`)
+#' )                        #    overrides the `sbPostAlways` function argument -> this means
+#'                          #    the function WILL PRINT its message to the R Console, even if
+#'                          #    the `sbPostAlways` function argument is set to FALSE, when 
+#'                          #    the VERBOSE tracker is set to a value of TRUE !!!
 #'                                
 #' ## Remove VERBOSE Tracker from Global R Environment ...
-#' rm(list = c("RCT_IS_VERBOSE_MODE_"))   # <- Remove VERBOSE Tracker from R Environment !!!
+#' rm(list = c("RCT_IS_VERBOSE_RT_MODE_"))   # <- Remove VERBOSE Tracker from R Environment !!!
 #'
 #'
-#' RCT_IS_DEBUG_MODE_ <- TRUE   # <- Set `RCT_IS_DEBUG_MODE_` to TRUE anywhere in an R Project ...
+#' RCT_IS_DEBUG_RT_MODE_ <- TRUE   # <- Set the R DEBUG Tracker to TRUE anywhere in an R Project ...
 #' info.post.note(
 #'   csCarat = "~>",
 #'   ssHead = "My-CUST-FUNC",
 #'   ssBody = "This is my COOL NOTE -> YaY !!!",
-#'   sbPostAlways = FALSE       # <- The R Project DEBUG tracker (i.e. `RCT_IS_DEBUG_MODE_`)
-#' )                            #    overrides the `sbPostAlways` function argument -> this means
-#'                              #    the function WILL PRINT its message to the R Console, even if
-#'                              #    the `sbPostAlways` function argument is set to FALSE, when
-#'                              #    the DEBUG tracker is set to a value of TRUE !!!
+#'   sbPostAlways = FALSE   # <- The R Project DEBUG tracker (`RCT_IS_DEBUG_RT_MODE_`)
+#' )                        #    overrides the `sbPostAlways` function argument -> this means
+#'                          #    the function WILL PRINT its message to the R Console, even if
+#'                          #    the `sbPostAlways` function argument is set to FALSE, when
+#'                          #    the DEBUG tracker is set to a value of TRUE !!!
 #' 
 #' ### NB: DEBUG Tracker also activates the Code Editor Line Number (CELN) section of the 
 #' ###    `info.post.note()` function output (CELN is positioned after the HEADER text) !!!
 #'                                
 #' ## Remove DEBUG Tracker from Global R Environment ...
-#' rm(list = c("RCT_IS_DEBUG_MODE_"))   # <- Remove DEBUG Tracker from R Environment !!!
+#' rm(list = c("RCT_IS_DEBUG_RT_MODE_"))   # <- Remove DEBUG Tracker from R Environment !!!
 #'
 #'
 #' @export
@@ -149,14 +150,14 @@
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  ## NB: This 👆 is THE 1st OF ONLY 2 FUNCTIONS [in the MFMR Suite of R Functions] THAT DO
-  ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
+  ## NB: This 👆  is THE 1st OF ONLY 2 FUNCTIONS [in the entire MFMR Suite of R Functions] THAT DO
+  ##     NOT SELF-IDENTIFY (since a Self-ID implementation here will cause infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_LONG_ <- "INFO-Post-Note";   # <- FSID - LONG !!!
   RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
   
-  RCT_INT_CELN_START_ <- 136L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_START_ <- 144L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
   RCT_INT_CELN_STOP_  <- 350L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
@@ -187,22 +188,22 @@
   
   ###   STEP 03 - Internalize ALL Function Arguments   ####
   # NOTES: hand-over all func-args to func-local <internal> variables ...
-  csCarat_         <- csCarat        %??% "=>";
-  ssHead_          <- ssHead;
-  csSplit_         <- csSplit        %??% "|";
-  ssBody_          <- ssBody         %??% "Add NOTE to be POSTED here !!!";
-  csTail_          <- csTail         %??% MFMRutils::RENV_ICONS$FireFlame;
-  sbShowTail_      <- sbShowTail     %??% TRUE;
-  sbPrintPretty_   <- sbPrintPretty  %??% TRUE;
-  csColorHead_     <- csColorHead    %??% MFMRutils::RENV_COLOURS$GreenFORE;
-  csColorBody_     <- csColorBody    %??% MFMRutils::RENV_COLOURS$CyanFORE;
-  csColorCarat_    <- csColorCarat   %??% MFMRutils::RENV_COLOURS$YellowFORE;
-  csColorSplit_    <- csColorSplit   %??% MFMRutils::RENV_COLOURS$YellowFORE;
-  sbPrePendNL_     <- sbPrePendNL    %??% FALSE;
-  sbPostPend1NL_   <- sbPostPend1NL  %??% TRUE;
-  sbPostPend2NLs_  <- sbPostPend2NLs %??% FALSE;
-  sbPostAlways_    <- sbPostAlways   %??% TRUE;
-  siCallCELN_      <- siCallCELN     %??% 1982L;
+  csCarat_        <- csCarat        %??% "=>";
+  ssHead_         <- ssHead;
+  csSplit_        <- csSplit        %??% "|";
+  ssBody_         <- ssBody         %??% "Add NOTE to be POSTED here !!!";
+  csTail_         <- csTail         %??% MFMRutils::RENV_ICONS$FireFlame;
+  sbShowTail_     <- sbShowTail     %??% TRUE;
+  sbPrintPretty_  <- sbPrintPretty  %??% TRUE;
+  csColorHead_    <- csColorHead    %??% MFMRutils::RENV_COLOURS$GreenFORE;
+  csColorBody_    <- csColorBody    %??% MFMRutils::RENV_COLOURS$CyanFORE;
+  csColorCarat_   <- csColorCarat   %??% MFMRutils::RENV_COLOURS$YellowFORE;
+  csColorSplit_   <- csColorSplit   %??% MFMRutils::RENV_COLOURS$YellowFORE;
+  sbPrePendNL_    <- sbPrePendNL    %??% FALSE;
+  sbPostPend1NL_  <- sbPostPend1NL  %??% TRUE;
+  sbPostPend2NLs_ <- sbPostPend2NLs %??% FALSE;
+  sbPostAlways_   <- sbPostAlways   %??% TRUE;
+  siCallCELN_     <- siCallCELN     %??% 1982L;
   
   
   
@@ -215,12 +216,12 @@
     );
   }
   sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_DEBUG_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    RAS_IS_DEBUG_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_RT_MODE_`
     envir = .GlobalEnv,       #    and extracts its value.
     ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                          #    the Active R Session !!!
   sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_VERBOSE_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    RAS_IS_VERBOSE_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_RT_MODE_`
     envir = .GlobalEnv,         #    and extracts its value.
     ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                            #    the Active R Session !!!

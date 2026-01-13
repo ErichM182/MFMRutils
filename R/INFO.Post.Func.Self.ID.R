@@ -1,74 +1,63 @@
 #? ### ### ### ### ### ### ###
 #' @title Print R Function Self-ID Information
 #' @name info.post.func.self.id
-#' @family SuiteMFMR INFO Functions
+#' @family INFO Functions (SuiteMFMR)
 #' 
 #' 
 #' @description
-#' A simple Helper Function that compiles and prints the self-identification (i.e. self-id, type, 
-#' caller, run-time duration etc.) information of a custom R function. This function was intended to
-#' mainly support the MFMR Suite of R Functions, but can be utilized as a standalone function in 
-#' other (i.e. 3rd Party) R packages.
+#' A simple Helper Function that compiles and prints the self-identification (i.e. self-ID, type, 
+#' caller-ID, run-time duration etc.) information of a custom R function. This function was intended
+#' to mainly support the MFMR Suite of R Functions (aka SuiteMFMR), but can be utilized as a 
+#' standalone function in other (i.e. 3rd Party) R packages.
 #'
 #'
-#' @param ssProjID a character (string) identifier of the R Project <script>
-#'                 file that called the custom R function execution.
-#' @param ssFuncSelfID a character (text string) identifier for the active R 
-#'                     Function being called (or being executed). If set to NULL
-#'                     the hard-coded "info.post.func.self.id()" function ID 
-#'                     (i.e. "MFMR-Self.ID") will be used in the printed result. 
-#' @param ssFuncCallerID a character (string) value that identifies the parent
-#'                       function that invoked that execution of the active or
-#'                       current function.
-#' @param siFuncMode01 an integer (long) value that identifies the two run-time 
-#'                     states of this "Self-ID" custom function. A value of "1L" 
-#'                     sets the function mode to the "ENTER" (start) state; while 
-#'                     a value of "0L" sets the function mode to the "EXIT" (stop) 
-#'                     run-time state.
-#' @param csColorProjID a character (string) value that sets the "ProjID" text
-#'                      colour in the formatted text output.
-#' @param csColorFuncType a character (string) value that sets the "FuncType" text
-#'                        colour in the formatted text output.
-#' @param csColorCallerID a character (string) value that sets the "CallerID" text
-#'                        colour in the formatted text output.
-#' @param csTimeStart a character (string) value that defines the "START-Time" 
-#'                    of the active function.
-#' @param csTimeStop a character (string) value that defines the "STOP-Time" 
-#'                   of the active function.
-#' @param sbPrintPretty a logical (boolean) value that defines whether the output
-#'                      text (Self-ID Function Info) should be formatted when
-#'                      printed to the R Console.
-#' @param csFormatDT a character (string) value that specifies how "DateTime" info 
-#'                   should be formatted when printed out to the R Console.
-#' @param csIconCarat a character (string) value that defines the leading icon 
-#'                    (carat) object to be used when printing the "Self-ID" 
-#'                    information to the R Console.
-#' @param csColorCarat a character (string) value that sets the "Carat Icon" object
-#'                     colour in the formatted text output.
-#' @param csIconSplit a character (string) value that defines the middle <split> 
-#'                    icon (object) that should be used for printing the "Self-ID" 
-#'                    information to the R Console.
-#' @param csColorMainText a character (string) value that sets the "Main" information
-#'                    text colour in the formatted text output.
-#' @param csColorSplit a character (string) value that sets the "Split" information
-#'                     text colour in the formatted text output.
-#' @param csColorTimeStamp a character (string) value that sets the "TimeStamp" 
-#'                         information text colour in the formatted text output.
-#' @param siStartCELN an integer that denotes the START of the function's block of
-#'                    code. The Code Editor Line Number ("CELN") of the first line 
-#'                    of code that defines a custom function.
-#' @param siStopCELN an integer that denotes the STOP (end) of the function's
-#'                   block of code. The Code Editor Line Number ("CELN") of the
-#'                   last line of code that defines a custom function - usually
-#'                   identified by a closing curly brace.
-#' @param sbRunSelfID a logical (boolean) value that defines whether the SELF-ID
-#'                    procedure should be executed (TRUE) or not (FALSE). 
+#' @param ssProjID ([character]) a String or Text (i.e. [character] [vector]) value that identifies 
+#'                 the R Project <script> file that called <invoked> the custom R function (default:
+#'                 "UNK-Proj-R").
+#' @param ssFuncSelfID ([character]) a String or Text ([character] [vector]) value that identifies
+#'                     the active R Function being called (or being executed). This is a SELF-ID tag
+#'                     that is meant as recursive reference to the function called <invoked>. If set
+#'                     to a value of `NULL` the hard-coded "info.post.func.self.id()" function ID 
+#'                     (i.e. "MFMR-Self.ID") will be used in the function outputs (function result).
+#' @param ssFuncCallerID ([character]) a String or Text ([character] [vector]) value that identifies 
+#'                       the parent function that invoked the execution of the active function (
+#'                       default: "UNDEFINED").
+#' @param siFuncMode01L ([integer]) a Numeric (i.e. long) value that identifies the two run-time 
+#'                      states of this "Self-ID" custom function. A value of `1L` sets the function 
+#'                      mode to the `ENTER` (start/open) state; while a value of `0L` sets the 
+#'                      function mode to the `EXIT` (stop/close) run-time state (default: `1L`).
+#' @param csTimeStart ([double]) the R DateTime (POSIXt) value that defines the "START-Time" (i.e.
+#'                    realtime invocation start time) of when the <active> function was invoked.
+#' @param csTimeStop ([double]) the R DateTime (POSIXt) value that defines the "STOP-Time" (i.e.
+#'                    realtime invocation exit time) of when the <active> function was exited or 
+#'                    stopped.
+#' @param siStartCELN ([integer]) a Numeric (i.e. long) value that denotes the START of the custom 
+#'                    function block of code. The Code Editor Line Number (`CELN`) of the first 
+#'                    line of code that defines a custom function - usually identified by an opening 
+#'                    curly brace immediately following a Base-R `function()` code call or code
+#'                    segment.
+#' @param siStopCELN ([integer]) a Numeric (i.e. long) value that denotes the START of the custom 
+#'                    function block of code. The Code Editor Line Number (`CELN`) of the first 
+#'                    line of code that defines a custom function - usually identified by a closing 
+#'                    curly brace signifying the closure of a Base-R `function()` code call or code
+#'                    segment.
+#' @param sbRunSelfID ([logical]) a Boolean value that defines whether the SELF-ID procedure should 
+#'                    be executed (TRUE) or not (FALSE). This function argument overrides both of 
+#'                    the R Project Devlopment DEBUG and VERBOSE trackers (default: `TRUE`).
+#' @param ... ([list]) a KV-List (i.e. Key-Value Pair R List) of dynamic R Objects that specify 
+#'            values for specific "Fall-Through" function arguments (aka "DotsArgs"). The DotsArgs
+#'            applicable here are defined in the `MFMRutils::RENV_FSID` immutable (i.e. R 
+#'            Environment-Locked) List.
 #'
 #'
 #' @returns 
-#' This function returns a single <abbreviated> character value that classifies five function size
-#' (code base size) classes for custom R functions: ...
-#'    * "TNY" -> a "Tiny" R Function (less than 50 lines of code);
+#' * This function prints a preconfigured text (Function Self-ID message) directly to the active R 
+#'   Session Console when the function argument `sbRunSelfID` or either of the R Project DEBUG and 
+#'   VERBOSE R <active> Runtime Trackers (i.e. `RCT_IS_DEBUG_RT_MODE_` & `RCT_IS_VERBOSE_RT_MODE_`, 
+#'   respectively) are set to the boolean value of `TRUE`.
+#' * This function also outputs key components of the Function Self-ID information in a list as an 
+#'   invisible function return value (function result or output).
+#'
 #'
 #'
 #' @examples
@@ -88,13 +77,13 @@
 #? ### ### ###
 "info.post.func.self.id" <- function(
   ssProjID=NULL, ssFuncSelfID=NULL, ssFuncCallerID=NULL, siFuncMode01L=NULL, csTimeStart=NULL, 
-  csTimeStop=NULL, siStartCELN=NULL, siStopCELN=NULL, sbRunSelfID=FALSE, ...
+  csTimeStop=NULL, siStartCELN=NULL, siStopCELN=NULL, sbRunSelfID=NULL, ...
 ) {
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  ## NB: This 👆 is THE 2nd OF ONLY 2 FUNCTIONS [in the MFMR Suite of R Functions] THAT DO
-  ##     NOT SELF-IDENTIFY (since Self-ID here causes infinite recursion) !!!
+  ## NB: This 👆  is THE 2nd OF ONLY 2 FUNCTIONS [in the entire MFMR Suite of R Functions] THAT DO
+  ##     NOT SELF-IDENTIFY (since a Self-ID implementation here will cause infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();           # <- Extract the <active> System Date-Time.
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_LONG_ <- "INFO-Post-Func-Self-ID";   # <- FSID - LONG !!!
@@ -104,6 +93,7 @@
                                  #    OPENING <normal> brace/bracket "(" is located !!!
   RCT_INT_CELN_STOP_  <- 533L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
+  
   
   
   ####   STEP 02 - Alias ALL <required> Functions   ####
@@ -135,6 +125,7 @@
   rasMfmrClassFUNC <- MFMRutils::code.classify.func;
   
   # SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
+  RAS_IS_PROJ_ID_        <- rasMfmrFSID$CONSTS_PID_SHORT
   RAS_IS_DEBUG_MODE_     <- rasMfmrFSID$CONSTS_IS_DEBUG
   RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT
   RAS_IS_VERBOSE_MODE_   <- rasMfmrFSID$CONSTS_IS_VERBOSE
@@ -151,7 +142,7 @@
   csTimeStop_     <- csTimeStop;
   siStartCELN_    <- siStartCELN;
   siStopCELN_     <- siStopCELN;
-  sbRunSelfID_    <- sbRunSelfID;
+  sbRunSelfID_    <- sbRunSelfID %??% FALSE;   # <- VERY NB: Must assign this value here !!!
   coDotsArgs_     <- rasLIST(...);
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
@@ -184,7 +175,7 @@
     
     
     ####### ### Compile Useful <internal> Custom Functions here !!!
-    # Define a custom function to Extract the String Formatting Setting ... ####
+    ## Define a custom function to Extract the String Formatting Setting ... ####
     rcf_calc.time.delta <- function(csTimeStart, csTimeStop) {
       rcsTimeDeltaRAW_ <- rasAsNUMERIC(
         csTimeStop - csTimeStart, units = "secs"
@@ -238,30 +229,35 @@
     
     
     
-    ####   STEP 05 - Run NULL Checks & Prime NB Variables   ####
-    # NOTES: hand-over all func-args to func-local <internal> variables ...
-    csTimeStamp_      <- NULL;
-    coListFuncRes_    <- NULL;   # -> The <final> function output <results> object.
-    ssProjID_         <- ssProjID_         %??% NULL;
-    ssFuncSelfID_     <- ssFuncSelfID_     %??% RCT_TAG_FUNC_ID_LONG_;
-    ssFuncCallerID_   <- ssFuncCallerID_   %??% "UNDEFINED";
-    siFuncMode01L_    <- siFuncMode01L_    %??% 1L;
-    csColorCarat_     <- csColorCarat_     %??% csColorsYELLOW_;
-    csIconSplit_      <- csIconSplit_      %??% " | ";
-    csColorSplit_     <- csColorSplit_     %??% csColorsYELLOW_;
-    csTimeStart_      <- csTimeStart_      %??% RCT_DBL_SYS_TIME_NOW_;
-    csTimeStop_       <- csTimeStop_       %??% RCT_DBL_SYS_TIME_NOW_;
-    csFormatDT_       <- csFormatDT_       %??% rasMfmrFORMATS$DATE_LONG_V03;
-    csColorTimeStamp_ <- csColorTimeStamp_ %??% csColorsYELLOW_;
-    csColorProjID_    <- csColorProjID_    %??% csColorsGREEN_;
-    csColorFuncType_  <- csColorFuncType_  %??% csColorsYELLOW_;
-    csColorCallerID_  <- csColorCallerID_  %??% csColorsMAGENTA_;
-    csColorMainText_  <- csColorMainText_  %??% csColorsCYAN_;
-    sbPrintPretty_    <- sbPrintPretty_    %??% TRUE;
-    siStartCELN_      <- siStartCELN_      %??% 1L;
-    siStopCELN_       <- siStopCELN_       %??% 28L;
-    csIconCarat_      <- csIconCarat_      %??% rasIfELSE(siFuncMode01L_ == 1L,
-                                                          csIconSPARK_, csIconSKULL_);
+    ####   STEP 04 - Run NULL Checks & Prime NB Variables   ####
+    ## NOTES: hand-over all func-args to func-local <internal> variables ...
+    csTimeStamp_    <- NULL;
+    coListFuncRes_  <- NULL;   # -> The <final> function output <results> object.
+    ssProjID_       <- ssProjID_       %??% NULL;
+    ssFuncSelfID_   <- ssFuncSelfID_   %??% RCT_TAG_FUNC_ID_LONG_;
+    ssFuncCallerID_ <- ssFuncCallerID_ %??% "UNDEFINED";
+    siFuncMode01L_  <- siFuncMode01L_  %??% 1L;
+    csTimeStart_    <- csTimeStart_    %??% RCT_DBL_SYS_TIME_NOW_;
+    csTimeStop_     <- csTimeStop_     %??% RCT_DBL_SYS_TIME_NOW_;
+    siStartCELN_    <- siStartCELN_    %??% 1L;
+    siStopCELN_     <- siStopCELN_     %??% 28L;
+    sbRunSelfID_    <- sbRunSelfID_    %??% FALSE;
+    
+    ## Prime all "Fall-Through" Function Arguments or values (parameters or variables) ...
+    csIconSplit_      <- coDotsArgs_[[rasMfmrFSID$F_ARGS_ICON_SPLIT]]        %??% " | ";
+    sbPrintPretty_    <- coDotsArgs_[[rasMfmrFSID$F_ARGS_IS_PRINT_PRETTY]]   %??% TRUE;
+    csColorCarat_     <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_CARAT]]       %??% csColorsYELLOW_;
+    csColorSplit_     <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_SPLIT]]       %??% csColorsYELLOW_;
+    csColorTimeStamp_ <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_TIME_STAMP]]  %??% csColorsYELLOW_;
+    csColorProjID_    <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_PROJ_ID]]     %??% csColorsGREEN_;
+    csColorFuncType_  <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_FUNC_TYPE]]   %??% csColorsYELLOW_;
+    csColorCallerID_  <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_FUNC_CALLER]] %??% csColorsMAGENTA_;
+    csColorFuncSID_   <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_FUNC_CALLER]] %??% csColorsGREEN_;
+    csColorMainText_  <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_MAIN_TEXT]]   %??% csColorsCYAN_;
+    csFormatDT_       <- coDotsArgs_[[rasMfmrFSID$F_ARGS_TIME_FORMAT]] %??% 
+                                                                       rasMfmrFORMATS$DATE_LONG_V03;
+    csIconCarat_      <- coDotsArgs_[[rasMfmrFSID$F_ARGS_ICON_CARAT]] %??% 
+                                        rasIfELSE(siFuncMode01L_ == 1L, csIconSPARK_, csIconSKULL_);
     
     
     
@@ -315,12 +311,12 @@
     
     ### STEP 09 - Apply the "Project-ID" Text Formatting ... ####
     if (rasIsNULL(ssProjID_)) {
-      ssProjID_ <- base::get0(        # -> Searches the Global Environment of the
-        "RCT_TAG_PROJ_ID_",            #    Active R Session for the <somewhat>
-        envir = .GlobalEnv,            #    unique variable name "rssTagProjID_"
-        ifnotfound = "UNK. Proj. R"    #    and extracts the value contained in
-      );                               #    that variable (if it exists) ... or
-    }                                  #    else returns the "NOT-FOUND" value.
+      ssProjID_ <- base::get0(      # -> Searches the Global Environment of the
+        RAS_IS_PROJ_ID_,            #    Active R Session for the <somewhat>
+        envir = .GlobalEnv,         #    unique variable name "rssTagProjID_"
+        ifnotfound = "UNK-Proj-R"   #    and extracts the value contained in
+      );                            #    that variable (if it exists) ... or
+    }                               #    else returns the "NOT-FOUND" value.
     if (sbPrintPretty_) {
       ssProjID_ <- rasPASTE0(
         csAnsiBOLD_,      # -> Apply a BOLD text formatting ... 
@@ -375,7 +371,7 @@
         rssFuncType_ <- rasPASTE0(
           csAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
           csColorSplit_,   # -> Apply the specified text colour ... 
-          "UNK.",           # -> Add the <default> "Func-Type" string value !!!
+          "UNK.",          # -> Add the <default> "Func-Type" string value !!!
           csAnsiRESET_     # -> Deactivate text formatting !!!
         );
       } else {
@@ -400,7 +396,7 @@
         ssFuncCallerID_ <- rasPASTE0(
           csAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
           csColorCallerID_,   # -> Apply the specified text colour ... 
-          "UNK.",              # -> Add the <default> "Caller-ID" string value !!!
+          "UNK.",             # -> Add the <default> "Caller-ID" string value !!!
           csAnsiRESET_        # -> Deactivate text formatting !!!
         );
       } else {
@@ -414,10 +410,10 @@
     if (siFuncMode01L_ == 1L) {   # -> Apply the ENTER function Info !!!
       if (sbPrintPretty_) {
         csTimeStamp_ <- rasPASTE0(
-          csAnsiBOLD_,             # -> Apply a BOLD text formatting ... 
-          csColorTimeStamp_,       # -> Apply the specified text colour ... 
+          csAnsiBOLD_,              # -> Apply a BOLD text formatting ... 
+          csColorTimeStamp_,        # -> Apply the specified text colour ... 
           rcsTimeStartFORMATTED_,   # ...
-          csAnsiRESET_             # -> Deactivate text formatting !!!
+          csAnsiRESET_              # -> Deactivate text formatting !!!
         );
       } else {
         csTimeStamp_ <- rcsTimeStartFORMATTED_;
@@ -425,10 +421,10 @@
     } else if (siFuncMode01L_ == 0L) {   # -> Apply the EXIT function Info !!!
       if (sbPrintPretty_) {
         csTimeStamp_ <- rasPASTE0(
-          csAnsiBOLD_,            # -> Apply a BOLD text formatting ... 
-          csColorTimeStamp_,      # -> Apply the specified text colour ... 
+          csAnsiBOLD_,             # -> Apply a BOLD text formatting ... 
+          csColorTimeStamp_,       # -> Apply the specified text colour ... 
           rcsTimeStopFORMATTED_,   # ...
-          csAnsiRESET_            # -> Deactivate text formatting !!!
+          csAnsiRESET_             # -> Deactivate text formatting !!!
         );
       } else {
         csTimeStamp_ <- rcsTimeStopFORMATTED_;
@@ -447,7 +443,7 @@
               csAnsiBOLD_, csColorMainText_, "F-START { <F-SID: '", csAnsiRESET_
             ),
             rasPASTE0(
-              csAnsiBOLD_, csColorCallerID_, ssFuncSelfID_, csAnsiRESET_
+              csAnsiBOLD_, csColorFuncSID_, ssFuncSelfID_, csAnsiRESET_
             ),
             rasPASTE0(
               csAnsiBOLD_, csColorMainText_, "'  F-Type: '", csAnsiRESET_
@@ -487,7 +483,7 @@
               csAnsiBOLD_, csColorMainText_, "F-STOP { <F-SID: '", csAnsiRESET_
             ),
             rasPASTE0(
-              csAnsiBOLD_, csColorCallerID_, ssFuncSelfID_, csAnsiRESET_
+              csAnsiBOLD_, csColorFuncSID_, ssFuncSelfID_, csAnsiRESET_
             ),
             rasPASTE0(
               csAnsiBOLD_, csColorMainText_, "'  F-Caller: '", csAnsiRESET_

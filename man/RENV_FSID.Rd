@@ -5,7 +5,7 @@
 \alias{RENV_FSID}
 \title{List of Function Self-ID Argument Tags ("SuiteMFMR" DevTools)}
 \format{
-An object of class \code{environment} of length 26.
+An object of class \code{environment} of length 27.
 }
 \usage{
 RENV_FSID
