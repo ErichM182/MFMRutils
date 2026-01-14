@@ -42,12 +42,13 @@
 #'                    curly brace signifying the closure of a Base-R `function()` code call or code
 #'                    segment.
 #' @param sbRunSelfID ([logical]) a Boolean value that defines whether the SELF-ID procedure should 
-#'                    be executed (TRUE) or not (FALSE). This function argument overrides both of 
-#'                    the R Project Devlopment DEBUG and VERBOSE trackers (default: `TRUE`).
+#'                    be executed (`TRUE`) or not (`FALSE`). This function argument overrides both 
+#'                    of the R Project Development DEBUG and VERBOSE trackers (default: `TRUE`).
 #' @param ... ([list]) a KV-List (i.e. Key-Value Pair R List) of dynamic R Objects that specify 
 #'            values for specific "Fall-Through" function arguments (aka "DotsArgs"). The DotsArgs
 #'            applicable here are defined in the `MFMRutils::RENV_FSID` immutable (i.e. R 
-#'            Environment-Locked) List.
+#'            Environment-Locked) List. In the `MFMRutils::RENV_FSID` immutable list applicable 
+#'            "Fall-Through" options are those with the form "F_ARGS_*".
 #'
 #'
 #' @returns 
@@ -86,8 +87,8 @@
   ##     NOT SELF-IDENTIFY (since a Self-ID implementation here will cause infinite recursion) !!!
   RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();           # <- Extract the <active> System Date-Time.
   RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_LONG_ <- "INFO-Post-Func-Self-ID";   # <- FSID - LONG !!!
-  RCT_TAG_FUNC_ID_NSID_ <- "Func-SID";                 # <- This Func DOES NOT SELF-ID (NSID) !!!
+  RCT_TAG_FUNC_ID_LONG_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
+  RCT_TAG_FUNC_ID_NSID_ <- "Func.SID";                 # <- This Func DOES NOT SELF-ID (NSID) !!!
   
   RCT_INT_CELN_START_ <- 89L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
@@ -102,7 +103,7 @@
   rasANY         <- base::any;
   rasCAT         <- base::cat;
   rasSUB         <- base::sub;
-  rasGET0        <- base::get0;
+  rasBaseGET0    <- base::get0;
   rasLIST        <- base::list;
   rasIsNA        <- base::is.na;
   rasTRUNC       <- base::trunc;
@@ -125,7 +126,8 @@
   rasMfmrClassFUNC <- MFMRutils::code.classify.func;
   
   # SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
-  RAS_IS_PROJ_ID_        <- rasMfmrFSID$CONSTS_PID_SHORT
+  RAS_TAG_PROJ_ID_       <- rasMfmrFSID$CONSTS_PID_SHORT
+  RAS_TAG_CALLER_ID_     <- rasMfmrFSID$CONSTS_PID_SHORT
   RAS_IS_DEBUG_MODE_     <- rasMfmrFSID$CONSTS_IS_DEBUG
   RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT
   RAS_IS_VERBOSE_MODE_   <- rasMfmrFSID$CONSTS_IS_VERBOSE
@@ -147,16 +149,16 @@
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
-  sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_DEBUG_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
-    envir = .GlobalEnv,       #    and extracts its value.
-    ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                          #    the Active R Session !!!
-  sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_VERBOSE_MODE_,       #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
-    envir = .GlobalEnv,         #    and extracts its value.
-    ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                            #    the Active R Session !!!
+  sbIsDEBUG_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for
+    RAS_IS_DEBUG_MODE_,        #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    envir = .GlobalEnv,        #    and extracts its value.
+    ifnotfound = FALSE         # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                           #    the Active R Session !!!
+  sbIsVERBOSE_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for
+    RAS_IS_VERBOSE_MODE_,        #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    envir = .GlobalEnv,          #    and extracts its value.
+    ifnotfound = FALSE           # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                             #    the Active R Session !!!
   
   
   ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
@@ -235,7 +237,7 @@
     coListFuncRes_  <- NULL;   # -> The <final> function output <results> object.
     ssProjID_       <- ssProjID_       %??% NULL;
     ssFuncSelfID_   <- ssFuncSelfID_   %??% RCT_TAG_FUNC_ID_LONG_;
-    ssFuncCallerID_ <- ssFuncCallerID_ %??% "UNDEFINED";
+    ssFuncCallerID_ <- ssFuncCallerID_ %??% NULL;
     siFuncMode01L_  <- siFuncMode01L_  %??% 1L;
     csTimeStart_    <- csTimeStart_    %??% RCT_DBL_SYS_TIME_NOW_;
     csTimeStop_     <- csTimeStop_     %??% RCT_DBL_SYS_TIME_NOW_;
@@ -277,33 +279,33 @@
         if (csIconCarat_ == "=>" || csIconCarat_ == " => " ||
             csIconCarat_ == "->" || csIconCarat_ == " -> ") {
           csIconCarat_ <- rasPASTE0(
-            " ",                       # -> Add "leading" white space ...
-            csColorCarat_,            # -> Apply specified text colour ...
-            rasMfmrICONS$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-            " ",                       # -> Add "trailing" white space ...
-            csAnsiRESET_              # -> Deactivate text formatting !!!
+            " ",                      # <- Add "leading" white space ...
+            csColorCarat_,            # <- Apply specified text colour ...
+            rasMfmrICONS$ArrowRIGHT,  # <- Assign the MFMR Arrow Icon !!!
+            " ",                      # <- Add "trailing" white space ...
+            csAnsiRESET_              # <- Deactivate text formatting !!!
           );
         } else {
           csIconCarat_ <- rasPASTE0(
-            " ",              # -> Add "leading" white space ...
-            csColorCarat_,   # -> Apply specified text colour ...
-            csIconCarat_,    # -> Assign the specified Carat Icon !!!
-            " ",              # -> Add "trailing" white space ...
-            csAnsiRESET_     # -> Deactivate text formatting !!!
+            " ",             # <- Add "leading" white space ...
+            csColorCarat_,   # <- Apply specified text colour ...
+            csIconCarat_,    # <- Assign the specified Carat Icon !!!
+            " ",             # <- Add "trailing" white space ...
+            csAnsiRESET_     # <- Deactivate text formatting !!!
           );
         }
       }
     } else {
       if (sbPrintPretty_) {
         csIconCarat_ <- rasPASTE0(
-          " ",                       # -> Add "leading" white space ...
-          csColorCarat_,            # -> Apply specified text colour ...
-          rasMfmrICONS$ArrowRIGHT,   # -> Assign the MFMR Arrow Icon !!!
-          " ",                       # -> Add "trailing" white space ...
-          csAnsiRESET_              # -> Deactivate text formatting !!!
+          " ",                      # <- Add "leading" white space ...
+          csColorCarat_,            # <- Apply specified text colour ...
+          rasMfmrICONS$ArrowRIGHT,  # <- Assign the MFMR Arrow Icon !!!
+          " ",                      # <- Add "trailing" white space ...
+          csAnsiRESET_              # <- Deactivate text formatting !!!
         );
       } else {
-        csIconCarat_ <- " => ";   # -> Apply a simple <default> Carat Icon !!!
+        csIconCarat_ <- " => ";   # <- Apply a simple <default> Carat Icon !!!
       }
     }
     
@@ -311,18 +313,18 @@
     
     ### STEP 09 - Apply the "Project-ID" Text Formatting ... ####
     if (rasIsNULL(ssProjID_)) {
-      ssProjID_ <- base::get0(      # -> Searches the Global Environment of the
-        RAS_IS_PROJ_ID_,            #    Active R Session for the <somewhat>
+      ssProjID_ <- rasBaseGET0(     # <- Searches the Global Environment of the
+        RAS_TAG_PROJ_ID_,           #    Active R Session for the <somewhat>
         envir = .GlobalEnv,         #    unique variable name "rssTagProjID_"
         ifnotfound = "UNK-Proj-R"   #    and extracts the value contained in
       );                            #    that variable (if it exists) ... or
     }                               #    else returns the "NOT-FOUND" value.
     if (sbPrintPretty_) {
       ssProjID_ <- rasPASTE0(
-        csAnsiBOLD_,      # -> Apply a BOLD text formatting ... 
-        csColorProjID_,   # -> Apply the specified text colour ... 
-        ssProjID_,        # -> Add the "Caller-ID" string value !!!
-        csAnsiRESET_      # -> Deactivate text formatting !!!
+        csAnsiBOLD_,      # <- Apply a BOLD text formatting ... 
+        csColorProjID_,   # <- Apply the specified text colour ... 
+        ssProjID_,        # <- Add the "Caller-ID" string value !!!
+        csAnsiRESET_      # <- Deactivate text formatting !!!
       );
     }
     
@@ -332,22 +334,22 @@
     if (!rasIsNULL(csIconSplit_)) {
       if (sbPrintPretty_) {
         csIconSplit_ <- rasPASTE0(
-          csAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
-          csColorSplit_,   # -> Apply the specified text colour ... 
-          csIconSplit_,    # -> Add the "Split-Icon" string value !!!
-          csAnsiRESET_     # -> Deactivate text formatting !!!
+          csAnsiBOLD_,     # <- Apply a BOLD text formatting ... 
+          csColorSplit_,   # <- Apply the specified text colour ... 
+          csIconSplit_,    # <- Add the "Split-Icon" string value !!!
+          csAnsiRESET_     # <- Deactivate text formatting !!!
         );
       }
     } else {
       if (sbPrintPretty_) {
         csIconSplit_ <- rasPASTE0(
-          csAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
-          csColorSplit_,   # -> Apply the specified text colour ... 
-          " | ",            # -> Add the <default> "Split-Icon" string value !!!
-          csAnsiRESET_     # -> Deactivate text formatting !!!
+          csAnsiBOLD_,     # <- Apply a BOLD text formatting ... 
+          csColorSplit_,   # <- Apply the specified text colour ... 
+          " | ",           # <- Add the <default> "Split-Icon" string value !!!
+          csAnsiRESET_     # <- Deactivate text formatting !!!
         );
       } else {
-        csIconSplit_ <- " | ";   # -> Add a <basic> "Split-Icon" string value !!!
+        csIconSplit_ <- " | ";   # <- Add a <basic> "Split-Icon" string value !!!
       }
     }
     
@@ -360,19 +362,19 @@
     if (!rasIsNULL(rssFuncType_)) {
       if (sbPrintPretty_) {
         rssFuncType_ <- rasPASTE0(
-          csAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-          csColorFuncType_,   # -> Apply the specified text colour ... 
-          rssFuncType_,        # -> Add the "Func-Type" string value !!!
-          csAnsiRESET_        # -> Deactivate text formatting !!!
+          csAnsiBOLD_,        # <- Apply a BOLD text formatting ... 
+          csColorFuncType_,   # <- Apply the specified text colour ... 
+          rssFuncType_,       # <- Add the "Func-Type" string value !!!
+          csAnsiRESET_        # <- Deactivate text formatting !!!
         );
       }
     } else {
       if (sbPrintPretty_) {
         rssFuncType_ <- rasPASTE0(
-          csAnsiBOLD_,     # -> Apply a BOLD text formatting ... 
-          csColorSplit_,   # -> Apply the specified text colour ... 
-          "UNK.",          # -> Add the <default> "Func-Type" string value !!!
-          csAnsiRESET_     # -> Deactivate text formatting !!!
+          csAnsiBOLD_,     # <- Apply a BOLD text formatting ... 
+          csColorSplit_,   # <- Apply the specified text colour ... 
+          "UNK.",          # <- Add the <default> "Func-Type" string value !!!
+          csAnsiRESET_     # <- Deactivate text formatting !!!
         );
       } else {
         rssFuncType_ <- "UNK.";   # -> Add a <basic> "Func-Type" string value !!!
@@ -385,22 +387,32 @@
     if (!rasIsNULL(ssFuncCallerID_)) {
       if (sbPrintPretty_) {
         ssFuncCallerID_ <- rasPASTE0(
-          csAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-          csColorCallerID_,   # -> Apply the specified text colour ... 
-          ssFuncCallerID_,    # -> Add the "Caller-ID" string value !!!
-          csAnsiRESET_        # -> Deactivate text formatting !!!
+          csAnsiBOLD_,        # <- Apply a BOLD text formatting ... 
+          csColorCallerID_,   # <- Apply the specified text colour ... 
+          ssFuncCallerID_,    # <- Add the "Caller-ID" string value !!!
+          csAnsiRESET_        # <- Deactivate text formatting !!!
         );
       }
     } else {
       if (sbPrintPretty_) {
+        ssFuncCallerID_GET0_ <- rasBaseGET0(
+          RAS_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined)...
+          envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
+          ifnotfound = "UNDEFINED"         # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
+        );
         ssFuncCallerID_ <- rasPASTE0(
-          csAnsiBOLD_,        # -> Apply a BOLD text formatting ... 
-          csColorCallerID_,   # -> Apply the specified text colour ... 
-          "UNK.",             # -> Add the <default> "Caller-ID" string value !!!
-          csAnsiRESET_        # -> Deactivate text formatting !!!
+          csAnsiBOLD_,            # <- Apply a BOLD text formatting ... 
+          csColorCallerID_,       # <- Apply the specified text colour ... 
+          ssFuncCallerID_GET0_,   # <- Add the <default> "Caller-ID" string value !!!
+          csAnsiRESET_            # <- Deactivate text formatting !!!
         );
       } else {
-        ssFuncCallerID_ <- "UNK.";   # -> Add a <basic> "Caller-ID" string value !!!
+        ssFuncCallerID_GET0_ <- rasBaseGET0(
+          RAS_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined)...
+          envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
+          ifnotfound = "UNDEFINED"         # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
+        );
+        ssFuncCallerID_ <- ssFuncCallerID_GET0_;   # <- Add a <basic> "Caller-ID" string value !!!
       }
     }
     

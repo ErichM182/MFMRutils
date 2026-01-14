@@ -60,6 +60,7 @@
       F_ARGS_IS_RUN_SELF_ID    = "sbRunSelfID",
       
       ### R Function & Project Constants ('CONSTS') -> for the Function Self-Id (FSID) Process ...
+      CONSTS_LIBR_ID    = "RCT_TAG_R_LIBR_ID_",
       CONSTS_CELN_STOP  = "RCT_INT_CELN_STOP_",
       CONSTS_CELN_START = "RCT_INT_CELN_START_",
       CONSTS_FID_LONG   = "RCT_TAG_R_FUNC_ID_LONG_",

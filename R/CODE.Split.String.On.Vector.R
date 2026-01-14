@@ -75,7 +75,7 @@
   rasBaseStrSPLIT <- base::strsplit;
   
   `%??%`             <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrRetRenvLIST <- MFMRutils::code.return.renv.locked.list;
+  rasMfmrRetRenvLIST <- MFMRutils::code.return.renv.list;
   
   
   

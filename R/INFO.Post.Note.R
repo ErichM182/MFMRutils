@@ -64,8 +64,7 @@
 #' @param sbPostAlways ([logical]) a Boolean value that specifies whether the note should ALWAYS be
 #'                     posted (printed to the active R Console) or not (default: `TRUE`).
 #' @param siCallCELN ([integer]) a Numeric value that specifies the Code Editor Line Number (CELN) 
-#'                   at which this function was called from by its parent function or R Script (
-#'                   default: `1982L`).
+#'                   at which this function was called from by its parent function or R Script.
 #'
 #'
 #' @returns
@@ -157,7 +156,7 @@
   RCT_TAG_FUNC_ID_LONG_ <- "INFO-Post-Note";   # <- FSID - LONG !!!
   RCT_TAG_FUNC_ID_NSID_ <- "Post-Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
   
-  RCT_INT_CELN_START_ <- 144L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_START_ <- 145L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
   RCT_INT_CELN_STOP_  <- 350L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
@@ -168,7 +167,7 @@
   ## NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasBaseCAT         <- base::cat;
   rasBaseGET0        <- base::get0;
-  rasBaseElseIF      <- base::ifelse;
+  rasBaseIfELSE      <- base::ifelse;
   rasBasePASTE0      <- base::paste0;
   rasBaseIsNULL      <- base::is.null;
   rasBaseIsINVISIBLE <- base::invisible;
@@ -202,8 +201,8 @@
   sbPrePendNL_    <- sbPrePendNL    %??% FALSE;
   sbPostPend1NL_  <- sbPostPend1NL  %??% TRUE;
   sbPostPend2NLs_ <- sbPostPend2NLs %??% FALSE;
-  sbPostAlways_   <- sbPostAlways   %??% TRUE;
-  siCallCELN_     <- siCallCELN     %??% 1982L;
+  sbPostAlways_   <- sbPostAlways   %??% FALSE;
+  siCallCELN_     <- siCallCELN     %??% "";
   
   
   
@@ -259,17 +258,16 @@
     ## 5.3 - Prime the HEADER text accordingly ... ####
     if (sbPrintPretty_) {
       ssHead_ <- rasBasePASTE0(
-        csFormatBOLD_, csColorHead_,                   # <- Adds the BOLD & Colour text formats ...
-        ssHead_,                                       # <- Adds the Note HEADER text value ...
-        rasBaseElseIF(sbIsDEBUG_, " ", ""),           # <- Adds a spacer if in DEBUG Mode !!!
-        rasBaseElseIF(sbIsDEBUG_, siCallCELN_, ""),   # <- Adds a Caller CELN if in DEBUG Mode !!!
-        csFormatRESET_                                 # <- Closes text formatting ...
+        csFormatBOLD_, csColorHead_,          # <- Adds the BOLD & Colour text formats ...
+        ssHead_,                              # <- Adds the Note HEADER text value ...
+        rasBaseIfELSE(sbIsDEBUG_, " ", ""),   # <= Adds a pre-pended spacer ...
+        siCallCELN_,                          # <- Adds a Caller CELN if in DEBUG Mode !!!
+        csFormatRESET_                        # <- Closes text formatting ...
       );
     } else {
       ssHead_ <- rasBasePASTE0(
-        ssHead_,                                      # <- Adds the Note HEADER text value ...
-        rasBaseElseIF(sbIsDEBUG_, " ", ""),          # <- Adds a spacer if in DEBUG Mode !!!
-        rasBaseElseIF(sbIsDEBUG_, siCallCELN_, "")   # <- Adds a Caller CELN if in DEBUG Mode !!!
+        ssHead_,                  # <- Adds the Note HEADER text value ...
+        siCallCELN_               # <- Adds a Caller CELN if in DEBUG Mode !!!
       );
     }
     
@@ -327,7 +325,7 @@
     
     ## 5.7 - Compile FULL MESSAGE text !!! ####
     csFullNote_ <- rasBasePASTE0(
-      rasBaseElseIF(sbPrePendNL, "\n", ""),   # <- Adds pre-pended NEW LINE (if so requested) !!!
+      rasBaseIfELSE(sbPrePendNL, "\n", ""),   # <- Adds pre-pended NEW LINE (if so requested) !!!
       csCarat_, ssHead_,                      # <- Adds the CARAT icon & HEADER text sequences ...
       csSplit_, ssBody_,                      # <- Adds the SPLIT icon & NOTE (main body) text ...
       csTail_,                                # <- Adds the TAIL icon (as patched in Step 5.6) ...

@@ -22,7 +22,7 @@ the "Right-Hand" R Object if the "Left-Hand" Object is \if{html}{\out{<indeed>}}
 }
 \examples{
 ### Use the Null-Coalescing Operator (NCO) as follows: ...
-library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
+library(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally (loads library)...
 
 ### Then apply the NCO accordingly ...
 NULL \%??\% "DeFAULT"            # -> returns "DeFAULT" !!!
@@ -34,12 +34,8 @@ NULL \%??\% FALSE \%??\% "FINal"   # -> returns FALSE !!!
 
 }
 \seealso{
-Other SuiteMFMR CODE Functions: 
-\code{\link{code.append.text.to.file}()},
-\code{\link{code.classify.func}()},
-\code{\link{code.clean.file.path}()},
-\code{\link{code.get.celn}()},
-\code{\link{code.return.renv.locked.list}()},
-\code{\link{code.split.string.on.vector}()}
+Other CODE Functions (SuiteMFMR): 
+\code{\link{code.coalesce.dots.args}()},
+\code{\link{code.return.renv.list}()}
 }
-\concept{SuiteMFMR CODE Functions}
+\concept{CODE Functions (SuiteMFMR)}

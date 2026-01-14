@@ -93,8 +93,8 @@
   rasMfmrDEVS             <- MFMRutils::RENV_DEVS;   
   rasMfmrPatchLibrVersNUM <- devs.patch.libr.vers.number;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrReturnRenvLIST   <- MFMRutils::code.return.renv.list;
   rasMfmrAppendToFILE     <- MFMRutils::code.append.text.to.file;
-  rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   rasStringrStrEXTRACT <- stringr::str_extract;
   
@@ -412,7 +412,7 @@
   
   
   ####   STEP 11 - Output <key> Function Results   ####
-  rasMfmrReturnLockedLIST(
+  rasMfmrReturnRenvLIST(
     vsListNames = c(
       "CODE_NAME_TAG",    # <- R Library Project Identifier -> TAG !!!
       "CODE_VERS_PROD",   # <- R Library <Code> PRODUCTION VERSION NUMBER -> TAG !!!

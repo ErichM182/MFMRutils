@@ -57,13 +57,14 @@ curly brace signifying the closure of a Base-R \verb{function()} code call or co
 segment.}
 
 \item{sbRunSelfID}{(\link{logical}) a Boolean value that defines whether the SELF-ID procedure should
-be executed (TRUE) or not (FALSE). This function argument overrides both of
-the R Project Devlopment DEBUG and VERBOSE trackers (default: \code{TRUE}).}
+be executed (\code{TRUE}) or not (\code{FALSE}). This function argument overrides both
+of the R Project Development DEBUG and VERBOSE trackers (default: \code{TRUE}).}
 
 \item{...}{(\link{list}) a KV-List (i.e. Key-Value Pair R List) of dynamic R Objects that specify
 values for specific "Fall-Through" function arguments (aka "DotsArgs"). The DotsArgs
 applicable here are defined in the \code{MFMRutils::RENV_FSID} immutable (i.e. R
-Environment-Locked) List.}
+Environment-Locked) List. In the \code{MFMRutils::RENV_FSID} immutable list applicable
+"Fall-Through" options are those with the form "F_ARGS_*".}
 }
 \value{
 \itemize{
