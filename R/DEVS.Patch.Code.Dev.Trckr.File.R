@@ -90,11 +90,11 @@
   rasJsonLiteFromJSON <- jsonlite::fromJSON;
   
   `%??%`                  <- MFMRutils::`%??%`;                       # <- VERY COOL Alias <NCO> !!!
-  rasMfmrMISC             <- MFMRutils::RENV_MISC;   
+  rasMfmrDEVS             <- MFMRutils::RENV_DEVS;   
   rasMfmrPatchLibrVersNUM <- devs.patch.libr.vers.number;
   rasMfmrPullLibrINFO     <- MFMRutils::devs.pull.libr.info;
+  rasMfmrReturnRenvLIST   <- MFMRutils::code.return.renv.list;
   rasMfmrAppendToFILE     <- MFMRutils::code.append.text.to.file;
-  rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
   
   rasStringrStrEXTRACT <- stringr::str_extract;
   
@@ -110,14 +110,14 @@
   
   ####   STEP 04 - Create Folder & File ( IF NOT EXISTS )   ####
   rsbIsNewActDevTRCKR_ <- FALSE;
-  RCT_PATH_FILE_R_BUILD_IGNORE_     <- rasMfmrMISC$PATH_TO_FILE_R_BUILD_IGNORE;
-  RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_ <- rasMfmrMISC$PATH_TO_FILE_ACT_DEV_INFO_TRCKR;
+  RCT_PATH_FILE_R_BUILD_IGNORE_     <- rasMfmrDEVS$PATH_TO_FILE_R_BUILD_IGNORE;
+  RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_ <- rasMfmrDEVS$PATH_TO_FILE_ACT_DEV_INFO_TRCKR;
   if (!rasBaseFileEXISTS(RCT_PATH_FILE_ACT_DEV_INFO_TRCKR_)) {   # <- Checks if FILE DOES NOT EXIST.
     
     ### 4.1 - Create the "./WIP" directory (if not already exists) ...
     rasBaseDirCREATE(
       recursive = T, showWarnings = F,
-      path = rasMfmrMISC$PATH_TO_FOLDER_WIP
+      path = rasMfmrDEVS$PATH_TO_FOLDER_WIP
     );
     
     ### 4.2 - Create the "00_ACT_DEV_TRCKR.txt" Code Development TRACKER File ...
@@ -149,8 +149,8 @@
   rssVersNewDEVS_ <- "0.0.0.01"; rssVersNewPROD_ <- "0.0.1"; 
   
   RCT_SYS_DATE_TIME_NOW_         <- rasBaseSysTimeNOW();
-  RCT_FORMAT_TIME_DEV_03_        <- rasMfmrMISC$FORMAT_TIME_DEV_LOG_V03;
-  RCT_FILE_R_PKG_DESC_           <- rasMfmrMISC$PATH_TO_FILE_R_PACKAGE_DESC;
+  RCT_FORMAT_TIME_DEV_03_        <- rasMfmrDEVS$FORMAT_TIME_DEV_LOG_V03;
+  RCT_FILE_R_PKG_DESC_           <- rasMfmrDEVS$PATH_TO_FILE_R_PACKAGE_DESC;
   
   RCT_REGENT_R_LIB_DESC_INFO_    <- rasMfmrPullLibrINFO(RCT_FILE_R_PKG_DESC_);
   RCT_REGENT_R_LIB_ID_           <- RCT_REGENT_R_LIB_DESC_INFO_[["NAME"]];
@@ -412,7 +412,7 @@
   
   
   ####   STEP 11 - Output <key> Function Results   ####
-  rasMfmrReturnLockedLIST(
+  rasMfmrReturnRenvLIST(
     vsListNames = c(
       "CODE_NAME_TAG",    # <- R Library Project Identifier -> TAG !!!
       "CODE_VERS_PROD",   # <- R Library <Code> PRODUCTION VERSION NUMBER -> TAG !!!

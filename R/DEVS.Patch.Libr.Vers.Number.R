@@ -44,12 +44,12 @@
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   # NOTES: This is a <NEW> approach to improve R Session Memory Efficiency ...
-  rasBaseLIST             <- base::list;
-  rasBaseLENGTH           <- base::length;
-  rasBaseRETURN           <- base::return;
-  rasBaseAsNUMERIC        <- base::as.numeric;
+  rasBaseLIST      <- base::list;
+  rasBaseLENGTH    <- base::length;
+  rasBaseRETURN    <- base::return;
+  rasBaseAsNUMERIC <- base::as.numeric;
   
-  rasMfmrReturnLockedLIST <- MFMRutils::code.return.renv.locked.list;
+  rasMfmrRetRenvLIST <- MFMRutils::code.return.renv.list;
   
   
   ####   STEP 03 - Internalize Function Arguments   ####
@@ -148,7 +148,7 @@
   
   
   ####   STEP 07 - Return LIST to Function Call   ####
-  rasMfmrReturnLockedLIST(
+  rasMfmrRetRenvLIST(
     vsListNames = c(
       "VERS_DEBUG",   # <- The ACTIVE DEVELOPMENT <debug release> VERSION STUB !!!
       "VERS_ALPHA",   # <- The ALPHA PRODUCTION <alpha release> VERSION STUB !!!

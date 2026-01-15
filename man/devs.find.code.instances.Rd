@@ -8,7 +8,7 @@ devs.find.code.instances(
   ssFindText,
   vsTargetLibs = NULL,
   coRENVs = base::list(base::globalenv()),
-  sbSearchInternals = FALSE,
+  sbSearchInternals = TRUE,
   sbUseRegex = TRUE,
   sbIgnoreCase = TRUE,
   sbIncludeGlobal = TRUE,

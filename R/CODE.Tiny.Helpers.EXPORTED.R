@@ -1,7 +1,7 @@
 #? ### ### ### ### ### ### ###
 #' @title Null-Coalescing Operator (the "SuiteMFMR" way)
 #' @name %??%
-#' @family SuiteMFMR CODE Functions
+#' @family CODE Functions (SuiteMFMR)
 #' 
 #' 
 #' @description
@@ -20,7 +20,7 @@
 #'
 #' @examples
 #' ### Use the Null-Coalescing Operator (NCO) as follows: ...
-#' library(MFMRutils)   # <- Loads the "MFMRutils" library (if already installed) ...
+#' library(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally (loads library)...
 #'
 #' ### Then apply the NCO accordingly ...
 #' NULL %??% "DeFAULT"            # -> returns "DeFAULT" !!!
@@ -34,10 +34,12 @@
 #? ### ### ###
 `%??%` <- function(coLHO=NULL, coRHO=NULL) {
   
+  
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                       # <- R Library Identifier !!!
-  rssTagFuncIDv01_      <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
-  rssTagFuncIDv02_      <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                       # <- R Library Identifier !!!
+  RCT_TAG_R_FUNC_ID_SHORT_ <- "Null.Coal.Oper";                  # <- Function ID - SHORT !!!
+  RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Null.Coalescing.Operator";   # <- Function ID - LONG !!!
+  
   
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
@@ -49,11 +51,82 @@
   rasBaseIsNULL <- base::is.null;
   
   
+  
   ####   STEP 03 - Execute MAIN <function> CODE LOGIC   ####
   if (rasBaseIsNULL(coLHO) || rasBaseLENGTH(coLHO) == 0 || rasBaseANY(rasBaseIsNA(coLHO))) {
     rasBaseRETURN(coRHO);
   } else {
     rasBaseRETURN(coLHO);
+  }
+  
+}
+
+
+
+
+
+
+#? ### ### ### ### ### ### ###
+#' @title Dots-Args Coalescing Function
+#' @name code.coalesce.dots.args
+#' @family CODE Functions (SuiteMFMR)
+#' 
+#' 
+#' @description
+#' A Function Dot Argument Coalescing Function. This function greatly aides unifying (i.e. joining,
+#' collapsing or coalescing) two sets of DotsArgs groups into a single R List Object. This is a very
+#' important function within the "MFMR Suite of R Functions" (i.e. `SuiteMFMR`) considering almost 
+#' all `SuiteMFMR` functions implement a dual-approach (i.e. more user-friendly approach) towards 
+#' passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
+#'
+#'
+#' @param coArgsList01 ([list]) an R List (complex) object that captures the first group of Function 
+#'                     Dot Arguments (i.e. "Fall-Through" Function Arguments) to be coalesced.
+#' @param coArgsList02 ([list]) an R List (complex) object that captures the second group of 
+#'                     Function Dot Arguments (i.e. "Fall-Through" Function Arguments) to be 
+#'                     coalesced.
+#'
+#'
+#' @examples
+#' ### Use the DotsArgs-Coalescing Function as follows: ...
+#' library(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally (loads library)...
+#'
+#' ### Then apply the NCO accordingly ...
+#'
+#'
+#' @export
+#? ### ### ###
+"code.coalesce.dots.args" <- function(coArgsList01=NULL, coArgsList02=NULL) {
+  
+  
+  ####   STEP 01 - Define "Function Self-ID" Tags   ####
+  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                 # <- R Library Identifier !!!
+  RCT_TAG_R_FUNC_ID_SHORT_ <- "Coal.Dots.Args";            # <- Function ID - SHORT !!!
+  RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Coalesce.Dots.Args";   # <- Function ID - LONG !!!
+  
+  
+  
+  ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
+  # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
+  rasBaseC      <- base::c;
+  rasBaseRETURN <- base::return;
+  rasBaseIsNULL <- base::is.null;
+  
+  
+  
+  ####   STEP 03 - Internalize All Function Arguments   ####
+  coDotsArgsV01_ <- coArgsList01;
+  coDotsArgsV02_ <- coArgsList02;
+  
+  
+  
+  ####   STEP 04 - Execute MAIN <function> CODE LOGIC   ####
+  if (!rasBaseIsNULL(coDotsArgsV01_) && rasBaseIsNULL(coDotsArgsV02_)) {
+    rasBaseRETURN(coDotsArgsV01_);
+  } else if (rasBaseIsNULL(coDotsArgsV01_) && !rasBaseIsNULL(coDotsArgsV02_)) {
+    rasBaseRETURN(coDotsArgsV02_);
+  } else {   # <- This means both Function Arguments are NOT NULL !!!
+    rasBaseRETURN(rasBaseC(coDotsArgsV01_, coDotsArgsV02_));
   }
   
 }

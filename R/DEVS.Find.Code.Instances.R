@@ -205,17 +205,17 @@
 #' @export
 #? ### ### ###
 "devs.find.code.instances" <- function(
-    ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = FALSE, 
-    sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
-    snRetSnipSize = 82
+  ssFindText, vsTargetLibs=NULL, coRENVs=base::list(base::globalenv()), sbSearchInternals = TRUE, 
+  sbUseRegex = TRUE, sbIgnoreCase = TRUE, sbIncludeGlobal = TRUE, sbVerboseSearch = TRUE, 
+  snRetSnipSize = 82
 ) {
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
-  RCT_SYS_TIME_NOW_     <- base::Sys.time();             # <- Extract active System Date-Time !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";                  # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_SHRT_ <- "Find.Code";                  # <- FSID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_ <- "devs.find.code.instances";   # <- FSID - LONG !!!
+  RCT_SYS_TIME_NOW_      <- base::Sys.time();             # <- Extract active System Date-Time !!!
+  RCT_TAG_FUNC_LIBR_ID_  <- "MFMRutils";                  # <- R Library Identifier !!!
+  RCT_TAG_FUNC_ID_SHORT_ <- "Find-Code";                  # <- FSID - SHORT !!!
+  RCT_TAG_FUNC_ID_FULL_  <- "DEVS-Find-Code-Instances";   # <- FSID - LONG !!!
   
   
   
@@ -329,7 +329,7 @@
       # Use the literal source code preserved in the srcref ...
       rcsFuncCODE_ <- as.character(srcref);
       # Extract the absolute starting line number from the file ..
-      start_line_offset <- as.vector(srcref)[1] - 2;
+      start_line_offset <- as.vector(srcref)[1] - 1;
     } else {
       # Fallback to deparse ONLY if source is not available
       # 'useSource = TRUE' attempts to find the original formatting
@@ -499,7 +499,10 @@
   
   # Search global environment if requested ...
   if (sbIncludeGlobal) {
-    if (sbVerboseSearch) rasBaseMESSAGE(' \u279C Code Search in "R Global Environment" ...')
+    
+    if (sbVerboseSearch) {
+      rasBaseMESSAGE(' \u279C Code Search in "R Global Environment" (default-env) ...')
+    }
     
     global_objs <- rasBaseLS(rasBaseGlobalENV(), all.names = TRUE)
     
