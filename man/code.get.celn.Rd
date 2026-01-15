@@ -5,37 +5,38 @@
 \title{Extract the Code Editor Gutter Line Number (CELN)}
 \usage{
 code.get.celn(
-  ssFuncName = "my.cust.r.func",
+  ssFuncName = "code.get.celn\\\\(",
+  sbRunByForce = FALSE,
   siCallIndex = 1L,
-  sbUseFuncAlias = FALSE,
-  ssFuncAliasValue = "rasMfmrGetCELN\\\\(",
-  sbRunByForce = FALSE
+  sbUseAlias = FALSE,
+  ssAliasValue = "rasMfmrGetCELN\\\\("
 )
 }
 \arguments{
 \item{ssFuncName}{(\link{character}) a String or Text (i.e. \link{character} \link{vector}) value that specifies
-the Function Identifier (i.e. name) where the R Code Search or Function ID look
-up should be conducted (i.e. directed at).}
-
-\item{siCallIndex}{(\link{integer}) an Integer value that defines the "Call Index" in the localized (
-function \if{html}{\out{<internal>}}) call stack in reference to when (i.e. in which order) the
-\code{code.get.celn()} function was called (i.e. from inside a function).}
-
-\item{sbUseFuncAlias}{(\link{logical}) a Boolean value that specifies whether the function should use
-the standard \code{code.get.celn()} function identifier or not (default: \code{FALSE}
-). If set to \code{TRUE} the function will NOT use standard function ID (i.e.
-\code{"code\\.get\\.celn"}), but rather the value supplied to the function
-via the \code{ssFuncAliasValue} function argument.}
-
-\item{ssFuncAliasValue}{(\link{character}) a String or Text (i.e. \link{character} \link{vector}) value that
-specifies the alias (i.e. re-assigned function identifier) of the default
-or standard \code{code.get.celn()} function identifier to search for in the R
-function \if{html}{\out{<internal>}} code.}
+the Function Identifier (i.e. name) where the R Code Search or Function ID
+look-up should be conducted (i.e. directed at).}
 
 \item{sbRunByForce}{(\link{logical}) a Boolean value that specifies whether the function must execute
 its standard code logic even if the R Project Development DEBUG tracker (
 \code{RCT_IS_DEBUG_RT_MODE_}) was activated (i.e. found in the call stack & set to
 a value of \code{TRUE}) or not (default: \code{FALSE}).}
+
+\item{siCallIndex}{(\link{integer}) an Integer value that defines the "Call Index" or "Call Sequence"
+in the localized (function \if{html}{\out{<internal>}}) call stack in reference to when (i.e.
+in which order) the \code{code.get.celn()} function was called (i.e. from inside a
+function).}
+
+\item{sbUseAlias}{(\link{logical}) a Boolean value that specifies whether the function should use the
+the standard \code{code.get.celn()} function identifier or not (default: \code{FALSE}).
+If set to \code{TRUE} the function will NOT use standard function ID (i.e.
+"code\\.get\\.celn"), but rather the value supplied to the function via the
+\code{ssAliasValue} function argument.}
+
+\item{ssAliasValue}{(\link{character}) a String or Text (i.e. \link{character} \link{vector}) value that
+specifies the alias (i.e. re-assigned function identifier) of the default or
+standard \code{code.get.celn()} function identifier to search for in the R
+function \if{html}{\out{<internal>}} code.}
 }
 \description{
 A SPECIAL HELPER Function that extracts the Code Editor Gutter Line Number (CEGLN a.k.a. CELN) at
@@ -53,9 +54,9 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
 
 
 ### Use with any custom R function as follows ...
-"my.cust.r.func" <- function(x=7, y=3, z=28) {
+"my.custom.r.func" <- function(x=7, y=3, z=28) {
 
-  RCT_TAG_FUNC_ID <- "My.Cust.R.FUNC";  # <- ALWAYS TAG (ID) Custom R Functions accordingly !!!
+  RCT_TAG_FUNC_ID <- "my.custom.r.func";  # <- ALWAYS TAG (ID) Custom R Functions accordingly !!!
 
   valSUM <- sum(x, y, z);
   cat(
@@ -63,6 +64,7 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
       " \u279C ", RCT_TAG_FUNC_ID, " " , 
       MFMRutils::code.get.celn(
         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+        TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
         1L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
       ),                   #    function calls inside the custom function code. This is the 1st 
                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -77,6 +79,7 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
       " \u279C ", RCT_TAG_FUNC_ID, " " ,
       MFMRutils::code.get.celn(
         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+        TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
         2L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
       ),                   #    function calls inside the custom function code. This is the 2nd 
                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -91,6 +94,7 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
       " \u279C ", RCT_TAG_FUNC_ID, " " ,
       MFMRutils::code.get.celn(
         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+        TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
         3L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
       ),                   #    function calls inside the custom function code. This is the 3rd 
                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -105,12 +109,12 @@ library(MFMRutils)   # <- Ensures the `MFMRutils` library is <already> installed
 }
 
 ## Execute the custom R Function ...
-my.cust.r.func()
+my.custom.r.func()
 
-## Outputs from "my.cust.r.func()" should be as follows ...
-# ➜ My.Cust.R.FUNC 34 | Summed all 3 input values < result: 38 > !!!
-# ➜ My.Cust.R.FUNC 49 | Averaged the 3 input values < result: 12.7 > !!!
-# ➜ My.Cust.R.FUNC 64 | CUSTOM R-FUNC `my.cust.r.func()` SUCESSFULLY EXECUTED !!!
+## Outputs from "my.custom.r.func()" should be as follows ...
+# ➜ My.Cust.R.FUNC 9 | Summed all 3 input values < result: 38 > !!!
+# ➜ My.Cust.R.FUNC 24 | Averaged the 3 input values < result: 12.7 > !!!
+# ➜ My.Cust.R.FUNC 39 | CUSTOM R-FUNC `my.custom.r.func()` SUCESSFULLY EXECUTED !!!
 
 # $SUM
 # [1] 38

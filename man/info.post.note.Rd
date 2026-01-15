@@ -93,8 +93,7 @@ a custom R Function or R Project output (printed) code (default: \code{FALSE}).}
 posted (printed to the active R Console) or not (default: \code{TRUE}).}
 
 \item{siCallCELN}{(\link{integer}) a Numeric value that specifies the Code Editor Line Number (CELN)
-at which this function was called from by its parent function or R Script (
-default: \code{1982L}).}
+at which this function was called from by its parent function or R Script.}
 }
 \value{
 \itemize{

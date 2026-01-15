@@ -15,24 +15,25 @@
 #'
 #'
 #' @param ssFuncName ([character]) a String or Text (i.e. [character] [vector]) value that specifies 
-#'                   the Function Identifier (i.e. name) where the R Code Search or Function ID look
-#'                   up should be conducted (i.e. directed at).
-#' @param siCallIndex ([integer]) an Integer value that defines the "Call Index" in the localized (
-#'                    function <internal>) call stack in reference to when (i.e. in which order) the
-#'                    `code.get.celn()` function was called (i.e. from inside a function).
-#' @param sbUseFuncAlias ([logical]) a Boolean value that specifies whether the function should use
-#'                       the standard `code.get.celn()` function identifier or not (default: `FALSE`
-#'                       ). If set to `TRUE` the function will NOT use standard function ID (i.e.
-#'                       \code{"code\\.get\\.celn"}), but rather the value supplied to the function
-#'                       via the `ssFuncAliasValue` function argument.
-#' @param ssFuncAliasValue ([character]) a String or Text (i.e. [character] [vector]) value that 
-#'                         specifies the alias (i.e. re-assigned function identifier) of the default
-#'                         or standard `code.get.celn()` function identifier to search for in the R
-#'                         function <internal> code.
+#'                   the Function Identifier (i.e. name) where the R Code Search or Function ID 
+#'                   look-up should be conducted (i.e. directed at).
 #' @param sbRunByForce ([logical]) a Boolean value that specifies whether the function must execute
 #'                     its standard code logic even if the R Project Development DEBUG tracker (
 #'                     `RCT_IS_DEBUG_RT_MODE_`) was activated (i.e. found in the call stack & set to 
 #'                     a value of `TRUE`) or not (default: `FALSE`).
+#' @param siCallIndex ([integer]) an Integer value that defines the "Call Index" or "Call Sequence" 
+#'                    in the localized (function <internal>) call stack in reference to when (i.e. 
+#'                    in which order) the `code.get.celn()` function was called (i.e. from inside a 
+#'                    function).
+#' @param sbUseAlias ([logical]) a Boolean value that specifies whether the function should use the
+#'                   the standard `code.get.celn()` function identifier or not (default: `FALSE`).
+#'                   If set to `TRUE` the function will NOT use standard function ID (i.e.
+#'                   "code\\.get\\.celn"), but rather the value supplied to the function via the
+#'                   `ssAliasValue` function argument.
+#' @param ssAliasValue ([character]) a String or Text (i.e. [character] [vector]) value that 
+#'                     specifies the alias (i.e. re-assigned function identifier) of the default or
+#'                     standard `code.get.celn()` function identifier to search for in the R
+#'                     function <internal> code.
 #'
 #'
 #' @examples
@@ -42,9 +43,9 @@
 #'
 #'
 #' ### Use with any custom R function as follows ...
-#' "my.cust.r.func" <- function(x=7, y=3, z=28) {
+#' "my.custom.r.func" <- function(x=7, y=3, z=28) {
 #' 
-#'   RCT_TAG_FUNC_ID <- "My.Cust.R.FUNC";  # <- ALWAYS TAG (ID) Custom R Functions accordingly !!!
+#'   RCT_TAG_FUNC_ID <- "my.custom.r.func";  # <- ALWAYS TAG (ID) Custom R Functions accordingly !!!
 #' 
 #'   valSUM <- sum(x, y, z);
 #'   cat(
@@ -52,6 +53,7 @@
 #'       " \u279C ", RCT_TAG_FUNC_ID, " " , 
 #'       MFMRutils::code.get.celn(
 #'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
 #'         1L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
 #'       ),                   #    function calls inside the custom function code. This is the 1st 
 #'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -66,6 +68,7 @@
 #'       " \u279C ", RCT_TAG_FUNC_ID, " " ,
 #'       MFMRutils::code.get.celn(
 #'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
 #'         2L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
 #'       ),                   #    function calls inside the custom function code. This is the 2nd 
 #'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -80,6 +83,7 @@
 #'       " \u279C ", RCT_TAG_FUNC_ID, " " ,
 #'       MFMRutils::code.get.celn(
 #'         RCT_TAG_FUNC_ID,   # <- Provide the Function ID (tag) for the Custom R Function ...
+#'         TRUE,              # <- <force> Run function even if DEBUG tracking is not activated !!!
 #'         3L                 # <- Define the call order <call sequence> for the `CODE.Get.CELN()` 
 #'       ),                   #    function calls inside the custom function code. This is the 3rd 
 #'                            #    time the `CODE.Get.CELN()` function is called inside this custom 
@@ -94,12 +98,12 @@
 #' }
 #' 
 #' ## Execute the custom R Function ...
-#' my.cust.r.func()
+#' my.custom.r.func()
 #' 
-#' ## Outputs from "my.cust.r.func()" should be as follows ...
-#' # ➜ My.Cust.R.FUNC 34 | Summed all 3 input values < result: 38 > !!!
-#' # ➜ My.Cust.R.FUNC 49 | Averaged the 3 input values < result: 12.7 > !!!
-#' # ➜ My.Cust.R.FUNC 64 | CUSTOM R-FUNC `my.cust.r.func()` SUCESSFULLY EXECUTED !!!
+#' ## Outputs from "my.custom.r.func()" should be as follows ...
+#' # ➜ My.Cust.R.FUNC 9 | Summed all 3 input values < result: 38 > !!!
+#' # ➜ My.Cust.R.FUNC 24 | Averaged the 3 input values < result: 12.7 > !!!
+#' # ➜ My.Cust.R.FUNC 39 | CUSTOM R-FUNC `my.custom.r.func()` SUCESSFULLY EXECUTED !!!
 #' 
 #' # $SUM
 #' # [1] 38
@@ -111,8 +115,8 @@
 #' @export
 #? ### ### ###
 "code.get.celn" <- function(
-  ssFuncName="my.cust.r.func", siCallIndex=1L,
-  sbUseFuncAlias=FALSE, ssFuncAliasValue="rasMfmrGetCELN\\(", sbRunByForce=FALSE
+  ssFuncName="code.get.celn\\(", sbRunByForce=FALSE, siCallIndex=1L,
+  sbUseAlias=FALSE, ssAliasValue="rasMfmrGetCELN\\("
 ) {
   
   
@@ -122,9 +126,9 @@
   RCT_TAG_FUNC_ID_SHORT_  <- "Get.CELN";         # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_LONG_   <- "CODE.Get.CELN";    # <- Function ID - LONG !!!
   
-  RCT_INT_CELN_START_ <- 113L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_START_ <- 117L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 208L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 212L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   
   
@@ -142,21 +146,21 @@
   rasBaseAsNUMERIC  <- base::as.numeric;
   rasBaseDUPLICATED <- base::duplicated;
   
-  rasMfmrFSID         <- MFMRutils::RENV_FSID;
-  rasMfmrDevsFindCODE <- MFMRutils::devs.find.code.instances;
+  rasMfmrFuncSID  <- MFMRutils::RENV_FSID;
+  rasMfmrFindCODE <- MFMRutils::devs.find.code.instances;
   
   ## SPECIAL - Constant - TAG - Aliases ...
-  RAS_IS_DEBUG_MODE_     <- rasMfmrFSID$CONSTS_IS_DEBUG
-  RAS_IS_VERBOSE_MODE_   <- rasMfmrFSID$CONSTS_IS_VERBOSE
+  RAS_IS_DEBUG_MODE_   <- rasMfmrFuncSID$CONSTS_IS_DEBUG
+  RAS_IS_VERBOSE_MODE_ <- rasMfmrFuncSID$CONSTS_IS_VERBOSE
   
   
   
   ####   STEP 03 - Internalize ALL Function Arguments   ####
-  ssFuncName_       <- ssFuncName;
-  siCallIndex_      <- siCallIndex;
-  sbUseFuncAlias_   <- sbUseFuncAlias;
-  ssFuncAliasValue_ <- ssFuncAliasValue;
-  sbRunByForce_     <- sbRunByForce;
+  ssFuncName_   <- ssFuncName;
+  siCallIndex_  <- siCallIndex;
+  sbRunByForce_ <- sbRunByForce;
+  sbUseAlias_   <- sbUseAlias;
+  ssAliasValue_ <- ssAliasValue;
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
@@ -172,13 +176,13 @@
     ####   STEP 04 - Trace Function Call Stack Location   ####
     ## 4.1 - Run an R Function Code Search to locate all instances of this `code.get.celn()` 
     ##       function in the specified <active> R Function <internal function code> ...
-    rdfFuncCalls_ <- rasMfmrDevsFindCODE(
-      vsTargetLibs = c(RCT_TAG_FUNC_LIBR_ID_), 
+    rdfFuncCalls_ <- rasMfmrFindCODE(
+      vsTargetLibs = c(RCT_TAG_FUNC_LIBR_ID_),
       sbVerboseSearch = FALSE, sbIgnoreCase = FALSE,
       ssFindText = rasBaseIfELSE(
-        sbUseFuncAlias_,
-        ssFuncAliasValue_,       # <- This is the user-specified "Func-Alias" value !!!
-        "code\\.get\\.celn\\("   # <- NEVER CHANGE THIS LINE (it is the CORRECT default value) !!!
+        sbUseAlias_,
+        ssAliasValue_,           # <- This is the user-specified "Alias" value to search for !!!
+        "code\\.get\\.celn\\("   # <- NEVER CHANGE THIS (it is the 100% CORRECT default value) !!!
       )
     );
     

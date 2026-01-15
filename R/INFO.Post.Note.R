@@ -167,6 +167,7 @@
   ## NOTES: This is a NEW approach to improve R Session Memory Efficiency ...
   rasBaseCAT         <- base::cat;
   rasBaseGET0        <- base::get0;
+  rasBaseNCHAR       <- base::nchar;
   rasBaseIfELSE      <- base::ifelse;
   rasBasePASTE0      <- base::paste0;
   rasBaseIsNULL      <- base::is.null;
@@ -257,12 +258,17 @@
     
     ## 5.3 - Prime the HEADER text accordingly ... ####
     if (sbPrintPretty_) {
+      sbHasVal_ <- rasBaseNCHAR(siCallCELN_) >= 1;   # <- Run Boolean check on CELN Val-length !!! 
       ssHead_ <- rasBasePASTE0(
-        csFormatBOLD_, csColorHead_,          # <- Adds the BOLD & Colour text formats ...
-        ssHead_,                              # <- Adds the Note HEADER text value ...
-        rasBaseIfELSE(sbIsDEBUG_, " ", ""),   # <= Adds a pre-pended spacer ...
-        siCallCELN_,                          # <- Adds a Caller CELN if in DEBUG Mode !!!
-        csFormatRESET_                        # <- Closes text formatting ...
+        csFormatBOLD_, csColorHead_,   # <- Adds the BOLD & Colour text formats ...
+        ssHead_,                       # <- Adds the Note HEADER text value ...
+        rasBaseIfELSE(
+          sbHasVal_ && sbIsDEBUG_ || 
+          sbHasVal_ && sbIsVERBOSE_, 
+          " ", ""                      # <= Adds a pre-pended spacer (if valid CELN Conditions) !!!
+        ),
+        siCallCELN_,                   # <- Adds a Caller CELN if in DEBUG Mode !!!
+        csFormatRESET_                 # <- Closes text formatting ...
       );
     } else {
       ssHead_ <- rasBasePASTE0(

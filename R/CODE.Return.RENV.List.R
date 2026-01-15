@@ -133,6 +133,7 @@
   
   rasStatsSetNAMES <- stats::setNames;
   
+  `%??%`          <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
   rasMfmrGetCELN  <- MFMRutils::code.get.celn;
   rasMfmrPostNOTE <- MFMRutils::info.post.note;
   
@@ -143,9 +144,9 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Succesfully Primed Function Aliases ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_, 
-      sbUseFuncAlias = TRUE, ssFuncAliasValue = ssFindCodeALIAS_,
-      siCallIndex = 1L, sbRunByForce = coDotsArgs_[["sbRunByForce"]]
+      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 1L,
+      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
     )
   );
   
@@ -161,9 +162,9 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Internalized ALL Function Arguments ...", 
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_, 
-      sbUseFuncAlias = TRUE, ssFuncAliasValue = ssFindCodeALIAS_,
-      siCallIndex = 2L, sbRunByForce = coDotsArgs_[["sbRunByForce"]]
+      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 2L,
+      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
     )
   );
   
@@ -204,9 +205,9 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Completed Function Argument NULL-Checks ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_, 
-      sbUseFuncAlias = TRUE, ssFuncAliasValue = ssFindCodeALIAS_,
-      siCallIndex = 3L, sbRunByForce = coDotsArgs_[["sbRunByForce"]]
+      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 3L,
+      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
     )
   );
   
@@ -253,9 +254,9 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Finalized Function Results <outputs> ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_, 
-      sbUseFuncAlias = TRUE, ssFuncAliasValue = ssFindCodeALIAS_,
-      siCallIndex = 4L, sbRunByForce = coDotsArgs_[["sbRunByForce"]]
+      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 4L,
+      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
     )
   );
   

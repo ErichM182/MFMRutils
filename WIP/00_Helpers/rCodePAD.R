@@ -4,7 +4,7 @@
 
 
 
-MFMRutils::devs.check.code.specs(sbCheckCRAN = T)
+MFMRutils::devs.check.code.specs(sbCheckCRAN = T, sbIsProdRel = F);
 
 
 
@@ -19,15 +19,18 @@ base::get0(MFMRutils::RENV_MISC$TAG_VARS_BOOL_IS_DEBUG)
 
 
 
-RCT_IS_DEBUG_RT_MODE_ <- F
+RCT_IS_DEBUG_RT_MODE_ <- T
 RCT_IS_VERBOSE_RT_MODE_ <- F
 
 
 
 MFMRutils::info.post.note()
 MFMRutils::info.post.func.self.id(
-  sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
+  sbRunSelfID = F, siFuncMode01L = 0L, sbPrintPretty = T
 )
+
+ssTestVAR_ <- "129";
+nchar(ssTestVAR_)
 
 
 
@@ -40,10 +43,11 @@ lsListVals_  <- list(
 
 
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ...
-rlsEnvLockdLIST <- MFMRutils::code.return.renv.list(
+rlsListEnvLOCKD_ <- MFMRutils::code.return.renv.list(
   vsListNames = vsListNames_, lsListVals = lsListVals_,
-  sbLockList = TRUE, sbRunByForce = T    # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
+  sbLockList = TRUE, sbRunByForce = F    # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
 )
+
 
 
 
