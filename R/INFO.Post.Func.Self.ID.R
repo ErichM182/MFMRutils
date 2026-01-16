@@ -90,10 +90,11 @@
   RCT_TAG_FUNC_ID_LONG_ <- "INFO.Post.Func.Self.ID";   # <- FSID - LONG !!!
   RCT_TAG_FUNC_ID_NSID_ <- "Func.SID";                 # <- This Func DOES NOT SELF-ID (NSID) !!!
   
-  RCT_INT_CELN_START_ <- 89L;    # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_START_ <- 79L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
   RCT_INT_CELN_STOP_  <- 533L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
+  coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
   
   
@@ -126,46 +127,44 @@
   rasMfmrClassFUNC <- MFMRutils::code.classify.func;
   
   # SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
-  RAS_TAG_PROJ_ID_       <- rasMfmrFSID$CONSTS_PID_SHORT
-  RAS_TAG_CALLER_ID_     <- rasMfmrFSID$CONSTS_PID_SHORT
-  RAS_IS_DEBUG_MODE_     <- rasMfmrFSID$CONSTS_IS_DEBUG
-  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT
-  RAS_IS_VERBOSE_MODE_   <- rasMfmrFSID$CONSTS_IS_VERBOSE
+  RAS_TAG_PROJ_ID_       <- rasMfmrFSID$CONSTS_PROJ_ID_SHORT;
+  RAS_TAG_CALLER_ID_     <- rasMfmrFSID$CONSTS_PROJ_ID_SHORT;
+  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FUNC_ID_SHORT;
+  RAS_IS_MODE_DEBUG_     <- rasMfmrFSID$CONSTS_BOOL_IS_DEBUG;
+  RAS_IS_MODE_VERBOSE_   <- rasMfmrFSID$CONSTS_BOOL_IS_VERBOSE;
   
-  
-  
-  ####   STEP 03 - Internalize ALL Function Arguments   ####
-  # NOTES: hand-over all func-args to func-local <internal> variables ...
-  ssProjID_       <- ssProjID;
-  ssFuncSelfID_   <- ssFuncSelfID;
-  ssFuncCallerID_ <- ssFuncCallerID;
-  siFuncMode01L_  <- siFuncMode01L;
-  csTimeStart_    <- csTimeStart;
-  csTimeStop_     <- csTimeStop;
-  siStartCELN_    <- siStartCELN;
-  siStopCELN_     <- siStopCELN;
-  sbRunSelfID_    <- sbRunSelfID %??% FALSE;   # <- VERY NB: Must assign this value here !!!
-  coDotsArgs_     <- rasLIST(...);
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
   sbIsDEBUG_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_DEBUG_MODE_,        #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
+    RAS_IS_MODE_DEBUG_,        #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
     envir = .GlobalEnv,        #    and extracts its value.
     ifnotfound = FALSE         # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                           #    the Active R Session !!!
   sbIsVERBOSE_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_VERBOSE_MODE_,        #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
+    RAS_IS_MODE_VERBOSE_,        #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_MODE_`
     envir = .GlobalEnv,          #    and extracts its value.
     ifnotfound = FALSE           # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
   );                             #    the Active R Session !!!
   
   
-  ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!! 
+  ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!!
+  sbRunSelfID_ <- coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_SELF_ID]] %??% FALSE;   # <- IMPORANT !!!
   if (sbRunSelfID_ || sbIsDEBUG_ || sbIsVERBOSE_) {
     
+    ####   STEP 03 - Internalize ALL Function Arguments   ####
+    # NOTES: hand-over all func-args to func-local <internal> variables ...
+    ssProjID_       <- ssProjID;
+    ssFuncSelfID_   <- ssFuncSelfID;
+    ssFuncCallerID_ <- ssFuncCallerID;
+    siFuncMode01L_  <- siFuncMode01L;
+    csTimeStart_    <- csTimeStart;
+    csTimeStop_     <- csTimeStop;
+    siStartCELN_    <- siStartCELN;
+    siStopCELN_     <- siStopCELN;
+    
     ####   STEP 04 - Define Critical Constants   ####
-    ## Prime selected variables (akin to constants) ...
+    ##   Prime selected variables (akin to constants) ...
     csIconSPARK_     <- rasMfmrICONS$SparkRed;
     csIconSKULL_     <- rasMfmrICONS$SkullOnly;
     csColorsCYAN_    <- rasMfmrCOLORS$CyanFORE;
@@ -235,7 +234,7 @@
     ## NOTES: hand-over all func-args to func-local <internal> variables ...
     csTimeStamp_    <- NULL;
     coListFuncRes_  <- NULL;   # -> The <final> function output <results> object.
-    ssProjID_       <- ssProjID_       %??% NULL;
+    ssProjID_       <- ssProjID_       %??% coDotsArgs_[[rasMfmrFSID$F_ARGS_PROJ_ID]] %??% NULL;
     ssFuncSelfID_   <- ssFuncSelfID_   %??% RCT_TAG_FUNC_ID_LONG_;
     ssFuncCallerID_ <- ssFuncCallerID_ %??% NULL;
     siFuncMode01L_  <- siFuncMode01L_  %??% 1L;
@@ -247,7 +246,7 @@
     
     ## Prime all "Fall-Through" Function Arguments or values (parameters or variables) ...
     csIconSplit_      <- coDotsArgs_[[rasMfmrFSID$F_ARGS_ICON_SPLIT]]        %??% " | ";
-    sbPrintPretty_    <- coDotsArgs_[[rasMfmrFSID$F_ARGS_IS_PRINT_PRETTY]]   %??% TRUE;
+    sbPrintPretty_    <- coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_PRINT_PRETTY]] %??% TRUE;
     csColorCarat_     <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_CARAT]]       %??% csColorsYELLOW_;
     csColorSplit_     <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_SPLIT]]       %??% csColorsYELLOW_;
     csColorTimeStamp_ <- coDotsArgs_[[rasMfmrFSID$F_ARGS_COLOR_TIME_STAMP]]  %??% csColorsYELLOW_;

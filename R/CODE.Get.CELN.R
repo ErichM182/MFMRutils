@@ -150,8 +150,8 @@
   rasMfmrFindCODE <- MFMRutils::devs.find.code.instances;
   
   ## SPECIAL - Constant - TAG - Aliases ...
-  RAS_IS_DEBUG_MODE_   <- rasMfmrFuncSID$CONSTS_IS_DEBUG
-  RAS_IS_VERBOSE_MODE_ <- rasMfmrFuncSID$CONSTS_IS_VERBOSE
+  RAS_IS_DEBUG_MODE_   <- rasMfmrFuncSID$CONSTS_BOOL_IS_DEBUG;
+  RAS_IS_VERBOSE_MODE_ <- rasMfmrFuncSID$CONSTS_BOOL_IS_VERBOSE;
   
   
   

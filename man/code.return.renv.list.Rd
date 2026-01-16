@@ -15,16 +15,17 @@ code.return.renv.list(
 }
 \arguments{
 \item{vsListNames}{(\link{vector} of \link{character}s) a Vector of String or Text (\link{character}) values
-that contain the "names" or "keys" of the R Environment Locked List. VERY NB:
-The \code{vsListNames} function argument must match the \code{lsListVals} function
-argument in terms of length (i.e. number of vector elements) and order (i.e.
-sequence in accordance to the required NAME-VALUE or Key-Value pairing).}
+that contain the "names" or "keys" of the R Environment Locked List to be
+compiled & returned. VERY NB: The \code{vsListNames} function argument must match
+the \code{lsListVals} function argument in terms of length (i.e. number of vector
+elements) and order (i.e. sequence in accordance to the required NAME-VALUE
+or Key-Value pairing).}
 
-\item{lsListVals}{(\link{list}) a List of R Objects that capture the "values" of the R Environment
-Locked List. VERY NB: The \code{lsListVals} function argument must match the
-\code{vsListNames} function argument in terms of length (i.e. number of vector
-elements) and order (i.e. sequence in accordance to the required NAME-VALUE or
-Key-Value pairing).}
+\item{lsListVals}{(\link{list}) a List of R Objects that captures the "values" of the R Environment
+Locked List to be compiled & returned. VERY NB: The \code{lsListVals} function
+argument must match the \code{vsListNames} function argument in terms of length (
+i.e. number of vector elements) and order (i.e. sequence in accordance to the
+required NAME-VALUE or Key-Value pairing).}
 
 \item{sbLockList}{(\link{logical}) a Boolean value that defines whether the returned \if{html}{\out{<output>}} list
 should be R Environment Locked or not (default: \code{FALSE}). If TRUE, individual
@@ -40,9 +41,10 @@ set to the value of the \code{ssClassValue} function argument.}
 captures the \if{html}{\out{<custom>}} class value of the returned \if{html}{\out{<output>}} R Environment
 Locked List.}
 
-\item{...}{(\link{list}) a List of R Objects that captures the "Fall-Through" or "DotsArgs" values for
-functions that are nested within the \code{\link[=code.return.renv.list]{code.return.renv.list()}} function. The \link{...}
-argument here has specific relevance (reference) to the following nested functions:\if{html}{\out{<br>}}
+\item{...}{(\link{list}) a List of R Objects function argument to catch all "Fall-Through" or
+"DotsArgs" values for functions that are nested within the \code{\link[=code.return.renv.list]{code.return.renv.list()}}
+function. The \link{...} argument here has specific relevance (reference) to the following
+nested functions:\if{html}{\out{<br>}}
 1. \code{\link[=info.post.func.self.id]{info.post.func.self.id()}} , \if{html}{\out{<br>}}
 2. \code{\link[=info.post.note]{info.post.note()}} , and \if{html}{\out{<br>}}
 3. \code{\link[=code.get.celn]{code.get.celn()}}}

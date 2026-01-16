@@ -9,15 +9,16 @@
 #'
 #'
 #' @param vsListNames ([vector] of [character]s) a Vector of String or Text ([character]) values 
-#'                    that contain the "names" or "keys" of the R Environment Locked List. VERY NB:
-#'                    The `vsListNames` function argument must match the `lsListVals` function 
-#'                    argument in terms of length (i.e. number of vector elements) and order (i.e. 
-#'                    sequence in accordance to the required NAME-VALUE or Key-Value pairing).
-#' @param lsListVals ([list]) a List of R Objects that capture the "values" of the R Environment 
-#'                   Locked List. VERY NB: The `lsListVals` function argument must match the 
-#'                   `vsListNames` function argument in terms of length (i.e. number of vector 
-#'                   elements) and order (i.e. sequence in accordance to the required NAME-VALUE or 
-#'                   Key-Value pairing).
+#'                    that contain the "names" or "keys" of the R Environment Locked List to be 
+#'                    compiled & returned. VERY NB: The `vsListNames` function argument must match 
+#'                    the `lsListVals` function argument in terms of length (i.e. number of vector 
+#'                    elements) and order (i.e. sequence in accordance to the required NAME-VALUE 
+#'                    or Key-Value pairing).
+#' @param lsListVals ([list]) a List of R Objects that captures the "values" of the R Environment 
+#'                   Locked List to be compiled & returned. VERY NB: The `lsListVals` function 
+#'                   argument must match the `vsListNames` function argument in terms of length (
+#'                   i.e. number of vector elements) and order (i.e. sequence in accordance to the 
+#'                   required NAME-VALUE or Key-Value pairing).
 #' @param sbLockList ([logical]) a Boolean value that defines whether the returned <output> list
 #'                   should be R Environment Locked or not (default: `FALSE`). If TRUE, individual 
 #'                   list bindings (i.e. Key-Value Pairs) are locked, preventing modification of 
@@ -29,9 +30,10 @@
 #' @param ssClassValue ([character]) a String or Text (i.e. [character] [vector]) value that 
 #'                     captures the <custom> class value of the returned <output> R Environment 
 #'                     Locked List.
-#' @param ... ([list]) a List of R Objects that captures the "Fall-Through" or "DotsArgs" values for
-#'            functions that are nested within the [code.return.renv.list()] function. The [...]
-#'            argument here has specific relevance (reference) to the following nested functions:<br>
+#' @param ... ([list]) a List of R Objects function argument to catch all "Fall-Through" or 
+#'            "DotsArgs" values for functions that are nested within the [code.return.renv.list()] 
+#'            function. The [...] argument here has specific relevance (reference) to the following 
+#'            nested functions:<br>
 #'               1. [MFMRutils::info.post.func.self.id()] , <br>
 #'               2. [MFMRutils::info.post.note()] , and <br>
 #'               3. [MFMRutils::code.get.celn()]
@@ -95,24 +97,15 @@
   
   
   ####   STEP 01 - Prime the "Function Self-ID" Constants   ####
-  RCT_DBL_SYS_TIME_NOW_    <- base::Sys.time();          # <- Extract <active> System Date-Time !!!
+  RCT_DBL_R_FUNC_RT_START_ <- base::Sys.time();          # <- Extract <active> System Date-Time !!!
   RCT_TAG_R_LIBR_ID_       <- "MFMRutils";               # <- R Library Identifier !!!
   RCT_TAG_R_FUNC_ID_SHORT_ <- "Ret.RENV.List";           # <- Function ID - SHORT !!!
   RCT_TAG_FUNC_ID_FULL_    <- "CODE.Return.RENV.List";   # <- Function ID - LONG !!! 
   
-  RCT_INT_CELN_START_ <- 91L;    # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_START_ <- 93L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 234L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 276L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
-  coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
-  
-  
-  
-  ###   Run Function Self-ID (as required)   ###
-  MFMRutils::info.post.func.self.id(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 1L, csTimeStart = RCT_DBL_SYS_TIME_NOW_,
-    siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, ...
-  );
   
   
   
@@ -126,6 +119,7 @@
   rasBaseIsLIST          <- base::is.list;
   rasBaseIsNULL          <- base::is.null;
   rasBaseList2ENV        <- base::list2env;
+  rasBaseSysTIME         <- base::Sys.time;          # <- Extract <active> System Date-Time !!!
   rasBaseDUPLICATED      <- base::duplicated;
   rasBaseLockBINDING     <- base::lockBinding;
   rasBaseIsCHARACTER     <- base::is.character;
@@ -133,31 +127,37 @@
   
   rasStatsSetNAMES <- stats::setNames;
   
-  `%??%`          <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrGetCELN  <- MFMRutils::code.get.celn;
-  rasMfmrPostNOTE <- MFMRutils::info.post.note;
+  `%??%`             <- MFMRutils::`%??%`;                   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrGetCELN     <- MFMRutils::code.get.celn;
+  rasMfmrPostNOTE    <- MFMRutils::info.post.note;
+  rasMfmrPostFuncSID <- MFMRutils::info.post.func.self.id;
   
-  ## Prime special values here ...
-  ssFindCodeALIAS_ <- "rasMfmrPostNOTE\\(";
-  sbShowTAIL_      <- FALSE;
-  rasMfmrPostNOTE(
-    ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
-    ssBody = "Succesfully Primed Function Aliases ...",
-    siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
-      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 1L,
-      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
-    )
+  
+  
+  ###   Run Function Self-ID (as required)   ###
+  rasMfmrPostFuncSID(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 1L, csTimeStart = RCT_DBL_R_FUNC_RT_START_,
+    siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, ...
   );
   
   
   
-  ####   STEP 03 - Internalize Function Arguments   ####
+  ####   STEP 03 - Prime NB Function Variables   ####
+  ##   3.1 - Internalize Function Arguments ...
   sbLockList_   <- sbLockList;
   lsListVals_   <- lsListVals;
   vsListNames_  <- vsListNames;
   sbSetClass_   <- sbSetClass;
   ssClassValue_ <- ssClassValue;
+  
+  ##   3.2 - Prime Function Variables ...
+  sbShowTAIL_      <- FALSE;
+  ssFindCodeALIAS_ <- "rasMfmrPostNOTE\\(";
+  
+  ##   3.3 - Capture "DotsArgs" Values (as needed) ...
+  coDotsArgs_   <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
+  
+  
   rasMfmrPostNOTE(
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Internalized ALL Function Arguments ...", 
@@ -165,7 +165,21 @@
       ssFuncName = RCT_TAG_FUNC_ID_FULL_,
       sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 2L,
       sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
-    )
+    ), 
+    ...
+  );
+  
+  
+  ## 
+  rasMfmrPostNOTE(
+    ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
+    ssBody = "Succesfully Primed Function Aliases ...",
+    siCallCELN = rasMfmrGetCELN(
+      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE,
+      siCallIndex = 1L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
+    ), 
+    ...
   );
   
   
@@ -257,14 +271,15 @@
       ssFuncName = RCT_TAG_FUNC_ID_FULL_,
       sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 4L,
       sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
-    )
+    ), 
+    ...
   );
   
   
   
   ###   Run Function Self-ID (as required)   ### 
-  MFMRutils::info.post.func.self.id(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 0L, csTimeStart = RCT_DBL_SYS_TIME_NOW_,
+  rasMfmrPostFuncSID(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 0L, csTimeStart = RCT_DBL_R_FUNC_RT_START_,
     siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, 
   );
   
