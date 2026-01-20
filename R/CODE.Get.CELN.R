@@ -128,13 +128,14 @@
   
   RCT_INT_CELN_START_ <- 117L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 212L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 206L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   
   
   
   ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
   ## NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
+  rasBaseC          <- base::c;
   rasBaseGET0       <- base::get0;
   rasBaseNROW       <- base::nrow;
   rasBaseORDER      <- base::order;
@@ -146,12 +147,11 @@
   rasBaseAsNUMERIC  <- base::as.numeric;
   rasBaseDUPLICATED <- base::duplicated;
   
-  rasMfmrFuncSID  <- MFMRutils::RENV_FSID;
-  rasMfmrFindCODE <- MFMRutils::devs.find.code.instances;
+  rasMfmrFindCODE   <- MFMRutils::devs.find.code.instances;
+  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.run.time.mode;
   
   ## SPECIAL - Constant - TAG - Aliases ...
-  RAS_IS_DEBUG_MODE_   <- rasMfmrFuncSID$CONSTS_BOOL_IS_DEBUG;
-  RAS_IS_VERBOSE_MODE_ <- rasMfmrFuncSID$CONSTS_BOOL_IS_VERBOSE;
+  RCT_RCO_RT_MODE_ <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
   
   
   
@@ -164,20 +164,14 @@
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
-  sbIsDEBUG_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_DEBUG_MODE_,        #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_MODE_`
-    envir = .GlobalEnv,        #    and extracts its value.
-    ifnotfound = FALSE         # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                           #    the Active R Session !!!
-  
-  
+  sbIsDEBUG_ <- RCT_RCO_RT_MODE_$IS_DEBUG;
   if (sbRunByForce_ || sbIsDEBUG_) {   # <- Run standard code logic if either of these is TRUE !!!
     
     ####   STEP 04 - Trace Function Call Stack Location   ####
     ## 4.1 - Run an R Function Code Search to locate all instances of this `code.get.celn()` 
     ##       function in the specified <active> R Function <internal function code> ...
     rdfFuncCalls_ <- rasMfmrFindCODE(
-      vsTargetLibs = c(RCT_TAG_FUNC_LIBR_ID_),
+      vsTargetLibs = rasBaseC(RCT_TAG_FUNC_LIBR_ID_),
       sbVerboseSearch = FALSE, sbIgnoreCase = FALSE,
       ssFindText = rasBaseIfELSE(
         sbUseAlias_,
@@ -191,7 +185,7 @@
       rdfFuncCalls_, rdfFuncCalls_[["FUNC_NAME"]] == rasBaseToLOWER(ssFuncName_)
     );
     rdfFuncCalls_UNIQUE_LNs_ <- rdfFuncCalls_v02_[
-      !rasBaseDUPLICATED(rdfFuncCalls_v02_[["LINE_NUMBER"]]), 
+      !rasBaseDUPLICATED(rdfFuncCalls_v02_[["LINE_NUMBER"]]),
     ];
     
     ## 4.3 - Create a new INDEX Variable for the subset results Data Frame ...

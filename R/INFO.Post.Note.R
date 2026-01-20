@@ -165,7 +165,7 @@
   
   RCT_INT_CELN_START_ <- 150L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 378L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 379L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
@@ -181,24 +181,25 @@
   rasBaseIsNULL      <- base::is.null;
   rasBaseIsINVISIBLE <- base::invisible;
   
-  `%??%`         <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrFSID    <- MFMRutils::RENV_FSID;
-  rasMfmrICONS   <- MFMRutils::RENV_ICONS;
-  rasMfmrFORMATS <- MFMRutils::RENV_FORMATS;
-  rasMfmrCOLOURS <- MFMRutils::RENV_COLOURS;
-  rasMfmrGetCELN <- MFMRutils::code.get.celn;
+  `%??%`            <- MFMRutils::`%??%`;   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrFSID       <- MFMRutils::RENV_FSID;
+  rasMfmrICONS      <- MFMRutils::RENV_ICONS;
+  rasMfmrFORMATS    <- MFMRutils::RENV_FORMATS;
+  rasMfmrCOLOURS    <- MFMRutils::RENV_COLOURS;
+  rasMfmrGetCELN    <- MFMRutils::code.get.celn;
+  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.run.time.mode;
   
   ## SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
-  RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT;
-  RAS_IS_POST_ALWAYS_    <- rasMfmrFSID$F_ARGS_BOOL_POST_ALWAYS;
-  RCT_RT_MODE_           <- MFMRutils::code.poll.r.run.time.mode();   # <- R Run-Time Mode/State !!!
+  RCT_RCO_RT_MODE_       <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
+  RCT_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT;
+  RCT_BOOL_POST_ALWAYS_  <- rasMfmrFSID$F_ARGS_BOOL_POST_ALWAYS;
   
   
   
   ####   STEP 03 - Run NULL Checks accordingly   ####
-  sbIsDEBUG_    <- RCT_RT_MODE_$IS_DEBUG;
-  sbIsVERBOSE_  <- RCT_RT_MODE_$IS_VERBOSE;
-  sbPostAlways_ <- coDotsArgs_[[RAS_IS_POST_ALWAYS_]] %??% FALSE;   # <- NB to extract here !!!
+  sbIsDEBUG_    <- RCT_RCO_RT_MODE_$IS_DEBUG;
+  sbIsVERBOSE_  <- RCT_RCO_RT_MODE_$IS_VERBOSE;
+  sbPostAlways_ <- coDotsArgs_[[RCT_BOOL_POST_ALWAYS_]] %??% FALSE;   # <- NB to extract here !!!
   if (sbPostAlways_ || sbIsDEBUG_ || sbIsVERBOSE_) {   # <- Run code if any of these are TRUE !!!
     
     ####   STEP 03 - Execute Custom Function's Code logic   ####
@@ -250,7 +251,7 @@
     
     if (rasBaseIsNULL(ssHead_)) {
       ssHead_ <- rasBaseGET0(
-        RAS_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined) !!!
+        RCT_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined) !!!
         envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
         ifnotfound = "UNK-Func-ID"       # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> !!! 
       );

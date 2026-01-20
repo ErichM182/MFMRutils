@@ -3,7 +3,12 @@
 ####### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~#######
 
 
+### R Project Development <Run-Time Mode> Trackers ...
+RCT_IS_DEBUG_RT_MODE_   <- F;   # <- `DEBUG` Run-Time Mode Tracker ...
+RCT_IS_VERBOSE_RT_MODE_ <- F;   # <- `VERBOSE` Run-Time Mode Tracker ...
 
+
+### R Library CRAN Code and Documentation Checking Function ...
 MFMRutils::devs.check.code.specs(sbCheckCRAN = T, sbIsProdRel = F);
 
 
@@ -11,16 +16,12 @@ MFMRutils::devs.check.code.specs(sbCheckCRAN = T, sbIsProdRel = F);
 
 
 
-base::assign(MFMRutils::RENV_MISC$TAG_VARS_BOOL_IS_DEBUG, FALSE)
+
+base::assign(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG, FALSE)
+
+base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 
-
-base::get0(MFMRutils::RENV_MISC$TAG_VARS_BOOL_IS_DEBUG)
-
-
-
-RCT_IS_DEBUG_RT_MODE_ <- T
-RCT_IS_VERBOSE_RT_MODE_ <- F
 
 
 
