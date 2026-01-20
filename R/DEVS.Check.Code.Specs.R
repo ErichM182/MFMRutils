@@ -118,8 +118,8 @@
   rasMfmrCOLORS                <- MFMRutils::RENV_COLOURS;
   rasMfmrFORMATS               <- MFMRutils::RENV_FORMATS;
   rasMfmrDevsPrintCodeCheckRES <- devs.print.code.check.res;
-  rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
   rasMfmrDevsPatchCodeDevTRCKR <- devs.patch.code.dev.trckr.file;
+  rasMfmrPullLibrINFO          <- MFMRutils::devs.pull.libr.info;
   rasMfmrInfoPostFuncSelfID    <- MFMRutils::info.post.func.self.id;
   
   

@@ -15,11 +15,11 @@ Function Dot Arguments (i.e. "Fall-Through" Function Arguments) to be
 coalesced.}
 }
 \description{
-A Function Dot Argument Coalescing Function. This function greatly aides unifying (i.e. joining,
-collapsing or coalescing) two sets of DotsArgs groups into a single R List Object. This is a very
-important function within the "MFMR Suite of R Functions" (i.e. \code{SuiteMFMR}) considering almost
-all \code{SuiteMFMR} functions implement a dual-approach (i.e. more user-friendly approach) towards
-passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
+A Function Dots Arguments Coalescing Function. This function greatly aides the unification (i.e.
+joining, collapsing or coalescing) of two sets of "DotsArgs" groups into a single R List Object.
+This is a very important function within the "MFMR Suite of R Functions" (i.e. \code{SuiteMFMR})
+considering almost all \code{SuiteMFMR} functions implement a dual-approach (i.e. more user-friendly
+approach) towards passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
 }
 \examples{
 ### Use the DotsArgs-Coalescing Function as follows: ...
@@ -32,6 +32,7 @@ library(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally (
 \seealso{
 Other CODE Functions (SuiteMFMR): 
 \code{\link{\%??\%}()},
+\code{\link{code.poll.r.run.time.mode}()},
 \code{\link{code.return.renv.list}()}
 }
 \concept{CODE Functions (SuiteMFMR)}

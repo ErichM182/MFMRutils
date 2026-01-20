@@ -36,6 +36,7 @@ NULL \%??\% FALSE \%??\% "FINal"   # -> returns FALSE !!!
 \seealso{
 Other CODE Functions (SuiteMFMR): 
 \code{\link{code.coalesce.dots.args}()},
+\code{\link{code.poll.r.run.time.mode}()},
 \code{\link{code.return.renv.list}()}
 }
 \concept{CODE Functions (SuiteMFMR)}

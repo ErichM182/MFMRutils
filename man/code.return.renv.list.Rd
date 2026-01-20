@@ -106,6 +106,7 @@ rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new valu
 \seealso{
 Other CODE Functions (SuiteMFMR): 
 \code{\link{\%??\%}()},
-\code{\link{code.coalesce.dots.args}()}
+\code{\link{code.coalesce.dots.args}()},
+\code{\link{code.poll.r.run.time.mode}()}
 }
 \concept{CODE Functions (SuiteMFMR)}

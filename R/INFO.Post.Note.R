@@ -165,7 +165,7 @@
   
   RCT_INT_CELN_START_ <- 150L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 372L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 378L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
@@ -190,27 +190,16 @@
   
   ## SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
   RAS_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FID_SHORT;
-  RAS_IS_MODE_DEBUG_     <- rasMfmrFSID$CONSTS_BOOL_IS_DEBUG;
-  RAS_IS_MODE_VERBOSE_   <- rasMfmrFSID$CONSTS_BOOL_IS_VERBOSE;
   RAS_IS_POST_ALWAYS_    <- rasMfmrFSID$F_ARGS_BOOL_POST_ALWAYS;
+  RCT_RT_MODE_           <- MFMRutils::code.poll.r.run.time.mode();   # <- R Run-Time Mode/State !!!
   
   
   
-  ####   STEP 04 - Run NULL Checks accordingly   ####
-  sbIsDEBUG_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_MODE_DEBUG_,       #    the <somewhat> uniquely named variable `RCT_IS_DEBUG_RT_MODE_`
-    envir = .GlobalEnv,       #    and extracts its value.
-    ifnotfound = FALSE        # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                          #    the Active R Session !!!
-  sbIsVERBOSE_ <- base::get0(   # <- Searches the Global Environment of the Active R Session for
-    RAS_IS_MODE_VERBOSE_,       #    the <somewhat> uniquely named variable `RCT_IS_VERBOSE_RT_MODE_`
-    envir = .GlobalEnv,         #    and extracts its value.
-    ifnotfound = FALSE          # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
-  );                            #    the Active R Session !!!
-  
-  
+  ####   STEP 03 - Run NULL Checks accordingly   ####
+  sbIsDEBUG_    <- RCT_RT_MODE_$IS_DEBUG;
+  sbIsVERBOSE_  <- RCT_RT_MODE_$IS_VERBOSE;
   sbPostAlways_ <- coDotsArgs_[[RAS_IS_POST_ALWAYS_]] %??% FALSE;   # <- NB to extract here !!!
-  if (sbPostAlways_ || sbIsVERBOSE_ || sbIsDEBUG_) {   # <- Run code if any of these are TRUE !!!
+  if (sbPostAlways_ || sbIsDEBUG_ || sbIsVERBOSE_) {   # <- Run code if any of these are TRUE !!!
     
     ####   STEP 03 - Execute Custom Function's Code logic   ####
     ##   3.1 - Prime Standard Text Formats ... ####
@@ -240,7 +229,7 @@
     
     
     
-    ###   STEP 04 - Internalize ALL Function Arguments   ####
+    ####   STEP 04 - Internalize ALL Function Arguments   ####
     # NOTES: hand-over all func-args to func-local <internal> variables ...
     csIconCarat_    <- csIconCarat    %??% coDotsArgs_[[RAS_ICON_CARAT_]]      %??% "=>";
     ssHead_         <- ssHead         %??% "FSID-NULL";
@@ -267,7 +256,7 @@
       );
     }
     
-    ## 5.2 - Prime the CARAT icon accordingly ... ####
+    ## 4.2 - Prime the CARAT icon accordingly ... ####
     if (sbPrintPretty_) {
       if (csIconCarat_ == "=>" || csIconCarat_ == " => " || csIconCarat_ == "  =>  " || 
           csIconCarat_ == "   =>   " || csIconCarat_ == "->" || csIconCarat_ == " -> " || 
@@ -289,7 +278,7 @@
     }
     
     
-    ## 5.3 - Prime the HEADER text accordingly ... ####
+    ## 4.3 - Prime the HEADER text accordingly ... ####
     if (sbPrintPretty_) {
       sbHasVal_ <- rasBaseNCHAR(siCallCELN_) >= 1;   # <- Run Boolean check on CELN Val-length !!! 
       ssHead_ <- rasBasePASTE0(
@@ -311,7 +300,7 @@
     }
     
     
-    ## 5.4 - Prime the SPLIT icon accordingly ... ####
+    ## 4.4 - Prime the SPLIT icon accordingly ... ####
     if (sbPrintPretty_) {
       if (csIconSplit_ == "|" || csIconSplit_ == " | "  || csIconSplit_ == "  |  "  || 
           csIconSplit_ == "   |   ") {
@@ -331,7 +320,7 @@
     }
     
     
-    ## 5.5 - Prime the NOTE text accordingly ... ####
+    ## 4.5 - Prime the NOTE text accordingly ... ####
     if (sbPrintPretty_) {
       ssBody_ <- rasBasePASTE0(
         csFormatBOLD_, csColorBody_,   # -> Adds the BOLD & Colour text formats ...
@@ -341,7 +330,7 @@
     }
     
     
-    ## 5.6 - Prime the TAIL icon accordingly ... ####
+    ## 4.6 - Prime the TAIL icon accordingly ... ####
     if (sbShowTail_) {
       if (sbPrintPretty_) {
         csIconTail_ <- rasBasePASTE0(
@@ -354,7 +343,7 @@
     }
     
     
-    ## 5.7 - Finalize the Terminal New Lines ####
+    ## 4.7 - Finalize the Terminal New Lines ####
     ssTerminalNLs_ <- "";
     if (sbPostPend2NLs_) {
       ssTerminalNLs_ <- "\n\n";
@@ -363,7 +352,7 @@
     }
     
     
-    ## 5.7 - Compile FULL MESSAGE text !!! ####
+    ## 4.8 - Compile FULL MESSAGE text !!! ####
     csFullNote_ <- rasBasePASTE0(
       rasBaseIfELSE(sbPrePend1NL, "\n", ""),   # <- Adds pre-pended NEW LINE (if so requested) !!!
       csIconCarat_, ssHead_,                  # <- Adds the CARAT icon & HEADER text sequences ...
@@ -373,15 +362,15 @@
     );
     
     
-    ## 5.8 - FINALLY -> Post FULL MESSAGE text !!! ####
+    ## 4.9 - FINALLY -> Post FULL MESSAGE text !!! ####
     rasBaseCAT(csFullNote_);   # -> VERY NB: Prints (outputs) full notification <message> to active 
                                #    R-Session Console window (THIS IS THE MAIN OBJECTIVE OF THIS R
                                #    FUNCTION) !!!
     
     
     
-    ###   STEP 06 - Return Results to Function Call   ####
-    # Outputs the full notification text <message> as the function's return value ...
+    ####   STEP 05 - Return Results to Function Call   ####
+    ## Outputs the full notification text <message> as the function's return value ...
     rasBaseIsINVISIBLE(csFullNote_);
     
   }

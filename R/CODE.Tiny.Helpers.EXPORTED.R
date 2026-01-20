@@ -67,17 +67,105 @@
 
 
 #? ### ### ### ### ### ### ###
+#' @title Check R Project Run-Time Mode
+#' @name code.poll.r.run.time.mode
+#' @family CODE Functions (SuiteMFMR)
+#' 
+#' 
+#' @description
+#' A Function Dot Argument Coalescing Function. This function greatly aides the unification (i.e. 
+#' joining, collapsing or coalescing) two sets of DotsArgs groups into a single R List Object. This 
+#' is a very important function within the "MFMR Suite of R Functions" (i.e. `SuiteMFMR`) 
+#' considering almost all `SuiteMFMR` functions implement a dual-approach (i.e. more user-friendly 
+#' approach) towards passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
+#'
+#'
+#' @examples
+#' ### Use the R Run-time Mode Polling Function as follows: ...
+#' library(MFMRutils)   # <- Ensure the "MFMRutils" library is installed locally (loads library) ...
+#'
+#' ### Then apply the NCO accordingly ...
+#' ## STEP 1 - Create the `DEBUG` and `VERBOSE` Run-time Mode trackers in your <root> R Project ...
+#' RCT_IS_DEBUG_RT_MODE_ <- TRUE      # <- Prime the DEBUG R Run-time Tracker accordingly (NB: the
+#'                                    #    DEBUG variable must have the exact form specified here
+#'                                    #    -> i.e. `RCT_IS_DEBUG_RT_MODE_`) !!!
+#' RCT_IS_VERBOSE_RT_MODE_ <- FALSE   # <- Prime the VERBOSE R Run-time Tracker accordingly (NB: the
+#'                                    #    VERBOSE variable must have the exact form specified here
+#'                                    #    -> i.e. `RCT_IS_VERBOSE_RT_MODE_`) !!!
+#' 
+#' ## STEP 2 - Poll the Run-time Mode anywhere in your R Project (or custom R Funtions) ...
+#' RCT_RT_MODE <- code.poll.r.run.time.mode()   # <- Polls the Run-time Mode where-ever called !!!
+#' 
+#' ## STEP 3 - Read or output the Run-time Mode (state or status) as needed ...
+#' RCT_RT_MODE$IS_DEBUG     # Output: [TRUE]  -> Returns the DEBUG R Run-time Mode <result> ...  
+#' RCT_RT_MODE$IS_VERBOSE   # Output: [FALSE] -> Returns the VERBOSE R Run-time Mode <result> ...  
+#' 
+#'
+#' @export
+#? ### ### ###
+"code.poll.r.run.time.mode" <- function() {
+  
+  
+  ####   STEP 01 - Define "Function Self-ID" Tags   ####
+  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                   # <- R Library Identifier !!!
+  RCT_TAG_R_FUNC_ID_SHORT_ <- "Poll.RT.Mode";                # <- Function ID - SHORT !!!
+  RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Poll.R.Run.Time.Mode";   # <- Function ID - LONG !!!
+  
+  
+  
+  ####   STEP 02 - Define "Local Aliases" for Key Functions   ####
+  # NOTES: This is a <NEW> approach to improve the R Session Memory Efficiency ...
+  rasBaseGET0   <- base::get0;
+  rasBaseLIST   <- base::list;
+  rasBaseRETURN <- base::return;
+  
+  rasMfmrFSID   <- MFMRutils::RENV_FSID;
+  
+  
+  
+  ####   STEP 03 - Extract Run-time Modes   ####
+  RAS_IS_MODE_DEBUG_   <- rasMfmrFSID$CONSTS_BOOL_IS_DEBUG;
+  RAS_IS_MODE_VERBOSE_ <- rasMfmrFSID$CONSTS_BOOL_IS_VERBOSE;
+  
+  sbIsDEBUG_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for the
+    RAS_IS_MODE_DEBUG_,        #    <somewhat> uniquely named variable `RCT_IS_DEBUG_RT_MODE_` and
+    envir = .GlobalEnv,        #    extracts its value.
+    ifnotfound = FALSE         # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                           #    the Active R Session (i.e. active R run-time) !!!
+  sbIsVERBOSE_ <- rasBaseGET0(   # <- Searches the Global Environment of the Active R Session for 
+    RAS_IS_MODE_VERBOSE_,        #    the <somewhat> uniquely named variable
+    envir = .GlobalEnv,          #    `RCT_IS_VERBOSE_RT_MODE_` and extracts its value.
+    ifnotfound = FALSE           # -> Assigns a value of `FALSE` if the variable was NOT FOUND in
+  );                             #    the Active R Session (i.e. active R run-time) !!!
+  
+  
+  
+  ####   STEP 04 - Return Results to Function Call   ####
+  rasBaseRETURN(
+    rasBaseLIST(
+      "IS_DEBUG" = sbIsDEBUG_, "IS_VERBOSE" = sbIsVERBOSE_
+    )
+  );
+  
+}
+
+
+
+
+
+
+#? ### ### ### ### ### ### ###
 #' @title Dots-Args Coalescing Function
 #' @name code.coalesce.dots.args
 #' @family CODE Functions (SuiteMFMR)
 #' 
 #' 
 #' @description
-#' A Function Dot Argument Coalescing Function. This function greatly aides unifying (i.e. joining,
-#' collapsing or coalescing) two sets of DotsArgs groups into a single R List Object. This is a very
-#' important function within the "MFMR Suite of R Functions" (i.e. `SuiteMFMR`) considering almost 
-#' all `SuiteMFMR` functions implement a dual-approach (i.e. more user-friendly approach) towards 
-#' passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
+#' A Function Dots Arguments Coalescing Function. This function greatly aides the unification (i.e. 
+#' joining, collapsing or coalescing) of two sets of "DotsArgs" groups into a single R List Object. 
+#' This is a very important function within the "MFMR Suite of R Functions" (i.e. `SuiteMFMR`) 
+#' considering almost all `SuiteMFMR` functions implement a dual-approach (i.e. more user-friendly 
+#' approach) towards passing around "Fall-Through" (i.e. "DotsArgs") function arguments.
 #'
 #'
 #' @param coArgsList01 ([list]) an R List (complex) object that captures the first group of Function 
