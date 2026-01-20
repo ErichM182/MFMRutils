@@ -27,7 +27,7 @@ base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 MFMRutils::info.post.note()
 MFMRutils::info.post.func.self.id(
-  sbRunSelfID = F, siFuncMode01L = 0L, sbPrintPretty = T
+  sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
 )
 
 ssTestVAR_ <- "129";

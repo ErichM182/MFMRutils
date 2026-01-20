@@ -92,7 +92,7 @@
   
   RCT_INT_CELN_START_ <- 79L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 528L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 538L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
@@ -128,29 +128,36 @@
   rasMfmrPollRTMODE <- MFMRutils::code.poll.r.run.time.mode;
   
   ## SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
-  RCT_RCO_RT_MODE_       <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
-  RCT_TAG_PROJ_ID_       <- rasMfmrFSID$CONSTS_PROJ_ID_SHORT;
-  RCT_TAG_CALLER_ID_     <- rasMfmrFSID$CONSTS_PROJ_ID_SHORT;
-  RCT_TAG_FUNC_ID_SHORT_ <- rasMfmrFSID$CONSTS_FUNC_ID_SHORT;
-  RCT_TAG_RUN_SELF_ID_   <- rasMfmrFSID$F_ARGS_BOOL_RUN_SELF_ID;
+  RCT_RCO_RT_MODE_         <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
+  RCT_TAG_PROJ_ID_         <- rasMfmrFSID$F_ARGS_PROJ_ID;
+  RCT_TAG_FUNC_SELF_ID_    <- rasMfmrFSID$F_ARGS_FUNC_SID;
+  RCT_TAG_FUNC_RT_STOP_    <- rasMfmrFSID$F_ARGS_TIME_STOP;
+  RCT_TAG_FUNC_RT_START_   <- rasMfmrFSID$F_ARGS_TIME_START;
+  RCT_TAG_FUNC_CALLER_ID_  <- rasMfmrFSID$F_ARGS_FUNC_CALLER;
+  RCT_TAG_FUNC_MODE_01L_   <- rasMfmrFSID$F_ARGS_FUNC_MODE_01L;
+  RCT_TAG_FUNC_CELN_STOP_  <- rasMfmrFSID$F_ARGS_FUNC_CELN_STOP;
+  RCT_TAG_FUNC_CELN_START_ <- rasMfmrFSID$F_ARGS_FUNC_CELN_START;
+  RCT_TAG_RUN_SELF_ID_     <- rasMfmrFSID$F_ARGS_BOOL_RUN_SELF_ID;
   
   
+  
+  ####   STEP 03 - Run Function Code Logic ( accordingly )   ####
   ### ONLY RUN the Function SELF-ID Process if the following condition is TRUE !!!
   sbIsDEBUG_   <- RCT_RCO_RT_MODE_$IS_DEBUG;
   sbIsVERBOSE_ <- RCT_RCO_RT_MODE_$IS_VERBOSE;
-  sbRunSelfID_ <- coDotsArgs_[[RCT_TAG_RUN_SELF_ID_]] %??% FALSE;   # <- IMPORANT !!!
+  sbRunSelfID_ <- sbRunSelfID %??% coDotsArgs_[[RCT_TAG_RUN_SELF_ID_]] %??% FALSE;   # <- IMPORANT !
   if (sbRunSelfID_ || sbIsDEBUG_ || sbIsVERBOSE_) {
     
     ####   STEP 03 - Internalize ALL Function Arguments   ####
-    # NOTES: hand-over all func-args to func-local <internal> variables ...
-    ssProjID_       <- ssProjID;
-    ssFuncSelfID_   <- ssFuncSelfID;
-    ssFuncCallerID_ <- ssFuncCallerID;
-    siFuncMode01L_  <- siFuncMode01L;
-    csTimeStart_    <- csTimeStart;
-    csTimeStop_     <- csTimeStop;
-    siStartCELN_    <- siStartCELN;
-    siStopCELN_     <- siStopCELN;
+    ## NOTES: hand-over all func-args to func-local <internal> variables ...
+    ssProjID_       <- ssProjID       %??% coDotsArgs_[[RCT_TAG_PROJ_ID_]];
+    ssFuncSelfID_   <- ssFuncSelfID   %??% coDotsArgs_[[RCT_TAG_FUNC_SELF_ID_]];
+    ssFuncCallerID_ <- ssFuncCallerID %??% coDotsArgs_[[RCT_TAG_FUNC_CALLER_ID_]];
+    siFuncMode01L_  <- siFuncMode01L  %??% coDotsArgs_[[RCT_TAG_FUNC_MODE_01L_]];
+    csTimeStop_     <- csTimeStop     %??% coDotsArgs_[[RCT_TAG_FUNC_RT_STOP_]];
+    csTimeStart_    <- csTimeStart    %??% coDotsArgs_[[RCT_TAG_FUNC_RT_START_]];
+    siStopCELN_     <- siStopCELN     %??% coDotsArgs_[[RCT_TAG_FUNC_CELN_STOP_]];
+    siStartCELN_    <- siStartCELN    %??% coDotsArgs_[[RCT_TAG_FUNC_CELN_START_]];
     
     ####   STEP 04 - Define Critical Constants   ####
     ##   Prime selected variables (akin to constants) ...
@@ -386,7 +393,7 @@
     } else {
       if (sbPrintPretty_) {
         ssFuncCallerID_GET0_ <- rasBaseGET0(
-          RCT_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined)...
+          RCT_TAG_FUNC_SELF_ID_,          # <- Find the parent <caller> Function ID (if defined)...
           envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
           ifnotfound = "UNDEFINED"         # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
         );
@@ -398,7 +405,7 @@
         );
       } else {
         ssFuncCallerID_GET0_ <- rasBaseGET0(
-          RCT_TAG_FUNC_ID_SHORT_,          # <- Find the parent <caller> Function ID (if defined)...
+          RCT_TAG_FUNC_SELF_ID_,          # <- Find the parent <caller> Function ID (if defined)...
           envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
           ifnotfound = "UNDEFINED"         # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
         );
