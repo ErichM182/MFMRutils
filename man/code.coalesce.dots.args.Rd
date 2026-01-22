@@ -32,7 +32,7 @@ library(MFMRutils)   # <- Ensures the "MFMRutils" library is installed locally (
 \seealso{
 Other CODE Functions (SuiteMFMR): 
 \code{\link{\%??\%}()},
-\code{\link{code.poll.r.run.time.mode}()},
+\code{\link{code.poll.r.runtime.mode}()},
 \code{\link{code.return.renv.list}()}
 }
 \concept{CODE Functions (SuiteMFMR)}

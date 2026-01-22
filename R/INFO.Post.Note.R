@@ -150,22 +150,22 @@
 "info.post.note" <- function(
   csIconCarat=NULL, ssHead=NULL, csIconSplit=NULL, ssBody=NULL, csIconTail=NULL, sbShowTail=NULL, 
   sbPrintPretty=NULL, csColorHead=NULL, csColorBody=NULL, csColorCarat=NULL, csColorSplit=NULL, 
-  sbPrePend1NL=NULL, sbPostPend1NL=NULL, sbPostPend2NLs=NULL, sbPostAlways=NULL, siCallCELN=NULL, 
-  ...
+  sbPrePend1NL=NULL, sbPostPend1NL=NULL, sbPostPend2NLs=NULL, sbPostAlways=NULL, 
+  siCallCELN=NULL, ...
 ) {
   
   
   ####   STEP 01 - Prime "Function Self-ID" CONSTANTS   ####
   ## NB: This 👆  is THE 1st OF ONLY 2 FUNCTIONS [in the entire MFMR Suite of R Functions] THAT DO
   ##     NOT SELF-IDENTIFY (since a Self-ID implementation here will cause infinite recursion) !!!
-  RCT_DBL_SYS_TIME_NOW_ <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
-  RCT_TAG_FUNC_LIBR_ID_ <- "MFMRutils";        # <- R Library Identifier !!!
-  RCT_TAG_FUNC_ID_NSID_ <- "Post.Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
-  RCT_TAG_FUNC_ID_LONG_ <- "INFO.Post.Note";   # <- FSID - LONG !!!
+  RCT_DBL_SYS_TIME_NOW_    <- base::Sys.time();   # <- Extract the <active> System Date-Time !!!
+  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";        # <- R Library Identifier !!!
+  RCT_TAG_R_FUNC_ID_NSIDS_ <- "Post.Note";        # <- This Function DOES NOT SELF-ID (NSID) !!! 
+  RCT_TAG_R_FUNC_ID_NSIDL_ <- "INFO.Post.Note";   # <- FSID - LONG !!!
   
   RCT_INT_CELN_START_ <- 150L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 379L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 378L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
@@ -186,8 +186,7 @@
   rasMfmrICONS      <- MFMRutils::RENV_ICONS;
   rasMfmrFORMATS    <- MFMRutils::RENV_FORMATS;
   rasMfmrCOLOURS    <- MFMRutils::RENV_COLOURS;
-  rasMfmrGetCELN    <- MFMRutils::code.get.celn;
-  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.run.time.mode;
+  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.runtime.mode;
   
   ## SPECIAL - Constant - TAG - Aliases (NB for the `INFO.Post.*` functions) ...
   RCT_RCO_RT_MODE_       <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
@@ -199,7 +198,7 @@
   ####   STEP 03 - Run NULL Checks accordingly   ####
   sbIsDEBUG_    <- RCT_RCO_RT_MODE_$IS_DEBUG;
   sbIsVERBOSE_  <- RCT_RCO_RT_MODE_$IS_VERBOSE;
-  sbPostAlways_ <- coDotsArgs_[[RCT_BOOL_POST_ALWAYS_]] %??% FALSE;   # <- NB to extract here !!!
+  sbPostAlways_ <- sbPostAlways %??% coDotsArgs_[[RCT_BOOL_POST_ALWAYS_]] %??% FALSE;   # <- NB to extract here !!!
   if (sbPostAlways_ || sbIsDEBUG_ || sbIsVERBOSE_) {   # <- Run code if any of these are TRUE !!!
     
     ####   STEP 03 - Execute Custom Function's Code logic   ####
@@ -287,7 +286,7 @@
         ssHead_,                       # <- Adds the Note HEADER text value ...
         rasBaseIfELSE(
           sbHasVal_ && sbIsDEBUG_ || 
-          sbHasVal_ && sbIsVERBOSE_, 
+          sbHasVal_ && sbIsVERBOSE_ || sbHasVal_ && sbPostAlways_, 
           " ", ""                      # <= Adds a pre-pended spacer (if valid CELN Conditions) !!!
         ),
         siCallCELN_,                   # <- Adds a Caller CELN if in DEBUG Mode !!!
@@ -371,7 +370,7 @@
     
     
     ####   STEP 05 - Return Results to Function Call   ####
-    ## Outputs the full notification text <message> as the function's return value ...
+    ##  Outputs the full notification text <message> as the function's return value ...
     rasBaseIsINVISIBLE(csFullNote_);
     
   }

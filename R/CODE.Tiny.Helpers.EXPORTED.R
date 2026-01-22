@@ -68,7 +68,7 @@
 
 #? ### ### ### ### ### ### ###
 #' @title Check R Project Run-Time Mode
-#' @name code.poll.r.run.time.mode
+#' @name code.poll.r.runtime.mode
 #' @family CODE Functions (SuiteMFMR)
 #' 
 #' 
@@ -94,7 +94,7 @@
 #'                                    #    -> i.e. `RCT_IS_VERBOSE_RT_MODE_`) !!!
 #' 
 #' ## STEP 2 - Poll the Run-time Mode anywhere in your R Project (or custom R Funtions) ...
-#' RCT_RT_MODE <- code.poll.r.run.time.mode()   # <- Polls the Run-time Mode where-ever called !!!
+#' RCT_RT_MODE <- code.poll.r.runtime.mode()   # <- Polls the Run-time Mode where-ever called !!!
 #' 
 #' ## STEP 3 - Read or output the Run-time Mode (state or status) as needed ...
 #' RCT_RT_MODE$IS_DEBUG     # Output: [TRUE]  -> Returns the DEBUG R Run-time Mode <result> ...  
@@ -103,13 +103,13 @@
 #'
 #' @export
 #? ### ### ###
-"code.poll.r.run.time.mode" <- function() {
+"code.poll.r.runtime.mode" <- function() {
   
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
-  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                   # <- R Library Identifier !!!
-  RCT_TAG_R_FUNC_ID_SHORT_ <- "Poll.RT.Mode";                # <- Function ID - SHORT !!!
-  RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Poll.R.Run.Time.Mode";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                  # <- R Library Identifier !!!
+  RCT_TAG_R_FUNC_ID_SHORT_ <- "Poll.RT.Mode";               # <- Function ID - SHORT !!!
+  RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Poll.R.Runtime.Mode";   # <- Function ID - LONG !!!
   
   
   

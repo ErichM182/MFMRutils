@@ -3,13 +3,16 @@
 ####### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~#######
 
 
-### R Project Development <Run-Time Mode> Trackers ...
-RCT_IS_DEBUG_RT_MODE_   <- F;   # <- `DEBUG` Run-Time Mode Tracker ...
-RCT_IS_VERBOSE_RT_MODE_ <- F;   # <- `VERBOSE` Run-Time Mode Tracker ...
+###   R Project Development <Run-Time Mode> Trackers   ###
+RCT_IS_DEBUG_RT_MODE_   <- F;   # <- The `DEBUG` <dev> Run-Time Mode Tracker ...
+RCT_IS_VERBOSE_RT_MODE_ <- F;   # <- The `VERBOSE` <dev> Run-Time Mode Tracker ...
 
 
 ### R Library CRAN Code and Documentation Checking Function ...
-MFMRutils::devs.check.code.specs(sbCheckCRAN = T, sbIsProdRel = F);
+MFMRutils::devs.check.code.specs(
+  sbCheckCRAN = T,   # <- Set this to `FALSE` if you only want to update the documentation !!!
+  sbIsProdRel = F    # <- Set this to `TRUE` if you are running a PRODUCTION Release <test> !!!
+);
 
 
 
@@ -25,7 +28,9 @@ base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 
 
-MFMRutils::info.post.note()
+
+
+MFMRutils::info.post.note(sbPostAlways = F)
 MFMRutils::info.post.func.self.id(
   sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
 )
@@ -45,8 +50,10 @@ lsListVals_  <- list(
 
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ...
 rlsListEnvLOCKD_ <- MFMRutils::code.return.renv.list(
-  vsListNames = vsListNames_, lsListVals = lsListVals_,
-  sbLockList = TRUE, sbRunByForce = F    # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
+  vsListNames = vsListNames_, 
+  lsListVals = lsListVals_,
+  sbLockList = TRUE,   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
+  sbRunByForce = T, sbPostAlways = T, sbRunSelfID = T    
 )
 
 

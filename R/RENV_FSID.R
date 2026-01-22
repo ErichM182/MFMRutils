@@ -61,6 +61,7 @@
       F_ARGS_COLOR_MAIN_TEXT        = "csColorMainText",
       F_ARGS_COLOR_FUNC_TYPE        = "csColorFuncType",
       F_ARGS_COLOR_FUNC_CALLER      = "csColorCallerID",
+      F_ARGS_COLOR_FUNC_SELF_ID     = "csColorSelfID",
       F_ARGS_COLOR_TIME_STAMP       = "csColorTimeStamp",
       F_ARGS_BOOL_PRINT_PRETTY      = "sbPrintPretty",
       F_ARGS_BOOL_SHOW_TAIL         = "sbShowTail",

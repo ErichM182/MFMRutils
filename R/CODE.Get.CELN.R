@@ -148,10 +148,9 @@
   rasBaseDUPLICATED <- base::duplicated;
   
   rasMfmrFindCODE   <- MFMRutils::devs.find.code.instances;
-  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.run.time.mode;
+  rasMfmrPollRTMODE <- MFMRutils::code.poll.r.runtime.mode;
   
   ## SPECIAL - Constant - TAG - Aliases ...
-  RCT_RCO_RT_MODE_ <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
   
   
   
@@ -164,7 +163,8 @@
   
   ## SPECIAL: Try to locate & extract the 'isDebugMode' logical (boolean) variable 
   ##          <if set or primed elsewhere> in the current <active> R Project ... 
-  sbIsDEBUG_ <- RCT_RCO_RT_MODE_$IS_DEBUG;
+  RCT_RCO_RT_MODE_ <- rasMfmrPollRTMODE();   # <- R Run-Time Mode/State !!!
+  sbIsDEBUG_       <- RCT_RCO_RT_MODE_$IS_DEBUG;
   if (sbRunByForce_ || sbIsDEBUG_) {   # <- Run standard code logic if either of these is TRUE !!!
     
     ####   STEP 04 - Trace Function Call Stack Location   ####
