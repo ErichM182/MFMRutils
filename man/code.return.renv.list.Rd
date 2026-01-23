@@ -101,6 +101,8 @@ rlsEnvLockdLIST <- code.return.renv.list(
 rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new value to the "VAR_G"
                                                          #    element (name) of the R list.
 
+rlsEnvLockdLIST$VAR_G        # -> Returns the value "A NEW value for 'VAR_G' !!!" !!!
+
 
 }
 \seealso{

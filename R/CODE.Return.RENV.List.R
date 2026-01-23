@@ -86,6 +86,8 @@
 #' ## Mutability test (OPTION 2 test) ...
 #' rlsEnvLockdLIST$VAR_G <- "A NEW value for 'VAR_G' !!!"   # -> Assigns a new value to the "VAR_G"
 #'                                                          #    element (name) of the R list.
+#' 
+#' rlsEnvLockdLIST$VAR_G        # -> Returns the value "A NEW value for 'VAR_G' !!!" !!!
 #'
 #'
 #' @export
@@ -100,7 +102,7 @@
   RCT_DBL_R_FUNC_RT_START_ <- base::Sys.time();          # <- Extract <active> System Date-Time !!!
   RCT_TAG_R_LIBR_ID_       <- "MFMRutils";               # <- R Library Identifier !!!
   RCT_TAG_R_FUNC_ID_SHORT_ <- "Ret.RENV.List";           # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_FULL_    <- "CODE.Return.RENV.List";   # <- Function ID - LONG !!! 
+  RCT_TAG_FUNC_ID_LONG_    <- "CODE.Return.RENV.List";   # <- Function ID - LONG !!! 
   
   RCT_INT_CELN_START_ <- 93L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
@@ -137,7 +139,7 @@
   
   ###   Run Function Self-ID (ENTRY) Notification   ###
   rasMfmrPostFSID(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 1L, 
+    ssFuncSelfID = RCT_TAG_FUNC_ID_LONG_, siFuncMode01L = 1L, 
     siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, ...
   );
   
@@ -162,7 +164,7 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Internalized ALL Function Arguments ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      ssFuncName = RCT_TAG_FUNC_ID_LONG_,
       siCallIndex = 1L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
       sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
     ), 
@@ -207,7 +209,7 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Function Argument NULL-Checks Completed Successfully ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      ssFuncName = RCT_TAG_FUNC_ID_LONG_,
       siCallIndex = 2L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
       sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
     )
@@ -258,7 +260,7 @@
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Finalized Function Results <outputs> ...",
     siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
+      ssFuncName = RCT_TAG_FUNC_ID_LONG_,
       siCallIndex = 3L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
       sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
     ),
@@ -269,7 +271,7 @@
   
   ###   Run Function Self-ID (EXIT) Notification   ###
   rasMfmrPostFSID(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 0L, 
+    ssFuncSelfID = RCT_TAG_FUNC_ID_LONG_, siFuncMode01L = 0L, 
     siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, 
     csTimeStart = RCT_DBL_R_FUNC_RT_START_, csTimeStop = base::Sys.time(), ...
   );

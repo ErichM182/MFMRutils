@@ -108,8 +108,8 @@
   
   ####   STEP 01 - Define "Function Self-ID" Tags   ####
   RCT_TAG_FUNC_LIBR_ID_    <- "MFMRutils";                  # <- R Library Identifier !!!
-  RCT_TAG_R_FUNC_ID_SHORT_ <- "Poll.RT.Mode";               # <- Function ID - SHORT !!!
   RCT_TAG_R_FUNC_ID_LONG_  <- "CODE.Poll.R.Runtime.Mode";   # <- Function ID - LONG !!!
+  RCT_TAG_R_FUNC_ID_SHORT_ <- "Poll.RT.Mode";               # <- Function ID - SHORT !!!
   
   
   

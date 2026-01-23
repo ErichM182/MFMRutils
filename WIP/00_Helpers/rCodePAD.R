@@ -1,6 +1,6 @@
-#######|       ->   NEVER DELETE THE FIRST 3 LINES OF THIS < Code-Pad > R SCRIPT   <-       |#######
-####`   -> Use this R Script <file> for Random Coding Tasks during Code Development Cycle !!!   ####
-####### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~#######
+### ###|       ->   NEVER DELETE THE FIRST 15 LINES OF THIS < Code-Pad > R SCRIPT   <-      |### ###
+####|   -> Use this R Script <file> for Random Coding Tasks during Code Development Cycle !!!   ####
+### ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~ ### ~### ###
 
 
 ###   R Project Development <Run-Time Mode> Trackers   ###
@@ -26,7 +26,8 @@ base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 
 
-
+ssTestVAR_ <- "129";
+nchar(ssTestVAR_)
 
 
 
@@ -34,9 +35,6 @@ MFMRutils::info.post.note(sbPostAlways = T, sbRunByForce = T)
 MFMRutils::info.post.func.self.id(
   sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
 )
-
-ssTestVAR_ <- "129";
-nchar(ssTestVAR_)
 
 
 
@@ -51,9 +49,7 @@ lsListVals_  <- list(
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ...
 rlsListEnvLOCKD_ <- MFMRutils::code.return.renv.list(
   vsListNames = vsListNames_, lsListVals = lsListVals_,
-  sbLockList = T, sbRunByForce = T, sbPostAlways = T, sbRunSelfID = F
+  sbLockList = T, sbRunByForce = T, sbPostAlways = T, sbRunSelfID = T
 )
-
-
 
 
