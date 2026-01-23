@@ -12,7 +12,7 @@
 #'
 #'
 #' @param ssProjID ([character]) a String or Text (i.e. [character] [vector]) value that identifies 
-#'                 the R Project <script> file that called <invoked> the custom R function (default:
+#'                 the R Project (script) file that called <invoked> the custom R function (default:
 #'                 "UNK-Proj-R").
 #' @param ssFuncSelfID ([character]) a String or Text ([character] [vector]) value that identifies
 #'                     the active R Function being called (or being executed). This is a SELF-ID tag
@@ -70,7 +70,7 @@
 #' info.post.func.self.id(
 #'  ssProjID = "rTestProject",
 #'  ssFuncSelfID = "rcfTextFUNC", 
-#'  siFuncMode01 = 1L
+#'  siFuncMode01 = 1L, sbRunSelfID = TRUE
 #' )
 #'
 #'
@@ -92,7 +92,7 @@
   
   RCT_INT_CELN_START_ <- 79L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 550L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 572L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
@@ -340,12 +340,12 @@
     
     ####   3.06 - Apply the "Project-ID" Text Formatting   ####
     if (rasBaseIsNULL(ssProjID_)) {
-      ssProjID_ <- rasBaseGET0(     # <- Searches the Global Environment of the
-        RCT_TAG_PROJ_ID_,           #    Active R Session for the <somewhat>
-        envir = .GlobalEnv,         #    unique variable name "ssProjID"
-        ifnotfound = "UNK-Proj-R"   #    and extracts the value contained in
-      );                            #    that variable (if it exists) ... or
-    }                               #    else returns the "NOT-FOUND" value.
+      ssProjID_ <- rasBaseGET0(             # <- Searches the Global Environment of the
+        rasMfmrFSID$CONSTS_PROJ_ID_SHORT,   #    Active R Session for the <somewhat>
+        envir = .GlobalEnv,                 #    unique variable name "ssProjID"
+        ifnotfound = "UNK-Proj-R"           #    and extracts the value contained in
+      );                                    #    that variable (if it exists) ... or
+    }                                       #    else returns the "NOT-FOUND" value.
     if (sbPrintPretty_) {
       ssProjID_ <- rasBasePASTE0(
         csAnsiBOLD_,      # <- Apply a BOLD text formatting ... 
@@ -421,11 +421,13 @@
         );
       }
     } else {
+      ssTagTopLVL_ <- "TOP-LVL (rsProjMAIN)";
+      RCT_TAG_R_FUNC_SELF_ID_ <- rasMfmrFSID$CONSTS_FUNC_ID_LONG;
       if (sbPrintPretty_) {
-        ssFuncCallerID_GET0_ <- rasBaseGET0(
-          rasMfmrFSID$CONSTS_FUNC_ID_LONG,      # <- Find the parent <caller> Function ID (if defined) ...
-          envir = base::pos.to.env(-1L),        # <- The R environment the function was called from !!!
-          ifnotfound = "TOP-LVL (rsProjMAIN)"   # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
+        ssFuncCallerID_GET0_ <- rasBaseGET0(   
+          RCT_TAG_R_FUNC_SELF_ID_,         # <- Find the parent <caller> Function ID (if defined) ...
+          envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
+          ifnotfound = ssTagTopLVL_        # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
         );
         ssFuncCallerID_ <- rasBasePASTE0(
           csAnsiBOLD_,            # <- Apply a BOLD text formatting ... 
@@ -435,9 +437,9 @@
         );
       } else {
         ssFuncCallerID_GET0_ <- rasBaseGET0(
-          RCT_TAG_FUNC_SELF_ID_,                # <- Find the parent <caller> Function ID (if defined)...
-          envir = base::pos.to.env(-1L),        # <- The R environment the function was called from !!!
-          ifnotfound = "TOP-LVL (rsProjMAIN)"   # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
+          RCT_TAG_R_FUNC_SELF_ID_,         # <- Find the parent <caller> Function ID (if defined)...
+          envir = base::pos.to.env(-1L),   # <- The R environment the function was called from !!!
+          ifnotfound = ssTagTopLVL_        # <- Set a DEFAULT <caller> Function Identifier <UNKNOWN> 
         );
         ssFuncCallerID_ <- ssFuncCallerID_GET0_;   # <- Add a <basic> "Caller-ID" string value !!!
       }
@@ -513,13 +515,13 @@
         );
       }
     } else if (siFuncMode01L_ == 0L) {   # <- Apply the EXIT function Info Post !!!
-      rcsDeltaTIME_ <- rcf_calc.time.delta(csTimeStart_, csTimeStop_);
+      csDeltaTIME_ <- rcf_calc.time.delta(csTimeStart_, csTimeStop_);
       if (sbPrintPretty_) {
         rasBaseCAT(
           rasBasePASTE0(
             csIconCarat_, ssProjID_, csIconSplit_,
             rasBasePASTE0(
-              csAnsiBOLD_, csColorMainText_, "F-STOP { <F-SID: '", csAnsiRESET_
+              csAnsiBOLD_, csColorMainText_, "F-STOP  { <F-SID: '", csAnsiRESET_
             ),
             rasBasePASTE0(
               csAnsiBOLD_, csColorFuncSID_, ssFuncSelfID_, csAnsiRESET_
@@ -536,7 +538,7 @@
               csAnsiBOLD_, csColorMainText_, " ( F-RunTime: ", csAnsiRESET_
             ),
             rasBasePASTE0(
-              csAnsiBOLD_, csColorTimeStamp_, rcsDeltaTIME_, csAnsiRESET_
+              csAnsiBOLD_, csColorTimeStamp_, csDeltaTIME_, csAnsiRESET_
             ),
             rasBasePASTE0(
               csAnsiBOLD_, csColorMainText_, " ) }\n\n", csAnsiRESET_
@@ -550,7 +552,7 @@
             "F-STOP { <F-SID: '", ssFuncSelfID_, 
             "'  F-Caller: '", ssFuncCallerID_, "'> ",
             " Time: ", csTimeStamp_, "",
-            " ( F-RunTime: ", rcsDeltaTIME_, " ) }\n\n"
+            " ( F-RunTime: ", csDeltaTIME_, " ) }\n\n"
           )
         );
       }

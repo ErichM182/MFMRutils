@@ -33,10 +33,10 @@
 #' @param ... ([list]) a List of R Objects function argument to catch all "Fall-Through" or 
 #'            "DotsArgs" values for functions that are nested within the [code.return.renv.list()] 
 #'            function. The [...] argument here has specific relevance (reference) to the following 
-#'            nested functions:<br>
+#'            nested functions: <br>
 #'               1. [MFMRutils::info.post.func.self.id()] , <br>
 #'               2. [MFMRutils::info.post.note()] , and <br>
-#'               3. [MFMRutils::code.get.celn()]
+#'               3. [MFMRutils::code.get.celn()] .
 #'                   
 #'                   
 #' @return 
@@ -104,7 +104,7 @@
   
   RCT_INT_CELN_START_ <- 93L;    # <- The Code Editor Line Number (CELN) at which the function 
                                  #    OPENING <normal> brace/bracket "(" is located !!!
-  RCT_INT_CELN_STOP_  <- 290L;   # <- The Code Editor Line Number (CELN) at which the function 
+  RCT_INT_CELN_STOP_  <- 280L;   # <- The Code Editor Line Number (CELN) at which the function 
                                  #    CLOSING <curly> brace/bracket "}" is located !!!
   
   
@@ -119,7 +119,7 @@
   rasBaseIsLIST          <- base::is.list;
   rasBaseIsNULL          <- base::is.null;
   rasBaseList2ENV        <- base::list2env;
-  rasBaseSysTIME         <- base::Sys.time;          # <- Extract <active> System Date-Time !!!
+  rasBaseSysTIME         <- base::Sys.time;               # <- Extract <active> System Date-Time !!!
   rasBaseDUPLICATED      <- base::duplicated;
   rasBaseLockBINDING     <- base::lockBinding;
   rasBaseIsCHARACTER     <- base::is.character;
@@ -127,19 +127,19 @@
   
   rasStatsSetNAMES <- stats::setNames;
   
-  `%??%`             <- MFMRutils::`%??%`;                   # <- VERY COOL Alias <NCO> !!!
-  rasMfmrGetCELN     <- MFMRutils::code.get.celn;
-  rasMfmrPostNOTE    <- MFMRutils::info.post.note;
-  rasMfmrPostFuncSID <- MFMRutils::info.post.func.self.id;
+  `%??%`          <- MFMRutils::`%??%`;                   # <- VERY COOL Alias <NCO> !!!
+  rasMfmrFSID     <- MFMRutils::RENV_FSID;
+  rasMfmrGetCELN  <- MFMRutils::code.get.celn;
+  rasMfmrPostNOTE <- MFMRutils::info.post.note;
+  rasMfmrPostFSID <- MFMRutils::info.post.func.self.id;
   
   
   
-  ###   Run Function Self-ID (as required)   ###
-  rasMfmrPostFuncSID(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 1L, csTimeStart = RCT_DBL_R_FUNC_RT_START_,
+  ###   Run Function Self-ID (ENTRY) Notification   ###
+  rasMfmrPostFSID(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 1L, 
     siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, ...
   );
-  
   
   
   ####   STEP 03 - Prime NB Function Variables   ####
@@ -155,33 +155,19 @@
   ssFindCodeALIAS_ <- "rasMfmrPostNOTE\\(";
   
   ##   3.3 - Capture "DotsArgs" Values (as needed) ...
-  coDotsArgs_   <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
+  coDotsArgs_ <- base::list(...);   # <- Capture all the "DotsArgs" values here !!!
   
   
   rasMfmrPostNOTE(
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
-    ssBody = "Internalized ALL Function Arguments ...", 
+    ssBody = "Internalized ALL Function Arguments ...",
     siCallCELN = rasMfmrGetCELN(
       ssFuncName = RCT_TAG_FUNC_ID_FULL_,
-      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 2L,
-      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
+      siCallIndex = 1L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
+      sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
     ), 
     ...
   );
-  
-  
-  ## 
-  rasMfmrPostNOTE(
-    ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
-    ssBody = "Succesfully Primed Function Aliases ...",
-    siCallCELN = rasMfmrGetCELN(
-      ssFuncName = RCT_TAG_FUNC_ID_FULL_,
-      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE,
-      siCallIndex = 1L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
-    ), 
-    ...
-  );
-  
   
   
   ####   STEP 04 - Run Input Arguments Validation   ####
@@ -215,13 +201,15 @@
       )
     );
   }
+  
+  
   rasMfmrPostNOTE(
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
-    ssBody = "Completed Function Argument NULL-Checks ...",
+    ssBody = "Function Argument NULL-Checks Completed Successfully ...",
     siCallCELN = rasMfmrGetCELN(
       ssFuncName = RCT_TAG_FUNC_ID_FULL_,
-      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 3L,
-      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
+      siCallIndex = 2L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
+      sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
     )
   );
   
@@ -264,25 +252,27 @@
   if (sbSetClass_) {   # <- If TRUE the function assigns a customized Class Identifier to list ...
     base::class(rcoLockedENV_) <- ssClassValue_;   # <- Assigns the <specified> Custom Class ID !!!
   }
+  
+  
   rasMfmrPostNOTE(
     ssHead = RCT_TAG_R_FUNC_ID_SHORT_, sbShowTail = sbShowTAIL_,
     ssBody = "Finalized Function Results <outputs> ...",
     siCallCELN = rasMfmrGetCELN(
       ssFuncName = RCT_TAG_FUNC_ID_FULL_,
-      sbRunByForce = coDotsArgs_[["sbRunByForce"]] %??% FALSE, siCallIndex = 4L,
-      sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_
-    ), 
+      siCallIndex = 3L, sbUseAlias = TRUE, ssAliasValue = ssFindCodeALIAS_,
+      sbRunByForce = coDotsArgs_[[rasMfmrFSID$F_ARGS_BOOL_RUN_BY_FORCE]] %??% FALSE
+    ),
     ...
   );
   
   
   
-  ###   Run Function Self-ID (as required)   ### 
-  rasMfmrPostFuncSID(
-    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 0L, csTimeStart = RCT_DBL_R_FUNC_RT_START_,
+  ###   Run Function Self-ID (EXIT) Notification   ###
+  rasMfmrPostFSID(
+    ssFuncSelfID = RCT_TAG_FUNC_ID_FULL_, siFuncMode01L = 0L, 
     siStartCELN = RCT_INT_CELN_START_, siStopCELN = RCT_INT_CELN_STOP_, 
+    csTimeStart = RCT_DBL_R_FUNC_RT_START_, csTimeStop = base::Sys.time(), ...
   );
-  
   
   
   rasBaseRETURN(rcoLockedENV_);   # <- Return FINAL result to Function Call ...

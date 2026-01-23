@@ -19,7 +19,7 @@ info.post.func.self.id(
 }
 \arguments{
 \item{ssProjID}{(\link{character}) a String or Text (i.e. \link{character} \link{vector}) value that identifies
-the R Project \if{html}{\out{<script>}} file that called \if{html}{\out{<invoked>}} the custom R function (default:
+the R Project (script) file that called \if{html}{\out{<invoked>}} the custom R function (default:
 "UNK-Proj-R").}
 
 \item{ssFuncSelfID}{(\link{character}) a String or Text (\link{character} \link{vector}) value that identifies
@@ -91,7 +91,7 @@ info.post.func.self.id()   # -> Runs the default <NULL> function state ...
 info.post.func.self.id(
  ssProjID = "rTestProject",
  ssFuncSelfID = "rcfTextFUNC", 
- siFuncMode01 = 1L
+ siFuncMode01 = 1L, sbRunSelfID = TRUE
 )
 
 

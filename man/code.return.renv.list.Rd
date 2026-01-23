@@ -44,10 +44,10 @@ Locked List.}
 \item{...}{(\link{list}) a List of R Objects function argument to catch all "Fall-Through" or
 "DotsArgs" values for functions that are nested within the \code{\link[=code.return.renv.list]{code.return.renv.list()}}
 function. The \link{...} argument here has specific relevance (reference) to the following
-nested functions:\if{html}{\out{<br>}}
+nested functions: \if{html}{\out{<br>}}
 1. \code{\link[=info.post.func.self.id]{info.post.func.self.id()}} , \if{html}{\out{<br>}}
 2. \code{\link[=info.post.note]{info.post.note()}} , and \if{html}{\out{<br>}}
-3. \code{\link[=code.get.celn]{code.get.celn()}}}
+3. \code{\link[=code.get.celn]{code.get.celn()}} .}
 }
 \value{
 \itemize{

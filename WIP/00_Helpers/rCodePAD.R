@@ -30,7 +30,7 @@ base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 
 
-MFMRutils::info.post.note(sbPostAlways = F)
+MFMRutils::info.post.note(sbPostAlways = T, sbRunByForce = T)
 MFMRutils::info.post.func.self.id(
   sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
 )
@@ -50,10 +50,8 @@ lsListVals_  <- list(
 
 ### Function-use OPTION 1 (main purpose) -> Create Immutable R List Objects ...
 rlsListEnvLOCKD_ <- MFMRutils::code.return.renv.list(
-  vsListNames = vsListNames_, 
-  lsListVals = lsListVals_,
-  sbLockList = TRUE,   # <- Set to 'TRUE' to create an immutable (environment locked) R List !!!
-  sbRunByForce = T, sbPostAlways = T, sbRunSelfID = T    
+  vsListNames = vsListNames_, lsListVals = lsListVals_,
+  sbLockList = T, sbRunByForce = T, sbPostAlways = T, sbRunSelfID = F
 )
 
 

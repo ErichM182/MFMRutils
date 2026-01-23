@@ -67,6 +67,7 @@
       F_ARGS_BOOL_SHOW_TAIL         = "sbShowTail",
       F_ARGS_BOOL_RUN_SELF_ID       = "sbRunSelfID",
       F_ARGS_BOOL_POST_ALWAYS       = "sbPostAlways",
+      F_ARGS_BOOL_RUN_BY_FORCE      = "sbRunByForce",
       F_ARGS_BOOL_NEW_LINE_PRE_ONE  = "sbPrePend1NL",
       F_ARGS_BOOL_NEW_LINE_POST_ONE = "sbPostPend1NL",
       F_ARGS_BOOL_NEW_LINE_POST_TWO = "sbPostPend2NLs",
