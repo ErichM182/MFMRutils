@@ -50,6 +50,7 @@ devs.patch.code.dev.trckr.file()   # -> Executes only the DevTools Documentation
 \seealso{
 Other SuiteMFMR DevTools: 
 \code{\link{devs.check.code.specs}()},
+\code{\link{devs.create.r.function}()},
 \code{\link{devs.find.code.instances}()},
 \code{\link{devs.pull.libr.info}()}
 }

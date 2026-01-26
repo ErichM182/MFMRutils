@@ -95,7 +95,7 @@
   RCT_RUNTIME_FUNC_START_ <- base::Sys.time();         # <- Captures <real-time> Date Time !!!
   RCT_TAG_FUNC_LIBR_ID_   <- "MFMRutils";              # <- R Library Identifier !!!
   RCT_TAG_FUNC_ID_SHORT_  <- "Clean.File.Path";        # <- Function ID - SHORT !!!
-  RCT_TAG_FUNC_ID_LONG_   <- "code.clean.file.path";   # <- Function ID - LONG !!!
+  RCT_TAG_FUNC_ID_LONG_   <- "CODE.Clean.File.Path";   # <- Function ID - LONG !!!
   
   
   

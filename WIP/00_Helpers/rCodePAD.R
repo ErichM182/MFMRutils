@@ -4,7 +4,7 @@
 
 
 ###   R Project Development <Run-Time Mode> Trackers   ###
-RCT_IS_DEBUG_RT_MODE_   <- F;   # <- The `DEBUG` <dev> Run-Time Mode Tracker ...
+RCT_IS_DEBUG_RT_MODE_   <- T;   # <- The `DEBUG` <dev> Run-Time Mode Tracker ...
 RCT_IS_VERBOSE_RT_MODE_ <- F;   # <- The `VERBOSE` <dev> Run-Time Mode Tracker ...
 
 
@@ -27,13 +27,16 @@ base::get0(MFMRutils::RENV_FSID$CONSTS_BOOL_IS_DEBUG)
 
 
 ssTestVAR_ <- "129";
-nchar(ssTestVAR_)
+is.character(ssTestVAR_);
+nchar(ssTestVAR_);
 
 
 
 MFMRutils::info.post.note(sbPostAlways = T, sbRunByForce = T)
 MFMRutils::info.post.func.self.id(
-  sbRunSelfID = T, siFuncMode01L = 0L, sbPrintPretty = T
+  sbRunSelfID = T, 
+  sbPrintPretty = T,
+  siFuncMode01L = 0L 
 )
 
 
@@ -50,6 +53,15 @@ lsListVals_  <- list(
 rlsListEnvLOCKD_ <- MFMRutils::code.return.renv.list(
   vsListNames = vsListNames_, lsListVals = lsListVals_,
   sbLockList = T, sbRunByForce = T, sbPostAlways = T, sbRunSelfID = T
+)
+
+
+devs.create.r.function(
+  ssFuncName = "CODE.New.R.FUNC_v02.r",
+  ssFuncPath = "./W", 
+  sbForceCreate = T, 
+  sbIsLibrFunc = T
+  # sbForceFuncPath = T
 )
 
 

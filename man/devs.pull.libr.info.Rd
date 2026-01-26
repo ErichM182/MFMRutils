@@ -40,6 +40,7 @@ rlsLibINFO[["VERSION"]]   # -> Returns 'Package Version' value <result> ...
 \seealso{
 Other SuiteMFMR DevTools: 
 \code{\link{devs.check.code.specs}()},
+\code{\link{devs.create.r.function}()},
 \code{\link{devs.find.code.instances}()},
 \code{\link{devs.patch.code.dev.trckr.file}()}
 }

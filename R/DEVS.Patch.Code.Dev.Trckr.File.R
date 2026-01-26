@@ -128,12 +128,12 @@
     rssPathProjROOT_ <- "."; rssFileID_BUILD_IGNORE_ <- ".Rbuildignore";
     if (!rasBaseFileEXISTS(RCT_PATH_FILE_R_BUILD_IGNORE_)) {
       
-      ### 4.3.1 - Create the "./.Rbuildignore" File (since it does NOT ALREADY EXIST) ...
+      ### 4.3.1 - Create the "./.RBuildignore" File (since it does NOT ALREADY EXIST) ...
       rasBaseFileCREATE(RCT_PATH_FILE_R_BUILD_IGNORE_);   # -> Creates the required file ...
       
     }
     rasMfmrAppendToFILE(
-      ssAppendText = "^WIP$",                    # <- Add the "^WIP$" Text Stub !!!
+      ssAppendText = "^WIP$",   # <- Add the "^WIP$" Text Stub to the '.RBuildignore' file !!!
       ssFilePath = rssPathProjROOT_,
       ssFileID = rssFileID_BUILD_IGNORE_, 
       sbMultiAppend = FALSE, sbPostPend = TRUE
